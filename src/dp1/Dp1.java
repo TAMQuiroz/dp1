@@ -16,7 +16,7 @@ public class Dp1 {
      */
     public static void main(String[] args) {
         new Login().setVisible(true);
-        System.out.println("merge lelele");
+        System.out.println("merge lelele test");
     }
     
 }
