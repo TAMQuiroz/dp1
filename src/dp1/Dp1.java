@@ -18,5 +18,5 @@ public class Dp1 {
         new Login().setVisible(true);
         System.out.println("merge lelele test");
     }
-    
+
 }
