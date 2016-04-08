@@ -15,7 +15,7 @@ public class Dp1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("asdasdas test");
+        System.out.println("~0~");
         new Login().setVisible(true);
         System.out.println("merge lelele test");
     }
