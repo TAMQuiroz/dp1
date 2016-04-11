@@ -17,6 +17,7 @@ public class Dp1 {
     public static void main(String[] args) {
         System.out.println("~0~");
         new Login().setVisible(true);
+        new PoliticalParty().setVisible(true);
         System.out.println("merge lelele test");
     }
 
