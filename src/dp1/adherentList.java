@@ -97,6 +97,7 @@ public class adherentList extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText("Verificando DNI...");
         jScrollPane3.setViewportView(jTextArea1);
 
         jLabel4.setText("Progreso:");
