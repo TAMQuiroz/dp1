@@ -106,7 +106,7 @@ public class PoliticalParty extends javax.swing.JFrame {
 
         btnCancel.setText("Cancelar");
 
-        btnUpdate.setText("Actualizar");
+        btnUpdate.setText("Modificar");
 
         btnUploadElectoralRoll.setText("Subir Padron Electoral");
         btnUploadElectoralRoll.addActionListener(new java.awt.event.ActionListener() {
