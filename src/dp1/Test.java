@@ -224,6 +224,29 @@ public class Test {
         }
     }
     
+    public static void ocr_exp_let(ITesseract instance, String route_ocr_exp){
+        String final_result = new String();
+        for (int i = 0; i < 10; i++){
+            final_result = "";
+            System.out.print("Test: "+i + " | ");
+            
+            String url = route_ocr_exp + "Words\\" + i + ".png";
+            //System.out.println("Reading from: " + url);
+
+            File imageFile = new File(url);
+
+            try {
+                final_result = instance.doOCR(imageFile).trim();
+                //System.out.print(result.trim() + " | ");
+                
+            } catch (TesseractException e) {
+                System.err.println(e.getMessage());
+            } 
+            
+            System.out.println(final_result);
+        }
+    }
+    
     public static void ocr_asprise(Ocr ocr, Vector<String> imgs){
         String final_result = new String();
         for (int i = 0; i < imgs.size(); i++){
@@ -258,6 +281,24 @@ public class Test {
                 //System.out.print(result);
 
             }
+            System.out.println(final_result);
+        }
+    }
+    
+        public static void ocr_asprise_exp_let(Ocr instance, String route_ocr_exp){
+        String final_result = new String();
+        for (int i = 0; i < 10; i++){
+            final_result = "";
+            System.out.print("Test: "+i + " | ");
+            
+            String url = route_ocr_exp + "Words\\" + i + ".png";
+            //System.out.println("Reading from: " + url);
+
+            File imageFile = new File(url);
+
+            final_result  = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=abcdefghijklmnopqrstuvwxyz");
+            //System.out.print(result.trim() + " | ");
+
             System.out.println(final_result);
         }
     }
@@ -599,10 +640,13 @@ public class Test {
         //OCR TESSERACT
         Vector<String> imgs;
         //imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
-        ITesseract instance = new Tesseract1(); // JNA Direct Mapping
-        instance.setTessVariable("tessedit_char_whitelist", "0123456789");
+        ITesseract instance_num = new Tesseract1(); // JNA Direct Mapping
+        ITesseract instance_let = new Tesseract1(); // JNA Direct Mapping
+        instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
+        instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
         //ocr(instance, imgs);
-        ocr_exp(instance, route_ocr_exp);
+        //ocr_exp(instance_num, route_ocr_exp);
+        ocr_exp_let(instance_let, route_ocr_exp);
         
         //OCR ASPRISE
         
@@ -610,7 +654,8 @@ public class Test {
         Ocr ocr = new Ocr();
         ocr.startEngine("eng", Ocr.SPEED_FASTEST);
         //ocr_asprise(ocr,imgs);
-        ocr_asprise_exp(ocr,route_ocr_exp);
+        //ocr_asprise_exp(ocr,route_ocr_exp);
+        ocr_asprise_exp_let(ocr,route_ocr_exp);
         ocr.stopEngine();
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SIFT - SURF - HARRIS
