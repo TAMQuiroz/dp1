@@ -1,6 +1,7 @@
 package dp1;
 
 //PREPROCESAMIENTO
+import com.asprise.ocr.Ocr;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.io.FileSaver;
@@ -32,6 +33,7 @@ import org.opencv.core.MatOfDMatch;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Size;
 import org.opencv.features2d.DMatch;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
@@ -49,10 +51,10 @@ public class Test {
     static int ImageSize = sizex * sizey;  
     static String pathToImages = "test\\ocr\\opencv\\";  
 
-    public static void preprocesamiento(String route, String nimg, String extension){
+    public static void preprocesamiento(String route, String route_base , String nimg, String extension){
         
-        //System.out.println("Iniciando preprocesamiento de " + nimg + extension);
         String url = route + nimg + extension;
+        System.out.print("Procesando: " + url + " | ");
         ImagePlus imgPlus = new ImagePlus(url);
         
         System.out.print("Afilando imagen | ");
@@ -69,10 +71,61 @@ public class Test {
         FileSaver fs = new FileSaver(imgPlus);
         
         System.out.println("Guardando imagen");
-        String n_out = route + "\\pre\\" + nimg + extension;
+        String n_out = route_base + "\\pre\\" + nimg + extension;
         fs.saveAsJpeg(n_out);
               
         //System.out.println("Finalizando preprocesamiento");
+    }
+    
+    public static void gabor(String route, String route_base , String nimg, String extension){
+        String url1 = route + nimg + extension;
+        System.out.print("Abriendo imagen " + url1);
+        Mat myImg = Highgui.imread(url1, 0);
+        myImg.convertTo(myImg, CvType.CV_32F);
+
+        // prepare the output matrix for filters
+        Mat gabor1 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
+        Mat gabor2 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
+        Mat gabor3 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
+        Mat gabor4 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
+        Mat enhanced = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
+        
+        //predefine parameters for Gabor kernel 
+        Size kSize = new Size(31,31);
+
+        double theta1 = 0;
+        double theta2 = 45;
+        double theta3 = 90;
+        double theta4 = 135;
+
+        double lambda = 12;
+        double sigma = 8;  
+        double gamma = 0.25;
+        double psi =  0;
+
+        // the filters kernel
+        Mat kernel1 = Imgproc.getGaborKernel(kSize, sigma, theta1, lambda, gamma, psi, CvType.CV_32F);
+        Mat kernel2 = Imgproc.getGaborKernel(kSize, sigma, theta2, lambda, gamma, psi, CvType.CV_32F);
+        Mat kernel3 = Imgproc.getGaborKernel(kSize, sigma, theta3, lambda, gamma, psi, CvType.CV_32F);
+        Mat kernel4 = Imgproc.getGaborKernel(kSize, sigma, theta4, lambda, gamma, psi, CvType.CV_32F);
+
+        // apply filters on my image. The result is stored in gabor1...4
+        Imgproc.filter2D(myImg, gabor1, -1, kernel1);
+        Highgui.imwrite("test\\pre\\gabor1.tif", gabor1);
+        Imgproc.filter2D(myImg, gabor2, -1, kernel2);
+        Highgui.imwrite("test\\pre\\gabor2.tif", gabor2);
+        Imgproc.filter2D(myImg, gabor3, -1, kernel3);
+        Highgui.imwrite("test\\pre\\gabor3.tif", gabor3);        
+        Imgproc.filter2D(myImg, gabor4, -1, kernel4);
+        Highgui.imwrite("test\\pre\\gabor4.tif", gabor4);
+        
+        Core.addWeighted(enhanced , 0, gabor1, 1, 0, enhanced );
+        Core.addWeighted(enhanced , 1, gabor2, 1, 0, enhanced );
+        Core.addWeighted(enhanced , 1, gabor3, 1, 0, enhanced );
+        Core.addWeighted(enhanced , 1, gabor4, 1, 0, enhanced );
+        
+        String n_out = route_base + "\\pre\\" + nimg + "_gabor" + extension;
+        Highgui.imwrite(n_out, enhanced);
     }
     
     public static Vector<String> cutDigits(String route, String nimg, String extension, ImagePlus imp){
@@ -80,7 +133,8 @@ public class Test {
         ImageProcessor ip = imp.getProcessor();
         ImageProcessor clone;
         String n_out = new String();
-        int cropX = 25;
+        //int cropX = ip.getWidth()/8;
+        int cropX = 125;
         int cropY = ip.getHeight();
         for (int i = 0; i < 8; i++){
             try {
@@ -106,10 +160,19 @@ public class Test {
         System.out.println("Reading from: " + url);
         ImagePlus imgPlus = new ImagePlus(url);
         System.out.println("Preprocessing: " + url);
-        IJ.run(imgPlus, "Subtract Background...", "rolling=50 light");
-        //IJ.run(imgPlus, "Make Binary", "");
-        //IJ.run(imgPlus, "Smooth", "");
-        //IJ.run(imgPlus, "Sharpen", "");
+        
+        ImageProcessor ip = imgPlus.getProcessor();
+        ip.setInterpolationMethod(ImageProcessor.BILINEAR);
+        ip = ip.resize(ip.getWidth() * 5, ip.getHeight() * 5);
+        BufferedImage img = ip.getBufferedImage();
+
+       
+        imgPlus = new ImagePlus("croppedImage", img);
+        
+        //imgPlus.show();
+        //Macro.SetOption("BlackBackground", false);
+        IJ.run(imgPlus, "Make Binary", "");
+        IJ.run(imgPlus, "Median...", "radius=5");
         System.out.println("Cutting: " + url);
         Vector<String> imgs;
         imgs = cutDigits(route, nimg, extension, imgPlus);
@@ -127,6 +190,7 @@ public class Test {
             
             try {
                 String result = instance.doOCR(imageFile);
+                System.out.print(result.trim() + " | ");
                 final_result += result.trim();
                 //System.out.print(result);
             } catch (TesseractException e) {
@@ -136,7 +200,69 @@ public class Test {
         System.out.println(final_result);
     }
     
-    public static void orb(String route, String n_img1, String n_img2, String extension){
+    public static void ocr_exp(ITesseract instance, String route_ocr_exp){
+        String final_result = new String();
+        for (int i = 0; i < 10; i++){
+            final_result = "";
+            System.out.print("Test: "+i + " | ");
+            for (int j = 1; j < 6; j++){
+                String url = route_ocr_exp + i + "\\" + i + "_" + j + ".tif";
+                //System.out.println("Reading from: " + url);
+                
+                File imageFile = new File(url);
+
+                try {
+                    String result = instance.doOCR(imageFile);
+                    //System.out.print(result.trim() + " | ");
+                    final_result += result.trim();
+                    //System.out.print(result);
+                } catch (TesseractException e) {
+                    System.err.println(e.getMessage());
+                } 
+            }
+            System.out.println(final_result);
+        }
+    }
+    
+    public static void ocr_asprise(Ocr ocr, Vector<String> imgs){
+        String final_result = new String();
+        for (int i = 0; i < imgs.size(); i++){
+            String url = imgs.get(i);
+            //System.out.println("Reading from: " + url);
+            File imageFile = new File(url);
+            //System.out.print(url);
+            String result = ocr.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=0123456789");
+            System.out.print(result + " | ");
+            // ocr more images here ...
+            final_result += result.trim();
+            //System.out.print(result);
+
+        }
+        System.out.println(final_result);
+    }
+    
+    public static void ocr_asprise_exp(Ocr instance, String route_ocr_exp){
+        String final_result = new String();
+        for (int i = 0; i < 10; i++){
+            final_result = "";
+            System.out.print("Test: "+i + " | ");
+            for (int j = 1; j < 6; j++){
+                String url = route_ocr_exp + i + "\\" + i + "_" + j + ".tif";
+                //System.out.println("Reading from: " + url);
+                
+                File imageFile = new File(url);
+
+                String result = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=0123456789");
+                //System.out.print(result.trim() + " | ");
+                final_result += result.trim();
+                //System.out.print(result);
+
+            }
+            System.out.println(final_result);
+        }
+    }
+    
+    public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
         //System.out.println("Iniciando ORB");
         String url1 = route + n_img1 + extension;
         String url2 = route + n_img2 + extension;
@@ -192,7 +318,7 @@ public class Test {
         MatOfByte drawnMatches = new MatOfByte();
         Features2d.drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, outputImg, GREEN, RED, drawnMatches, Features2d.NOT_DRAW_SINGLE_POINTS);
         System.out.println("Guardar imagen");
-        String n_out = route + "\\results\\" + n_img1 + "_orb" + extension;
+        String n_out = route_out + "\\results\\" + n_img1 + "_orb" + extension;
         Highgui.imwrite(n_out, outputImg);
         
         System.out.println("Resultados: " + matches.size() + " " + goodMatches.size());  
@@ -200,7 +326,7 @@ public class Test {
         //System.out.println("Final de orb");
     }
     
-    public static void sift(String route, String n_img1, String n_img2, String extension){
+    public static void sift(String route, String route_out, String n_img1, String n_img2, String extension){
   
         String bookObject = route + n_img1 + extension;
         String bookScene = route + n_img2 + extension;
@@ -249,7 +375,7 @@ public class Test {
         System.out.println("Calculando buenos matches");
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();  
 
-        float nndrRatio = 0.7f;  
+        float nndrRatio = 0.8f;  
 
         for (int i = 0; i < matches.size(); i++)  
         {  
@@ -312,9 +438,9 @@ public class Test {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = route + "\\results\\" + n_img1 + "_outputImage_sift" + extension;
-            String n_matchoutput = route + "\\results\\" + n_img1 + "_matchoutput_sift" + extension;
-            String n_img = route + "\\results\\" + n_img1 + "_sift" + extension;
+            String n_outputImage = route_out + "\\results\\" + n_img1 + "_outputImage_sift" + extension;
+            String n_matchoutput = route_out + "\\results\\" + n_img1 + "_matchoutput_sift" + extension;
+            String n_img = route_out + "\\results\\" + n_img1 + "_sift" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
@@ -327,7 +453,7 @@ public class Test {
         //System.out.println("Terminando SIFT");  
     }
     
-    public static void surf(String route, String n_img1, String n_img2, String extension){
+    public static void surf(String route, String route_out, String n_img1, String n_img2, String extension){
   
         String bookObject = route + n_img1 + extension;
         String bookScene = route + n_img2 + extension;
@@ -440,9 +566,9 @@ public class Test {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = route + "\\results\\" + n_img1 + "_outputImage_surf" + extension;
-            String n_matchoutput = route + "\\results\\" + n_img1 + "_matchoutput_surf" + extension;
-            String n_img = route + "\\results\\" + n_img1 + "_surf" + extension;
+            String n_outputImage = route_out + "\\results\\" + n_img1 + "_outputImage_surf" + extension;
+            String n_matchoutput = route_out + "\\results\\" + n_img1 + "_matchoutput_surf" + extension;
+            String n_img = route_out + "\\results\\" + n_img1 + "_surf" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
@@ -454,158 +580,57 @@ public class Test {
 
         //System.out.println("Ended....");  
     }
-    
-    public static void harris(String route, String n_img1, String n_img2, String extension){
-        //System.out.println("Inicio de harris");
-        String url1 = route + n_img1 + extension;
-        String url2 = route + n_img2 + extension;
-        
-        System.out.print("Abriendo imagenes | ");
-        Mat img1 = Highgui.imread(url1, 0); //imagen query
-        Mat img2 = Highgui.imread(url2, 0); //imagen base
-        
-        //Binarizar imagen via tresholding
-        Mat input_binary = new Mat();
-        Mat input_binary2 = new Mat();
-        Imgproc.threshold(img1, input_binary, 0, 255, Imgproc.THRESH_BINARY_INV | Imgproc.THRESH_OTSU);
-        Imgproc.threshold(img2, input_binary2, 0, 255, Imgproc.THRESH_BINARY_INV | Imgproc.THRESH_OTSU);
- 
-        
-        //Detecta minucias usando la deteccion de esquinas Harris
-        System.out.print("Hallar esquinas de Harris | ");
-        Mat harris_corners;
-        Mat harris_normalised = new Mat();
-        harris_corners = Mat.zeros(img1.size(),CvType.CV_32FC1);
-        Imgproc.cornerHarris(img1, harris_corners, 2, 3, 0.04);
-        Core.normalize(harris_corners, harris_normalised, 0, 255, Core.NORM_MINMAX, CvType.CV_32FC1);
-        
-        Mat harris_corners2;
-        Mat harris_normalised2 = new Mat();
-        harris_corners2 = Mat.zeros(img2.size(),CvType.CV_32FC1);
-        Imgproc.cornerHarris(img2, harris_corners2, 2, 3, 0.04);
-        Core.normalize(harris_corners2, harris_normalised2, 0, 255, Core.NORM_MINMAX, CvType.CV_32FC1);
-        
-        //Selecciona las esquinas mas fuertes
-        System.out.print("Seleccionar esquinas mas coincidentes | ");
-        int threshold_harris = 125;
-        MatOfKeyPoint keypoints = new MatOfKeyPoint();
-        MatOfKeyPoint keypoints2 = new MatOfKeyPoint();
-        
-        //Hacer un clon de color para ver mejor
-        Mat rescaled = new Mat();
-        Mat rescaled2 = new Mat();
-        Core.convertScaleAbs(harris_normalised, rescaled);
-        Core.convertScaleAbs(harris_normalised2, rescaled2);
-        
-        List<Mat> harris_c = new ArrayList<Mat>();
-        List<Mat> harris_c2 = new ArrayList<Mat>();
-        harris_c.add(new Mat(rescaled.rows(),rescaled.cols(),CvType.CV_8UC3));
-        harris_c.add(new Mat(rescaled.rows(),rescaled.cols(),CvType.CV_8UC3));
-        harris_c.add(new Mat(rescaled.rows(),rescaled.cols(),CvType.CV_8UC3));
-        
-        harris_c2.add(new Mat(rescaled2.rows(),rescaled2.cols(),CvType.CV_8UC3));
-        harris_c2.add(new Mat(rescaled2.rows(),rescaled2.cols(),CvType.CV_8UC3));
-        harris_c2.add(new Mat(rescaled2.rows(),rescaled2.cols(),CvType.CV_8UC3));
-        
-        List<Mat> in = new ArrayList<Mat>();
-        List<Mat> in2 = new ArrayList<Mat>();
-        
-        in.add(rescaled);
-        in.add(rescaled);
-        in.add(rescaled);
-        
-        in2.add(rescaled2);
-        in2.add(rescaled2);
-        in2.add(rescaled2);
-        
-        MatOfInt from_to = new MatOfInt(0,0, 1,1, 2,2);
-        MatOfInt from_to2 = new MatOfInt(0,0, 1,1, 2,2);
-        Core.mixChannels(in, harris_c, from_to);
-        Core.mixChannels(in2, harris_c2, from_to2);
-        
-        for (int x = 0; x < harris_normalised.cols(); x++){
-            for (int y = 0; y < harris_normalised.rows(); y++){
-                if((int)harris_normalised.get(y, x)[0] > threshold_harris){
-                    //Dibuja o guarda los keypoints
-                    keypoints.fromArray(new KeyPoint(x,y,1));
-                }
-            }
-        }
-        
-        for (int x = 0; x < harris_normalised2.cols(); x++){
-            for (int y = 0; y < harris_normalised2.rows(); y++){
-                if((int)harris_normalised2.get(y, x)[0] > threshold_harris){
-                    //Dibuja o guarda los keypoints
-                    keypoints2.fromArray(new KeyPoint(x,y,1));
-                }
-            }
-        }
-        
-        //Calcular descriptor ORB basado en keypoints
-        System.out.println("Calcular coincidencias");
-        DescriptorExtractor descriptor = DescriptorExtractor.create(DescriptorExtractor.ORB);
-        Mat descriptors = new Mat();
-        Mat descriptors2 = new Mat();
-        descriptor.compute(img1, keypoints, descriptors);
-        descriptor.compute(img2, keypoints2, descriptors2);
-        
-        DescriptorMatcher bf = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
-        MatOfDMatch matches = new MatOfDMatch();
-        bf.match(descriptors, descriptors2, matches);
-        
-        float score = 0;
-        List<DMatch> matchesList = matches.toList();
-        
-        for (int i = 0; i < matchesList.size(); i++){
-            DMatch current_match = matchesList.get(i);
-            score = score + current_match.distance;
-            
-        }
-        
-        System.out.println("Current matching score = " + score);
-        
-    }
-    
+
     public static void main(String[] args) {
         
-        String n_img_text = "1_cut";
         File dll = new File("lib\\opencv_java2412.dll");
         System.load(dll.getAbsolutePath());
         
-        String route = "test\\";
-        String route_ocr = "test\\ocr\\";
+        String n_img_text = "1_cut";
+        String route_base = "test\\";
+        String route_huellas = route_base + "huellas\\";
+        String route_pre = route_base + "pre\\";
+        String route_ocr = route_base + "ocr\\";
+        String route_ocr_exp = route_ocr + "exp\\";
         String extension = ".png";
-        String n_img1  = "1";
-        String n_img2  = "3";
+        String n_img1  = "101_1";
+        String n_img2  = "105_1";
         
-        //OCR
-        /*
+        //OCR TESSERACT
         Vector<String> imgs;
-        imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
+        //imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
         ITesseract instance = new Tesseract1(); // JNA Direct Mapping
         instance.setTessVariable("tessedit_char_whitelist", "0123456789");
-        ocr(instance, imgs);
-        */
+        //ocr(instance, imgs);
+        ocr_exp(instance, route_ocr_exp);
+        
+        //OCR ASPRISE
+        
+        Ocr.setUp();
+        Ocr ocr = new Ocr();
+        ocr.startEngine("eng", Ocr.SPEED_FASTEST);
+        //ocr_asprise(ocr,imgs);
+        ocr_asprise_exp(ocr,route_ocr_exp);
+        ocr.stopEngine();
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SIFT - SURF - HARRIS
+        /*
         System.out.println("***INICIANDO PREPROCESAMIENTO***");
-        //preprocesamiento(route, n_img1, extension);
-        //preprocesamiento(route, n_img2, extension);
+        gabor(route_huellas, route_base, n_img1, extension);
+        preprocesamiento(route_huellas, route_base, n_img1, extension);
+        preprocesamiento(route_huellas, route_base, n_img2, extension);
         System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
         System.out.println("***INICIANDO ORB***");
-        orb(route, n_img1, n_img2, extension);
+        orb(route_pre, route_base, n_img1, n_img2, extension);
         System.out.println("***FINALIZANDO ORB***");
-        System.out.println("***INICIANDO SIFT***");
-        sift(route,n_img1, n_img2, extension);
-        System.out.println("***FINALIZANDO SIFT***");
         System.out.println("***INICIANDO SURF***");
-        surf(route,n_img1, n_img2, extension);
+        surf(route_pre, route_base, n_img1, n_img2, extension);
         System.out.println("***FINALIZANDO SURF***");
-        /*
-        System.out.println("***INICIANDO HARRIS CORNER***");
-        harris(route, n_img1, n_img2, extension);
-        System.out.println("***FINALIZANDO HARRIS CORNER***");
-        */        
+        */
+        //System.out.println("***INICIANDO SIFT***");
+        //sift(route_pre, route_base, n_img1, n_img2, extension);
+        //System.out.println("***FINALIZANDO SIFT***");
+       
     }  
     
 }
