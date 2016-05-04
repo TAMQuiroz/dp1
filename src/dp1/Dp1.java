@@ -15,10 +15,10 @@ public class Dp1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("~0~");
+        System.out.println("Inicio");
         new Login().setVisible(true);
         new PoliticalParty().setVisible(true);
-        System.out.println("merge lelele test");
+        System.out.println("Fin");
     }
 
 }

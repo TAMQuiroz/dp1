@@ -73,7 +73,8 @@ public class Test {
         System.out.println("Guardando imagen");
         String n_out = route_base + "\\pre\\" + nimg + extension;
         fs.saveAsJpeg(n_out);
-              
+        
+        
         //System.out.println("Finalizando preprocesamiento");
     }
     
@@ -201,6 +202,7 @@ public class Test {
     }
     
     public static void ocr_exp(ITesseract instance, String route_ocr_exp){
+        long ini = System.currentTimeMillis();
         String final_result = new String();
         for (int i = 0; i < 10; i++){
             final_result = "";
@@ -222,9 +224,12 @@ public class Test {
             }
             System.out.println(final_result);
         }
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
     }
     
     public static void ocr_exp_let(ITesseract instance, String route_ocr_exp){
+        long ini = System.currentTimeMillis();
         String final_result = new String();
         for (int i = 0; i < 10; i++){
             final_result = "";
@@ -245,9 +250,12 @@ public class Test {
             
             System.out.println(final_result);
         }
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
     }
     
     public static void ocr_asprise(Ocr ocr, Vector<String> imgs){
+        long ini = System.currentTimeMillis();
         String final_result = new String();
         for (int i = 0; i < imgs.size(); i++){
             String url = imgs.get(i);
@@ -262,9 +270,12 @@ public class Test {
 
         }
         System.out.println(final_result);
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
     }
     
     public static void ocr_asprise_exp(Ocr instance, String route_ocr_exp){
+        long ini = System.currentTimeMillis();
         String final_result = new String();
         for (int i = 0; i < 10; i++){
             final_result = "";
@@ -283,9 +294,12 @@ public class Test {
             }
             System.out.println(final_result);
         }
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
     }
     
-        public static void ocr_asprise_exp_let(Ocr instance, String route_ocr_exp){
+    public static void ocr_asprise_exp_let(Ocr instance, String route_ocr_exp){
+        long ini = System.currentTimeMillis();
         String final_result = new String();
         for (int i = 0; i < 10; i++){
             final_result = "";
@@ -296,14 +310,17 @@ public class Test {
 
             File imageFile = new File(url);
 
-            final_result  = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=abcdefghijklmnopqrstuvwxyz");
+            final_result  = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=abcdefghijklmnopqrstuvwxyz").trim();
             //System.out.print(result.trim() + " | ");
 
             System.out.println(final_result);
         }
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
     }
     
     public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
+        long ini = System.currentTimeMillis();
         //System.out.println("Iniciando ORB");
         String url1 = route + n_img1 + extension;
         String url2 = route + n_img2 + extension;
@@ -363,7 +380,8 @@ public class Test {
         Highgui.imwrite(n_out, outputImg);
         
         System.out.println("Resultados: " + matches.size() + " " + goodMatches.size());  
-        
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
         //System.out.println("Final de orb");
     }
     
@@ -495,7 +513,7 @@ public class Test {
     }
     
     public static void surf(String route, String route_out, String n_img1, String n_img2, String extension){
-  
+        long ini = System.currentTimeMillis();
         String bookObject = route + n_img1 + extension;
         String bookScene = route + n_img2 + extension;
         //String bookObject = "test//1.png";  
@@ -618,7 +636,8 @@ public class Test {
         {  
             System.out.println("Objeto no encontrado");
         }  
-
+        long total = (System.currentTimeMillis() - ini);
+        System.out.println("Tiempo tomado: " + total);
         //System.out.println("Ended....");  
     }
 
@@ -634,8 +653,9 @@ public class Test {
         String route_ocr = route_base + "ocr\\";
         String route_ocr_exp = route_ocr + "exp\\";
         String extension = ".png";
-        String n_img1  = "101_1";
-        String n_img2  = "105_1";
+        String extension_huellas = ".tif";
+        String n_img1  = "101_5";
+        String n_img2  = "101_6";
         
         //OCR TESSERACT
         Vector<String> imgs;
@@ -645,8 +665,10 @@ public class Test {
         instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
         instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
         //ocr(instance, imgs);
+        
+        System.out.println("Test Tesseract:");
         //ocr_exp(instance_num, route_ocr_exp);
-        ocr_exp_let(instance_let, route_ocr_exp);
+        //ocr_exp_let(instance_let, route_ocr_exp);
         
         //OCR ASPRISE
         
@@ -654,24 +676,25 @@ public class Test {
         Ocr ocr = new Ocr();
         ocr.startEngine("eng", Ocr.SPEED_FASTEST);
         //ocr_asprise(ocr,imgs);
+        System.out.println("Test Asprise:");
         //ocr_asprise_exp(ocr,route_ocr_exp);
-        ocr_asprise_exp_let(ocr,route_ocr_exp);
+        //ocr_asprise_exp_let(ocr,route_ocr_exp);
         ocr.stopEngine();
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SIFT - SURF - HARRIS
-        /*
+        
         System.out.println("***INICIANDO PREPROCESAMIENTO***");
-        gabor(route_huellas, route_base, n_img1, extension);
-        preprocesamiento(route_huellas, route_base, n_img1, extension);
-        preprocesamiento(route_huellas, route_base, n_img2, extension);
+        //gabor(route_huellas, route_base, n_img1, extension_huellas);
+        preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
+        preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
         System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
         System.out.println("***INICIANDO ORB***");
-        orb(route_pre, route_base, n_img1, n_img2, extension);
+        orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
         System.out.println("***FINALIZANDO ORB***");
         System.out.println("***INICIANDO SURF***");
-        surf(route_pre, route_base, n_img1, n_img2, extension);
+        surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
         System.out.println("***FINALIZANDO SURF***");
-        */
+        
         //System.out.println("***INICIANDO SIFT***");
         //sift(route_pre, route_base, n_img1, n_img2, extension);
         //System.out.println("***FINALIZANDO SIFT***");
