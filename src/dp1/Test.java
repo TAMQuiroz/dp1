@@ -1,7 +1,6 @@
 package dp1;
 
 //PREPROCESAMIENTO
-import com.asprise.ocr.Ocr;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.io.FileSaver;
@@ -76,57 +75,6 @@ public class Test {
         
         
         //System.out.println("Finalizando preprocesamiento");
-    }
-    
-    public static void gabor(String route, String route_base , String nimg, String extension){
-        String url1 = route + nimg + extension;
-        System.out.print("Abriendo imagen " + url1);
-        Mat myImg = Highgui.imread(url1, 0);
-        myImg.convertTo(myImg, CvType.CV_32F);
-
-        // prepare the output matrix for filters
-        Mat gabor1 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
-        Mat gabor2 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
-        Mat gabor3 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
-        Mat gabor4 = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
-        Mat enhanced = new Mat (myImg.height(), myImg.width(), CvType.CV_32F );
-        
-        //predefine parameters for Gabor kernel 
-        Size kSize = new Size(31,31);
-
-        double theta1 = 0;
-        double theta2 = 45;
-        double theta3 = 90;
-        double theta4 = 135;
-
-        double lambda = 12;
-        double sigma = 8;  
-        double gamma = 0.25;
-        double psi =  0;
-
-        // the filters kernel
-        Mat kernel1 = Imgproc.getGaborKernel(kSize, sigma, theta1, lambda, gamma, psi, CvType.CV_32F);
-        Mat kernel2 = Imgproc.getGaborKernel(kSize, sigma, theta2, lambda, gamma, psi, CvType.CV_32F);
-        Mat kernel3 = Imgproc.getGaborKernel(kSize, sigma, theta3, lambda, gamma, psi, CvType.CV_32F);
-        Mat kernel4 = Imgproc.getGaborKernel(kSize, sigma, theta4, lambda, gamma, psi, CvType.CV_32F);
-
-        // apply filters on my image. The result is stored in gabor1...4
-        Imgproc.filter2D(myImg, gabor1, -1, kernel1);
-        Highgui.imwrite("test\\pre\\gabor1.tif", gabor1);
-        Imgproc.filter2D(myImg, gabor2, -1, kernel2);
-        Highgui.imwrite("test\\pre\\gabor2.tif", gabor2);
-        Imgproc.filter2D(myImg, gabor3, -1, kernel3);
-        Highgui.imwrite("test\\pre\\gabor3.tif", gabor3);        
-        Imgproc.filter2D(myImg, gabor4, -1, kernel4);
-        Highgui.imwrite("test\\pre\\gabor4.tif", gabor4);
-        
-        Core.addWeighted(enhanced , 0, gabor1, 1, 0, enhanced );
-        Core.addWeighted(enhanced , 1, gabor2, 1, 0, enhanced );
-        Core.addWeighted(enhanced , 1, gabor3, 1, 0, enhanced );
-        Core.addWeighted(enhanced , 1, gabor4, 1, 0, enhanced );
-        
-        String n_out = route_base + "\\pre\\" + nimg + "_gabor" + extension;
-        Highgui.imwrite(n_out, enhanced);
     }
     
     public static Vector<String> cutDigits(String route, String nimg, String extension, ImagePlus imp){
@@ -253,72 +201,7 @@ public class Test {
         long total = (System.currentTimeMillis() - ini);
         System.out.println("Tiempo tomado: " + total);
     }
-    
-    public static void ocr_asprise(Ocr ocr, Vector<String> imgs){
-        long ini = System.currentTimeMillis();
-        String final_result = new String();
-        for (int i = 0; i < imgs.size(); i++){
-            String url = imgs.get(i);
-            //System.out.println("Reading from: " + url);
-            File imageFile = new File(url);
-            //System.out.print(url);
-            String result = ocr.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=0123456789");
-            System.out.print(result + " | ");
-            // ocr more images here ...
-            final_result += result.trim();
-            //System.out.print(result);
-
-        }
-        System.out.println(final_result);
-        long total = (System.currentTimeMillis() - ini);
-        System.out.println("Tiempo tomado: " + total);
-    }
-    
-    public static void ocr_asprise_exp(Ocr instance, String route_ocr_exp){
-        long ini = System.currentTimeMillis();
-        String final_result = new String();
-        for (int i = 0; i < 10; i++){
-            final_result = "";
-            System.out.print("Test: "+i + " | ");
-            for (int j = 1; j < 6; j++){
-                String url = route_ocr_exp + i + "\\" + i + "_" + j + ".tif";
-                //System.out.println("Reading from: " + url);
-                
-                File imageFile = new File(url);
-
-                String result = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=0123456789");
-                //System.out.print(result.trim() + " | ");
-                final_result += result.trim();
-                //System.out.print(result);
-
-            }
-            System.out.println(final_result);
-        }
-        long total = (System.currentTimeMillis() - ini);
-        System.out.println("Tiempo tomado: " + total);
-    }
-    
-    public static void ocr_asprise_exp_let(Ocr instance, String route_ocr_exp){
-        long ini = System.currentTimeMillis();
-        String final_result = new String();
-        for (int i = 0; i < 10; i++){
-            final_result = "";
-            System.out.print("Test: "+i + " | ");
-            
-            String url = route_ocr_exp + "Words\\" + i + ".png";
-            //System.out.println("Reading from: " + url);
-
-            File imageFile = new File(url);
-
-            final_result  = instance.recognize(new File[] {imageFile}, Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PLAINTEXT, "PROP_LIMIT_TO_CHARSET=abcdefghijklmnopqrstuvwxyz").trim();
-            //System.out.print(result.trim() + " | ");
-
-            System.out.println(final_result);
-        }
-        long total = (System.currentTimeMillis() - ini);
-        System.out.println("Tiempo tomado: " + total);
-    }
-    
+       
     public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
         long ini = System.currentTimeMillis();
         //System.out.println("Iniciando ORB");
@@ -669,18 +552,7 @@ public class Test {
         System.out.println("Test Tesseract:");
         //ocr_exp(instance_num, route_ocr_exp);
         //ocr_exp_let(instance_let, route_ocr_exp);
-        
-        //OCR ASPRISE
-        
-        Ocr.setUp();
-        Ocr ocr = new Ocr();
-        ocr.startEngine("eng", Ocr.SPEED_FASTEST);
-        //ocr_asprise(ocr,imgs);
-        System.out.println("Test Asprise:");
-        //ocr_asprise_exp(ocr,route_ocr_exp);
-        //ocr_asprise_exp_let(ocr,route_ocr_exp);
-        ocr.stopEngine();
-        
+                
         //PREPROCESAMIENTO IMAGEJ + ORB - SIFT - SURF - HARRIS
         
         System.out.println("***INICIANDO PREPROCESAMIENTO***");
