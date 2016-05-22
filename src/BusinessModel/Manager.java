@@ -21,13 +21,13 @@ public class Manager {
     public static void updateElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.update(ep);
     }
-    public static void deleteElectoralProcess(int electoralProcessId){
+    public static void deleteElectoralProcess(long electoralProcessId){
         electoralProcessDB.delete(electoralProcessId);
     }
-    public static ArrayList<ElectoralProcess> queryAllElectoralProcess(int electoralProcessId){
+    public static ArrayList<ElectoralProcess> queryAllElectoralProcess(){
         return electoralProcessDB.queryAll();
     }
-    public static ElectoralProcess queryElectoralProcessById(int electoralProcessId){
+    public static ElectoralProcess queryElectoralProcessById(long electoralProcessId){
         return electoralProcessDB.queryById(electoralProcessId);
     }
     

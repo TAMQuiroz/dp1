@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public interface DAOElectoralProcess {
     void add(ElectoralProcess ep);
     void update(ElectoralProcess ep);
-    void delete(int electoralProcessId);
+    void delete(long electoralProcessId);
     ArrayList<ElectoralProcess> queryAll();
-    ElectoralProcess queryById(int electoralProcessId);
+    ElectoralProcess queryById(long electoralProcessId);
 }

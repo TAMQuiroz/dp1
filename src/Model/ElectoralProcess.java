@@ -30,7 +30,8 @@ public class ElectoralProcess {
     private int population;
     private ProcessType processType;
     private User user;
-
+    
+    
     /**
      * @return the id
      */
@@ -283,4 +284,7 @@ public class ElectoralProcess {
         this.user = user;
     }
     
+    public void ElectoralProcess(){
+        
+    }
 }

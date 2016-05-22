@@ -7,6 +7,7 @@ package App;
 
 import BusinessModel.Manager;
 import Model.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -15,8 +16,10 @@ import java.util.Date;
  */
 public class App {
     public static void main(String [] args) {
-        ElectoralProcess ep = new ElectoralProcess();
-        ep.setName("Elecciones Presidenciales 2016");
+        ElectoralProcess ep = new ElectoralProcess();        
+        ArrayList<ElectoralProcess> list = new ArrayList<ElectoralProcess>();
+        list = Manager.queryAllElectoralProcess();
+        ep.setName("Elecciones Distritales 2016");
         ep.setDate(new Date());
         ep.setStartExtraReceptionDate(new Date());
         ep.setStartExtraValidationDate(new Date());
@@ -28,11 +31,16 @@ public class App {
         ep.setEndReceptionDate(new Date());
         ep.setEndRegistrationDate(new Date());
         ep.setEndValidationDate(new Date());
-        ep.setMinPercentage(3.5);
-        ep.setPopulation(1900000);
+        ep.setPopulation(2900000);
         ep.setStatus("Activo");
+        long id = 1;
+        ep.setId(id);
+        Manager.updateElectoralProcess(ep);
+        System.out.println("Proceso Electoral actualizado!!");
+        Manager.deleteElectoralProcess(id);
+        System.out.println("Proceso Electoral dado de baja!!");
+        System.out.println("El proceso 1 es: " + list.get(0).getName());
+        System.out.println("El proceso 1 es: " + Manager.queryElectoralProcessById(id).getName());
         
-        Manager.addElectoralProcess(ep);
-        System.out.println("Proceso Electoral guardado!!");
     }
 }

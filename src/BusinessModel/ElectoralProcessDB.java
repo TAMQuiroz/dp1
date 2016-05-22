@@ -27,14 +27,14 @@ public class ElectoralProcessDB {
     public void update(ElectoralProcess ep){        
         daoElectoralProcess.update(ep);        
     }
-    public void delete(int electoralProcessId){
+    public void delete(long electoralProcessId){
         daoElectoralProcess.delete(electoralProcessId);
     }
     public ArrayList<ElectoralProcess> queryAll(){
         electoralProcessList = daoElectoralProcess.queryAll();
         return electoralProcessList;
     }
-    public ElectoralProcess queryById( int electoralProcessId){
+    public ElectoralProcess queryById( long electoralProcessId){
         return daoElectoralProcess.queryById(electoralProcessId);
     }
 }
