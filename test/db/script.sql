@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 17, 2016 at 05:46 AM
+-- Generation Time: May 22, 2016 at 03:18 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -23,52 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adherentAccepted`
+-- Table structure for table `adherent`
 --
 
-CREATE TABLE `adherentAccepted` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `lastname` varchar(30) DEFAULT NULL,
-  `observation` varchar(100) DEFAULT NULL,
-  `id_politicalParty` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `adherentBanned`
---
-
-CREATE TABLE `adherentBanned` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `lastname` varchar(30) DEFAULT NULL,
-  `observation` varchar(100) DEFAULT NULL,
-  `id_electoralProcess` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `adherentEvaluated`
---
-
-CREATE TABLE `adherentEvaluated` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `lastname` varchar(30) DEFAULT NULL,
-  `observation` varchar(100) DEFAULT NULL,
-  `id_politicalParty` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `adherentRejected`
---
-
-CREATE TABLE `adherentRejected` (
+CREATE TABLE `adherent` (
   `id` bigint(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
   `lastname` varchar(30) DEFAULT NULL,
@@ -86,15 +44,21 @@ CREATE TABLE `electoralProcess` (
   `id` bigint(20) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `startValidationDate` datetime DEFAULT NULL,
-  `endValidationDate` datetime DEFAULT NULL,
   `startRegistrationDate` datetime DEFAULT NULL,
   `endRegistrationDate` datetime DEFAULT NULL,
+  `startReceptionDate` datetime DEFAULT NULL,
+  `endReceptionDate` datetime DEFAULT NULL,
+  `startValidationDate` datetime DEFAULT NULL,
+  `endValidationDate` datetime DEFAULT NULL,
   `minPercentage` double DEFAULT NULL,
   `status` varchar(11) DEFAULT NULL,
   `population` bigint(20) DEFAULT NULL,
   `id_processType` bigint(20) DEFAULT NULL,
-  `id_user` bigint(20) DEFAULT NULL
+  `id_user` bigint(20) DEFAULT NULL,
+  `startExtraReceptionDate` datetime DEFAULT NULL,
+  `endExtraReceptionDate` datetime DEFAULT NULL,
+  `startExtraValidationDate` datetime DEFAULT NULL,
+  `endExtraValidationDate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -107,6 +71,7 @@ CREATE TABLE `politicalParty` (
   `id` bigint(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
   `legalDepartment` varchar(20) DEFAULT NULL,
+  `image` varchar(30) DEFAULT NULL,
   `telephone` varchar(11) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
@@ -146,7 +111,7 @@ CREATE TABLE `user` (
   `name` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
   `password` varchar(20) DEFAULT NULL,
-  `birthday` datetime DEFAULT NULL,
+  `bornDay` datetime DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `docCode` varchar(11) DEFAULT NULL,
   `docType` varchar(2) DEFAULT NULL,
@@ -171,32 +136,11 @@ CREATE TABLE `zone` (
 --
 
 --
--- Indexes for table `adherentAccepted`
+-- Indexes for table `adherent`
 --
-ALTER TABLE `adherentAccepted`
+ALTER TABLE `adherent`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `adherentAccepted_ibfk_1` (`id_politicalParty`);
-
---
--- Indexes for table `adherentBanned`
---
-ALTER TABLE `adherentBanned`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `adherentBanned_ibfk_1` (`id_electoralProcess`);
-
---
--- Indexes for table `adherentEvaluated`
---
-ALTER TABLE `adherentEvaluated`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `adherentEvaluated_ibfk_1` (`id_politicalParty`);
-
---
--- Indexes for table `adherentRejected`
---
-ALTER TABLE `adherentRejected`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `adherentRejected_ibfk_1` (`id_politicalParty`);
+  ADD KEY `adherent_ibfk_1` (`id_politicalParty`);
 
 --
 -- Indexes for table `electoralProcess`
@@ -244,20 +188,40 @@ ALTER TABLE `zone`
 --
 
 --
--- AUTO_INCREMENT for table `adherentEvaluated`
+-- AUTO_INCREMENT for table `adherent`
 --
-ALTER TABLE `adherentEvaluated`
+ALTER TABLE `adherent`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `electoralProcess`
 --
-
+ALTER TABLE `electoralProcess`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
--- Constraints for table `adherentEvaluated`
+-- AUTO_INCREMENT for table `politicalParty`
 --
-ALTER TABLE `adherentEvaluated`
-  ADD CONSTRAINT `adherentEvaluated_ibfk_1` FOREIGN KEY (`id_politicalParty`) REFERENCES `politicalParty` (`id`);
-
+ALTER TABLE `politicalParty`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `processType`
+--
+ALTER TABLE `processType`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `profile`
+--
+ALTER TABLE `profile`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `zone`
+--
+ALTER TABLE `zone`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

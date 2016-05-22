@@ -1,0 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package BusinessModel.DAO;
+
+/**
+ *
+ * @author erickelme
+ */
+public class DBConnection {    	
+	public static final int MYSQLSERVER = 1;	
+        //public static final int SQL_SERVER = 2;	
+	//public static final String URL_JDBC_MYSQL = "jdbc:mysql://inti.lab.inf.pucp.edu.pe:1433;databaseName=inf282";	
+	//public static final String user = "inf282";
+	//public static final String password = "inf282db";
+	public static int dbType = MYSQLSERVER;
+	
+	public static final String URL_JDBC_MYSQL = "jdbc:mysql://localhost:3306/dp1EP";        
+	public static final String user = "root";
+	public static final String password = "";
+
+}
