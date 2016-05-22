@@ -82,7 +82,7 @@
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="24" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,7 +136,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre de proceso"/>
+        <Property name="text" type="java.lang.String" value="Nombre de proceso (*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
@@ -146,7 +146,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo de proceso"/>
+        <Property name="text" type="java.lang.String" value="Tipo de proceso(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -166,35 +166,35 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha del proceso"/>
+        <Property name="text" type="java.lang.String" value="Fecha del proceso(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidad de votantes periodo anterior"/>
+        <Property name="text" type="java.lang.String" value="Cantidad de votantes periodo anterior (*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Porcentaje m&#xed;nimo (%)"/>
+        <Property name="text" type="java.lang.String" value="Porcentaje m&#xed;nimo (%)(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField4">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inicio de registro"/>
+        <Property name="text" type="java.lang.String" value="Inicio de registro (*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField5">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fin de registro"/>
+        <Property name="text" type="java.lang.String" value="Fin de registro(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField6">
@@ -203,14 +203,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fin de validaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Fin de validaci&#xf3;n(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField8">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inicio de validaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Inicio de validaci&#xf3;n(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

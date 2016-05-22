@@ -51,7 +51,7 @@ public class ElectoralProcess extends JInternalFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nombre de proceso");
+        jLabel1.setText("Nombre de proceso (*)");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,23 +59,23 @@ public class ElectoralProcess extends JInternalFrame {
             }
         });
 
-        jLabel2.setText("Tipo de proceso");
+        jLabel2.setText("Tipo de proceso(*)");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel3.setText("Fecha del proceso");
+        jLabel3.setText("Fecha del proceso(*)");
 
-        jLabel4.setText("Cantidad de votantes periodo anterior");
+        jLabel4.setText("Cantidad de votantes periodo anterior (*)");
 
-        jLabel5.setText("Porcentaje mínimo (%)");
+        jLabel5.setText("Porcentaje mínimo (%)(*)");
 
-        jLabel6.setText("Inicio de registro");
+        jLabel6.setText("Inicio de registro (*)");
 
-        jLabel7.setText("Fin de registro");
+        jLabel7.setText("Fin de registro(*)");
 
-        jLabel9.setText("Fin de validación");
+        jLabel9.setText("Fin de validación(*)");
 
-        jLabel8.setText("Inicio de validación");
+        jLabel8.setText("Inicio de validación(*)");
 
         jButton1.setText("Agregar Zona");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +147,7 @@ public class ElectoralProcess extends JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jButton2)))
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
