@@ -7,14 +7,14 @@ package dp1;
 
 /**
  *
- * @author Thearc
+ * @author Andrea
  */
-public class adherentList extends javax.swing.JFrame {
+public class adherentListi extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form adherentList
+     * Creates new form adherentListi
      */
-    public adherentList() {
+    public adherentListi() {
         initComponents();
     }
 
@@ -27,7 +27,6 @@ public class adherentList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -53,13 +52,9 @@ public class adherentList extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lista de Adherentes - Nombre de Partido Politico");
-
-        jLabel1.setText("Cantidad restante:");
 
         tableNoValidated.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,14 +76,6 @@ public class adherentList extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableNoValidated);
-        if (tableNoValidated.getColumnModel().getColumnCount() > 0) {
-            tableNoValidated.getColumnModel().getColumn(0).setResizable(false);
-            tableNoValidated.getColumnModel().getColumn(1).setResizable(false);
-            tableNoValidated.getColumnModel().getColumn(2).setResizable(false);
-            tableNoValidated.getColumnModel().getColumn(3).setResizable(false);
-            tableNoValidated.getColumnModel().getColumn(4).setResizable(false);
-            tableNoValidated.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         btnValidate.setText("Validar");
         btnValidate.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +116,7 @@ public class adherentList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(51, 51, 51)
@@ -161,7 +148,7 @@ public class adherentList extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -187,12 +174,6 @@ public class adherentList extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tableValidated);
-        if (tableValidated.getColumnModel().getColumnCount() > 0) {
-            tableValidated.getColumnModel().getColumn(0).setResizable(false);
-            tableValidated.getColumnModel().getColumn(1).setResizable(false);
-            tableValidated.getColumnModel().getColumn(2).setResizable(false);
-            tableValidated.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         jLabel3.setText("Cantidad:");
 
@@ -206,7 +187,7 @@ public class adherentList extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(50, 50, 50)
@@ -251,14 +232,6 @@ public class adherentList extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         jButton2.setText("Admitir Adherente");
 
@@ -275,7 +248,7 @@ public class adherentList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(51, 51, 51)
@@ -301,6 +274,8 @@ public class adherentList extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Rechazados", jPanel3);
 
+        jLabel1.setText("Cantidad restante:");
+
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -313,7 +288,7 @@ public class adherentList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel1)
@@ -339,48 +314,14 @@ public class adherentList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAmountActionPerformed
-
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnValidateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adherentList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adherentList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adherentList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adherentList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAmountActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new adherentList().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnValidate;

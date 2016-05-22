@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package dp1;
-
+import javax.swing.JInternalFrame;
 /**
  *
  * @author Thearc
  */
-public class Upload extends javax.swing.JFrame {
+public class Upload extends JInternalFrame {
 
     /**
      * Creates new form Upload

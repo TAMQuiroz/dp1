@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 package dp1;
-import javax.swing.JInternalFrame;
+
 /**
  *
- * @author erickelme
+ * @author Andrea
  */
-public class PoliticalParty extends JInternalFrame {
+public class PoliticalPartyI extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ElectoralParty
+     * Creates new form PoliticalPartyI
      */
-    public PoliticalParty() {
+    public PoliticalPartyI() {
         initComponents();
     }
 
@@ -27,26 +27,70 @@ public class PoliticalParty extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         nameText = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        panel1 = new java.awt.Panel();
         jLabel3 = new javax.swing.JLabel();
         legalDepartment = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        panel1 = new java.awt.Panel();
         jLabel4 = new javax.swing.JLabel();
         telephone = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnUploadElectoralRoll = new javax.swing.JButton();
         btnShowElectoralRoll = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Partido Político");
+        jLabel1.setText("Nombre");
+
+        nameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameTextActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Departamento Legal");
+
+        jLabel2.setText("Logo");
+
+        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 158, Short.MAX_VALUE)
+        );
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 192, Short.MAX_VALUE)
+        );
+
+        jLabel4.setText("Telefono");
+
+        jLabel5.setText("Correo");
+
+        btnRegister.setText("Registrar");
+
+        btnUpdate.setText("Modificar");
+
+        btnCancel.setText("Cancelar");
+
+        btnUploadElectoralRoll.setText("Subir Padron Electoral");
+        btnUploadElectoralRoll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadElectoralRollActionPerformed(evt);
+            }
+        });
+
+        btnShowElectoralRoll.setText("Mostrar Padron Electoral");
+        btnShowElectoralRoll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowElectoralRollActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,59 +112,6 @@ public class PoliticalParty extends JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        jLabel1.setText("Nombre");
-
-        nameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameTextActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Logo");
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 192, Short.MAX_VALUE)
-        );
-
-        jLabel3.setText("Departamento Legal");
-
-        jLabel4.setText("Telefono");
-
-        jLabel5.setText("Correo");
-
-        btnRegister.setText("Registrar");
-
-        btnCancel.setText("Cancelar");
-
-        btnUpdate.setText("Modificar");
-
-        btnUploadElectoralRoll.setText("Subir Padron Electoral");
-        btnUploadElectoralRoll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploadElectoralRollActionPerformed(evt);
-            }
-        });
-
-        btnShowElectoralRoll.setText("Mostrar Padron Electoral");
-        btnShowElectoralRoll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowElectoralRollActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +183,7 @@ public class PoliticalParty extends JInternalFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnUpdate)
@@ -221,41 +212,6 @@ public class PoliticalParty extends JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PoliticalParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PoliticalParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PoliticalParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PoliticalParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PoliticalParty().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package dp1;
-
+import javax.swing.JInternalFrame;
 /**
  *
  * @author Claudia
  */
-public class ShowProcess extends javax.swing.JFrame {
+public class ShowProcess extends JInternalFrame {
 
     /**
      * Creates new form ShowProcess
@@ -37,7 +37,7 @@ public class ShowProcess extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,6 +55,11 @@ public class ShowProcess extends javax.swing.JFrame {
         jTextField1.setText("Ingresar nombre...");
 
         jButton1.setText("Buscar proceso");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton1.setText("Agregar");
 
@@ -127,6 +132,10 @@ public class ShowProcess extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

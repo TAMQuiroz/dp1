@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package dp1;
-
+import javax.swing.JInternalFrame;
 /**
  *
  * @author tamqu
  */
-public class addAdherent extends javax.swing.JFrame {
+public class addAdherent extends JInternalFrame{
 
     /**
      * Creates new form addAdherent
