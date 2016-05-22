@@ -17,8 +17,8 @@ public class Dp1 {
     public static void main(String[] args) {
     //    System.out.println("Inicio");
         new Login().setVisible(true);
-        new PoliticalPartyI().setVisible(true);
-        new System().setVisible(true);
+        //new PoliticalPartyI().setVisible(true);
+        //new System().setVisible(true);
       //  System.out.println("Fin");
     }
 
