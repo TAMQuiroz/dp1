@@ -48,7 +48,7 @@ public class Zone  extends JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Estado"
+                "Codigo", "Nombre", "Descripcion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
