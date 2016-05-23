@@ -107,6 +107,11 @@ public class System extends javax.swing.JFrame {
         jMenu5.add(jMenuItem9);
 
         jMenuItem10.setText("Usuario");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem10);
 
         jMenuBar1.add(jMenu5);
@@ -219,6 +224,13 @@ public class System extends javax.swing.JFrame {
          jDesktopPane1.add(If);
          If.show();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        User If= new User();
+         jDesktopPane1.add(If);
+         If.show();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments

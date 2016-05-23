@@ -9,6 +9,7 @@ import BusinessModel.Manager;
 import Model.*;
 import java.util.ArrayList;
 import java.util.Date;
+import dp1.Login;
 
 /**
  *
@@ -44,5 +45,6 @@ public class App {
         System.out.println("El proceso 1 es: " + list.get(0).getName());
         System.out.println("El proceso 1 es: " + Manager.queryElectoralProcessById(id).getName());
         System.out.println("El usuario es: " + u.getName() + " - " + u.getLastName() );
+        new Login().setVisible(true);
     }
 }
