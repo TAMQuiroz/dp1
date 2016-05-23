@@ -46,7 +46,7 @@ public class PoliticalPartyI extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        jLabel1.setText("Nombre");
+        jLabel1.setText("Nombre(*)");
 
         nameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,9 +54,9 @@ public class PoliticalPartyI extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setText("Departamento Legal");
+        jLabel3.setText("Departamento Legal(*)");
 
-        jLabel2.setText("Logo");
+        jLabel2.setText("Logo(*)");
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -69,9 +69,9 @@ public class PoliticalPartyI extends javax.swing.JInternalFrame {
             .addGap(0, 192, Short.MAX_VALUE)
         );
 
-        jLabel4.setText("Telefono");
+        jLabel4.setText("Telefono(*)");
 
-        jLabel5.setText("Correo");
+        jLabel5.setText("Correo(*)");
 
         btnRegister.setText("Registrar");
 

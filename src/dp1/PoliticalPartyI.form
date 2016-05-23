@@ -126,7 +126,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre"/>
+        <Property name="text" type="java.lang.String" value="Nombre(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nameText">
@@ -136,14 +136,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Departamento Legal"/>
+        <Property name="text" type="java.lang.String" value="Departamento Legal(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="legalDepartment">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Logo"/>
+        <Property name="text" type="java.lang.String" value="Logo(*)"/>
       </Properties>
     </Component>
     <Container class="java.awt.Panel" name="panel1">
@@ -163,14 +163,14 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefono"/>
+        <Property name="text" type="java.lang.String" value="Telefono(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="telephone">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Correo"/>
+        <Property name="text" type="java.lang.String" value="Correo(*)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="email">
