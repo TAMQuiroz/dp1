@@ -43,10 +43,10 @@ public class Upload extends JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         btnUrl = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carga de archivos - Nombre de proceso");
 
-        jLabel1.setText("Ingrese ruta:");
+        jLabel1.setText("Ingrese ruta(*)");
 
         jTextField1.setToolTipText("E.g. C:\\\\partido\\");
             jTextField1.setName("txtUrl"); // NOI18N
@@ -128,7 +128,7 @@ public class Upload extends JInternalFrame {
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(22, Short.MAX_VALUE)
+                    .addContainerGap(32, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,7 +153,7 @@ public class Upload extends JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addComponent(btnFinish)
-                    .addContainerGap(21, Short.MAX_VALUE))
+                    .addContainerGap(32, Short.MAX_VALUE))
             );
 
             pack();

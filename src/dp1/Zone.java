@@ -35,11 +35,11 @@ public class Zone  extends JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nombre:");
+        jLabel1.setText("Nombre(*)");
 
-        jLabel2.setText("Descripcion:");
+        jLabel2.setText("Descripcion(*)");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,7 +79,7 @@ public class Zone  extends JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
@@ -102,7 +102,6 @@ public class Zone  extends JInternalFrame {
         );
 
         jScrollPane1.getAccessibleContext().setAccessibleDescription("");
-        jScrollPane1.getAccessibleContext().setAccessibleParent(jTable1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
