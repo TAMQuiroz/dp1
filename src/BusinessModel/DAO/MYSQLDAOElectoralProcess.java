@@ -378,8 +378,9 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         String name = rs.getString("name"); ep.setName(name);
                         String status = rs.getString("status"); ep.setStatus(status);
                         double minPercentage  = rs.getDouble("minPercentage"); ep.setMinPercentage(minPercentage);
-                        java.sql.Date date = rs.getDate("date"); ep.setDate(date);
-                        java.util.Date dateJava = new java.util.Date(date.getTime()); ep.setDate(dateJava);
+                        java.sql.Date date = rs.getDate("date"); 
+                        java.util.Date dateJava = new java.util.Date(date.getTime()); 
+                        ep.setDate(dateJava);
                         date = rs.getDate("startRegistrationDate"); 
                         java.util.Date startRegistrationDate = new java.util.Date(date.getTime()); 
                         ep.setStartExtraReceptionDate(startRegistrationDate);

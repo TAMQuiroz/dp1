@@ -17,8 +17,10 @@ import java.util.Date;
 public class App {
     public static void main(String [] args) {
         ElectoralProcess ep = new ElectoralProcess();        
+        User u = new User();
         ArrayList<ElectoralProcess> list = new ArrayList<ElectoralProcess>();
         list = Manager.queryAllElectoralProcess();
+        u = Manager.login("71844756", "eeee");
         ep.setName("Elecciones Distritales 2016");
         ep.setDate(new Date());
         ep.setStartExtraReceptionDate(new Date());
@@ -41,6 +43,6 @@ public class App {
         System.out.println("Proceso Electoral dado de baja!!");
         System.out.println("El proceso 1 es: " + list.get(0).getName());
         System.out.println("El proceso 1 es: " + Manager.queryElectoralProcessById(id).getName());
-        
+        System.out.println("El usuario es: " + u.getName() + " - " + u.getLastName() );
     }
 }
