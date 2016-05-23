@@ -15,6 +15,7 @@ public class Zone  extends JInternalFrame {
      * Creates new form Zone
      */
     public Zone() {
+        setClosable(true);
         initComponents();
     }
 

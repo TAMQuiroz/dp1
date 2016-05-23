@@ -15,6 +15,7 @@ public class PoliticalPartyI extends javax.swing.JInternalFrame {
      * Creates new form PoliticalPartyI
      */
     public PoliticalPartyI() {
+        setClosable(true);
         initComponents();
     }
 

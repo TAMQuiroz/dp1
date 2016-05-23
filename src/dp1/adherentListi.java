@@ -15,6 +15,7 @@ public class adherentListi extends javax.swing.JInternalFrame {
      * Creates new form adherentListi
      */
     public adherentListi() {
+        setClosable(true);
         initComponents();
     }
 

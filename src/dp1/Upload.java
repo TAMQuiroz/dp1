@@ -15,6 +15,7 @@ public class Upload extends JInternalFrame {
      * Creates new form Upload
      */
     public Upload() {
+        setClosable(true);
         initComponents();
     }
 

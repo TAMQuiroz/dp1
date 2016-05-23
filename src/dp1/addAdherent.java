@@ -15,6 +15,7 @@ public class addAdherent extends JInternalFrame{
      * Creates new form addAdherent
      */
     public addAdherent() {
+        setClosable(true);
         initComponents();
     }
 

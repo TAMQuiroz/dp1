@@ -15,6 +15,7 @@ public class ElectoralProcess extends JInternalFrame {
      * Creates new form ElectoralProcess
      */
     public ElectoralProcess() {
+        setClosable(true);
         initComponents();
     }
 
