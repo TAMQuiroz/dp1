@@ -9,13 +9,13 @@ package dp1;
  *
  * @author Andrea
  */
-public class adherentListi extends javax.swing.JInternalFrame {
+public class adherentListi extends javax.swing.JFrame {
 
     /**
      * Creates new form adherentListi
      */
     public adherentListi() {
-        setClosable(true);
+
         initComponents();
     }
 
