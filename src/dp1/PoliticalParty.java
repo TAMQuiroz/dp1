@@ -15,6 +15,7 @@ public class PoliticalParty extends JInternalFrame {
      * Creates new form ElectoralParty
      */
     public PoliticalParty() {
+        setClosable(true);
         initComponents();
     }
 

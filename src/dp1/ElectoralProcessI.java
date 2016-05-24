@@ -50,6 +50,8 @@ public class ElectoralProcessI extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("Proceso Electoral Municipal 2016");
+
         jLabel1.setText("Nombre de proceso(*)");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {

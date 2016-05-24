@@ -53,6 +53,8 @@ public class User extends javax.swing.JInternalFrame {
         telephone2 = new javax.swing.JTextField();
         telephone3 = new javax.swing.JTextField();
 
+        setTitle("Usuario - Proceso Electoral Municipal 2016");
+
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Usuarios"));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(

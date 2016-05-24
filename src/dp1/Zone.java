@@ -44,6 +44,7 @@ public class Zone  extends JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Creacipn de Zona"));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Zona - Proceso Electoral Municipal 2016");
 
         jLayeredPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Zonas"));
 
