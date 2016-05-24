@@ -186,7 +186,7 @@ public class System extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       PoliticalPartyI If= new PoliticalPartyI();
+       PoliticalParty If= new PoliticalParty();
        jDesktopPane1.add(If);
        If.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
