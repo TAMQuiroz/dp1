@@ -15,6 +15,7 @@ public class ShowProcess extends JInternalFrame {
      * Creates new form ShowProcess
      */
     public ShowProcess() {
+        setClosable(true);
         initComponents();
     }
 

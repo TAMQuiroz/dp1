@@ -114,7 +114,7 @@ CREATE TABLE `user` (
   `bornDay` datetime DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `docCode` varchar(11) DEFAULT NULL,
-  `docType` varchar(2) DEFAULT NULL,
+  `docType` varchar(3) DEFAULT NULL,
   `id_profile` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

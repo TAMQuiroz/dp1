@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Manager {
     private static ElectoralProcessDB electoralProcessDB = new ElectoralProcessDB();
-    
+    private static UserDB userDB = new UserDB();
     
     
     public static void addElectoralProcess(ElectoralProcess ep){
@@ -31,4 +31,7 @@ public class Manager {
         return electoralProcessDB.queryById(electoralProcessId);
     }
     
+    public static User login(String user, String password){
+        return userDB.login(user, password);
+    }
 }

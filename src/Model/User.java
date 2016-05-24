@@ -16,7 +16,7 @@ public class User {
     private String name;
     private String lastName;
     private String password;
-    private Date bornDate;
+    private Date bornDay;
     private String phone;
     private String docCode;
     private String docType;
@@ -25,6 +25,10 @@ public class User {
     /**
      * @return the id
      */
+    public void User(){
+        
+    }
+    
     public long getId() {
         return id;
     }
@@ -81,15 +85,15 @@ public class User {
     /**
      * @return the bornDate
      */
-    public Date getBornDate() {
-        return bornDate;
+    public Date getBornDay() {
+        return bornDay;
     }
 
     /**
-     * @param bornDate the bornDate to set
+     * @param bornDay the bornDate to set
      */
-    public void setBornDate(Date bornDate) {
-        this.bornDate = bornDate;
+    public void setBornDay(Date bornDay) {
+        this.bornDay = bornDay;
     }
 
     /**

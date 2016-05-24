@@ -18,5 +18,9 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOElectoralProcess getDAOElectoralProcess() {
         return new MYSQLDAOElectoralProcess();
     }
+    @Override
+    public DAOUser getDAOUser() {
+        return new MYSQLDAOUser();
+    }
     
 }

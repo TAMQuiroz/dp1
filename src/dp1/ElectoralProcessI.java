@@ -15,6 +15,7 @@ public class ElectoralProcessI extends javax.swing.JInternalFrame {
      * Creates new form ElectoralProcessI
      */
     public ElectoralProcessI() {
+        setClosable(true);
         initComponents();
     }
 
@@ -49,7 +50,9 @@ public class ElectoralProcessI extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        jLabel1.setText("Nombre de proceso");
+        setTitle("Proceso Electoral Municipal 2016");
+
+        jLabel1.setText("Nombre de proceso(*)");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,23 +60,23 @@ public class ElectoralProcessI extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setText("Fecha del proceso");
+        jLabel3.setText("Fecha del proceso(*)");
 
-        jLabel4.setText("Cantidad de votantes periodo anterior");
+        jLabel4.setText("Cantidad de votantes periodo anterior(*)");
 
-        jLabel5.setText("Porcentaje mínimo (%)");
+        jLabel5.setText("Porcentaje mínimo (%)(*)");
 
-        jLabel6.setText("Inicio de registro");
+        jLabel6.setText("Inicio de registro(*)");
 
-        jLabel7.setText("Fin de registro");
+        jLabel7.setText("Fin de registro(*)");
 
-        jLabel8.setText("Inicio de validación");
+        jLabel8.setText("Inicio de validación(*)");
 
-        jLabel2.setText("Tipo de proceso");
+        jLabel2.setText("Tipo de proceso(*)");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel9.setText("Fin de validación");
+        jLabel9.setText("Fin de validación(*)");
 
         jButton1.setText("Agregar Zona");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

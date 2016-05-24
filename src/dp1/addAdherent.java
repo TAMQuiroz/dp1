@@ -15,6 +15,7 @@ public class addAdherent extends JInternalFrame{
      * Creates new form addAdherent
      */
     public addAdherent() {
+        setClosable(true);
         initComponents();
     }
 
@@ -40,10 +41,10 @@ public class addAdherent extends JInternalFrame{
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Admitir Adherente - Nombre Partido Politico");
 
-        jLabel1.setText("Ingrese DNI:");
+        jLabel1.setText("Ingrese DNI(*)");
 
         btnSearch.setText("Buscar");
 
