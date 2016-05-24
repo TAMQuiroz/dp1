@@ -42,6 +42,7 @@ import org.opencv.features2d.KeyPoint;
 import org.opencv.highgui.Highgui;
 
 import java.lang.System.*;
+import org.opencv.core.Core.MinMaxLocResult;
 public class Test {
     static int train_samples = 1;  
     static int classes = 10;  
@@ -148,60 +149,7 @@ public class Test {
         }
         java.lang.System.out.println(final_result);
     }
-    
-    public static void ocr_exp(ITesseract instance, String route_ocr_exp){
-        long ini = java.lang.System.currentTimeMillis();
-        String final_result = new String();
-        for (int i = 0; i < 10; i++){
-            final_result = "";
-            java.lang.System.out.print("Test: "+i + " | ");
-            for (int j = 1; j < 6; j++){
-                String url = route_ocr_exp + i + "\\" + i + "_" + j + ".tif";
-                //System.out.println("Reading from: " + url);
-                
-                File imageFile = new File(url);
-
-                try {
-                    String result = instance.doOCR(imageFile);
-                    //System.out.print(result.trim() + " | ");
-                    final_result += result.trim();
-                    //System.out.print(result);
-                } catch (TesseractException e) {
-                    java.lang.System.err.println(e.getMessage());
-                } 
-            }
-            java.lang.System.out.println(final_result);
-        }
-        long total = (java.lang.System.currentTimeMillis() - ini);
-        java.lang.System.out.println("Tiempo tomado: " + total);
-    }
-    
-    public static void ocr_exp_let(ITesseract instance, String route_ocr_exp){
-        long ini = java.lang.System.currentTimeMillis();
-        String final_result = new String();
-        for (int i = 0; i < 10; i++){
-            final_result = "";
-            java.lang.System.out.print("Test: "+i + " | ");
-            
-            String url = route_ocr_exp + "Words\\" + i + ".png";
-            //System.out.println("Reading from: " + url);
-
-            File imageFile = new File(url);
-
-            try {
-                final_result = instance.doOCR(imageFile).trim();
-                //System.out.print(result.trim() + " | ");
-                
-            } catch (TesseractException e) {
-                java.lang.System.err.println(e.getMessage());
-            } 
-            
-            java.lang.System.out.println(final_result);
-        }
-        long total = (java.lang.System.currentTimeMillis() - ini);
-        java.lang.System.out.println("Tiempo tomado: " + total);
-    }
-       
+         
     public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
         long ini = java.lang.System.currentTimeMillis();
         //System.out.println("Iniciando ORB");
@@ -397,6 +345,42 @@ public class Test {
         //java.lang.System.out.println("Ended....");  
     }
 
+    public static void templateMatching(String inFile, String templateFile, String outFile, int match_method){
+        java.lang.System.out.println("\nRunning Template Matching");
+
+        Mat img = Highgui.imread(inFile);
+        Mat templ = Highgui.imread(templateFile);
+
+        // / Create the result matrix
+        int result_cols = img.cols() - templ.cols() + 1;
+        int result_rows = img.rows() - templ.rows() + 1;
+        Mat result = new Mat(result_rows, result_cols, CvType.CV_32FC1);
+
+        // / Do the Matching and Normalize
+        Imgproc.matchTemplate(img, templ, result, match_method);
+        Core.normalize(result, result, 0, 1, Core.NORM_MINMAX, -1, new Mat());
+
+        // / Localizing the best match with minMaxLoc
+        MinMaxLocResult mmr = Core.minMaxLoc(result);
+
+        Point matchLoc;
+        if (match_method == Imgproc.TM_SQDIFF || match_method == Imgproc.TM_SQDIFF_NORMED) {
+            matchLoc = mmr.minLoc;
+        } else {
+            matchLoc = mmr.maxLoc;
+        }
+
+        java.lang.System.out.println(matchLoc);
+        // / Show me what you got
+        Core.rectangle(img, matchLoc, new Point(matchLoc.x + templ.cols(),
+                matchLoc.y + templ.rows()), new Scalar(0, 255, 255));
+
+        // Save the visualized detection.
+        java.lang.System.out.println("Writing "+ outFile);
+        Highgui.imwrite(outFile, img);
+
+    }
+    
     public static void main(String[] args) {
         
         File dll = new File("lib\\opencv_java2412.dll");
@@ -407,38 +391,41 @@ public class Test {
         String route_huellas = route_base + "huellas\\";
         String route_pre = route_base + "pre\\";
         String route_ocr = route_base + "ocr\\";
+        String route_aux = route_base + "auxiliar\\";
         String route_ocr_exp = route_ocr + "exp\\";
-        String extension = ".png";
+        String extension = ".jpg";
         String extension_huellas = ".tif";
-        String n_img1  = "101_5";
-        String n_img2  = "101_6";
+        String n_img1  = "lena";
+        String n_img2  = "template";
         
         //OCR TESSERACT
-        Vector<String> imgs;
+        //Vector<String> imgs;
         //imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
-        ITesseract instance_num = new Tesseract1(); // JNA Direct Mapping
-        ITesseract instance_let = new Tesseract1(); // JNA Direct Mapping
-        instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
-        instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
+        //ITesseract instance_num = new Tesseract1(); // JNA Direct Mapping
+        //ITesseract instance_let = new Tesseract1(); // JNA Direct Mapping
+        //instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
+        //instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
         //ocr(instance, imgs);
         
-        java.lang.System.out.println("Test Tesseract:");
+        //java.lang.System.out.println("Test Tesseract:");
         //ocr_exp(instance_num, route_ocr_exp);
         //ocr_exp_let(instance_let, route_ocr_exp);
                 
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         
-        java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
+        //java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
         //gabor(route_huellas, route_base, n_img1, extension_huellas);
-        preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
-        preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
-        java.lang.System.out.println("***INICIANDO ORB***");
-        orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO ORB***");
-        java.lang.System.out.println("***INICIANDO SURF***");
-        surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO SURF***");       
+        //preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
+        //preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
+        //java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
+        //java.lang.System.out.println("***INICIANDO ORB***");
+        //orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
+        //java.lang.System.out.println("***FINALIZANDO ORB***");
+        //java.lang.System.out.println("***INICIANDO SURF***");
+        //surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
+        //java.lang.System.out.println("***FINALIZANDO SURF***");       
+        
+        templateMatching(route_aux+n_img1+extension, route_aux+n_img2+extension, route_aux+"templatematch.png", Imgproc.TM_CCOEFF);
     }  
     
 }
