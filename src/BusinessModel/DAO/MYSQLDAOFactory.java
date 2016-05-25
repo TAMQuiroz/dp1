@@ -22,5 +22,9 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOUser getDAOUser() {
         return new MYSQLDAOUser();
     }
+    @Override
+    public DAOProfile getDAOProfile() {
+        return new MYSQLDAOProfile();
+    }
     
 }

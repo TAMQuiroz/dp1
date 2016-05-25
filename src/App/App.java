@@ -38,13 +38,14 @@ public class App {
         ep.setStatus("Activo");
         long id = 1;
         ep.setId(id);
-        Manager.updateElectoralProcess(ep);
-        System.out.println("Proceso Electoral actualizado!!");
-        Manager.deleteElectoralProcess(id);
-        System.out.println("Proceso Electoral dado de baja!!");
-        System.out.println("El proceso 1 es: " + list.get(0).getName());
-        System.out.println("El proceso 1 es: " + Manager.queryElectoralProcessById(id).getName());
+        //Manager.updateElectoralProcess(ep);
+        //System.out.println("Proceso Electoral actualizado!!");
+        //Manager.deleteElectoralProcess(id);
+        //System.out.println("Proceso Electoral dado de baja!!");
+        //System.out.println("El proceso 1 es: " + list.get(0).getName());
+        //System.out.println("El proceso 1 es: " + Manager.queryElectoralProcessById(id).getName());
         System.out.println("El usuario es: " + u.getName() + " - " + u.getLastName() );
+        System.out.println("Tiene el perfil de: " + u.getProfile().getName());
         new Login().setVisible(true);
     }
 }

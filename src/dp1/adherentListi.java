@@ -9,13 +9,13 @@ package dp1;
  *
  * @author Andrea
  */
-public class adherentListi extends javax.swing.JInternalFrame {
+public class adherentListi extends javax.swing.JFrame {
 
     /**
      * Creates new form adherentListi
      */
     public adherentListi() {
-        setClosable(true);
+
         initComponents();
     }
 
@@ -237,6 +237,11 @@ public class adherentListi extends javax.swing.JInternalFrame {
         jScrollPane4.setViewportView(jTable1);
 
         jButton2.setText("Admitir Adherente");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Cantidad:");
 
@@ -324,6 +329,11 @@ public class adherentListi extends javax.swing.JInternalFrame {
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAmountActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new addAdherent().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

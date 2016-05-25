@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 package dp1;
-import javax.swing.JInternalFrame;
+import javax.swing.JFrame;
 /**
  *
  * @author erickelme
  */
-public class PoliticalParty extends JInternalFrame {
+public class PoliticalParty extends JFrame {
 
     /**
      * Creates new form ElectoralParty
      */
     public PoliticalParty() {
-        setClosable(true);
+       // setClosable(true);
         initComponents();
     }
 
@@ -31,8 +31,6 @@ public class PoliticalParty extends JInternalFrame {
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
         nameText = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        panel1 = new java.awt.Panel();
         jLabel3 = new javax.swing.JLabel();
         legalDepartment = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -48,8 +46,8 @@ public class PoliticalParty extends JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Partido Político - Proceso Electoral Municipal 2016");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mantenimiento Partido Político - Proceso Electoral  2016");
 
         jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario de Creación"));
 
@@ -60,19 +58,6 @@ public class PoliticalParty extends JInternalFrame {
                 nameTextActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Logo*");
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 192, Short.MAX_VALUE)
-        );
 
         jLabel3.setText("Departamento Legal*");
 
@@ -88,8 +73,6 @@ public class PoliticalParty extends JInternalFrame {
 
         jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(panel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(legalDepartment, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -108,15 +91,13 @@ public class PoliticalParty extends JInternalFrame {
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(71, 71, 71)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
+                        .addGap(58, 58, 58)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
             .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane2Layout.createSequentialGroup()
                     .addGap(2, 2, 2)
@@ -132,33 +113,25 @@ public class PoliticalParty extends JInternalFrame {
                         .addGroup(jLayeredPane2Layout.createSequentialGroup()
                             .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, Short.MAX_VALUE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(173, 173, 173)))
+                    .addGap(250, 250, 250)))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel3))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(66, 66, 66)
+                .addGap(72, 72, 72)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister)
                     .addComponent(btnUpdate)
-                    .addComponent(btnCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancel)
+                    .addComponent(btnRegister))
+                .addGap(60, 60, 60))
             .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2))
+                        .addComponent(jLabel1))
                     .addGap(24, 24, 24)
                     .addComponent(legalDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(29, 29, 29)
@@ -169,7 +142,7 @@ public class PoliticalParty extends JInternalFrame {
                     .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(123, Short.MAX_VALUE)))
+                    .addContainerGap(116, Short.MAX_VALUE)))
         );
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Partidos Políticos"));
@@ -225,24 +198,24 @@ public class PoliticalParty extends JInternalFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(136, 136, 136)
                 .addComponent(btnUploadElectoralRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(51, 51, 51)
                 .addComponent(btnShowElectoralRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 98, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUploadElectoralRoll)
                     .addComponent(btnShowElectoralRoll))
-                .addGap(153, 153, 153))
+                .addGap(170, 170, 170))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,7 +235,7 @@ public class PoliticalParty extends JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -275,10 +248,11 @@ public class PoliticalParty extends JInternalFrame {
 
     private void btnUploadElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadElectoralRollActionPerformed
         // TODO add your handling code here:
+        new Upload().setVisible(true);
     }//GEN-LAST:event_btnUploadElectoralRollActionPerformed
 
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
-        // TODO add your handling code here:
+       new adherentListi().setVisible(true);
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
     /**
@@ -325,7 +299,6 @@ public class PoliticalParty extends JInternalFrame {
     private javax.swing.JButton btnUploadElectoralRoll;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -335,7 +308,6 @@ public class PoliticalParty extends JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField legalDepartment;
     private javax.swing.JTextField nameText;
-    private java.awt.Panel panel1;
     private javax.swing.JTextField telephone;
     // End of variables declaration//GEN-END:variables
 }

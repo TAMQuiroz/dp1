@@ -13,9 +13,10 @@ public class Adherent {
     private long id;
     private String name;
     private String lastName;
+    private String source;
     private String observation;
     private PoliticalParty politicalParty;
-
+    
     /**
      * @return the id
      */
@@ -84,5 +85,19 @@ public class Adherent {
      */
     public void setPoliticalParty(PoliticalParty politicalParty) {
         this.politicalParty = politicalParty;
+    }
+
+    /**
+     * @return the source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * @param source the source to set
+     */
+    public void setSource(String source) {
+        this.source = source;
     }
 }
