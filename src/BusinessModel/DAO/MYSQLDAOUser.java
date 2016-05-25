@@ -5,6 +5,8 @@
  */
 package BusinessModel.DAO;
 
+import BusinessModel.Manager;
+import Model.Profile;
 import Model.User;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.Connection;
@@ -54,6 +56,9 @@ public class MYSQLDAOUser implements DAOUser{
                     String docType = rs.getString("docType"); p.setDocType(docType);                    
                     long idProfile = rs.getLong("id_profile"); 
                     //BUSCAR PROFILE PENDIENTE
+                    Profile profile = new Profile();
+                    profile = Manager.queryProfileById(idProfile);
+                    p.setProfile(profile);
                 }		
         } catch (SQLException e) {
                 // TODO Auto-generated catch block

@@ -17,8 +17,8 @@ public abstract class DAOFactory {
 		return null;
     }
     public abstract DAOElectoralProcess getDAOElectoralProcess(); //Polimorfismo
-    public abstract DAOUser getDAOUser(); //Polimorfismo
-    //public abstract DAOPerson getDAOPerson(); //Polimorfismo
+    public abstract DAOProfile getDAOProfile(); //Polimorfismo
+    public abstract DAOUser getDAOUser(); //Polimorfismo    
     //public abstract DAOSalesman getDAOSalesman(); //Polimorfismo	
     //public abstract DAOSales getDAOSale();
     //public abstract DAOCustomer getDAOCustomer();

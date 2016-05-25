@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Manager {
     private static ElectoralProcessDB electoralProcessDB = new ElectoralProcessDB();
+    private static ProfileDB profileDB = new ProfileDB();
     private static UserDB userDB = new UserDB();
     
     
@@ -29,8 +30,13 @@ public class Manager {
     }
     public static ElectoralProcess queryElectoralProcessById(long electoralProcessId){
         return electoralProcessDB.queryById(electoralProcessId);
+    }    
+    public static ArrayList<Profile> queryAllProfiles(){
+        return profileDB.queryAll();
     }
-    
+    public static Profile queryProfileById(long profileId){
+        return profileDB.queryById(profileId);
+    }    
     public static User login(String user, String password){
         return userDB.login(user, password);
     }
