@@ -17,8 +17,8 @@ public class DBConnection {
 	//public static final String password = "inf282db";
 	public static int dbType = MYSQLSERVER;
 	
-	public static final String URL_JDBC_MYSQL = "jdbc:mysql://localhost:3306/dp1EP";        
-	public static final String user = "root";
-	public static final String password = "";
+	public static final String URL_JDBC_MYSQL = "jdbc:mysql://http://quilla.lab.inf.pucp.edu.pe:3306/inf226eg";        
+	public static final String user = "inf226egusr";
+	public static final String password = "vqLHUuKtCnz3fyd6";
 
 }
