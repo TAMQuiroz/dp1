@@ -4,6 +4,7 @@ package dp1;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.io.FileSaver;
+import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
 
@@ -47,7 +48,9 @@ public class Test {
     static int train_samples = 1;  
     static int classes = 10;  
     static int sizex = 20;  
-    static int sizey = 30;  
+    static int sizey = 30;
+    static int scalex = 27;
+    static int scaley = 16;
     static int ImageSize = sizex * sizey;  
     static String pathToImages = "test\\ocr\\opencv\\";  
 
@@ -373,12 +376,238 @@ public class Test {
         java.lang.System.out.println(matchLoc);
         // / Show me what you got
         Core.rectangle(img, matchLoc, new Point(matchLoc.x + templ.cols(),
-                matchLoc.y + templ.rows()), new Scalar(0, 255, 255));
+                matchLoc.y + templ.rows()), new Scalar(0, 0, 255));
 
+        
         // Save the visualized detection.
         java.lang.System.out.println("Writing "+ outFile);
         Highgui.imwrite(outFile, img);
 
+    }
+    
+    public static ImagePlus cortarInferior(ImagePlus imgOrigen){
+        int x, y;
+        double r,g,b;
+        
+        ImagePlus imgPlus = new Duplicator().run(imgOrigen);
+        java.lang.System.out.println("Binarizando");
+        IJ.run(imgPlus, "Make Binary", "");
+        
+        x = 10;
+        y = imgPlus.getHeight()-1;
+        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        r = imgPlus.getPixel(x,y)[0];
+        g = imgPlus.getPixel(x,y)[1];
+        b = imgPlus.getPixel(x,y)[2];
+        
+        while (r != 0){
+            y = y - 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            
+            //java.lang.System.out.println("Analizando punto " + x + ", " + y);
+        }
+        
+        while (r == 0){
+            y = y - 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            
+            //java.lang.System.out.println("Analizando punto " + x + ", " + y);
+        }
+        
+        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        
+        //Cortar desde el punto Y hacia el final de la imagen
+        
+        imgOrigen.setRoi(0,0,imgOrigen.getWidth(),y);
+        java.lang.System.out.println("Cortando");
+        IJ.run(imgOrigen, "Crop", "");
+        
+        return imgOrigen;
+    }
+    
+    public static ImagePlus cortarLaterales(ImagePlus imgOrigen){
+        int x, y;
+        double r,g,b;
+        
+        ImagePlus imgPlus = new Duplicator().run(imgOrigen);
+        java.lang.System.out.println("Binarizando");
+        IJ.run(imgPlus, "Make Binary", "");
+        
+        x = 0;
+        y = (imgPlus.getHeight()-1)/2;
+                
+        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        r = imgPlus.getPixel(x,y)[0];
+        g = imgPlus.getPixel(x,y)[1];
+        b = imgPlus.getPixel(x,y)[2];
+        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        
+        while (r != 0){
+            x = x + 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        while (r == 0){
+            x = x + 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        
+        //Cortar desde el punto Y hacia el final de la imagen
+        
+        imgOrigen.setRoi(x,0,imgOrigen.getWidth(),imgOrigen.getHeight());
+        java.lang.System.out.println("Cortando");
+        IJ.run(imgOrigen, "Crop", "");
+        
+        return imgOrigen;
+    }
+    
+    public static ImagePlus cortarLateralDer(ImagePlus imgOrigen){
+        int x, y;
+        double r,g,b;
+        
+        ImagePlus imgPlus = new Duplicator().run(imgOrigen);
+        java.lang.System.out.println("Binarizando");
+        IJ.run(imgPlus, "Make Binary", "");
+        x = 10;
+        y = 0;
+                
+        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        r = imgPlus.getPixel(x,y)[0];
+        g = imgPlus.getPixel(x,y)[1];
+        b = imgPlus.getPixel(x,y)[2];
+        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        
+        while (r != 0){
+            y = y + 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        while (r == 0){
+            y = y + 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        
+        //Ubicada la altura Y
+        y = y + 10;
+        x = imgPlus.getWidth()-1;
+        
+        while (r != 0){
+            x = x - 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        java.lang.System.out.println(x);
+        while (r == 0){
+            x = x - 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        //Cortar desde el punto Y hacia el final de la imagen
+        imgOrigen.setRoi(0,0, x, imgOrigen.getHeight());
+        java.lang.System.out.println("Cortando");
+        IJ.run(imgOrigen, "Crop", "");
+        
+        return imgOrigen;
+    }
+    
+    public static void cortarFilas (ImagePlus imgOrigen, String route, String n_img, String extension){
+        int x, y;
+        double r,g,b;
+        
+        ImagePlus imgPlus = new Duplicator().run(imgOrigen);
+        java.lang.System.out.println("Binarizando");
+        IJ.run(imgPlus, "Make Binary", "");
+        x = 10;
+        y = imgPlus.getHeight() - 10;
+                
+        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        r = imgPlus.getPixel(x,y)[0];
+        g = imgPlus.getPixel(x,y)[1];
+        b = imgPlus.getPixel(x,y)[2];
+        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        
+        while (r == 0){
+            y = y - 1;
+            
+            r = imgPlus.getPixel(x,y)[0];
+            g = imgPlus.getPixel(x,y)[1];
+            b = imgPlus.getPixel(x,y)[2];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        
+        int rowSize = imgPlus.getHeight() - y;
+        java.lang.System.out.println("Tamaño de fila: " + rowSize);        
+        
+        //Cortar Filas
+        //java.lang.System.out.println(x);
+        imgOrigen.setRoi(0,y, imgOrigen.getWidth(), rowSize);
+        java.lang.System.out.println("Cortando");
+        IJ.run(imgOrigen, "Crop", "");
+        
+        FileSaver fs = new FileSaver(imgOrigen);
+        java.lang.System.out.println("=======Guardando imagen=======");
+        String n_out = route + n_img + "_row" + extension;
+        fs.saveAsJpeg(n_out);
+        
+    }
+    
+    public static void cortarBordes(String route, String n_img, String extension){     
+        
+        String inFile = route + n_img + extension;
+        
+        java.lang.System.out.println("=======Abriendo imagen " + n_img + extension + " para binarizar=======");
+        
+        ImagePlus imgOrigen = new ImagePlus(inFile);
+
+        //Cortar bordes
+        java.lang.System.out.println("=======Cortando borde izquierdo=======");
+        imgOrigen = cortarLaterales(imgOrigen);
+        java.lang.System.out.println("=======Cortando borde inferior=======");
+        imgOrigen = cortarInferior(imgOrigen);
+        java.lang.System.out.println("=======Cortando borde derecho=======");
+        imgOrigen = cortarLateralDer(imgOrigen);
+                
+        FileSaver fs = new FileSaver(imgOrigen);
+        java.lang.System.out.println("=======Guardando imagen=======");
+        String n_out = route + n_img + "_crop" + extension;
+        fs.saveAsPng(n_out);
+        
+        //Cortar
+        java.lang.System.out.println("=======Cortando filas de imagen=======");
+        cortarFilas(imgOrigen, route, n_img, extension);
     }
     
     public static void main(String[] args) {
@@ -395,8 +624,8 @@ public class Test {
         String route_ocr_exp = route_ocr + "exp\\";
         String extension = ".jpg";
         String extension_huellas = ".tif";
-        String n_img1  = "lena";
-        String n_img2  = "template";
+        String n_img1  = "101_1";
+        String n_img2  = "103_1";
         
         //OCR TESSERACT
         //Vector<String> imgs;
@@ -413,19 +642,20 @@ public class Test {
                 
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         
-        //java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
+        java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
         //gabor(route_huellas, route_base, n_img1, extension_huellas);
-        //preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
-        //preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
-        //java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
-        //java.lang.System.out.println("***INICIANDO ORB***");
-        //orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        //java.lang.System.out.println("***FINALIZANDO ORB***");
+        preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
+        preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
+        java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
+        java.lang.System.out.println("***INICIANDO ORB***");
+        orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
+        java.lang.System.out.println("***FINALIZANDO ORB***");
         //java.lang.System.out.println("***INICIANDO SURF***");
         //surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
         //java.lang.System.out.println("***FINALIZANDO SURF***");       
         
-        templateMatching(route_aux+n_img1+extension, route_aux+n_img2+extension, route_aux+"templatematch.png", Imgproc.TM_CCOEFF);
+        //cortarBordes(route_aux,n_img1,extension);
+        //templateMatching(route_aux+n_img1+extension, route_aux+n_img2+extension, route_aux+"templatematch.png", Imgproc.TM_CCOEFF);
     }  
     
 }
