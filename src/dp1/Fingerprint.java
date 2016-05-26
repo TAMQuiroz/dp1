@@ -44,7 +44,7 @@ import org.opencv.highgui.Highgui;
 
 import java.lang.System.*;
 import org.opencv.core.Core.MinMaxLocResult;
-public class Test {
+public class Fingerprint {
     static int train_samples = 1;  
     static int classes = 10;  
     static int sizex = 20;  
@@ -99,7 +99,7 @@ public class Test {
                 BufferedImage croppedImage = clone.getBufferedImage();
                 ImageIO.write(croppedImage, "jpg", new File(n_out));
             } catch (IOException ex) {
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Fingerprint.class.getName()).log(Level.SEVERE, null, ex);
             }
             imgs.add(i, n_out);
         }
