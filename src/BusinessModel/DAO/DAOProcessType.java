@@ -5,13 +5,14 @@
  */
 package BusinessModel.DAO;
 
-import Model.User;
+import Model.ProcessType;
+import java.util.ArrayList;
 
 /**
  *
  * @author erickelme
  */
-public interface DAOUser {
-    User login(String user, String password);
-    User queryById(long userId);
+public interface DAOProcessType {
+    ArrayList<ProcessType> queryAll();
+    ProcessType queryById(long processTypeId);
 }

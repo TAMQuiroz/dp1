@@ -6,24 +6,27 @@
 package BusinessModel;
 
 import BusinessModel.DAO.DAOFactory;
-import BusinessModel.DAO.DAOUser;
+import BusinessModel.DAO.DAOProcessType;
 import BusinessModel.DAO.DBConnection;
+import java.util.ArrayList;
 import Model.*;
 /**
  *
  * @author erickelme
  */
-public class UserDB {    
+public class ProcessTypeDB {
     DAOFactory daoFactory = DAOFactory.getDAOFactory(DBConnection.dbType);
-    DAOUser daoUser = daoFactory.getDAOUser();
+    DAOProcessType daoProcessType = daoFactory.getDAOProcessType();
     
-    public UserDB(){
+    public ProcessTypeDB(){
         
     }    
-    public User login(String user, String password){
-        return daoUser.login(user, password);
+    
+    public ArrayList<ProcessType> queryAll(){
+        return daoProcessType.queryAll();
     }
-    public User queryById(long userId){
-        return daoUser.queryById(userId);
+    
+    public ProcessType queryById(long profileId){
+        return daoProcessType.queryById(profileId);
     }
 }

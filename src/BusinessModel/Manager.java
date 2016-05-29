@@ -14,7 +14,7 @@ public class Manager {
     private static ElectoralProcessDB electoralProcessDB = new ElectoralProcessDB();
     private static ProfileDB profileDB = new ProfileDB();
     private static UserDB userDB = new UserDB();
-    
+    private static ProcessTypeDB processTypeDB = new ProcessTypeDB();
     
     public static void addElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.add(ep);
@@ -25,6 +25,12 @@ public class Manager {
     public static void deleteElectoralProcess(long electoralProcessId){
         electoralProcessDB.delete(electoralProcessId);
     }
+    public static ArrayList<ProcessType> queryAllProcessTypes(){
+        return processTypeDB.queryAll();
+    }
+    public static ProcessType queryProcessTypeById(long processTypeId){
+        return processTypeDB.queryById(processTypeId);
+    }  
     public static ArrayList<ElectoralProcess> queryAllElectoralProcess(){
         return electoralProcessDB.queryAll();
     }
@@ -39,5 +45,8 @@ public class Manager {
     }    
     public static User login(String user, String password){
         return userDB.login(user, password);
+    }
+    public static User queryUserById(long userId){
+        return userDB.queryById(userId);
     }
 }

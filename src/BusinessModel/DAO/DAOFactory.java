@@ -19,7 +19,7 @@ public abstract class DAOFactory {
     public abstract DAOElectoralProcess getDAOElectoralProcess(); //Polimorfismo
     public abstract DAOProfile getDAOProfile(); //Polimorfismo
     public abstract DAOUser getDAOUser(); //Polimorfismo    
-    //public abstract DAOSalesman getDAOSalesman(); //Polimorfismo	
+    public abstract DAOProcessType getDAOProcessType(); //Polimorfismo	
     //public abstract DAOSales getDAOSale();
     //public abstract DAOCustomer getDAOCustomer();
 

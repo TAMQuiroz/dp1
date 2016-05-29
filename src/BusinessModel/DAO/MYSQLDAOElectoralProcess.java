@@ -5,7 +5,8 @@
  */
 package BusinessModel.DAO;
 
-import Model.ElectoralProcess;
+import BusinessModel.Manager;
+import Model.*;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,7 +35,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
 
                 String sql = "INSERT INTO electoralProcess (name, date, startRegistrationDate, endRegistrationDate, startReceptionDate, endReceptionDate, "
                         + "startValidationDate, endValidationDate, minPercentage, status, population, startExtraReceptionDate, "
-                        + "endExtraReceptionDate, startExtraValidationDate, endExtraValidationDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        + "endExtraReceptionDate, startExtraValidationDate, endExtraValidationDate, id_processType, id_user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 //pstmt.setInt(1,  p.getId());
                 pstmt.setString(1, ep.getName());
@@ -86,9 +87,8 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                 utilDate = ep.getEndExtraValidationDate();			
                 sqlDate = new java.sql.Date(utilDate.getTime());			
                 pstmt.setDate(15, sqlDate);
-                
-                pstmt.executeUpdate();
-                
+                pstmt.setLong(16, ep.getProcessType().getId());
+                pstmt.setLong(17, ep.getUser().getId());
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -132,7 +132,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
 
                 String sql = "UPDATE electoralProcess SET name=?, date=?, startRegistrationDate=?, endRegistrationDate=?, startReceptionDate=?, endReceptionDate=?, "
                         + "startValidationDate=?, endValidationDate=?, minPercentage=?, status=?, population=?, startExtraReceptionDate=?, "
-                        + "endExtraReceptionDate=?, startExtraValidationDate=?, endExtraValidationDate=? WHERE id=?";
+                        + "endExtraReceptionDate=?, startExtraValidationDate=?, endExtraValidationDate=?, id_processType=?, id_user=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
                 //pstmt.setInt(1,  p.getId());
                 pstmt.setString(1, ep.getName());
@@ -184,8 +184,10 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                 utilDate = ep.getEndExtraValidationDate();			
                 sqlDate = new java.sql.Date(utilDate.getTime());			
                 pstmt.setDate(15, sqlDate);
+                pstmt.setLong(16, ep.getProcessType().getId());
+                pstmt.setLong(17, ep.getUser().getId());
+                pstmt.setLong(18, ep.getId());                
                 
-                pstmt.setLong(16, ep.getId());                
                 pstmt.executeUpdate();
                 
                 //Paso 4: Ejecutar la sentencia						
@@ -322,7 +324,15 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setStartExtraValidationDate(startExtraValidationDate);
                         date = rs.getDate("endExtraValidationDate");                         
                         java.util.Date endExtraValidationDate = new java.util.Date(date.getTime());
-                        ep.setEndExtraValidationDate(endExtraValidationDate);                        
+                        ep.setEndExtraValidationDate(endExtraValidationDate);  
+                        long processTypeId = rs.getLong("id_processType");
+                        long userId = rs.getLong("id_user");
+                        ProcessType processType = new ProcessType();
+                        processType = Manager.queryProcessTypeById(processTypeId);
+                        ep.setProcessType(processType);
+                        User user = new User();
+                        user = Manager.queryUserById(userId);
+                        ep.setUser(user);
                         electoralProcessList.add(ep);
                 }
 
@@ -410,7 +420,15 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setStartExtraValidationDate(startExtraValidationDate);
                         date = rs.getDate("endExtraValidationDate");                         
                         java.util.Date endExtraValidationDate = new java.util.Date(date.getTime());
-                        ep.setEndExtraValidationDate(endExtraValidationDate);                                                
+                        ep.setEndExtraValidationDate(endExtraValidationDate);       
+                        long processTypeId = rs.getLong("id_processType");
+                        long userId = rs.getLong("id_user");
+                        ProcessType processType = new ProcessType();
+                        processType = Manager.queryProcessTypeById(processTypeId);
+                        ep.setProcessType(processType);
+                        User user = new User();
+                        user = Manager.queryUserById(userId);
+                        ep.setUser(user);
                 }
         } catch (SQLException e) {
                 // TODO Auto-generated catch block

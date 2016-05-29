@@ -26,5 +26,9 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOProfile getDAOProfile() {
         return new MYSQLDAOProfile();
     }
+    @Override
+    public DAOProcessType getDAOProcessType() {
+        return new MYSQLDAOProcessType();
+    }
     
 }
