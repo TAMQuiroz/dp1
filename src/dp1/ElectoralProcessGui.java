@@ -414,7 +414,7 @@ public class ElectoralProcessGui extends JFrame {
                                 
                                 
                                 addElectoralProcess(process);
-                                
+                                printf("Agrego nuevo proceso electoral")
                                 }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
 				} 
