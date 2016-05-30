@@ -36,19 +36,23 @@ import static BusinessModel.Manager.addElectoralProcess;
 import static BusinessModel.Manager.deleteElectoralProcess;
 import static BusinessModel.Manager.updateElectoralProcess;
 import java.awt.Component;
-
+import javax.swing.JInternalFrame;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author 
  */
 public class ElectoralProcessGui extends JFrame {
-
+ MyTableModel electoralProcessModel;
+    
     /**
      * Creates new form ElectoralProcess
      */
     public ElectoralProcessGui() {
-        //setClosable(true);
+        
         initComponents();
+        electoralProcessModel = new MyTableModel();
+	jTable1.setModel(electoralProcessModel);
     }
 
     /**
@@ -60,6 +64,7 @@ public class ElectoralProcessGui extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -78,22 +83,25 @@ public class ElectoralProcessGui extends JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLayeredPane4 = new javax.swing.JLayeredPane();
-        jLabel10 = new javax.swing.JLabel();
-        nameText = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        legalDepartment = new javax.swing.JTextField();
-        btnRegister = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        jLayeredPane3 = new javax.swing.JLayeredPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
+        btnRegister = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nuevo Proceso Electoral");
@@ -125,43 +133,12 @@ public class ElectoralProcessGui extends JFrame {
 
         jLabel8.setText("Inicio de validación(*)");
 
-        jButton2.setText("Guardar Proceso");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Cancelar ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLayeredPane4.setBorder(javax.swing.BorderFactory.createTitledBorder("Ubigeo"));
-
-        jLabel10.setText("Nombre*");
-
-        nameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameTextActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Descripcion*");
+        jLabel12.setText("Nombre de proceso (*)");
 
         btnRegister.setText("Registrar");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
-            }
-        });
-
-        btnCancel.setText("Cancelar");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
             }
         });
 
@@ -172,62 +149,16 @@ public class ElectoralProcessGui extends JFrame {
             }
         });
 
-        jLayeredPane4.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(legalDepartment, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnRegister, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(btnUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
-        jLayeredPane4.setLayout(jLayeredPane4Layout);
-        jLayeredPane4Layout.setHorizontalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane4Layout.createSequentialGroup()
-                        .addComponent(legalDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        jLayeredPane4Layout.setVerticalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10)
-                    .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)
-                        .addComponent(legalDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton1.setText("Agregar Ubigeo");
 
-        jLayeredPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Ubigeo"));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -235,32 +166,10 @@ public class ElectoralProcessGui extends JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Descripcion"
+                "Nombre", "Tipo de proceso", "Fecha de proceso"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
-
-        jScrollPane2.setViewportView(jScrollPane3);
-
-        jLayeredPane3.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
-        jLayeredPane3.setLayout(jLayeredPane3Layout);
-        jLayeredPane3Layout.setHorizontalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2))
-        );
-        jLayeredPane3Layout.setVerticalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel12.setText("Nombre de proceso (*)");
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,55 +177,54 @@ public class ElectoralProcessGui extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLayeredPane3))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel2))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(85, 85, 85))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addGap(114, 114, 114)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel9)
-                                        .addComponent(jLabel1))
-                                    .addGap(34, 34, 34)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField9)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextField4)
-                                            .addComponent(jTextField6))))
-                                .addComponent(jLabel4)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLayeredPane4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(jButton2)
-                        .addGap(113, 113, 113)
-                        .addComponent(jButton3)))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72)
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel2))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(85, 85, 85))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(114, 114, 114)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel1))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -358,20 +266,20 @@ public class ElectoralProcessGui extends JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRegister)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCancel)
+                    .addComponent(jButton1))
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(24, 24, 24)
                     .addComponent(jLabel12)
-                    .addContainerGap(466, Short.MAX_VALUE)))
+                    .addContainerGap(382, Short.MAX_VALUE)))
         );
 
         pack();
@@ -381,166 +289,147 @@ public class ElectoralProcessGui extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameTextActionPerformed
-
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-        
-			
-                                try {
-                                String name = jTextField1.getText();
-                                Integer countprevious=Integer.parseInt(jTextField3.getText());
-                                Double minpercent= Double.parseDouble(jTextField8.getText());
-                                String processtype= (String)jComboBox1.getSelectedItem();
-                                
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date date = formatter.parse(jTextField2.getText());
-                                Date startregistrationdate=formatter.parse(jTextField5.getText());
-                                Date endregistrationdate=formatter.parse(jTextField4.getText());
-                                Date startvaldationdate=formatter.parse(jTextField7.getText());
-                                Date endvalidationdate=formatter.parse(jTextField6.getText());
-                                
-                                
-                                ElectoralProcess process = new ElectoralProcess();
-                                process.setDate(date);
-                                process.setName(name);                      
-                                process.setPopulation(countprevious);
-                                
-                                
-                                
-                               ProcessType proctype;
-                                 java.lang.System.out.println(processtype.substring(0,1));
-                                proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
-                                java.lang.System.out.println(processtype.substring(0,1));
-                                process.setProcessType(proctype);
-                                process.setMinPercentage(minpercent);
-                                process.setStartValidationDate(startvaldationdate);
-                                process.setEndValidationDate(endvalidationdate);
-                                process.setStartRegistrationDate(startregistrationdate);
-                                process.setEndRegistrationDate(endregistrationdate);
-                                process.setStartExtraReceptionDate(new Date());
-                                process.setStartExtraValidationDate(new Date());
-                                process.setStartReceptionDate(new Date());
-                                process.setEndExtraReceptionDate(new Date());
-                                process.setEndExtraValidationDate(new Date());
-                                process.setEndReceptionDate(new Date());
-                                Model.User u = Manager.login("71844756", "eeee");   
-                                process.setUser(u);
-                                process.setStatus("Activo");
-                                String ubigeo= nameText.getText();
-                                String description=legalDepartment.getText();
-                                
-                                /*Ubigeo ubi= new Ubigeo();
-                                ubi.setName(ubigeo);
-                                ubi.setDescription(description);
-                                ubi.setElectoralProcess(process);
-                                */
-                                
-                                
-                                addElectoralProcess(process);
-                                 java.lang.System.out.println("Agrego nuevo proceso electoral");
-                                }catch (ParseException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
-				} 
-                                
-                                
-			/*	double quota = Double.parseDouble(textQuota.getText());
-				String username = textUsername.getText();
-				String password = textPassword.getText();
-				
-				Salesman m = new Salesman();
-				//m.setId(id);
-				m.setName(name);
-				m.setQuota(quota);
-				m.setPassWord(password);
-				m.setUserName(username);
-				try {
-					App.proxy.addSalesman(m);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				refreshTblSalesmans();
-			*/
-    }//GEN-LAST:event_btnRegisterActionPerformed
-
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
-         try {
-                                String name = jTextField1.getText();
-                                Integer countprevious=Integer.parseInt(jTextField3.getText());
-                                Double minpercent= Double.parseDouble(jTextField8.getText());
-                                String processtype= (String)jComboBox1.getSelectedItem();
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date date = formatter.parse(jTextField2.getText());
-                                Date startregistrationdate=formatter.parse(jTextField5.getText());
-                                Date endregistrationdate=formatter.parse(jTextField4.getText());
-                                Date startvaldationdate=formatter.parse(jTextField7.getText());
-                                Date endvalidationdate=formatter.parse(jTextField6.getText());
-                                
-                                
-                                ElectoralProcess process = new ElectoralProcess();
-                                process.setDate(date);
-                                process.setName(name);                      
-                                process.setPopulation(countprevious);
-                                
-                                ProcessType proctype;
-                                proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
-                                process.setProcessType(proctype);
-                                process.setMinPercentage(minpercent);
-                                process.setStartValidationDate(startvaldationdate);
-                                process.setEndValidationDate(endvalidationdate);
-                                process.setStartRegistrationDate(startregistrationdate);
-                                process.setEndRegistrationDate(endregistrationdate);
-                                
-                                String ubigeo= nameText.getText();
-                                String description=legalDepartment.getText();
-                                
-                                /*Ubigeo ubi= new Ubigeo();
-                                ubi.setName(ubigeo);
-                                ubi.setDescription(description);
-                                ubi.setElectoralProcess(process);
-                                */
-                                
-                                updateElectoralProcess(process);
-                                
-                                }catch (ParseException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
-				} 
-                                
-                                
-			/*	
-				refreshTblSalesmans();
-			*/
-        
+        try {
+            String name = jTextField1.getText();
+            Integer countprevious=Integer.parseInt(jTextField3.getText());
+            Double minpercent= Double.parseDouble(jTextField8.getText());
+            String processtype= (String)jComboBox1.getSelectedItem();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = formatter.parse(jTextField2.getText());
+            Date startregistrationdate=formatter.parse(jTextField5.getText());
+            Date endregistrationdate=formatter.parse(jTextField4.getText());
+            Date startvaldationdate=formatter.parse(jTextField7.getText());
+            Date endvalidationdate=formatter.parse(jTextField6.getText());
+
+            ElectoralProcess process = new ElectoralProcess();
+            process.setDate(date);
+            process.setName(name);
+            process.setPopulation(countprevious);
+
+            ProcessType proctype;
+            proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
+            process.setProcessType(proctype);
+            process.setMinPercentage(minpercent);
+            process.setStartValidationDate(startvaldationdate);
+            process.setEndValidationDate(endvalidationdate);
+            process.setStartRegistrationDate(startregistrationdate);
+            process.setEndRegistrationDate(endregistrationdate);
+
+           
+
+            /*Ubigeo ubi= new Ubigeo();
+            ubi.setName(ubigeo);
+            ubi.setDescription(description);
+            ubi.setElectoralProcess(process);
+            */
+
+            updateElectoralProcess(process);
+            refreshTblElectoralProcess();
+        }catch (ParseException ex) {
+            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+        }
+
+        /*
+        refreshTblSalesmans();
+        */
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         JFrame frame1 = null;
         // TODO add your handling code here:
-              int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
-			if (res == JOptionPane.OK_OPTION) {
-				try {
-					deleteElectoralProcess(Integer.parseInt(jTextField9.getText()));
-                                        //jTable2.clear();
-                                        //jTable2.addAll(tableQuery.getResultList());
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			//	refreshTblSalesmans();
-			}
+        int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
+        if (res == JOptionPane.OK_OPTION) {
+            try {
+                deleteElectoralProcess(Integer.parseInt(jTextField9.getText()));
+                
+                refreshTblElectoralProcess();
+                //jTable2.clear();
+                //jTable2.addAll(tableQuery.getResultList());
+            } catch (NumberFormatException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            //	refreshTblSalesmans();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            String name = jTextField1.getText();
+            Integer countprevious=Integer.parseInt(jTextField3.getText());
+            Double minpercent= Double.parseDouble(jTextField8.getText());
+            String processtype= (String)jComboBox1.getSelectedItem();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = formatter.parse(jTextField2.getText());
+            Date startregistrationdate=formatter.parse(jTextField5.getText());
+            Date endregistrationdate=formatter.parse(jTextField4.getText());
+            Date startvaldationdate=formatter.parse(jTextField7.getText());
+            Date endvalidationdate=formatter.parse(jTextField6.getText());
+
+            ElectoralProcess process = new ElectoralProcess();
+            process.setDate(date);
+            process.setName(name);
+            process.setPopulation(countprevious);
+
+            ProcessType proctype;
+            java.lang.System.out.println(processtype.substring(0,1));
+            proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
+            java.lang.System.out.println(processtype.substring(0,1));
+            process.setProcessType(proctype);
+            process.setMinPercentage(minpercent);
+            process.setStartValidationDate(startvaldationdate);
+            process.setEndValidationDate(endvalidationdate);
+            process.setStartRegistrationDate(startregistrationdate);
+            process.setEndRegistrationDate(endregistrationdate);
+            process.setStartExtraReceptionDate(new Date());
+            process.setStartExtraValidationDate(new Date());
+            process.setStartReceptionDate(new Date());
+            process.setEndExtraReceptionDate(new Date());
+            process.setEndExtraValidationDate(new Date());
+            process.setEndReceptionDate(new Date());
+            Model.User u = Manager.login("71844756", "eeee");
+            process.setUser(u);
+            process.setStatus("Activo");
+
+            /*Ubigeo ubi= new Ubigeo();
+            ubi.setName(ubigeo);
+            ubi.setDescription(description);
+            ubi.setElectoralProcess(process);
+            */
+
+            addElectoralProcess(process);
+            java.lang.System.out.println("Agrego nuevo proceso electoral");
+            
+            refreshTblElectoralProcess();
+        }catch (ParseException ex) {
+            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+        }
+
+        /*	double quota = Double.parseDouble(textQuota.getText());
+        String username = textUsername.getText();
+        String password = textPassword.getText();
+
+        Salesman m = new Salesman();
+        //m.setId(id);
+        m.setName(name);
+        m.setQuota(quota);
+        m.setPassWord(password);
+        m.setUserName(username);
+        try {
+            App.proxy.addSalesman(m);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        refreshTblSalesmans();
+        */
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,17 +466,52 @@ public class ElectoralProcessGui extends JFrame {
             }
         });
     }
+    class MyTableModel extends AbstractTableModel {
+        ArrayList<Model.ElectoralProcess> electoralProcessList = Manager.queryAllElectoralProcess();
+		String [] titles = { "Nombre", "Tipo Proceso","Fecha Proceso"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 3;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return electoralProcessList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + electoralProcessList.get(row).getName();
+				break;
+			case 1:
+				value = "" + electoralProcessList.get(row).getProcessType().getName();
+				break;
+			case 2:
+				value = "" + electoralProcessList.get(row).getDate();
+				break;			
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+    public void refreshTblElectoralProcess() {
+		electoralProcessModel.electoralProcessList = Manager.queryAllElectoralProcess();
+		electoralProcessModel.fireTableChanged(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -597,11 +521,8 @@ public class ElectoralProcessGui extends JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JLayeredPane jLayeredPane4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -611,7 +532,5 @@ public class ElectoralProcessGui extends JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField legalDepartment;
-    private javax.swing.JTextField nameText;
     // End of variables declaration//GEN-END:variables
 }

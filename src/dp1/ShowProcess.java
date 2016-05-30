@@ -14,7 +14,7 @@ import Model.*;
  * @author Claudia
  */
 public class ShowProcess extends JInternalFrame {
-
+private javax.swing.JDesktopPane jDesktopPane1;
     /**
      * Creates new form ShowProcess
      */
@@ -132,6 +132,9 @@ public class ShowProcess extends JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+     /* ElectoralProcessGui If= new ElectoralProcessGui();
+      jDesktopPane1.add(If);
+       If.show();*/
          new ElectoralProcessGui().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

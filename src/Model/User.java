@@ -21,7 +21,8 @@ public class User {
     private String docCode;
     private String docType;
     private String status;
-    private Profile profile;    
+    private Profile profile;  
+    private String email;
 
     /**
      * @return the id
@@ -39,6 +40,17 @@ public class User {
      */
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.email = email;
     }
 
     /**
