@@ -14,12 +14,162 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
  * @author erickelme
  */
 public class MYSQLDAOUser implements DAOUser{
+    
+    @Override
+    public void add(User ep) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+
+                String sql = "INSERT INTO user (name, lastname, password, bornDay, phone, docCode, "
+                        + "id_profile) VALUES(?,?,?,?,?,?,?)";
+                pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                
+                pstmt.setString(1, ep.getName());                
+                java.util.Date utilDate = ep.getBornDay();			
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());			
+                pstmt.setDate(4, sqlDate);
+                pstmt.setString(2, ep.getLastName());
+                pstmt.setString(3, ep.getPassword());
+                pstmt.setString(5, ep.getPhone());
+                pstmt.setString(6, ep.getDocCode());
+                pstmt.setLong(7, ep.getProfile().getId());                
+                //Paso 4: Ejecutar la sentencia						
+                pstmt.executeUpdate();
+                //Paso 5:(opc) Procesar los resultado
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
+    
+    @Override
+    public void update(User ep) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+
+                String sql = "UPDATE user SET name=?, lastname=?, password=?, bornDay=?, phone=?, docCode=?, id_profile=? WHERE id=?";
+                pstmt = conn.prepareStatement(sql);                
+                pstmt.setString(1, ep.getName());             
+                java.util.Date utilDate = ep.getBornDay();			
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());			
+                pstmt.setDate(4, sqlDate);
+                pstmt.setString(2, ep.getLastName());
+                pstmt.setString(3, ep.getPassword());
+                pstmt.setString(5, ep.getPhone());
+                pstmt.setString(6, ep.getDocCode());
+                pstmt.setLong(7, ep.getProfile().getId());   
+                pstmt.setLong(8, ep.getId());   
+                pstmt.executeUpdate();
+                //Paso 4: Ejecutar la sentencia						
+                pstmt.executeUpdate();
+                //Paso 5:(opc) Procesar los resultado
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
+    
+    @Override
+    public void delete(long userId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+
+                String sql = "UPDATE user SET status=? WHERE id=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, "Inactivo");                
+                pstmt.setLong(2, userId);   
+                //Paso 4: Ejecutar la sentencia						
+                pstmt.executeUpdate();
+                //Paso 5:(opc) Procesar los resultado
+
+
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
+    
     @Override
     public User login(String user, String password) {
         Connection conn = null;
@@ -72,6 +222,71 @@ public class MYSQLDAOUser implements DAOUser{
         }
         return p;	
     }
+    
+    @Override
+    public ArrayList<User> queryAll() {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<User> userList = new ArrayList<User>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from user";
+                pstmt = conn.prepareStatement(sql);			
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                        User user = new User();
+                        long id = rs.getLong("id"); user.setId(id);                       
+                        String name = rs.getString("name"); user.setName(name);
+                        String lastName = rs.getString("lastName"); user.setLastName(lastName);                    
+                        java.sql.Date date = rs.getDate("bornDay"); 
+                        java.util.Date dateJava = new java.util.Date(date.getTime()); 
+                        user.setBornDay(dateJava);        
+                        String phone = rs.getString("phone"); user.setPhone(phone);                    
+                        String docCode = rs.getString("docCode"); user.setDocCode(docCode);
+                        String docType = rs.getString("docType"); user.setDocType(docType);                    
+                        long idProfile = rs.getLong("id_profile"); 
+                        //BUSCAR PROFILE PENDIENTE
+                        Profile profile = new Profile();
+                        profile = Manager.queryProfileById(idProfile);
+                        user.setProfile(profile);  
+                        userList.add(user);
+                }
+
+
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return userList;
+    }
+    
     @Override
     public User queryById(long userId){
         Connection conn = null;

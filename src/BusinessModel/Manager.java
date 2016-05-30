@@ -46,6 +46,18 @@ public class Manager {
     public static User login(String user, String password){
         return userDB.login(user, password);
     }
+    public static void addUser(User ep){
+        userDB.add(ep);
+    }
+    public static void updateUser(User ep){
+        userDB.update(ep);
+    }
+    public static void deleteUser(long userId){
+        userDB.delete(userId);
+    }
+    public static ArrayList<User> queryAllUsers(){
+        return userDB.queryAll();
+    }
     public static User queryUserById(long userId){
         return userDB.queryById(userId);
     }
