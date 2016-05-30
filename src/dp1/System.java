@@ -133,7 +133,7 @@ public class System extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
-        User If= new User();
+        UserGui If= new UserGui();
          jDesktopPane1.add(If);
          If.show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed

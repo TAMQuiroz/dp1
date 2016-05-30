@@ -141,7 +141,7 @@ public class ShowProcess extends JInternalFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-         new PoliticalParty().setVisible(true);
+         new PoliticalPartyGui().setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
