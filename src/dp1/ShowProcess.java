@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package dp1;
+import BusinessModel.Manager;
+import java.util.ArrayList;
 import javax.swing.JInternalFrame;
+import javax.swing.table.AbstractTableModel;
+import Model.*;
 /**
  *
  * @author Claudia
@@ -17,6 +21,8 @@ public class ShowProcess extends JInternalFrame {
     public ShowProcess() {
         setClosable(true);
         initComponents();
+        electoralProcessModel = new MyTableModel();
+	jTable1.setModel(electoralProcessModel);
     }
 
     /**
@@ -182,4 +188,43 @@ public class ShowProcess extends JInternalFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+    MyTableModel electoralProcessModel;
+    
+    class MyTableModel extends AbstractTableModel {
+        ArrayList<Model.ElectoralProcess> electoralProcessList = Manager.queryAllElectoralProcess();
+		String [] titles = { "Nombre", "Tipo Proceso","Fecha Proceso"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 3;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return electoralProcessList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + electoralProcessList.get(row).getName();
+				break;
+			case 1:
+				value = "" + electoralProcessList.get(row).getProcessType().getName();
+				break;
+			case 2:
+				value = "" + electoralProcessList.get(row).getDate();
+				break;			
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+    public void refreshTblElectoralProcess() {
+		electoralProcessModel.electoralProcessList = Manager.queryAllElectoralProcess();
+		electoralProcessModel.fireTableChanged(null);
+    }
 }
