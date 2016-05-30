@@ -34,8 +34,8 @@ public class MYSQLDAOUser implements DAOUser{
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
 
-                String sql = "INSERT INTO user (name, lastname, password, bornDay, phone, docCode, status,"
-                        + "id_profile) VALUES(?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO user (name, lastname, password, bornDay, phone, docCode, docType, status,"
+                        + "id_profile) VALUES(?,?,?,?,?,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                
                 pstmt.setString(1, ep.getName());                
                 java.util.Date utilDate = ep.getBornDay();			
@@ -45,8 +45,9 @@ public class MYSQLDAOUser implements DAOUser{
                 pstmt.setString(3, ep.getPassword());
                 pstmt.setString(5, ep.getPhone());
                 pstmt.setString(6, ep.getDocCode());
-                pstmt.setString(7, ep.getStatus());
-                pstmt.setLong(8, ep.getProfile().getId());                
+                pstmt.setString(7, ep.getDocType());
+                pstmt.setString(8, ep.getStatus());
+                pstmt.setLong(9, ep.getProfile().getId());                
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -85,7 +86,7 @@ public class MYSQLDAOUser implements DAOUser{
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
 
-                String sql = "UPDATE user SET name=?, lastname=?, password=?, bornDay=?, phone=?, docCode=?, status=?, id_profile=? WHERE id=?";
+                String sql = "UPDATE user SET name=?, lastname=?, password=?, bornDay=?, phone=?, docCode=?, docType=?, status=?, id_profile=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);                
                 pstmt.setString(1, ep.getName());             
                 java.util.Date utilDate = ep.getBornDay();			
@@ -95,9 +96,10 @@ public class MYSQLDAOUser implements DAOUser{
                 pstmt.setString(3, ep.getPassword());
                 pstmt.setString(5, ep.getPhone());
                 pstmt.setString(6, ep.getDocCode());
-                pstmt.setLong(7, ep.getProfile().getId());  
-                pstmt.setString(8, ep.getStatus());
-                pstmt.setLong(9, ep.getId());   
+                pstmt.setString(7, ep.getDocType());
+                pstmt.setLong(8, ep.getProfile().getId());  
+                pstmt.setString(9, ep.getStatus());
+                pstmt.setLong(10, ep.getId());   
                 pstmt.executeUpdate();
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
