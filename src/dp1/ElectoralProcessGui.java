@@ -5,16 +5,46 @@
  */
 package dp1;
 import javax.swing.JFrame;
+import java.rmi.RemoteException;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+import Model.Ubigeo;
+import Model.ElectoralProcess;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jdatepicker.*;
+import javax.swing.*;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import javax.swing.ComboBoxModel;
+import Model.ProcessType;
+import BusinessModel.Manager;
+import static BusinessModel.Manager.addElectoralProcess;
+import static BusinessModel.Manager.updateElectoralProcess;
+
 /**
  *
- * @author Claudia
+ * @author 
  */
-public class ElectoralProcess extends JFrame {
+public class ElectoralProcessGui extends JFrame {
 
     /**
      * Creates new form ElectoralProcess
      */
-    public ElectoralProcess() {
+    public ElectoralProcessGui() {
         //setClosable(true);
         initComponents();
     }
@@ -74,7 +104,8 @@ public class ElectoralProcess extends JFrame {
 
         jLabel2.setText("Tipo de proceso(*)");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Presidencial", "Regional", "Distrital", "Otros" }));
+        jComboBox1.setToolTipText("");
 
         jLabel3.setText("Fecha del proceso(*)");
 
@@ -117,10 +148,25 @@ public class ElectoralProcess extends JFrame {
         jLabel11.setText("Descripcion*");
 
         btnRegister.setText("Registrar");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Modificar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         jLayeredPane4.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -325,6 +371,142 @@ public class ElectoralProcess extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextActionPerformed
 
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        
+			
+                                try {
+                                String name = jTextField1.getText();
+                                Integer countprevious=Integer.parseInt(jTextField3.getText());
+                                Double minpercent= Double.parseDouble(jTextField8.getText());
+                                String processtype= jComboBox1.toString();
+                                
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                                Date date = formatter.parse(jTextField2.getText());
+                                Date startregistrationdate=formatter.parse(jTextField5.getText());
+                                Date endregistrationdate=formatter.parse(jTextField4.getText());
+                                Date startvaldationdate=formatter.parse(jTextField7.getText());
+                                Date endvalidationdate=formatter.parse(jTextField6.getText());
+                                
+                                
+                                ElectoralProcess process = new ElectoralProcess();
+                                process.setDate(date);
+                                process.setName(name);                      
+                                process.setPopulation(countprevious);
+                                
+                                
+                                ProcessType proctype= new ProcessType();
+                                proctype.setName(processtype);
+                                process.setProcessType(proctype);
+                                process.setMinPercentage(minpercent);
+                                process.setStartValidationDate(startvaldationdate);
+                                process.setEndValidationDate(endvalidationdate);
+                                process.setStartRegistrationDate(startregistrationdate);
+                                process.setEndRegistrationDate(endregistrationdate);
+                                
+                                String ubigeo= nameText.getText();
+                                String description=legalDepartment.getText();
+                                
+                                Ubigeo ubi= new Ubigeo();
+                                ubi.setName(ubigeo);
+                                ubi.setDescription(description);
+                                ubi.setElectoralProcess(process);
+                                
+                                
+                                addElectoralProcess(process);
+                                
+                                }catch (ParseException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+				} 
+                                
+                                
+			/*	double quota = Double.parseDouble(textQuota.getText());
+				String username = textUsername.getText();
+				String password = textPassword.getText();
+				
+				Salesman m = new Salesman();
+				//m.setId(id);
+				m.setName(name);
+				m.setQuota(quota);
+				m.setPassWord(password);
+				m.setUserName(username);
+				try {
+					App.proxy.addSalesman(m);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				refreshTblSalesmans();
+			*/
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+
+         try {
+                                String name = jTextField1.getText();
+                                Integer countprevious=Integer.parseInt(jTextField3.getText());
+                                Double minpercent= Double.parseDouble(jTextField8.getText());
+                                String processtype= jComboBox1.toString();
+                                
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                                Date date = formatter.parse(jTextField2.getText());
+                                Date startregistrationdate=formatter.parse(jTextField5.getText());
+                                Date endregistrationdate=formatter.parse(jTextField4.getText());
+                                Date startvaldationdate=formatter.parse(jTextField7.getText());
+                                Date endvalidationdate=formatter.parse(jTextField6.getText());
+                                
+                                
+                                ElectoralProcess process = new ElectoralProcess();
+                                process.setDate(date);
+                                process.setName(name);                      
+                                process.setPopulation(countprevious);
+                                
+                                
+                                ProcessType proctype= new ProcessType();
+                                proctype.setName(processtype);
+                                process.setProcessType(proctype);
+                                process.setMinPercentage(minpercent);
+                                process.setStartValidationDate(startvaldationdate);
+                                process.setEndValidationDate(endvalidationdate);
+                                process.setStartRegistrationDate(startregistrationdate);
+                                process.setEndRegistrationDate(endregistrationdate);
+                                
+                                String ubigeo= nameText.getText();
+                                String description=legalDepartment.getText();
+                                
+                                Ubigeo ubi= new Ubigeo();
+                                ubi.setName(ubigeo);
+                                ubi.setDescription(description);
+                                ubi.setElectoralProcess(process);
+                                
+                                
+                                updateElectoralProcess(process);
+                                
+                                }catch (ParseException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+				} 
+                                
+                                
+			/*	
+				refreshTblSalesmans();
+			*/
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+         /*     int res = JOptionPane.showConfirmDialog(JFrame, "¿Está seguro?");
+			if (res == JOptionPane.OK_OPTION) {
+				try {
+					deleteSalesman(Integer.parseInt(textId.getText()));
+				} catch (NumberFormatException | RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			//	refreshTblSalesmans();
+			}*/
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -342,20 +524,21 @@ public class ElectoralProcess extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElectoralProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectoralProcessGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElectoralProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectoralProcessGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElectoralProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectoralProcessGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElectoralProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElectoralProcessGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ElectoralProcess().setVisible(true);
+                new ElectoralProcessGui().setVisible(true);
             }
         });
     }
