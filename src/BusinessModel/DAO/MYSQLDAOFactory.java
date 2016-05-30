@@ -34,4 +34,8 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOUbigeo getDAOUbigeo() {
         return new MYSQLDAOUbigeo();
     }
+    @Override
+    public DAOPoliticalParty getDAOPoliticalParty() {
+        return new MYSQLDAOPoliticalParty();
+    }
 }

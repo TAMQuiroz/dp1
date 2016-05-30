@@ -16,6 +16,7 @@ public class Manager {
     private static UserDB userDB = new UserDB();
     private static ProcessTypeDB processTypeDB = new ProcessTypeDB();
     private static UbigeoDB ubigeoDB = new UbigeoDB();
+    private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
     
     public static void addElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.add(ep);
@@ -77,4 +78,19 @@ public class Manager {
     public static Ubigeo queryUbigeoById(long ubigeoId){
         return ubigeoDB.queryById(ubigeoId);
     }
+    public static void addPoliticalParty(PoliticalParty ep){
+        politicalPartyDB.add(ep);
+    }
+    public static void updatePoliticalParty(PoliticalParty ep){
+        politicalPartyDB.update(ep);
+    }
+    public static void deletePoliticalParty(long politicalPartyId){
+        politicalPartyDB.delete(politicalPartyId);
+    }
+    public static ArrayList<PoliticalParty> queryAllPoliticalParties(){
+        return politicalPartyDB.queryAll();
+    }
+    public static PoliticalParty queryPoliticalPartyById(long politicalPartyId){
+        return politicalPartyDB.queryById(politicalPartyId);
+    } 
 }
