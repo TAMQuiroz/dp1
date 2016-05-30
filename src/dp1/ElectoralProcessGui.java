@@ -379,7 +379,7 @@ public class ElectoralProcessGui extends JFrame {
                                 String name = jTextField1.getText();
                                 Integer countprevious=Integer.parseInt(jTextField3.getText());
                                 Double minpercent= Double.parseDouble(jTextField8.getText());
-                                String processtype= jComboBox1.toString();
+                                String processtype= (String)jComboBox1.getSelectedItem();
                                 
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = formatter.parse(jTextField2.getText());
@@ -396,7 +396,9 @@ public class ElectoralProcessGui extends JFrame {
                                 
                                 
                                ProcessType proctype;
+                                 java.lang.System.out.println(processtype.substring(0,1));
                                 proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
+                                java.lang.System.out.println(processtype.substring(0,1));
                                 process.setProcessType(proctype);
                                 process.setMinPercentage(minpercent);
                                 process.setStartValidationDate(startvaldationdate);
@@ -447,8 +449,7 @@ public class ElectoralProcessGui extends JFrame {
                                 String name = jTextField1.getText();
                                 Integer countprevious=Integer.parseInt(jTextField3.getText());
                                 Double minpercent= Double.parseDouble(jTextField8.getText());
-                                String processtype= jComboBox1.toString();
-                                
+                                String processtype= (String)jComboBox1.getSelectedItem();
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = formatter.parse(jTextField2.getText());
                                 Date startregistrationdate=formatter.parse(jTextField5.getText());
