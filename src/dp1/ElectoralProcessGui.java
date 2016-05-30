@@ -30,7 +30,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.ComboBoxModel;
-import Model.ProcessType;
+import Model.*;
 import BusinessModel.Manager;
 import static BusinessModel.Manager.addElectoralProcess;
 import static BusinessModel.Manager.updateElectoralProcess;
@@ -395,6 +395,7 @@ public class ElectoralProcessGui extends JFrame {
                                 process.setPopulation(countprevious);
                                 
                                 
+                                
                                ProcessType proctype;
                                  java.lang.System.out.println(processtype.substring(0,1));
                                 proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
@@ -405,7 +406,15 @@ public class ElectoralProcessGui extends JFrame {
                                 process.setEndValidationDate(endvalidationdate);
                                 process.setStartRegistrationDate(startregistrationdate);
                                 process.setEndRegistrationDate(endregistrationdate);
-                                
+                                process.setStartExtraReceptionDate(new Date());
+                                process.setStartExtraValidationDate(new Date());
+                                process.setStartReceptionDate(new Date());
+                                process.setEndExtraReceptionDate(new Date());
+                                process.setEndExtraValidationDate(new Date());
+                                process.setEndReceptionDate(new Date());
+                                Model.User u = Manager.login("71844756", "eeee");   
+                                process.setUser(u);
+                                process.setStatus("Activo");
                                 String ubigeo= nameText.getText();
                                 String description=legalDepartment.getText();
                                 
