@@ -9,10 +9,11 @@ package Model;
  *
  * @author erickelme
  */
-public class Zone {
+public class Ubigeo {
     private long id;
     private String name;
     private String description;
+    private String status;
     private ElectoralProcess electoralProcess;
 
     /**
@@ -69,5 +70,19 @@ public class Zone {
      */
     public void setElectoralProcess(ElectoralProcess electoralProcess) {
         this.electoralProcess = electoralProcess;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package BusinessModel.DAO;
-
 import BusinessModel.Manager;
-import Model.Profile;
-import Model.User;
+import Model.*;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,15 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 /**
  *
  * @author erickelme
  */
-public class MYSQLDAOUser implements DAOUser{
-    
+public class MYSQLDAOUbigeo implements DAOUbigeo {
     @Override
-    public void add(User ep) {
+    public void add(Ubigeo ep) {
         Connection conn = null;
         PreparedStatement pstmt = null;	
         try {
@@ -33,20 +29,58 @@ public class MYSQLDAOUser implements DAOUser{
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
+                String sql = "INSERT INTO ubigeo (name, description, status, id_electoralProcess) VALUES(?,?,?)";
+                pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                //pstmt.setInt(1,  p.getId());
+                pstmt.setString(1, ep.getName());
+                pstmt.setString(2, ep.getDescription());
+                pstmt.setString(3, ep.getStatus());
+                pstmt.setLong(4, ep.getElectoralProcess().getId());                
+                //Paso 4: Ejecutar la sentencia						
+                pstmt.executeUpdate();
+                //Paso 5:(opc) Procesar los resultado
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
 
-                String sql = "INSERT INTO user (name, lastname, password, bornDay, phone, docCode, status,"
-                        + "id_profile) VALUES(?,?,?,?,?,?,?,?)";
-                pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                
-                pstmt.setString(1, ep.getName());                
-                java.util.Date utilDate = ep.getBornDay();			
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());			
-                pstmt.setDate(4, sqlDate);
-                pstmt.setString(2, ep.getLastName());
-                pstmt.setString(3, ep.getPassword());
-                pstmt.setString(5, ep.getPhone());
-                pstmt.setString(6, ep.getDocCode());
-                pstmt.setString(7, ep.getStatus());
-                pstmt.setLong(8, ep.getProfile().getId());                
+    @Override
+    public void update(Ubigeo ep) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "UPDATE ubigeo SET name=?, description=?, id_electoralProcess=?, status=? WHERE id=?";
+                pstmt = conn.prepareStatement(sql);
+                //pstmt.setInt(1,  p.getId());
+                pstmt.setString(1, ep.getName());
+                pstmt.setString(2, ep.getDescription());
+                pstmt.setLong(3, ep.getElectoralProcess().getId());             
+                pstmt.setString(4, ep.getStatus());
+                pstmt.setLong(5, ep.getId()); 
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -75,7 +109,7 @@ public class MYSQLDAOUser implements DAOUser{
     }
     
     @Override
-    public void update(User ep) {
+    public void delete(long ubigeoId) {
         Connection conn = null;
         PreparedStatement pstmt = null;	
         try {
@@ -85,63 +119,10 @@ public class MYSQLDAOUser implements DAOUser{
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
 
-                String sql = "UPDATE user SET name=?, lastname=?, password=?, bornDay=?, phone=?, docCode=?, status=?, id_profile=? WHERE id=?";
-                pstmt = conn.prepareStatement(sql);                
-                pstmt.setString(1, ep.getName());             
-                java.util.Date utilDate = ep.getBornDay();			
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());			
-                pstmt.setDate(4, sqlDate);
-                pstmt.setString(2, ep.getLastName());
-                pstmt.setString(3, ep.getPassword());
-                pstmt.setString(5, ep.getPhone());
-                pstmt.setString(6, ep.getDocCode());
-                pstmt.setLong(7, ep.getProfile().getId());  
-                pstmt.setString(8, ep.getStatus());
-                pstmt.setLong(9, ep.getId());   
-                pstmt.executeUpdate();
-                //Paso 4: Ejecutar la sentencia						
-                pstmt.executeUpdate();
-                //Paso 5:(opc) Procesar los resultado
-
-        } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-        } finally{
-                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
-                if (pstmt != null){
-                        try {
-                                pstmt.close();
-                        } catch (SQLException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                        }
-                }
-                if(conn != null){
-                        try {
-                                conn.close();
-                        } catch (SQLException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                        }			
-                }
-        }
-    }
-    
-    @Override
-    public void delete(long userId) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;	
-        try {
-                //Paso 1: Registrar el Driver
-                DriverManager.registerDriver(new SQLServerDriver());
-                //Paso 2: Obtener la conexión
-                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
-                //Paso 3: Preparar la sentencia
-
-                String sql = "UPDATE user SET status=? WHERE id=?";
+                String sql = "UPDATE ubigeo SET status=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, "Inactivo");                
-                pstmt.setLong(2, userId);   
+                pstmt.setLong(2, ubigeoId);   
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -171,100 +152,37 @@ public class MYSQLDAOUser implements DAOUser{
                 }
         }
     }
-    
+
     @Override
-    public User login(String user, String password) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        PreparedStatement pstmt2 = null;
-        ResultSet rs = null;
-        User p = null;
-        try {
-                //Paso 1: Registrar el Driver
-                DriverManager.registerDriver(new SQLServerDriver());
-                //Paso 2: Obtener la conexión
-                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL,
-                                                        DBConnection.user,
-                                                        DBConnection.password);
-                //Paso 3: Preparar la sentencia
-                String sql = "SELECT * FROM user "
-                                + "WHERE docCode=? and password=?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, user);
-                pstmt.setString(2, password);
-                //Paso 4: Ejecutar la sentencia
-                rs = pstmt.executeQuery();
-                //Paso 5(opc.): Procesar los resultados
-                if (rs.next()){
-                    p = new User();    
-                    long id = rs.getLong("id"); p.setId(id);
-                    String name = rs.getString("name"); p.setName(name);
-                    String lastName = rs.getString("lastName"); p.setLastName(lastName);                    
-                    java.sql.Date date = rs.getDate("bornDay"); 
-                    java.util.Date dateJava = new java.util.Date(date.getTime()); 
-                    p.setBornDay(dateJava);        
-                    String phone = rs.getString("phone"); p.setPhone(phone);                    
-                    String docCode = rs.getString("docCode"); p.setDocCode(docCode);
-                    String docType = rs.getString("docType"); p.setDocType(docType);                    
-                    long idProfile = rs.getLong("id_profile"); 
-                    //BUSCAR PROFILE PENDIENTE
-                    Profile profile = new Profile();
-                    profile = Manager.queryProfileById(idProfile);
-                    p.setProfile(profile);
-                }		
-        } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-        } finally {
-                //Paso 6(OJO): Cerrar la conexión
-                try { if (pstmt!= null) pstmt.close();} 
-                        catch (Exception e){e.printStackTrace();};
-                try { if (conn!= null) conn.close();} 
-                        catch (Exception e){e.printStackTrace();};						
-        }
-        return p;	
-    }
-    
-    @Override
-    public ArrayList<User> queryAll() {
+    public ArrayList<Ubigeo> queryAll() {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
         ResultSet rs = null;       
-        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<Ubigeo> ubigeoList = new ArrayList<Ubigeo>();
         try {
                 //Paso 1: Registrar el Driver
                 DriverManager.registerDriver(new SQLServerDriver());
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from user";
+                String sql = "Select* from ubigeo";
                 pstmt = conn.prepareStatement(sql);			
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
                 while (rs.next()) {
-                        User user = new User();
-                        long id = rs.getLong("id"); user.setId(id);                       
-                        String name = rs.getString("name"); user.setName(name);
-                        String lastName = rs.getString("lastName"); user.setLastName(lastName);                    
-                        java.sql.Date date = rs.getDate("bornDay"); 
-                        java.util.Date dateJava = new java.util.Date(date.getTime()); 
-                        user.setBornDay(dateJava);        
-                        String phone = rs.getString("phone"); user.setPhone(phone);                    
-                        String docCode = rs.getString("docCode"); user.setDocCode(docCode);
-                        String docType = rs.getString("docType"); user.setDocType(docType);                    
-                        String status = rs.getString("status"); user.setStatus(status);                    
-                        long idProfile = rs.getLong("id_profile"); 
-                        //BUSCAR PROFILE PENDIENTE
-                        Profile profile = new Profile();
-                        profile = Manager.queryProfileById(idProfile);
-                        user.setProfile(profile);  
-                        userList.add(user);
+                        Ubigeo ep = new Ubigeo();
+                        long id = rs.getLong("id"); ep.setId(id);                        
+                        String name = rs.getString("name"); ep.setName(name);
+                        String description = rs.getString("description"); ep.setDescription(description);
+                        String status = rs.getString("status"); ep.setStatus(status);                         
+                        long electoralProcessId = rs.getLong("id_electoralProcess");                        
+                        ElectoralProcess electoralProcess = new ElectoralProcess();
+                        electoralProcess = Manager.queryElectoralProcessById(electoralProcessId);
+                        ep.setElectoralProcess(electoralProcess);                        
+                        ubigeoList.add(ep);
                 }
-
-
-
         } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -287,46 +205,38 @@ public class MYSQLDAOUser implements DAOUser{
                         }			
                 }
         }
-        return userList;
+        return ubigeoList;
     }
-    
+
     @Override
-    public User queryById(long userId){
+    public Ubigeo queryById(long ubigeoId) {
         Connection conn = null;
         PreparedStatement pstmt = null;        
         ResultSet rs = null;       
-        User user = null;
+        Ubigeo ep = null;
         try {
                 //Paso 1: Registrar el Driver
                 DriverManager.registerDriver(new SQLServerDriver());
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from user where id=?";
-                pstmt = conn.prepareStatement(sql);		
-                pstmt.setLong(1, userId);
+                String sql = "Select* from ubigeo where id=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setLong(1, ubigeoId);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
-                if (rs.next()) {
-                        user = new User();
-                        long id = rs.getLong("id"); user.setId(id);                       
-                        String name = rs.getString("name"); user.setName(name);
-                        String lastName = rs.getString("lastName"); user.setLastName(lastName);                    
-                        java.sql.Date date = rs.getDate("bornDay"); 
-                        java.util.Date dateJava = new java.util.Date(date.getTime()); 
-                        user.setBornDay(dateJava);        
-                        String phone = rs.getString("phone"); user.setPhone(phone);                    
-                        String docCode = rs.getString("docCode"); user.setDocCode(docCode);
-                        String docType = rs.getString("docType"); user.setDocType(docType);                    
-                        String status = rs.getString("status"); user.setStatus(status);                    
-                        long idProfile = rs.getLong("id_profile"); 
-                        //BUSCAR PROFILE PENDIENTE
-                        Profile profile = new Profile();
-                        profile = Manager.queryProfileById(idProfile);
-                        user.setProfile(profile);                                             
+                if (rs.next()) { 
+                        ep = new Ubigeo();
+                        long id = rs.getLong("id"); ep.setId(id);                        
+                        String name = rs.getString("name"); ep.setName(name);
+                        String description = rs.getString("description"); ep.setDescription(description);
+                        String status = rs.getString("status"); ep.setStatus(status);                         
+                        long electoralProcessId = rs.getLong("id_electoralProcess");                        
+                        ElectoralProcess electoralProcess = new ElectoralProcess();
+                        electoralProcess = Manager.queryElectoralProcessById(electoralProcessId);
+                        ep.setElectoralProcess(electoralProcess);                        
                 }
-
         } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -349,6 +259,6 @@ public class MYSQLDAOUser implements DAOUser{
                         }			
                 }
         }
-        return user;
+        return ep;
     }
 }

@@ -20,6 +20,7 @@ public class User {
     private String phone;
     private String docCode;
     private String docType;
+    private String status;
     private Profile profile;    
 
     /**
@@ -150,5 +151,19 @@ public class User {
      */
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

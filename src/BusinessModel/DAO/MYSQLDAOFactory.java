@@ -30,5 +30,8 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOProcessType getDAOProcessType() {
         return new MYSQLDAOProcessType();
     }
-    
+    @Override
+    public DAOUbigeo getDAOUbigeo() {
+        return new MYSQLDAOUbigeo();
+    }
 }
