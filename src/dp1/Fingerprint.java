@@ -3,6 +3,7 @@ package dp1;
 //PREPROCESAMIENTO
 import ij.IJ;
 import ij.ImagePlus;
+import ij.gui.Line;
 import ij.io.FileSaver;
 import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
@@ -43,6 +44,8 @@ import org.opencv.features2d.KeyPoint;
 import org.opencv.highgui.Highgui;
 
 import java.lang.System.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.opencv.core.Core.MinMaxLocResult;
 public class Fingerprint {
     static int train_samples = 1;  
@@ -53,6 +56,8 @@ public class Fingerprint {
     static int scaley = 16;
     static int ImageSize = sizex * sizey;  
     static String pathToImages = "test\\ocr\\opencv\\";  
+    static String routeToCortes = "test\\auxiliar\\cortes\\";
+    static String routeToPadrones = "test\\auxiliar\\padrones\\";
 
     public static void preprocesamiento(String route, String route_base , String nimg, String extension){
         
@@ -80,33 +85,7 @@ public class Fingerprint {
         
         //System.out.println("Finalizando preprocesamiento");
     }
-    
-    public static Vector<String> cutDigits(String route, String nimg, String extension, ImagePlus imp){
-        Vector<String> imgs = new Vector<String>();
-        ImageProcessor ip = imp.getProcessor();
-        ImageProcessor clone;
-        String n_out = new String();
-        //int cropX = ip.getWidth()/8;
-        int cropX = 125;
-        int cropY = ip.getHeight();
-        for (int i = 0; i < 8; i++){
-            try {
-                clone = ip.duplicate();
-                clone.setRoi(i * cropX, 0, cropX, cropY);
-                clone = clone.crop();
-                n_out = route + "pre\\" + nimg + (i+1) + "_out.jpg";
-                java.lang.System.out.println("Saving: " + n_out);
-                BufferedImage croppedImage = clone.getBufferedImage();
-                ImageIO.write(croppedImage, "jpg", new File(n_out));
-            } catch (IOException ex) {
-                Logger.getLogger(Fingerprint.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            imgs.add(i, n_out);
-        }
-        
-        return imgs;
-    }
-    
+
     public static Vector<String> preprocesamiento_ocr(String route, String nimg, String extension){
         java.lang.System.out.println("Antes de preprocesamiento");
         String url = route + nimg + extension;
@@ -128,7 +107,7 @@ public class Fingerprint {
         IJ.run(imgPlus, "Median...", "radius=5");
         java.lang.System.out.println("Cutting: " + url);
         Vector<String> imgs;
-        imgs = cutDigits(route, nimg, extension, imgPlus);
+        imgs = null;//cutDigits(route, nimg, extension, imgPlus);
         java.lang.System.out.println("Despues de preprocesamiento");
 
         return imgs;
@@ -348,54 +327,18 @@ public class Fingerprint {
         //java.lang.System.out.println("Ended....");  
     }
 
-    public static void templateMatching(String inFile, String templateFile, String outFile, int match_method){
-        java.lang.System.out.println("\nRunning Template Matching");
-
-        Mat img = Highgui.imread(inFile);
-        Mat templ = Highgui.imread(templateFile);
-
-        // / Create the result matrix
-        int result_cols = img.cols() - templ.cols() + 1;
-        int result_rows = img.rows() - templ.rows() + 1;
-        Mat result = new Mat(result_rows, result_cols, CvType.CV_32FC1);
-
-        // / Do the Matching and Normalize
-        Imgproc.matchTemplate(img, templ, result, match_method);
-        Core.normalize(result, result, 0, 1, Core.NORM_MINMAX, -1, new Mat());
-
-        // / Localizing the best match with minMaxLoc
-        MinMaxLocResult mmr = Core.minMaxLoc(result);
-
-        Point matchLoc;
-        if (match_method == Imgproc.TM_SQDIFF || match_method == Imgproc.TM_SQDIFF_NORMED) {
-            matchLoc = mmr.minLoc;
-        } else {
-            matchLoc = mmr.maxLoc;
-        }
-
-        java.lang.System.out.println(matchLoc);
-        // / Show me what you got
-        Core.rectangle(img, matchLoc, new Point(matchLoc.x + templ.cols(),
-                matchLoc.y + templ.rows()), new Scalar(0, 0, 255));
-
-        
-        // Save the visualized detection.
-        java.lang.System.out.println("Writing "+ outFile);
-        Highgui.imwrite(outFile, img);
-
-    }
-    
     public static ImagePlus cortarInferior(ImagePlus imgOrigen){
         int x, y;
         double r,g,b;
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
-        java.lang.System.out.println("Binarizando");
+        java.lang.System.out.println("Cortando borde inferior");
+        //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         
         x = 10;
         y = imgPlus.getHeight()-1;
-        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
         r = imgPlus.getPixel(x,y)[0];
         g = imgPlus.getPixel(x,y)[1];
         b = imgPlus.getPixel(x,y)[2];
@@ -420,12 +363,12 @@ public class Fingerprint {
             //java.lang.System.out.println("Analizando punto " + x + ", " + y);
         }
         
-        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        //java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
         
         //Cortar desde el punto Y hacia el final de la imagen
         
         imgOrigen.setRoi(0,0,imgOrigen.getWidth(),y);
-        java.lang.System.out.println("Cortando");
+        //java.lang.System.out.println("Cortando");
         IJ.run(imgOrigen, "Crop", "");
         
         return imgOrigen;
@@ -436,13 +379,14 @@ public class Fingerprint {
         double r,g,b;
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
-        java.lang.System.out.println("Binarizando");
+        java.lang.System.out.println("Cortando borde izquierdo");
+        //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         
         x = 0;
         y = (imgPlus.getHeight()-1)/2;
                 
-        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
         r = imgPlus.getPixel(x,y)[0];
         g = imgPlus.getPixel(x,y)[1];
         b = imgPlus.getPixel(x,y)[2];
@@ -466,12 +410,12 @@ public class Fingerprint {
             //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
         }
         
-        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        //java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
         
         //Cortar desde el punto Y hacia el final de la imagen
         
         imgOrigen.setRoi(x,0,imgOrigen.getWidth(),imgOrigen.getHeight());
-        java.lang.System.out.println("Cortando");
+        //java.lang.System.out.println("Cortando");
         IJ.run(imgOrigen, "Crop", "");
         
         return imgOrigen;
@@ -482,12 +426,13 @@ public class Fingerprint {
         double r,g,b;
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
-        java.lang.System.out.println("Binarizando");
+        java.lang.System.out.println("Cortando borde derecho");
+        //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         x = 10;
         y = 0;
                 
-        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
         r = imgPlus.getPixel(x,y)[0];
         g = imgPlus.getPixel(x,y)[1];
         b = imgPlus.getPixel(x,y)[2];
@@ -511,7 +456,7 @@ public class Fingerprint {
             //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
         }
         
-        java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
+        //java.lang.System.out.println("Linea encontrada en punto " + x + ", " + y);        
         
         //Ubicada la altura Y
         y = y + 10;
@@ -525,7 +470,7 @@ public class Fingerprint {
             b = imgPlus.getPixel(x,y)[2];
             //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
         }
-        java.lang.System.out.println(x);
+        
         while (r == 0){
             x = x - 1;
             
@@ -537,23 +482,71 @@ public class Fingerprint {
         
         //Cortar desde el punto Y hacia el final de la imagen
         imgOrigen.setRoi(0,0, x, imgOrigen.getHeight());
-        java.lang.System.out.println("Cortando");
+        //java.lang.System.out.println("Cortando");
         IJ.run(imgOrigen, "Crop", "");
         
         return imgOrigen;
     }
     
-    public static void cortarFilas (ImagePlus imgOrigen, String route, String n_img, String extension){
+    public static void cortarCaracteres(String route, String n_img, int n, ImagePlus imgOrigen, String extension, int[] index){
+        //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 9 y
+        //cortar dni
+        int aux = index[1] - index[0];
+        imgOrigen.setRoi(index[0],0,aux,imgOrigen.getHeight());
+        ImagePlus imp = new Duplicator().run(imgOrigen);
+        FileSaver fs = new FileSaver(imp);
+        String n_out = routeToCortes + n_img + n + "\\dni" + extension;
+        fs.saveAsPng(n_out);
+        java.lang.System.out.println("Cortando dni en: " + index[0] + " y " + index[1]);
+        
+        //cortar apellido
+        aux = index[3] - index[2];
+        imgOrigen.setRoi(index[2],0,aux,imgOrigen.getHeight());
+        imp = new Duplicator().run(imgOrigen);
+        fs = new FileSaver(imp);
+        n_out = routeToCortes + n_img + n + "\\apellido" + extension;
+        fs.saveAsPng(n_out);
+        java.lang.System.out.println("Cortando apellido en: " + index[2] + " y " + index[3]);
+        
+        //cortar nombre
+        aux = index[4] - index[3];
+        imgOrigen.setRoi(index[3],0,aux,imgOrigen.getHeight());
+        imp = new Duplicator().run(imgOrigen);
+        fs = new FileSaver(imp);
+        n_out = routeToCortes + n_img + n + "\\nombre" + extension;
+        fs.saveAsPng(n_out);
+        java.lang.System.out.println("Cortando nombre en: " + index[3] + " y " + index[4]);
+        
+        //cortar firma
+        aux = index[6] - index[5];
+        imgOrigen.setRoi(index[5],0,aux,imgOrigen.getHeight());
+        imp = new Duplicator().run(imgOrigen);
+        fs = new FileSaver(imp);
+        n_out = routeToCortes + n_img + n + "\\firma" + extension;
+        fs.saveAsPng(n_out);
+        java.lang.System.out.println("Cortando firma en: " + index[5] + " y " + index[6]);
+        
+        //cortar huella
+        aux = index[8] - index[7];
+        imgOrigen.setRoi(index[7],0,aux,imgOrigen.getHeight());
+        imp = new Duplicator().run(imgOrigen);
+        fs = new FileSaver(imp);
+        n_out = routeToCortes + n_img + n + "\\huella" + extension;
+        fs.saveAsPng(n_out);
+        java.lang.System.out.println("Cortando huella en: " + index[7] + " y " + index[8]);
+    }
+    
+    public static ImagePlus cortarFilas (int n, ImagePlus imgOrigen, String route, String n_img, String extension, int[] index){
         int x, y;
         double r,g,b;
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
-        java.lang.System.out.println("Binarizando");
+        //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         x = 10;
         y = imgPlus.getHeight() - 10;
                 
-        java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
         r = imgPlus.getPixel(x,y)[0];
         g = imgPlus.getPixel(x,y)[1];
         b = imgPlus.getPixel(x,y)[2];
@@ -569,48 +562,239 @@ public class Fingerprint {
         }
         
         int rowSize = imgPlus.getHeight() - y;
-        java.lang.System.out.println("Tamaño de fila: " + rowSize);        
+        //java.lang.System.out.println("Tamaño de fila: " + rowSize);        
+        
+        //Copiar imagen
+        imgOrigen.setRoi(0,0, imgOrigen.getWidth(), y);
+        ImagePlus img = new Duplicator().run(imgOrigen);
         
         //Cortar Filas
         //java.lang.System.out.println(x);
         imgOrigen.setRoi(0,y, imgOrigen.getWidth(), rowSize);
-        java.lang.System.out.println("Cortando");
+        java.lang.System.out.println("Cortando fila " + n);
         IJ.run(imgOrigen, "Crop", "");
         
+        
         FileSaver fs = new FileSaver(imgOrigen);
-        java.lang.System.out.println("=======Guardando imagen=======");
-        String n_out = route + n_img + "_row" + extension;
+        String n_out = routeToCortes + n_img + n + "\\" + n_img + "_row_" + n + extension;
+        java.lang.System.out.println("=======Guardando imagen en " + n_out + "=======");
         fs.saveAsJpeg(n_out);
+        
+        
+        //Cortar Caracteres de fila
+        cortarCaracteres(route, n_img, n, imgOrigen, extension, index);
+        
+        return img;
         
     }
     
-    public static void cortarBordes(String route, String n_img, String extension){     
+    public static int bajar(ImagePlus imgPlus, int x, int y, int color){
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        double r = imgPlus.getPixel(x,y)[0];
+        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        while (r == color){
+            y = y + 1;
+            r = imgPlus.getPixel(x,y)[0];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        return y;
+    }
+    
+    public static int derecha(ImagePlus imgPlus, int x, int y, int color){
+        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
+        double r = imgPlus.getPixel(x,y)[0];
+        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        while (r == color){
+            x = x + 1;
+            r = imgPlus.getPixel(x,y)[0];
+            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        }
+        return x;
+    }
+    
+    public static int[] saltarNumero(ImagePlus imgPlus, int[] index){
+        int x = 10;
+        int y = 0;
+
+        y = bajar(imgPlus, x, y, 255); //Negro
+        y = bajar(imgPlus, x, y, 0); //Blanco
+        java.lang.System.out.println("y: " + y);
+        y = bajar(imgPlus, x, y, 255); //Negro
+        java.lang.System.out.println("y: " + y);
+        y = y + 2;
+        index[9] = y; //Control rotacion
+        java.lang.System.out.println("y: " + y);
+        //java.lang.System.exit(0);
+        x = 0;
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        x = derecha(imgPlus, x, y, 255); //Negro
+        //java.lang.System.out.println("x: " + x);
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        //java.lang.System.out.println("x: " + x);
+        x = derecha(imgPlus, x, y, 255); //Negro
+        //java.lang.System.out.println("x: " + x);
+        
+        index[0] = x;
+        return index;
+    }
+    
+    public static int[] contarDni(ImagePlus imgPlus, int[] index){
+        int x = index[0];
+        int y = index[9];
+
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        index[1] = x;
+        x = derecha(imgPlus, x, y, 255); //Negro
+        index[2] = x;
+        
+        return index;
+    }
+    
+    public static int[] contarApellidos(ImagePlus imgPlus, int[] index){
+        int x = index[2];
+        int y = index[9];
+
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        index[4] = x;
+        //java.lang.System.out.println("x:" + x + " y: " + y);
+        x = derecha(imgPlus, x, y, 255); //Negro
+        index[5] = x;
+        
+        return index;
+    }
+    
+    public static int[] contarNombres(ImagePlus imgPlus, int[] index){
+        double porcentajeApellidos = 52.083333;
+        int longitud = index[4] - index[2];
+        int longitudApellido = (int) (longitud*porcentajeApellidos/100);
+        int x = index[2] + longitudApellido;
+        index[3] = x;
+        //java.lang.System.out.println(longitudApellido);
+        //java.lang.System.exit(0);
+        return index;
+    }
+    
+    public static int[] contarFirma(ImagePlus imgPlus, int[] index){
+        int x = index[5];
+        int y = index[9];
+
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        index[6] = x;
+        x = derecha(imgPlus, x, y, 255); //Negro
+        index[7] = x;
+        
+        return index;
+    }
+    
+    public static int[] contarHuella(ImagePlus imgPlus, int[] index){
+        int x = index[7];
+        int y = index[9];
+
+        x = derecha(imgPlus, x, y, 0); //Blanco
+        index[8] = x;
+        
+        return index;
+    }
+        
+    public static int[] contarCabecera(ImagePlus imgOrigen){
+        int[] index = new int[10];
+        
+        ImagePlus imgPlus = new Duplicator().run(imgOrigen);
+        java.lang.System.out.println("Binarizando");
+        IJ.run(imgPlus, "Make Binary", "");
+        
+        //GIRAR IMAGEN
+        imgPlus = girarImagen(imgPlus);
+        
+        //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 9 y
+        java.lang.System.out.println("Saltando numero");
+        index = saltarNumero(imgPlus, index);
+        //contar dni
+        java.lang.System.out.println("Contando dni");
+        index = contarDni(imgPlus, index);
+        //contar apellidos
+        java.lang.System.out.println("Contando apellidos");
+        index = contarApellidos(imgPlus, index);
+        //contar nombres
+        java.lang.System.out.println("Contando nombres");
+        index = contarNombres(imgPlus, index);
+        //contar firma
+        java.lang.System.out.println("Contando firmas");
+        index = contarFirma(imgPlus, index);
+        //contar huella
+        java.lang.System.out.println("Contando huellas");
+        index = contarHuella(imgPlus, index);
+        
+        return index;
+    }
+    
+    public static ImagePlus girarImagen(ImagePlus imgOrigen){
+        int x1 = 10;
+        int y1 = 0;
+        
+        y1 = bajar(imgOrigen, x1, y1, 255); //Blanco
+        y1 = bajar(imgOrigen, x1, y1, 0); //Negro
+        
+        int x2 = imgOrigen.getWidth()-10;
+        int y2 = 0;
+        y2 = bajar(imgOrigen, x2, y2, 255); //Blanco
+        y2 = bajar(imgOrigen, x2, y2, 0); //Negro
+        //java.lang.System.out.println(y1 + " " + y2);
+        
+        double angle = new Line(1,467,18,467).getAngle(x1, y1, x2, y2);
+        java.lang.System.out.println("Angulo: " + angle);
+        ImageProcessor img = imgOrigen.getProcessor();
+        img.setBackgroundValue(255);
+        img.rotate(angle);
+        ImagePlus img_rotated = new ImagePlus("rotated", img);
+        
+        
+        FileSaver fs = new FileSaver(img_rotated);
+        String n_out = routeToCortes + "test.jpg";
+        //fs.saveAsPng(n_out);
+        
+        return img_rotated;
+    }
+    
+    public static void cortarCajas(String route, String n_img, String extension){     
         
         String inFile = route + n_img + extension;
         
         java.lang.System.out.println("=======Abriendo imagen " + n_img + extension + " para binarizar=======");
         
         ImagePlus imgOrigen = new ImagePlus(inFile);
-
+        ImageProcessor img = imgOrigen.getProcessor();
+        img = img.resize(3500);
+        ImagePlus imgResize = new ImagePlus("resized",img);
         //Cortar bordes
-        java.lang.System.out.println("=======Cortando borde izquierdo=======");
-        imgOrigen = cortarLaterales(imgOrigen);
-        java.lang.System.out.println("=======Cortando borde inferior=======");
-        imgOrigen = cortarInferior(imgOrigen);
-        java.lang.System.out.println("=======Cortando borde derecho=======");
-        imgOrigen = cortarLateralDer(imgOrigen);
-                
-        FileSaver fs = new FileSaver(imgOrigen);
-        java.lang.System.out.println("=======Guardando imagen=======");
-        String n_out = route + n_img + "_crop" + extension;
-        fs.saveAsPng(n_out);
+        //java.lang.System.out.println("=======Cortando borde izquierdo=======");
+        imgOrigen = cortarLaterales(imgResize);
+        //java.lang.System.out.println("=======Cortando borde inferior=======");
+        imgOrigen = cortarInferior(imgResize);
+        //java.lang.System.out.println("=======Cortando borde derecho=======");
+        imgOrigen = cortarLateralDer(imgResize);
+        
+        
+        
+        //java.lang.System.exit(0);
+        FileSaver fs = new FileSaver(imgResize);
+        String n_out = routeToCortes + n_img + "_crop" + extension;
+        //fs.saveAsPng(n_out);
+        
         
         //Cortar
+        java.lang.System.out.println("=======Contando cabecera=======");
+        //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 
+        int[] index = contarCabecera(imgResize);
         java.lang.System.out.println("=======Cortando filas de imagen=======");
-        cortarFilas(imgOrigen, route, n_img, extension);
+        for(int n = 1; n < 9 ; n++){
+            File directorio = new File(routeToCortes+n_img+n); 
+            directorio.mkdir(); 
+            imgResize = cortarFilas(n,imgResize, route, n_img, extension, index);
+        }
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
@@ -624,7 +808,7 @@ public class Fingerprint {
         String route_ocr_exp = route_ocr + "exp\\";
         String extension = ".jpg";
         String extension_huellas = ".tif";
-        String n_img1  = "101_1";
+        String n_img1  = "lena";
         String n_img2  = "103_1";
         
         //OCR TESSERACT
@@ -642,20 +826,27 @@ public class Fingerprint {
                 
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         
+        /*
         java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
-        //gabor(route_huellas, route_base, n_img1, extension_huellas);
         preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
         preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
         java.lang.System.out.println("***INICIANDO ORB***");
         orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO ORB***");
+        */
         //java.lang.System.out.println("***INICIANDO SURF***");
         //surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
         //java.lang.System.out.println("***FINALIZANDO SURF***");       
         
-        //cortarBordes(route_aux,n_img1,extension);
-        //templateMatching(route_aux+n_img1+extension, route_aux+n_img2+extension, route_aux+"templatematch.png", Imgproc.TM_CCOEFF);
+        Files.walk(Paths.get(routeToPadrones)).forEach(filePath -> {
+            if (Files.isRegularFile(filePath)) {
+                java.lang.System.out.println(filePath.getFileName());
+                String[] name = filePath.getFileName().toString().split("[.]");
+                cortarCajas(routeToPadrones,name[0],"." + name[1]);
+            }
+        });
+
     }  
     
 }
