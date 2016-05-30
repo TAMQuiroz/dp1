@@ -381,7 +381,7 @@ public class ElectoralProcessGui extends JFrame {
                                 Double minpercent= Double.parseDouble(jTextField8.getText());
                                 String processtype= jComboBox1.toString();
                                 
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = formatter.parse(jTextField2.getText());
                                 Date startregistrationdate=formatter.parse(jTextField5.getText());
                                 Date endregistrationdate=formatter.parse(jTextField4.getText());
@@ -395,8 +395,8 @@ public class ElectoralProcessGui extends JFrame {
                                 process.setPopulation(countprevious);
                                 
                                 
-                                ProcessType proctype= new ProcessType();
-                                proctype.setName(processtype);
+                               ProcessType proctype;
+                                proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
                                 process.setProcessType(proctype);
                                 process.setMinPercentage(minpercent);
                                 process.setStartValidationDate(startvaldationdate);
@@ -407,10 +407,11 @@ public class ElectoralProcessGui extends JFrame {
                                 String ubigeo= nameText.getText();
                                 String description=legalDepartment.getText();
                                 
-                                Ubigeo ubi= new Ubigeo();
+                                /*Ubigeo ubi= new Ubigeo();
                                 ubi.setName(ubigeo);
                                 ubi.setDescription(description);
                                 ubi.setElectoralProcess(process);
+                                */
                                 
                                 
                                 addElectoralProcess(process);
@@ -448,7 +449,7 @@ public class ElectoralProcessGui extends JFrame {
                                 Double minpercent= Double.parseDouble(jTextField8.getText());
                                 String processtype= jComboBox1.toString();
                                 
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = formatter.parse(jTextField2.getText());
                                 Date startregistrationdate=formatter.parse(jTextField5.getText());
                                 Date endregistrationdate=formatter.parse(jTextField4.getText());
