@@ -186,10 +186,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                 pstmt.setDate(15, sqlDate);
                 pstmt.setLong(16, ep.getProcessType().getId());
                 pstmt.setLong(17, ep.getUser().getId());
-                pstmt.setLong(18, ep.getId());                
-                
-                pstmt.executeUpdate();
-                
+                pstmt.setLong(18, ep.getId()); 
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -234,10 +231,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                 String sql = "UPDATE electoralProcess SET status=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, "Inactivo");                
-                pstmt.setLong(2, electoralProcessId);                
-                
-                pstmt.executeUpdate();
-                
+                pstmt.setLong(2, electoralProcessId);   
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado

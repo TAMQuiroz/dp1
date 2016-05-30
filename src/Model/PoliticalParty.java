@@ -12,7 +12,7 @@ package Model;
 public class PoliticalParty {
     private long id;
     private String name;
-    private String legalDepartment;
+    private String legalRepresentative;
     private String image;
     private String telephone;
     private String email;
@@ -48,17 +48,17 @@ public class PoliticalParty {
     }
 
     /**
-     * @return the legalDepartment
+     * @return the legalRepresentative
      */
-    public String getLegalDepartment() {
-        return legalDepartment;
+    public String getLegalRepresentative() {
+        return legalRepresentative;
     }
 
     /**
-     * @param legalDepartment the legalDepartment to set
+     * @param legalRepresentative the legalRepresentative to set
      */
-    public void setLegalDepartment(String legalDepartment) {
-        this.legalDepartment = legalDepartment;
+    public void setLegalRepresentative(String legalRepresentative) {
+        this.legalRepresentative = legalRepresentative;
     }
 
     /**

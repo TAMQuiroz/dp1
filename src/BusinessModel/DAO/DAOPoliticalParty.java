@@ -4,19 +4,16 @@
  * and open the template in the editor.
  */
 package BusinessModel.DAO;
-
-import Model.User;
+import Model.*;
 import java.util.ArrayList;
-
 /**
  *
  * @author erickelme
  */
-public interface DAOUser {
-    void add(User ep);
-    void update(User ep);
-    void delete(long userId);
-    ArrayList<User> queryAll();    
-    User login(String user, String password);
-    User queryById(long userId);
+public interface DAOPoliticalParty {
+    void add(PoliticalParty ep);
+    void update(PoliticalParty ep);
+    void delete(long politicalPartyId);
+    ArrayList<PoliticalParty> queryAll();
+    PoliticalParty queryById(long politicalPartyId);
 }

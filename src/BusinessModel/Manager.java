@@ -15,6 +15,8 @@ public class Manager {
     private static ProfileDB profileDB = new ProfileDB();
     private static UserDB userDB = new UserDB();
     private static ProcessTypeDB processTypeDB = new ProcessTypeDB();
+    private static UbigeoDB ubigeoDB = new UbigeoDB();
+    private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
     
     public static void addElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.add(ep);
@@ -46,7 +48,49 @@ public class Manager {
     public static User login(String user, String password){
         return userDB.login(user, password);
     }
+    public static void addUser(User ep){
+        userDB.add(ep);
+    }
+    public static void updateUser(User ep){
+        userDB.update(ep);
+    }
+    public static void deleteUser(long userId){
+        userDB.delete(userId);
+    }
+    public static ArrayList<User> queryAllUsers(){
+        return userDB.queryAll();
+    }
     public static User queryUserById(long userId){
         return userDB.queryById(userId);
     }
+    public static void addUbigeo(Ubigeo ep){
+        ubigeoDB.add(ep);
+    }
+    public static void updateUbigeo(Ubigeo ep){
+        ubigeoDB.update(ep);
+    }
+    public static void deleteUbigeo(long ubigeoId){
+        ubigeoDB.delete(ubigeoId);
+    }
+    public static ArrayList<Ubigeo> queryAllUbigeos(){
+        return ubigeoDB.queryAll();
+    }
+    public static Ubigeo queryUbigeoById(long ubigeoId){
+        return ubigeoDB.queryById(ubigeoId);
+    }
+    public static void addPoliticalParty(PoliticalParty ep){
+        politicalPartyDB.add(ep);
+    }
+    public static void updatePoliticalParty(PoliticalParty ep){
+        politicalPartyDB.update(ep);
+    }
+    public static void deletePoliticalParty(long politicalPartyId){
+        politicalPartyDB.delete(politicalPartyId);
+    }
+    public static ArrayList<PoliticalParty> queryAllPoliticalParties(){
+        return politicalPartyDB.queryAll();
+    }
+    public static PoliticalParty queryPoliticalPartyById(long politicalPartyId){
+        return politicalPartyDB.queryById(politicalPartyId);
+    } 
 }
