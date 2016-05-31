@@ -541,7 +541,7 @@ public class ElectoralProcessGui extends JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
          int selRow = jTable1.getSelectedRow();
-				int processId = Integer.parseInt(
+				long processId = Long.parseLong(
 						jTable1.getValueAt(selRow, 0).toString());
 				ElectoralProcess p = Manager.queryElectoralProcessById(processId);
                                 jTextField9.setText("" + p.getId());
