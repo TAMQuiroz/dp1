@@ -101,6 +101,8 @@ public class PoliticalPartyGui extends JFrame {
 
         jLabel2.setText("Id");
 
+        email1.setEditable(false);
+
         jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);

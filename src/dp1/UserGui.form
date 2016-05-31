@@ -88,13 +88,12 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="4">
+                      <Table columnCount="6" rowCount="4">
                         <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="Nombre" type="java.lang.Object"/>
                         <Column editable="true" title="Apellidos" type="java.lang.Object"/>
                         <Column editable="true" title="Contrase&#xf1;a" type="java.lang.Object"/>
                         <Column editable="true" title="Documento " type="java.lang.Object"/>
-                        <Column editable="true" title="Correo" type="java.lang.Object"/>
                         <Column editable="true" title="Telefono" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -169,14 +168,10 @@
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel5" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                              <Component id="jLabel7" alignment="0" min="-2" pref="227" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel7" min="-2" pref="227" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="telephone3" pref="217" max="32767" attributes="0"/>
-                                              <Component id="email" max="32767" attributes="0"/>
                                               <Component id="email1" alignment="1" max="32767" attributes="0"/>
                                               <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                                           </Group>
@@ -242,12 +237,7 @@
                       <Component id="jLabel7" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="telephone3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel5" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="email1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -257,7 +247,7 @@
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="41" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnRegister" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -291,13 +281,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="telephone">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Correo*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="email">
         </Component>
         <Component class="javax.swing.JButton" name="btnRegister">
           <Properties>

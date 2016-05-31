@@ -56,8 +56,6 @@ public class UserGui extends javax.swing.JInternalFrame {
         legalDepartment = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         telephone = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -80,13 +78,13 @@ public class UserGui extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Apellidos", "Contraseña", "Documento ", "Correo", "Telefono"
+                "ID", "Nombre", "Apellidos", "Contraseña", "Documento ", "Telefono"
             }
         ));
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,8 +127,6 @@ public class UserGui extends javax.swing.JInternalFrame {
         jLabel3.setText("Apellidos*");
 
         jLabel4.setText("Tipo de Documento*");
-
-        jLabel5.setText("Correo*");
 
         btnRegister.setText("Registrar");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -180,8 +176,6 @@ public class UserGui extends javax.swing.JInternalFrame {
         jLayeredPane2.setLayer(legalDepartment, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(telephone, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(email, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(btnRegister, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(btnCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(btnUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -240,13 +234,10 @@ public class UserGui extends javax.swing.JInternalFrame {
                                                     .addComponent(legalDepartment))
                                                 .addGap(2, 2, 2))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(6, 6, 6)
                                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(telephone3, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                                            .addComponent(email)
                                             .addComponent(email1, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(40, 40, 40))
@@ -292,11 +283,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(telephone3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(email1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -304,7 +291,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnUpdate)
@@ -348,7 +335,6 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String typedocument= telephone1.getText();
                                 String document= telephone2.getText();
                                 String telephone= telephone3.getText();
-                                String e_mail= email.getText();
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
                                 User user = new User();
@@ -382,7 +368,6 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String typedocument= telephone1.getText();
                                 String document= telephone2.getText();
                                 String telephone= telephone3.getText();
-                                String e_mail= email.getText();
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
                                 User user = Manager.queryUserById(Integer.parseInt(nameText1.getText()));
@@ -441,16 +426,15 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 telephone1.setText(p.getDocType());
                                 telephone2.setText(p.getDocCode());
                                 telephone3.setText(p.getPhone());
-                                email.setText(p.getEmail());
                                 email1.setText(""+p.getBornDay());
                                  java.lang.System.out.println("Usuario seleccionado");
     }//GEN-LAST:event_jTable2MouseClicked
      class MyTableModel extends AbstractTableModel {
         ArrayList<Model.User> userList = Manager.queryAllUsers();
-		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Correo","Telefono"};
+		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Telefono"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 7;
+			return 6;
 		}
 
 		public int getRowCount() {
@@ -478,9 +462,6 @@ public class UserGui extends javax.swing.JInternalFrame {
 				value = "" + userList.get(row).getDocCode();
 				break;	
                         case 5:
-				value = "" + userList.get(row).getDocType();
-				break;
-                        case 6:
 				value = "" + userList.get(row).getPhone();
 				break;	
 			}
@@ -507,7 +488,6 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 telephone1.setText(p.getDocType());
                                 telephone2.setText(p.getDocCode());
                                 telephone3.setText(p.getPhone());
-                                email.setText(p.getEmail());
                                 email1.setText(""+p.getBornDay());
                                  java.lang.System.out.println("Usuario seleccionado");
     }
@@ -516,7 +496,6 @@ public class UserGui extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JTextField email;
     private javax.swing.JTextField email1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -524,7 +503,6 @@ public class UserGui extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
