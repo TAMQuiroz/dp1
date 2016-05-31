@@ -18,6 +18,10 @@ public class AdherentImage {
     private String signatureSource;
     private PoliticalParty politicalParty;
     
+    
+    public void AdherentImage(){
+        
+    }
     /**
      * @return the id
      */

@@ -15,7 +15,11 @@ public class Ubigeo {
     private String description;
     private String status;
     private ElectoralProcess electoralProcess;
-
+    
+    
+    public void Ubigeo(){
+        
+    }
     /**
      * @return the id
      */

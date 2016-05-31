@@ -18,7 +18,11 @@ public class PoliticalParty {
     private String email;
     private String status;
     private ElectoralProcess electoralProcess;
-
+    
+    
+    public void PoliticalParty(){
+        
+    }
     /**
      * @return the id
      */

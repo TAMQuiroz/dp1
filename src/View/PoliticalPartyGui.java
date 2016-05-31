@@ -332,8 +332,10 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setName(name);
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
-                                ElectoralProcess process=Manager.queryElectoralProcessById(8);                             
+                                long idProcess = 8;
+                                ElectoralProcess process=Manager.queryElectoralProcessById(idProcess);                             
                                 party.setElectoralProcess(process);
+                                java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
                                 java.lang.System.out.println("Apunto de editar nuevo partido politico");
                                 updatePoliticalParty(party);
                                 java.lang.System.out.println("Editado nuevo partido politico");

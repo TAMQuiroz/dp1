@@ -18,6 +18,9 @@ public class Adherent {
     private String observation;
     private PoliticalParty politicalParty;
     
+    public void Adherent(){
+        
+    }
     /**
      * @return the id
      */
