@@ -13,6 +13,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import javax.swing.JOptionPane;
 /**
  *
@@ -378,8 +379,15 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
-        SignatureLib.console=jTextArea1;
-        signaturesVal=validarFirmas(id);
+        String filePathString= "test\\auxiliar\\cortes\\"+id+"\\padron";
+        File f = new File(filePathString);
+        if(f.exists() && !f.isDirectory()) { 
+            SignatureLib.console=jTextArea1;
+            signaturesVal=validarFirmas(id);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se han procesado los padrones", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
