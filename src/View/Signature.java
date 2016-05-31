@@ -44,64 +44,72 @@ public class Signature {
         String route = "firmas\\resized\\";
         String extension = ".jpg";
         
+        String routeVal="test\\auxiliar\\cortes\\0\\padron";
+
         //Firma a comparar
-        String n_img1  = "firma1";
+        String n_img1  = "firma";
         //String n_img1  = "f001rp";
-        max=0; indice=0; 
         
-        java.lang.System.out.println("***INICIANDO SIFT***");
-        for(int i=1;i<=58;i++){
-            cambio=0;
-            String n_img2  = "f0";
-            if(i<10)
-                n_img2=n_img2+"0";
-            n_img2=n_img2+i+"r";
-            java.lang.System.out.print(i);
-            sift(route,n_img1, n_img2, extension);
-            if(cambio==1)
-                indice=i;
+        for(int k=11;k<=48;k++){
+            if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
+                max=0; indice=0; 
+                String routeAdd=k+"\\";
+                java.lang.System.out.print(k);
+                //java.lang.System.out.println("***INICIANDO SIFT***");
+                for(int i=1;i<=58;i++){
+                    cambio=0;
+                    String n_img2  = "f0";
+                    if(i<10)
+                        n_img2=n_img2+"0";
+                    n_img2=n_img2+i+"r";
+
+                    sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
+                    if(cambio==1)
+                        indice=i;
+                }
+
+                //java.lang.System.out.println("***FINALIZANDO SIFT***");
+                java.lang.System.out.println("Firma encontrada final: " + indice + ", matches: "+max);
+            }
+            
         }
         
-        java.lang.System.out.println("***FINALIZANDO SIFT***");
-        java.lang.System.out.println("Firma encontrada final: " + indice);
     }  
     
-        public static void sift(String route, String n_img1, String n_img2, String extension){
+        public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
   
-        String bookObject = route + n_img1 + extension;
-        String bookScene = route + n_img2 + extension;
-        //String bookObject = "test//1.png";  
-        //String bookScene = "test//4.png";  
+        String bookObject = routeVal + n_img1 + extension;
+        String bookScene = route + n_img2 + extension; 
 
         //System.out.println("Iniciando SIFT");
-        java.lang.System.out.print("Abriendo imagenes | ");
+        //java.lang.System.out.print("Abriendo imagenes | ");
         Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);  
         Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);  
 
         MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();  
         FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.SIFT);  
-        java.lang.System.out.print("Encontrar keypoints con SIFT | ");  
+        //java.lang.System.out.print("Encontrar keypoints con SIFT | ");  
         featureDetector.detect(objectImage, objectKeyPoints);  
         KeyPoint[] keypoints = objectKeyPoints.toArray();  
 
         MatOfKeyPoint objectDescriptors = new MatOfKeyPoint();  
         DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.SIFT);  
-        java.lang.System.out.print("Computando descriptores | ");  
+        //java.lang.System.out.print("Computando descriptores | ");  
         descriptorExtractor.compute(objectImage, objectKeyPoints, objectDescriptors);  
 
         // Create the matrix for output image.   
         Mat outputImage = new Mat(objectImage.rows(), objectImage.cols(), Highgui.CV_LOAD_IMAGE_COLOR);  
         Scalar newKeypointColor = new Scalar(255, 0, 0);  
 
-        java.lang.System.out.print("Dibujando keypoints en imagen base | ");  
+        //java.lang.System.out.print("Dibujando keypoints en imagen base | ");  
         Features2d.drawKeypoints(objectImage, objectKeyPoints, outputImage, newKeypointColor, 0);  
 
         // Match object image with the scene image  
         MatOfKeyPoint sceneKeyPoints = new MatOfKeyPoint();  
         MatOfKeyPoint sceneDescriptors = new MatOfKeyPoint();  
-        java.lang.System.out.print("Detectando keypoints en imagen base | ");
+        //java.lang.System.out.print("Detectando keypoints en imagen base | ");
         featureDetector.detect(sceneImage, sceneKeyPoints);  
-        java.lang.System.out.print("Computando descriptores en imagen base | ");
+        //java.lang.System.out.print("Computando descriptores en imagen base | ");
         descriptorExtractor.compute(sceneImage, sceneKeyPoints, sceneDescriptors);  
 
         Mat matchoutput = new Mat(sceneImage.rows() * 2, sceneImage.cols() * 2, Highgui.CV_LOAD_IMAGE_COLOR);  
@@ -109,10 +117,10 @@ public class Signature {
 
         List<MatOfDMatch> matches = new LinkedList<MatOfDMatch>();  
         DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);  
-        java.lang.System.out.print("Encontrando matches entre imagenes | ");  
+        //java.lang.System.out.print("Encontrando matches entre imagenes | ");  
         descriptorMatcher.knnMatch(objectDescriptors, sceneDescriptors, matches, 2);  
 
-        java.lang.System.out.println("Calculando buenos matches");
+        //java.lang.System.out.println("Calculando buenos matches");
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();  
 
         float nndrRatio = 0.7f;  
@@ -133,7 +141,7 @@ public class Signature {
 
         if (goodMatchesList.size() >= 7)  
         {  
-            java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
+            //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
             if(goodMatchesList.size()>max){
                 max=goodMatchesList.size();
                 cambio = 1;
@@ -176,7 +184,7 @@ public class Signature {
             Core.line(img, new Point(scene_corners.get(2, 0)), new Point(scene_corners.get(3, 0)), new Scalar(0, 255, 0), 4);  
             Core.line(img, new Point(scene_corners.get(3, 0)), new Point(scene_corners.get(0, 0)), new Scalar(0, 255, 0), 4);  
 
-            java.lang.System.out.println("Dibujando imagen de coincidencias");
+            //java.lang.System.out.println("Dibujando imagen de coincidencias");
             MatOfDMatch goodMatches = new MatOfDMatch();  
             goodMatches.fromList(goodMatchesList);  
 
@@ -191,7 +199,7 @@ public class Signature {
         }  
         else  
         {  
-            java.lang.System.out.println("Firma no encontrada");  
+            //java.lang.System.out.println("Firma no encontrada");  
         }  
 
         //System.out.println("Terminando SIFT");  

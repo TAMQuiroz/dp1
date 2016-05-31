@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package View;
+import static View.SignatureLib.validarFirmas;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
  
@@ -366,6 +367,8 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
+        SignatureLib.console=jTextArea1;
+        validarFirmas();
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
@@ -387,6 +390,7 @@ public class adherentListi extends javax.swing.JFrame {
                   documento.open();
                   documento.add(new Paragraph("Reporte de Lista Sin Validar"));
                   documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
+                  
              /*     for (int i =0; i<listSales.size();i++){
                       Sales s = listSales.get(i);    	  
                       Customer cus = null;
