@@ -5,6 +5,7 @@
  */
 package View;
 
+
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class SignatureLib {
     public static int indice;
     public static int cambio;
     
-    public static void validarFirmas() {
+    public static void validarFirmas(String id) {
         
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
@@ -45,7 +46,7 @@ public class SignatureLib {
         String route = "firmas\\resized\\";
         String extension = ".jpg";
         
-        String routeVal="test\\auxiliar\\cortes\\0\\padron";
+        String routeVal="test\\auxiliar\\cortes\\"+id+"\\padron";
 
         //Firma a comparar
         String n_img1  = "firma";

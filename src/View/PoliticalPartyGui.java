@@ -324,7 +324,8 @@ public class PoliticalPartyGui extends JFrame {
     }//GEN-LAST:event_btnUploadElectoralRollActionPerformed
 
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
-       new adherentListi().setVisible(true);
+        String idParty = email1.getText();
+        new adherentListi(idParty).setVisible(true);
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
