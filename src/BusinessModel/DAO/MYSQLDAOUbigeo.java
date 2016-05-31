@@ -166,8 +166,9 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from ubigeo";
-                pstmt = conn.prepareStatement(sql);			
+                String sql = "Select* from ubigeo WHERE status=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, "Activo");           			
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
