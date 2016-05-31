@@ -149,7 +149,7 @@ public class ElectoralProcessGui extends JFrame {
             }
         });
 
-        btnCancel.setText("Cancelar");
+        btnCancel.setText("Dar de baja");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -157,6 +157,11 @@ public class ElectoralProcessGui extends JFrame {
         });
 
         jButton1.setText("Agregar Ubigeo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -430,6 +435,12 @@ public class ElectoralProcessGui extends JFrame {
         refreshTblSalesmans();
         */
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        long idElectoralProcess=Long.parseLong(jTextField9.getText());
+         new ZoneGui(idElectoralProcess).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
