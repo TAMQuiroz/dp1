@@ -200,7 +200,7 @@ public class FingerprintLib {
         FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.SURF);  
         java.lang.System.out.print("Encontrar keypoints con SURF | ");
         featureDetector.detect(objectImage, objectKeyPoints);  
-        KeyPoint[] keypoints = objectKeyPoints.toArray();  
+        //KeyPoint[] keypoints = objectKeyPoints.toArray();  
         //System.out.println(keypoints);  
 
         MatOfKeyPoint objectDescriptors = new MatOfKeyPoint();  
