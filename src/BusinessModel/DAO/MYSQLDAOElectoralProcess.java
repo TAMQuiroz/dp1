@@ -291,7 +291,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         java.util.Date dateJava = new java.util.Date(date.getTime()); ep.setDate(dateJava);
                         date = rs.getDate("startRegistrationDate"); 
                         java.util.Date startRegistrationDate = new java.util.Date(date.getTime()); 
-                        ep.setStartExtraReceptionDate(startRegistrationDate);
+                        ep.setStartRegistrationDate(startRegistrationDate);
                         date = rs.getDate("endRegistrationDate"); 
                         java.util.Date endRegistrationDate = new java.util.Date(date.getTime());
                         ep.setEndRegistrationDate(endRegistrationDate);
@@ -309,7 +309,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setEndValidationDate(endValidationDate);
                         date = rs.getDate("startExtraReceptionDate");                        
                         java.util.Date startExtraReceptionDate = new java.util.Date(date.getTime());
-                        ep.setEndExtraReceptionDate(startExtraReceptionDate);
+                        ep.setStartExtraReceptionDate(startExtraReceptionDate);
                         date = rs.getDate("endExtraReceptionDate");                        
                         java.util.Date endExtraReceptionDate = new java.util.Date(date.getTime());
                         ep.setEndExtraReceptionDate(endExtraReceptionDate);
@@ -387,7 +387,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setDate(dateJava);
                         date = rs.getDate("startRegistrationDate"); 
                         java.util.Date startRegistrationDate = new java.util.Date(date.getTime()); 
-                        ep.setStartExtraReceptionDate(startRegistrationDate);
+                        ep.setStartRegistrationDate(startRegistrationDate);
                         date = rs.getDate("endRegistrationDate"); 
                         java.util.Date endRegistrationDate = new java.util.Date(date.getTime());
                         ep.setEndRegistrationDate(endRegistrationDate);
@@ -405,7 +405,7 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setEndValidationDate(endValidationDate);
                         date = rs.getDate("startExtraReceptionDate");                        
                         java.util.Date startExtraReceptionDate = new java.util.Date(date.getTime());
-                        ep.setEndExtraReceptionDate(startExtraReceptionDate);
+                        ep.setStartExtraReceptionDate(startExtraReceptionDate);
                         date = rs.getDate("endExtraReceptionDate");                        
                         java.util.Date endExtraReceptionDate = new java.util.Date(date.getTime());
                         ep.setEndExtraReceptionDate(endExtraReceptionDate);

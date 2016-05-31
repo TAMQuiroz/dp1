@@ -387,7 +387,9 @@ public class ElectoralProcessGui extends JFrame {
              Date endextravalidationdate=formatter.parse(jTextField13.getText());   
              Date endreceptiondate=formatter.parse(jTextField15.getText());
              
-             
+            long idUser = 3;
+            User user = Manager.queryUserById(idUser);
+            
             ElectoralProcess process = new ElectoralProcess();
             process.setDate(date);
             process.setName(name);
@@ -398,7 +400,7 @@ public class ElectoralProcessGui extends JFrame {
             process.setEndExtraReceptionDate(endextrareceptiondate);
             process.setEndExtraValidationDate(endextravalidationdate);
             process.setEndReceptionDate(endreceptiondate);
-
+            process.setUser(user);
             ProcessType proctype;
             proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
             process.setProcessType(proctype);
@@ -407,7 +409,8 @@ public class ElectoralProcessGui extends JFrame {
             process.setEndValidationDate(endvalidationdate);
             process.setStartRegistrationDate(startregistrationdate);
             process.setEndRegistrationDate(endregistrationdate);
-
+            long id = Long.parseLong(jTextField9.getText());
+            process.setId(id);
            
 
             /*Ubigeo ubi= new Ubigeo();
