@@ -177,15 +177,20 @@ public class ElectoralProcessGui extends JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Tipo de proceso", "Fecha de proceso"
+                "Id", "Nombre", "Tipo de proceso", "Fecha de proceso"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel10.setText("Inicio de recepción extra");
@@ -255,8 +260,7 @@ public class ElectoralProcessGui extends JFrame {
                                         .addGap(21, 21, 21)
                                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(51, 51, 51)
-                                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(34, 34, 34)
@@ -532,6 +536,33 @@ public class ElectoralProcessGui extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField12ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         int selRow = jTable1.getSelectedRow();
+				int processId = Integer.parseInt(
+						jTable1.getValueAt(selRow, 0).toString());
+				ElectoralProcess p = Manager.queryElectoralProcessById(processId);
+                                jTextField9.setText("" + p.getId());
+                                jTextField1.setText(p.getName());
+                                jTextField3.setText(""+p.getPopulation());
+                                jTextField8.setText(""+p.getMinPercentage());
+                                jComboBox1.setSelectedItem(p.getProcessType());
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                jTextField2.setText(""+p.getDate());
+                                jTextField5.setText(""+p.getStartRegistrationDate());
+                                jTextField4.setText(""+p.getEndRegistrationDate());
+                                jTextField7.setText(""+p.getStartValidationDate());
+                                jTextField6.setText(""+p.getEndValidationDate());
+                                jTextField10.setText(""+p.getStartExtraReceptionDate());
+                                jTextField12.setText(""+p.getStartExtraValidationDate());
+                                jTextField14.setText(""+p.getStartReceptionDate());
+                                jTextField11.setText(""+p.getEndExtraReceptionDate());
+                                jTextField13.setText(""+p.getEndExtraValidationDate());
+                                jTextField15.setText(""+p.getEndReceptionDate());
+                                java.lang.System.out.println("Partido seleccionado");
+                           java.lang.System.out.println("Proceso Electoral seleccionado");
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -569,10 +600,10 @@ public class ElectoralProcessGui extends JFrame {
     }
     class MyTableModel extends AbstractTableModel {
         ArrayList<Model.ElectoralProcess> electoralProcessList = Manager.queryAllElectoralProcess();
-		String [] titles = { "Nombre", "Tipo Proceso","Fecha Proceso"};
+		String [] titles = {"Id", "Nombre", "Tipo Proceso","Fecha Proceso"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 3;
+			return 4;
 		}
 
 		public int getRowCount() {
@@ -584,13 +615,16 @@ public class ElectoralProcessGui extends JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-			case 0:
-				value = "" + electoralProcessList.get(row).getName();
-				break;
-			case 1:
-				value = "" + electoralProcessList.get(row).getProcessType().getName();
+                        case 1:
+				value = "" + electoralProcessList.get(row).getId();
 				break;
 			case 2:
+				value = "" + electoralProcessList.get(row).getName();
+				break;
+			case 3:
+				value = "" + electoralProcessList.get(row).getProcessType().getName();
+				break;
+			case 4:
 				value = "" + electoralProcessList.get(row).getDate();
 				break;			
 			}

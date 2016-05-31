@@ -13,7 +13,6 @@ import Model.Ubigeo;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 /**
@@ -59,8 +58,7 @@ public class ZoneGui  extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setBorder(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ubigeo - Proceso Electoral Municipal 2016");
 
         jLayeredPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Ubigeo"));
@@ -76,6 +74,11 @@ public class ZoneGui  extends JFrame {
                 "ID", "Nombre", "Descripcion"
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         jScrollPane2.setViewportView(jScrollPane3);
@@ -306,6 +309,18 @@ public class ZoneGui  extends JFrame {
     private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameText1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+          int selRow = jTable2.getSelectedRow();
+				int zoneId = Integer.parseInt(
+						jTable2.getValueAt(selRow, 0).toString());
+				Ubigeo p = Manager.queryUbigeoById(zoneId);
+                                nameText1.setText("" + p.getId());
+                                legalDepartment.setText(p.getDescription());
+                                nameText.setText("" + p.getName());
+                           java.lang.System.out.println("Ubigeo seleccionado");
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
