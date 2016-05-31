@@ -13,6 +13,7 @@ public class Adherent {
     private long id;
     private String name;
     private String lastName;
+    private String dni;
     private String source;
     private String observation;
     private PoliticalParty politicalParty;
@@ -99,5 +100,19 @@ public class Adherent {
      */
     public void setSource(String source) {
         this.source = source;
+    }
+
+    /**
+     * @return the dni
+     */
+    public String getDni() {
+        return dni;
+    }
+
+    /**
+     * @param dni the dni to set
+     */
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 }

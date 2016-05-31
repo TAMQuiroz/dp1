@@ -30,7 +30,7 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "INSERT INTO politicalParty (name, legalRepresentative, telehpone, email, status, id_electoralProcess) VALUES(?,?,?,?,?,?)";
+                String sql = "INSERT INTO politicalParty (name, legalRepresentative, telephone, email, status, id_electoralProcess) VALUES(?,?,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 //pstmt.setInt(1,  p.getId());
                 pstmt.setString(1, ep.getName());
@@ -76,7 +76,7 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "UPDATE politicalParty SET name=?, legalRepresentative=?, telehpone=?, email=?, status=?, id_politicalParty=? WHERE id=?";
+                String sql = "UPDATE politicalParty SET name=?, legalRepresentative=?, telephone=?, email=?, status=?, id_politicalParty=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
                 //pstmt.setInt(1,  p.getId());
                 pstmt.setString(1, ep.getName());
