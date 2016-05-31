@@ -617,16 +617,16 @@ public class ElectoralProcessGui extends JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-                        case 1:
+                        case 0:
 				value = "" + electoralProcessList.get(row).getId();
 				break;
-			case 2:
+			case 1:
 				value = "" + electoralProcessList.get(row).getName();
 				break;
-			case 3:
+			case 2:
 				value = "" + electoralProcessList.get(row).getProcessType().getName();
 				break;
-			case 4:
+			case 3:
 				value = "" + electoralProcessList.get(row).getDate();
 				break;			
 			}
