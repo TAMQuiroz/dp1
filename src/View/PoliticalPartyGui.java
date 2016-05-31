@@ -104,6 +104,11 @@ public class PoliticalPartyGui extends JFrame {
         jLabel2.setText("Id");
 
         email1.setEditable(false);
+        email1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email1ActionPerformed(evt);
+            }
+        });
 
         jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -384,6 +389,10 @@ public class PoliticalPartyGui extends JFrame {
                                 email.setText(p.getEmail());
                            java.lang.System.out.println("Partido seleccionado");
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email1ActionPerformed
 
     /**
      * @param args the command line arguments

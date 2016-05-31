@@ -139,6 +139,7 @@ public class ZoneGui  extends JFrame {
             }
         });
 
+        nameText1.setEditable(false);
         nameText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameText1ActionPerformed(evt);

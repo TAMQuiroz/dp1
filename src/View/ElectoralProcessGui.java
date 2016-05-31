@@ -147,6 +147,8 @@ public class ElectoralProcessGui extends JFrame {
 
         jLabel12.setText("Nombre de proceso (*)");
 
+        jTextField9.setEditable(false);
+
         btnRegister.setText("Registrar");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
