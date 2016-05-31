@@ -38,4 +38,8 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOPoliticalParty getDAOPoliticalParty() {
         return new MYSQLDAOPoliticalParty();
     }
+    @Override
+    public DAOAdherentImage getDAOAdherentImage() {
+        return new MYSQLDAOAdherentImage();
+    }
 }

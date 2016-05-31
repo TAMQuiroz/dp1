@@ -22,5 +22,5 @@ public abstract class DAOFactory {
     public abstract DAOProcessType getDAOProcessType(); //Polimorfismo	
     public abstract DAOUbigeo getDAOUbigeo();
     public abstract DAOPoliticalParty getDAOPoliticalParty();
-
+    public abstract DAOAdherentImage getDAOAdherentImage();
 }

@@ -17,6 +17,7 @@ public class Manager {
     private static ProcessTypeDB processTypeDB = new ProcessTypeDB();
     private static UbigeoDB ubigeoDB = new UbigeoDB();
     private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
+    private static AdherentImageDB adherentImageDB = new AdherentImageDB(); 
     
     public static void addElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.add(ep);
@@ -93,4 +94,20 @@ public class Manager {
     public static PoliticalParty queryPoliticalPartyById(long politicalPartyId){
         return politicalPartyDB.queryById(politicalPartyId);
     } 
+    public static void addAdherentImage(AdherentImage ep){
+        adherentImageDB.add(ep);
+    }
+    public static void updateAdherentImage(AdherentImage ep){
+        adherentImageDB.update(ep);
+    }
+    public static void deleteAdherentImage(long adherentImageId){
+        adherentImageDB.delete(adherentImageId);
+    }
+    public static ArrayList<AdherentImage> queryAllAdherentImages(){
+        return adherentImageDB.queryAll();
+    }
+    public static AdherentImage queryAdherentImageById(long adherentImageId){
+        return adherentImageDB.queryById(adherentImageId);
+    }
+    
 }
