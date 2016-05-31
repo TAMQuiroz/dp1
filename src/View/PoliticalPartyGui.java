@@ -324,8 +324,13 @@ public class PoliticalPartyGui extends JFrame {
     }//GEN-LAST:event_btnUploadElectoralRollActionPerformed
 
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
-        String idParty = email1.getText();
-        new adherentListi(idParty).setVisible(true);
+        int row = jTable1.getSelectedRow();
+        if(row != -1){
+            String idParty = email1.getText();
+            new adherentListi(idParty).setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se eligio un partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
