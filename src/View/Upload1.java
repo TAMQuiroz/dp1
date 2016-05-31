@@ -19,12 +19,19 @@ import javax.swing.JOptionPane;
 public class Upload1 extends JFrame {
     JFileChooser chooser;
     String choosertitle = "Elegir folder con padrones";
+    String id;
     /**
      * Creates new form Upload
      */
     public Upload1() {
-      
+        
         initComponents();
+    }
+    
+    public Upload1(String idParty, String nameParty){
+        initComponents();
+        id = idParty;
+        this.setTitle("Carga de archivos - " + nameParty);
     }
 
     /**
@@ -232,7 +239,7 @@ public class Upload1 extends JFrame {
 
     private void btnBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginActionPerformed
         String url = txtUploadUrl.getText();
-        int idPartido = 0;
+        int idPartido = Integer.parseInt(id);
         if(!url.equals("")){
             try {
                 UploadLib.console = txtConsole;

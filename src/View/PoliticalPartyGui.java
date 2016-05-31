@@ -311,8 +311,16 @@ public class PoliticalPartyGui extends JFrame {
     }//GEN-LAST:event_nameTextActionPerformed
 
     private void btnUploadElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadElectoralRollActionPerformed
-        // TODO add your handling code here:
-        new Upload1().setVisible(true);
+        int row = jTable1.getSelectedRow();
+        if(row != -1){
+            String idParty = email1.getText();
+            String nameParty = nameText.getText();
+            Upload1 view = new Upload1(idParty, nameParty);
+
+            view.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se eligio un partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnUploadElectoralRollActionPerformed
 
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
