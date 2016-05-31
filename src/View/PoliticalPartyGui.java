@@ -326,12 +326,14 @@ public class PoliticalPartyGui extends JFrame {
                                 String department= legalDepartment.getText();
                                 String phone = telephone.getText();
                                 String e_mail= email.getText();
+                                long id = Long.parseLong(email1.getText());
                                 PoliticalParty party = new PoliticalParty();
                                 party.setEmail(e_mail);
                                 party.setLegalRepresentative(department);
                                 party.setName(name);
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
+                                party.setId(id);
                                 long idProcess = 8;
                                 ElectoralProcess process=Manager.queryElectoralProcessById(idProcess);                             
                                 party.setElectoralProcess(process);

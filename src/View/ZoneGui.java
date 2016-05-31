@@ -279,11 +279,11 @@ public class ZoneGui  extends JFrame {
         // TODO add your handling code here:
                                 String name = nameText.getText();
                                 String description= legalDepartment.getText();
-
+                                long id = Long.parseLong(nameText1.getText());
                                 Ubigeo ubigeo = new Ubigeo();
                                 ubigeo.setName(name);                           
-                                ubigeo.setStatus("Activo");
-                                
+                                ubigeo.setStatus("Activo");                                
+                                ubigeo.setId(id);
                                 ElectoralProcess process = Manager.queryElectoralProcessById(idProcessElectoral);
                                 ubigeo.setElectoralProcess(process);
                                 ubigeo.setDescription(description);
