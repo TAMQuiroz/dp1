@@ -489,6 +489,8 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 telephone2.setText(p.getDocCode());
                                 telephone3.setText(p.getPhone());
                                 email1.setText(""+p.getBornDay());
+                                String profile= p.getProfile().getName();
+                                jComboBox1.setSelectedItem(profile);
                                  java.lang.System.out.println("Usuario seleccionado");
     }
 
