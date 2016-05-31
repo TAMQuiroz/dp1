@@ -28,10 +28,14 @@ public class ZoneGui  extends JFrame {
     public ZoneGui(long id) {
         idProcessElectoral=id;
         initComponents();
+         zoneModel = new MyTableModel();
+	jTable2.setModel(zoneModel);
     }
     
      public ZoneGui() {
         initComponents();
+         zoneModel = new MyTableModel();
+	jTable2.setModel(zoneModel);
     }
     /**
      * This method is called from within the constructor to initialize the form.

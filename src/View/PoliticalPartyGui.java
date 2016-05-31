@@ -28,6 +28,8 @@ public class PoliticalPartyGui extends JFrame {
     public PoliticalPartyGui() {
        // setClosable(true);
         initComponents();
+        partyModel = new MyTableModel();
+	jTable1.setModel(partyModel);
     }
 
     /**
