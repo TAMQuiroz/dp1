@@ -32,6 +32,10 @@ import org.opencv.highgui.Highgui;
  * @author Claudia
  */
 public class Signature {
+    public static int max;
+    public static int indice;
+    public static int cambio;
+    
     public static void main(String[] args) {
         
         File dll = new File("lib\\opencv_java2412.dll");
@@ -43,18 +47,23 @@ public class Signature {
         //Firma a comparar
         String n_img1  = "firma1";
         //String n_img1  = "f001rp";
+        max=0; indice=0; 
         
         java.lang.System.out.println("***INICIANDO SIFT***");
         for(int i=1;i<=58;i++){
+            cambio=0;
             String n_img2  = "f0";
             if(i<10)
                 n_img2=n_img2+"0";
             n_img2=n_img2+i+"r";
             java.lang.System.out.print(i);
             sift(route,n_img1, n_img2, extension);
+            if(cambio==1)
+                indice=i;
         }
         
         java.lang.System.out.println("***FINALIZANDO SIFT***");
+        java.lang.System.out.println("Firma encontrada final: " + indice);
     }  
     
         public static void sift(String route, String n_img1, String n_img2, String extension){
@@ -124,8 +133,12 @@ public class Signature {
 
         if (goodMatchesList.size() >= 7)  
         {  
-            java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());  
-
+            java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
+            if(goodMatchesList.size()>max){
+                max=goodMatchesList.size();
+                cambio = 1;
+            }    
+            
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();  
             List<KeyPoint> scnKeypointlist = sceneKeyPoints.toList();  
 

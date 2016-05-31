@@ -28,8 +28,8 @@ import org.opencv.imgproc.Imgproc;
  * @author Claudia
  */
 public class PreprocessSignature {
-    private static final int IMG_WIDTH = 146;
-    private static final int IMG_HEIGHT = 70;
+    private static final int IMG_WIDTH = 146; //430
+    private static final int IMG_HEIGHT = 70; //221
     
     public static void main(String[] args) throws IOException {
 
