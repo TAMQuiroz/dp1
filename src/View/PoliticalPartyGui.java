@@ -327,7 +327,8 @@ public class PoliticalPartyGui extends JFrame {
         int row = jTable1.getSelectedRow();
         if(row != -1){
             String idParty = email1.getText();
-            new adherentListi(idParty).setVisible(true);
+            String nameParty = nameText.getText();
+            new adherentListi(idParty, nameParty).setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "No se eligio un partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
