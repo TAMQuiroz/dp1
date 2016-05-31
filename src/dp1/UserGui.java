@@ -14,22 +14,25 @@ import Model.User;
 import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author Andrea
  */
 public class UserGui extends javax.swing.JInternalFrame {
-
+ MyTableModel userModel;
     /**
      * Creates new form User
      */
     public UserGui() {
         setClosable(true);
         initComponents();
+        userModel = new MyTableModel();
+	jTable2.setModel(userModel);
     }
 
     /**
@@ -130,7 +133,7 @@ public class UserGui extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancel.setText("Cancelar");
+        btnCancel.setText("Dar de baja");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -349,6 +352,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 user.setName(name);
                                 user.setPassword(password);
                                 user.setPhone(telephone);
+                                
                                 String role= (String)jComboBox1.getSelectedItem();
                                 Profile profile;
                                 profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
@@ -356,6 +360,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 user.setStatus("Activo");
                                 addUser(user);
                                  java.lang.System.out.println("Agrego nuevo usuario");
+                                 refreshTblUser();
                                 }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
 				} 
@@ -388,6 +393,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 user.setStatus("Activo");
                                 updateUser(user);
                                  java.lang.System.out.println("Agrego nuevo usuario");
+                                 refreshTblUser();
                                  }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
 				} 
@@ -400,6 +406,7 @@ public class UserGui extends javax.swing.JInternalFrame {
 			if (res == JOptionPane.OK_OPTION) {
 				try {
 					deleteUser(Integer.parseInt(nameText1.getText()));
+                                        refreshTblUser();
                                         //jTable2.clear();
                                         //jTable2.addAll(tableQuery.getResultList());
 				} catch (NumberFormatException e1) {
@@ -413,7 +420,55 @@ public class UserGui extends javax.swing.JInternalFrame {
     private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameText1ActionPerformed
+     class MyTableModel extends AbstractTableModel {
+        ArrayList<Model.User> userList = Manager.queryAllUsers();
+		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Correo","Telefono"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 7;
+		}
 
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return userList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + userList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 2:
+				value = "" + userList.get(row).getLastName();
+				break;	
+                        case 3:
+				value = "" + userList.get(row).getPassword();
+				break;	
+                        case 4:
+				value = "" + userList.get(row).getDocCode();
+				break;	
+                        case 5:
+				value = "" + userList.get(row).getDocType();
+				break;
+                        case 6:
+				value = "" + userList.get(row).getPhone();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+    public void refreshTblUser() {
+		userModel.userList = Manager.queryAllUsers();
+		userModel.fireTableChanged(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
