@@ -362,7 +362,8 @@ public class UserGui extends javax.swing.JInternalFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
           try {
-         String name = nameText.getText();
+                                java.lang.System.out.println("Entro al update user ");
+                                String name = nameText.getText();
                                 String lastname= legalDepartment.getText();
                                 String password = telephone.getText();
                                 String typedocument= telephone1.getText();
@@ -371,6 +372,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
                                 User user = Manager.queryUserById(Long.parseLong(nameText1.getText()));
+                                java.lang.System.out.println("Usuario: " + user.getId() + " - " + user.getName());
                                 user.setBornDay(bornday);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
@@ -384,7 +386,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 user.setProfile(profile);
                                 user.setStatus("Activo");
                                 updateUser(user);
-                                 java.lang.System.out.println("Agrego nuevo usuario");
+                                 java.lang.System.out.println("Usuario modificado");
                                  refreshTblUser();
                                  }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();

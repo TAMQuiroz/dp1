@@ -97,8 +97,8 @@ public class MYSQLDAOUser implements DAOUser{
                 pstmt.setString(5, ep.getPhone());
                 pstmt.setString(6, ep.getDocCode());
                 pstmt.setString(7, ep.getDocType());
-                pstmt.setLong(8, ep.getProfile().getId());  
-                pstmt.setString(9, ep.getStatus());
+                pstmt.setString(8, ep.getStatus());
+                pstmt.setLong(9, ep.getProfile().getId());                  
                 pstmt.setLong(10, ep.getId());                   
                 //Paso 4: Ejecutar la sentencia	
                 pstmt.executeUpdate();
