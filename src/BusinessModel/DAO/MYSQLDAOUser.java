@@ -99,9 +99,8 @@ public class MYSQLDAOUser implements DAOUser{
                 pstmt.setString(7, ep.getDocType());
                 pstmt.setLong(8, ep.getProfile().getId());  
                 pstmt.setString(9, ep.getStatus());
-                pstmt.setLong(10, ep.getId());   
-                pstmt.executeUpdate();
-                //Paso 4: Ejecutar la sentencia						
+                pstmt.setLong(10, ep.getId());                   
+                //Paso 4: Ejecutar la sentencia	
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
 
@@ -206,6 +205,7 @@ public class MYSQLDAOUser implements DAOUser{
                     java.util.Date dateJava = new java.util.Date(date.getTime()); 
                     p.setBornDay(dateJava);        
                     String phone = rs.getString("phone"); p.setPhone(phone);                    
+                    String passwordA = rs.getString("password"); p.setPassword(passwordA);                    
                     String docCode = rs.getString("docCode"); p.setDocCode(docCode);
                     String docType = rs.getString("docType"); p.setDocType(docType);                    
                     long idProfile = rs.getLong("id_profile"); 
@@ -257,6 +257,7 @@ public class MYSQLDAOUser implements DAOUser{
                         String docCode = rs.getString("docCode"); user.setDocCode(docCode);
                         String docType = rs.getString("docType"); user.setDocType(docType);                    
                         String status = rs.getString("status"); user.setStatus(status);                    
+                        String passwordA = rs.getString("password"); user.setPassword(passwordA);                    
                         long idProfile = rs.getLong("id_profile"); 
                         //BUSCAR PROFILE PENDIENTE
                         Profile profile = new Profile();
@@ -321,6 +322,7 @@ public class MYSQLDAOUser implements DAOUser{
                         String phone = rs.getString("phone"); user.setPhone(phone);                    
                         String docCode = rs.getString("docCode"); user.setDocCode(docCode);
                         String docType = rs.getString("docType"); user.setDocType(docType);                    
+                        String passwordA = rs.getString("password"); user.setPassword(passwordA);                    
                         String status = rs.getString("status"); user.setStatus(status);                    
                         long idProfile = rs.getLong("id_profile"); 
                         //BUSCAR PROFILE PENDIENTE
