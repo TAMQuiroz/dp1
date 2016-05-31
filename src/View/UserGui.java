@@ -364,13 +364,20 @@ public class UserGui extends javax.swing.JInternalFrame {
           try {
                                 java.lang.System.out.println("Entro al update user ");
                                 String name = nameText.getText();
+                                java.lang.System.out.println("Nombre ");
                                 String lastname= legalDepartment.getText();
+                                java.lang.System.out.println("Apellido ");
                                 String password = telephone.getText();
+                                java.lang.System.out.println("Contrasena ");
                                 String typedocument= telephone1.getText();
+                                java.lang.System.out.println("Tipo de documento");
                                 String document= telephone2.getText();
+                                java.lang.System.out.println("Documento ");
                                 String telephone= telephone3.getText();
+                                java.lang.System.out.println("Telefono");
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
+                                java.lang.System.out.println("Fecha ");
                                 long idUser = Long.parseLong("" + nameText1.getText());
                                 java.lang.System.out.println("Id user: " + idUser);
                                 User user = Manager.queryUserById(idUser);
