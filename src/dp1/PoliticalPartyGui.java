@@ -230,6 +230,11 @@ public class PoliticalPartyGui extends JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -360,6 +365,19 @@ public class PoliticalPartyGui extends JFrame {
 			}
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+      int selRow = jTable1.getSelectedRow();
+				int partyId = Integer.parseInt(
+						jTable1.getValueAt(selRow, 0).toString());
+				PoliticalParty p = Manager.queryPoliticalPartyById(partyId);
+                                email1.setText("" + p.getId());
+                                legalDepartment.setText(p.getLegalRepresentative());
+                                telephone.setText("" + p.getTelephone());
+                                email.setText(p.getEmail());
+                           java.lang.System.out.println("Partido seleccionado");
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -399,10 +417,10 @@ public class PoliticalPartyGui extends JFrame {
     }
     class MyTableModel extends AbstractTableModel {
         ArrayList<Model.PoliticalParty> partyList = Manager.queryAllPoliticalParties();
-		String [] titles = {"Codigo", "Nombre","Apellidos", "Correo","Estado"};
+		String [] titles = {"Codigo", "Nombre", "Correo","Estado"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 7;
+			return 4;
 		}
 
 		public int getRowCount() {

@@ -12,6 +12,7 @@ import static BusinessModel.Manager.updateUser;
 import Model.Profile;
 import Model.User;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,6 +89,11 @@ public class UserGui extends javax.swing.JInternalFrame {
                 "ID", "Nombre", "Apellidos", "Contraseña", "Documento ", "Correo", "Telefono"
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jScrollPane1.setViewportView(jScrollPane2);
@@ -161,6 +167,7 @@ public class UserGui extends javax.swing.JInternalFrame {
 
         jLabel10.setText("ID");
 
+        nameText1.setEditable(false);
         nameText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameText1ActionPerformed(evt);
@@ -378,7 +385,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String e_mail= email.getText();
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
-                                User user = new User();
+                                User user = Manager.queryUserById(Integer.parseInt(nameText1.getText()));
                                 user.setBornDay(bornday);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
@@ -420,6 +427,24 @@ public class UserGui extends javax.swing.JInternalFrame {
     private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameText1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int selRow = jTable2.getSelectedRow();
+				int userId = Integer.parseInt(
+						jTable2.getValueAt(selRow, 0).toString());
+				User p = Manager.queryUserById(userId);
+				nameText1.setText("" + p.getId());
+				nameText.setText(p.getName());
+                                legalDepartment.setText(p.getLastName());
+                                telephone.setText(p.getPassword());
+                                telephone1.setText(p.getDocType());
+                                telephone2.setText(p.getDocCode());
+                                telephone3.setText(p.getPhone());
+                                email.setText(p.getEmail());
+                                email1.setText(""+p.getBornDay());
+                                 java.lang.System.out.println("Usuario seleccionado");
+    }//GEN-LAST:event_jTable2MouseClicked
      class MyTableModel extends AbstractTableModel {
         ArrayList<Model.User> userList = Manager.queryAllUsers();
 		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Correo","Telefono"};
@@ -468,6 +493,23 @@ public class UserGui extends javax.swing.JInternalFrame {
     public void refreshTblUser() {
 		userModel.userList = Manager.queryAllUsers();
 		userModel.fireTableChanged(null);
+    }
+    
+    public void mouseClicked(MouseEvent e){
+				int selRow = jTable2.getSelectedRow();
+				int userId = Integer.parseInt(
+						jTable2.getValueAt(selRow, 0).toString());
+				User p = Manager.queryUserById(userId);
+				nameText1.setText("" + p.getId());
+				nameText.setText(p.getName());
+                                legalDepartment.setText(p.getLastName());
+                                telephone.setText(p.getPassword());
+                                telephone1.setText(p.getDocType());
+                                telephone2.setText(p.getDocCode());
+                                telephone3.setText(p.getPhone());
+                                email.setText(p.getEmail());
+                                email1.setText(""+p.getBornDay());
+                                 java.lang.System.out.println("Usuario seleccionado");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
