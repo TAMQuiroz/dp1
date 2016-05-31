@@ -374,10 +374,24 @@ public class ElectoralProcessGui extends JFrame {
             Date startvaldationdate=formatter.parse(jTextField7.getText());
             Date endvalidationdate=formatter.parse(jTextField6.getText());
 
+            Date startextrareceptiondate=formatter.parse(jTextField10.getText());
+             Date startextravalidationdate=formatter.parse(jTextField12.getText());
+             Date startreceptiondate=formatter.parse(jTextField14.getText());
+             Date endextrareceptiondate=formatter.parse(jTextField11.getText());
+             Date endextravalidationdate=formatter.parse(jTextField13.getText());   
+             Date endreceptiondate=formatter.parse(jTextField15.getText());
+             
+             
             ElectoralProcess process = new ElectoralProcess();
             process.setDate(date);
             process.setName(name);
             process.setPopulation(countprevious);
+            process.setStartExtraReceptionDate(startextrareceptiondate);
+            process.setStartExtraValidationDate(startextravalidationdate);
+            process.setStartReceptionDate(startreceptiondate);
+            process.setEndExtraReceptionDate(endextrareceptiondate);
+            process.setEndExtraValidationDate(endextravalidationdate);
+            process.setEndReceptionDate(endreceptiondate);
 
             ProcessType proctype;
             proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
@@ -464,12 +478,12 @@ public class ElectoralProcessGui extends JFrame {
             process.setEndValidationDate(endvalidationdate);
             process.setStartRegistrationDate(startregistrationdate);
             process.setEndRegistrationDate(endregistrationdate);
-            process.setStartExtraReceptionDate(new Date());
-            process.setStartExtraValidationDate(new Date());
-            process.setStartReceptionDate(new Date());
-            process.setEndExtraReceptionDate(new Date());
-            process.setEndExtraValidationDate(new Date());
-            process.setEndReceptionDate(new Date());
+            process.setStartExtraReceptionDate(startextrareceptiondate);
+            process.setStartExtraValidationDate(startextravalidationdate);
+            process.setStartReceptionDate(startreceptiondate);
+            process.setEndExtraReceptionDate(endextrareceptiondate);
+            process.setEndExtraValidationDate(endextravalidationdate);
+            process.setEndReceptionDate(endreceptiondate);
             Model.User u = Manager.login("71844756", "eeee");
             process.setUser(u);
             process.setStatus("Activo");
