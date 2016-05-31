@@ -62,7 +62,7 @@ public class ZoneGui  extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ubigeo - Proceso Electoral Municipal 2016");
 
         jLayeredPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Ubigeo"));
