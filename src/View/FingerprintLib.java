@@ -1,7 +1,7 @@
-package dp1;
+package View;
 
 //PREPROCESAMIENTO
-import static dp1.UploadLib.cargarPadrones;
+import static View.UploadLib.cargarPadrones;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Line;

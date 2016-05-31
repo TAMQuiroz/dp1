@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dp1;
+package View;
 import javax.swing.JFrame;
 import java.rmi.RemoteException;
 import java.awt.Color;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dp1;
+package View;
 import BusinessModel.Manager;
 import static BusinessModel.Manager.addUbigeo;
 import static BusinessModel.Manager.deleteUbigeo;
