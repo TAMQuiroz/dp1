@@ -1,12 +1,9 @@
 package View;
 
 //PREPROCESAMIENTO
-import static View.UploadLib.cargarPadrones;
 import ij.IJ;
 import ij.ImagePlus;
-import ij.gui.Line;
 import ij.io.FileSaver;
-import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
 
@@ -17,25 +14,18 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import net.sourceforge.tess4j.*;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfDMatch;
-import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.Size;
 import org.opencv.features2d.DMatch;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
@@ -44,10 +34,6 @@ import org.opencv.features2d.Features2d;
 import org.opencv.features2d.KeyPoint;
 import org.opencv.highgui.Highgui;
 
-import java.lang.System.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import org.opencv.core.Core.MinMaxLocResult;
 public class FingerprintLib {
     static int train_samples = 1;  
     static int classes = 10;  
@@ -175,7 +161,7 @@ public class FingerprintLib {
         Double min_dist = 45.0;
         
         java.lang.System.out.print(" Encontrar matches buenos | ");
-        LinkedList<DMatch> good_matches = new LinkedList<DMatch>();
+        LinkedList<DMatch> good_matches = new LinkedList<>();
         for(int i = 0;i < matchesList.size(); i++){
             if (matchesList.get(i).distance <= min_dist)
                 good_matches.addLast(matchesList.get(i));
@@ -240,13 +226,13 @@ public class FingerprintLib {
         Mat matchoutput = new Mat(sceneImage.rows() * 2, sceneImage.cols() * 2, Highgui.CV_LOAD_IMAGE_COLOR);  
         Scalar matchestColor = new Scalar(0, 255, 0);  
 
-        List<MatOfDMatch> matches = new LinkedList<MatOfDMatch>();  
+        List<MatOfDMatch> matches = new LinkedList<>();  
         DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);  
         java.lang.System.out.print("Encontrando matches entre imagenes | ");  
         descriptorMatcher.knnMatch(objectDescriptors, sceneDescriptors, matches, 2);  
 
         java.lang.System.out.println("Calculando buenos matches");
-        LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();  
+        LinkedList<DMatch> goodMatchesList = new LinkedList<>();  
 
         float nndrRatio = 0.7f;  
 
@@ -332,49 +318,46 @@ public class FingerprintLib {
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img_text = "1_cut";
         String route_base = "test\\";
         String route_huellas = route_base + "huellas\\";
         String route_pre = route_base + "pre\\";
         String route_ocr = route_base + "ocr\\";
-        String route_aux = route_base + "auxiliar\\";
-        String route_ocr_exp = route_ocr + "exp\\";
+        
         String extension = ".jpg";
         String extension_huellas = ".tif";
+        
+        String n_img_text = "1_cut";
         String n_img1  = "lena";
         String n_img2  = "103_1";
         
         //OCR TESSERACT
-        //Vector<String> imgs;
-        //imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
-        //ITesseract instance_num = new Tesseract1(); // JNA Direct Mapping
-        //ITesseract instance_let = new Tesseract1(); // JNA Direct Mapping
-        //instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
-        //instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
-        //ocr(instance, imgs);
+        Vector<String> imgs;
+        imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
+        ITesseract instance_num = new Tesseract1();
+        ITesseract instance_let = new Tesseract1();
+        instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
+        instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
+        ocr(instance_num, imgs);
+        ocr(instance_let, imgs);
         
-        //java.lang.System.out.println("Test Tesseract:");
-        //ocr_exp(instance_num, route_ocr_exp);
-        //ocr_exp_let(instance_let, route_ocr_exp);
-                
+               
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
+        /*
+        java.lang.System.out.println("***INICIANDO ORB***");
+        orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
+        java.lang.System.out.println("***FINALIZANDO ORB***");
+        */
         
         /*
         java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
         preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
         preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
-        java.lang.System.out.println("***INICIANDO ORB***");
-        orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO ORB***");
+        java.lang.System.out.println("***INICIANDO SURF***");
+        surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
+        java.lang.System.out.println("***FINALIZANDO SURF***");       
         */
-        //java.lang.System.out.println("***INICIANDO SURF***");
-        //surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        //java.lang.System.out.println("***FINALIZANDO SURF***");       
         
-        //cargarPadrones(routeToPadrones);
-
     }  
-    
 }
 
