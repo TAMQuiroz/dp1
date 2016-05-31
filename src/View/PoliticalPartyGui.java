@@ -334,8 +334,9 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setTelephone(phone);
                                 ElectoralProcess process=Manager.queryElectoralProcessById(8);                             
                                 party.setElectoralProcess(process);
-                                java.lang.System.out.println("Agrego nuevo partido politico");
+                                java.lang.System.out.println("Apunto de editar nuevo partido politico");
                                 updatePoliticalParty(party);
+                                java.lang.System.out.println("Editado nuevo partido politico");
                                 refreshTblParty();
                                  
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -389,6 +390,7 @@ public class PoliticalPartyGui extends JFrame {
                                 legalDepartment.setText(p.getLegalRepresentative());
                                 telephone.setText("" + p.getTelephone());
                                 email.setText(p.getEmail());
+                                nameText.setText(p.getName());
                            java.lang.System.out.println("Partido seleccionado");
     }//GEN-LAST:event_jTable1MouseClicked
 
