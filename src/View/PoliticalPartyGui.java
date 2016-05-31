@@ -327,6 +327,7 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setTelephone(phone);
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 updatePoliticalParty(party);
+                                refreshTblParty();
                                  
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -347,6 +348,7 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setElectoralProcess(process);
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
+                                refreshTblParty();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -356,7 +358,8 @@ public class PoliticalPartyGui extends JFrame {
          int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
 			if (res == JOptionPane.OK_OPTION) {
 				try {
-					deletePoliticalParty(Integer.parseInt(email1.getText()));
+					deletePoliticalParty(Long.parseLong(email1.getText()));
+                                        refreshTblParty();
                                         //jTable2.clear();
                                         //jTable2.addAll(tableQuery.getResultList());
 				} catch (NumberFormatException e1) {
