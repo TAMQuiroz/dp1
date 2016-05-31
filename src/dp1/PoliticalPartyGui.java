@@ -4,19 +4,24 @@
  * and open the template in the editor.
  */
 package dp1;
+import BusinessModel.Manager;
 import static BusinessModel.Manager.addPoliticalParty;
 import static BusinessModel.Manager.deletePoliticalParty;
 import static BusinessModel.Manager.updatePoliticalParty;
+import Model.ElectoralProcess;
 import Model.PoliticalParty;
 import java.text.ParseException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author erickelme
  */
 public class PoliticalPartyGui extends JFrame {
 
+     MyTableModel partyModel;
     /**
      * Creates new form ElectoralParty
      */
@@ -330,6 +335,9 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setName(name);
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
+                                ElectoralProcess process=new ElectoralProcess();
+                                process.setId(8);
+                                party.setElectoralProcess(process);
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
     }//GEN-LAST:event_btnRegisterActionPerformed
@@ -388,6 +396,46 @@ public class PoliticalPartyGui extends JFrame {
                 new PoliticalPartyGui().setVisible(true);
             }
         });
+    }
+    class MyTableModel extends AbstractTableModel {
+        ArrayList<Model.PoliticalParty> partyList = Manager.queryAllPoliticalParties();
+		String [] titles = {"Codigo", "Nombre","Apellidos", "Correo","Estado"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 7;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return partyList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + partyList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + partyList.get(row).getName();
+				break;
+			case 2:
+				value = "" + partyList.get(row).getEmail();
+				break;	
+                        case 3:
+				value = "" + partyList.get(row).getStatus();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+    public void refreshTblParty() {
+		partyModel.partyList = Manager.queryAllPoliticalParties();
+		partyModel.fireTableChanged(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
