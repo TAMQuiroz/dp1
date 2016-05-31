@@ -293,7 +293,7 @@ public class PoliticalPartyGui extends JFrame {
 
     private void btnUploadElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadElectoralRollActionPerformed
         // TODO add your handling code here:
-        new Upload().setVisible(true);
+        new Upload1().setVisible(true);
     }//GEN-LAST:event_btnUploadElectoralRollActionPerformed
 
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
