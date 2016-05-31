@@ -13,6 +13,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Andrea
@@ -23,16 +24,19 @@ public class adherentListi extends javax.swing.JFrame {
      * Creates new form adherentListi
      */
     String id;
+    String name;
+    int signaturesVal;
     
     public adherentListi() {
 
         initComponents();
     }
     
-    public adherentListi(String idParty) {
+    public adherentListi(String idParty,String nameParty) {
 
         initComponents();
         id = idParty;
+        name = nameParty;
     }
 
     /**
@@ -122,7 +126,6 @@ public class adherentListi extends javax.swing.JFrame {
         jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Verificando DNI...");
         jScrollPane3.setViewportView(jTextArea1);
 
         jLabel4.setText("Progreso:");
@@ -376,7 +379,7 @@ public class adherentListi extends javax.swing.JFrame {
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
         SignatureLib.console=jTextArea1;
-        validarFirmas(id);
+        signaturesVal=validarFirmas(id);
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
@@ -395,8 +398,9 @@ public class adherentListi extends javax.swing.JFrame {
                             archivo = new FileOutputStream("ReporteSinValidar.pdf");
                             Document documento = new Document();
                   PdfWriter.getInstance(documento, archivo);
+                  String titulo="Reporte de Lista Sin Validar del Partido " + name;
                   documento.open();
-                  documento.add(new Paragraph("Reporte de Lista Sin Validar"));
+                  documento.add(new Paragraph(titulo));
                   documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
                   
              /*     for (int i =0; i<listSales.size();i++){
@@ -433,8 +437,11 @@ public class adherentListi extends javax.swing.JFrame {
                             Document documento = new Document();
                   PdfWriter.getInstance(documento, archivo);
                   documento.open();
-                  documento.add(new Paragraph("Reporte de Validados"));
-                  documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
+                  String titulo="Reporte de Lista Validada del Partido " + name;
+                  documento.add(new Paragraph(titulo));
+                  String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
+                  documento.add(new Paragraph(cuerpo));
+                  //documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
              /*     for (int i =0; i<listSales.size();i++){
                       Sales s = listSales.get(i);    	  
                       Customer cus = null;
@@ -449,7 +456,8 @@ public class adherentListi extends javax.swing.JFrame {
                       }
 
                   }*/	
-                    documento.close();					
+                    documento.close();
+                    JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
                     } catch (FileNotFoundException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();

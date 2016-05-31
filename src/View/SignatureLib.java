@@ -38,8 +38,8 @@ public class SignatureLib {
     public static int indice;
     public static int cambio;
     
-    public static void validarFirmas(String id) {
-        
+    public static int validarFirmas(String id) {
+        int count=0;
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
@@ -53,7 +53,7 @@ public class SignatureLib {
         //String n_img1  = "f001rp";
         
         for(int k=11;k<=48;k++){
-            if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
+            if(k==11 || k==12 || k==13 || k==14 ){
                 max=0; indice=0; 
                 String routeAdd=k+"\\";
                 java.lang.System.out.print(k);
@@ -73,11 +73,13 @@ public class SignatureLib {
 
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
                 java.lang.System.out.println("Firma encontrada final: " + indice + ", matches: "+max);
+                count++;
                 console.append("\nFirma encontrada:" + indice );
             }
-            
+            console.append("\n");
         }
-        
+        console.append("======Fin del análisis de firmas======");
+        return count;
     }  
     
         public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
