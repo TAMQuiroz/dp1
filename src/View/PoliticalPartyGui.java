@@ -332,6 +332,8 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setName(name);
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
+                                ElectoralProcess process=Manager.queryElectoralProcessById(8);                             
+                                party.setElectoralProcess(process);
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 updatePoliticalParty(party);
                                 refreshTblParty();
