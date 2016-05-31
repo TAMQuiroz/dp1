@@ -22,9 +22,17 @@ public class adherentListi extends javax.swing.JFrame {
     /**
      * Creates new form adherentListi
      */
+    String id;
+    
     public adherentListi() {
 
         initComponents();
+    }
+    
+    public adherentListi(String idParty) {
+
+        initComponents();
+        id = idParty;
     }
 
     /**
@@ -368,7 +376,7 @@ public class adherentListi extends javax.swing.JFrame {
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
         SignatureLib.console=jTextArea1;
-        validarFirmas();
+        validarFirmas(id);
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
