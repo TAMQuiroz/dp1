@@ -16,6 +16,7 @@ public class System extends javax.swing.JFrame {
      */
     public System() {
         initComponents();
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     /**

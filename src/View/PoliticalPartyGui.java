@@ -31,6 +31,14 @@ public class PoliticalPartyGui extends JFrame {
         partyModel = new MyTableModel();
 	jTable1.setModel(partyModel);
     }
+    
+    public PoliticalPartyGui(String processName) {
+       // setClosable(true);
+        initComponents();
+        this.setTitle("Mantenimiento Partido Político - " + processName);
+        partyModel = new MyTableModel();
+	jTable1.setModel(partyModel);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,7 +69,7 @@ public class PoliticalPartyGui extends JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento Partido Político - Proceso Electoral  2016");
 
         jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario de Creación"));
