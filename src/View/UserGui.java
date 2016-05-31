@@ -371,7 +371,9 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String telephone= telephone3.getText();
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
-                                User user = Manager.queryUserById(Long.parseLong(nameText1.getText()));
+                                long idUser = Long.parseLong("" + nameText1.getText());
+                                java.lang.System.out.println("Id user: " + idUser);
+                                User user = Manager.queryUserById(idUser);
                                 java.lang.System.out.println("Usuario: " + user.getId() + " - " + user.getName());
                                 user.setBornDay(bornday);
                                 user.setDocCode(document);

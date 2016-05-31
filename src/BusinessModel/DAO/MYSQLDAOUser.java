@@ -200,7 +200,7 @@ public class MYSQLDAOUser implements DAOUser{
                     p = new User();    
                     long id = rs.getLong("id"); p.setId(id);
                     String name = rs.getString("name"); p.setName(name);
-                    String lastName = rs.getString("lastName"); p.setLastName(lastName);                    
+                    String lastName = rs.getString("lastname"); p.setLastName(lastName);                    
                     java.sql.Date date = rs.getDate("bornDay"); 
                     java.util.Date dateJava = new java.util.Date(date.getTime()); 
                     p.setBornDay(dateJava);        
@@ -249,7 +249,7 @@ public class MYSQLDAOUser implements DAOUser{
                         User user = new User();
                         long id = rs.getLong("id"); user.setId(id);                       
                         String name = rs.getString("name"); user.setName(name);
-                        String lastName = rs.getString("lastName"); user.setLastName(lastName);                    
+                        String lastName = rs.getString("lastname"); user.setLastName(lastName);                    
                         java.sql.Date date = rs.getDate("bornDay"); 
                         java.util.Date dateJava = new java.util.Date(date.getTime()); 
                         user.setBornDay(dateJava);        
@@ -315,7 +315,7 @@ public class MYSQLDAOUser implements DAOUser{
                         user = new User();
                         long id = rs.getLong("id"); user.setId(id);                       
                         String name = rs.getString("name"); user.setName(name);
-                        String lastName = rs.getString("lastName"); user.setLastName(lastName);                    
+                        String lastName = rs.getString("lastname"); user.setLastName(lastName);                    
                         java.sql.Date date = rs.getDate("bornDay"); 
                         java.util.Date dateJava = new java.util.Date(date.getTime()); 
                         user.setBornDay(dateJava);        
