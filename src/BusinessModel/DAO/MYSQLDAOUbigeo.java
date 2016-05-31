@@ -29,7 +29,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "INSERT INTO ubigeo (name, description, status, id_electoralProcess) VALUES(?,?,?)";
+                String sql = "INSERT INTO ubigeo (name, description, status, id_electoralProcess) VALUES(?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 //pstmt.setInt(1,  p.getId());
                 pstmt.setString(1, ep.getName());
