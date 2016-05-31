@@ -5,6 +5,10 @@
  */
 package View;
 
+import BusinessModel.Manager;
+import Model.User;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Thearc
@@ -54,6 +58,11 @@ public class Login extends javax.swing.JFrame {
 
         jTextField2.setToolTipText("Ingrese su contraseña");
         jTextField2.setName("txtPass"); // NOI18N
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Ingresar");
         jButton1.setName("btnLogin"); // NOI18N
@@ -106,9 +115,20 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         new System().setVisible(true);
-         this.dispose();
+        String user = jTextField1.getText();
+        String pass = jTextField2.getText();
+        User usuario = Manager.login(user, pass);
+        if(usuario != null){
+            new System().setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
