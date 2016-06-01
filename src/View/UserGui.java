@@ -354,9 +354,14 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String typedocument= telephone1.getText();
                                 String document= telephone2.getText();
                                 String telephone= telephone3.getText();
+
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                 Date bornday = formatter.parse(email1.getText());
-                                User user = new User();
+                                
+                                try{                       
+                                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
+                                
+                                    User user = new User();
                                 user.setBornDay(bornday);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
@@ -373,6 +378,16 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 addUser(user);
                                  java.lang.System.out.println("Agrego nuevo usuario");
                                  refreshTblUser();
+                                
+                                
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                                }
+                                }catch (NumberFormatException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+				} 
+                                
                                 }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
 				} 
