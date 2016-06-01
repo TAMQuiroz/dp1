@@ -88,8 +88,8 @@ public class Manager {
     public static void deletePoliticalParty(long politicalPartyId){
         politicalPartyDB.delete(politicalPartyId);
     }
-    public static ArrayList<PoliticalParty> queryAllPoliticalParties(){
-        return politicalPartyDB.queryAll();
+    public static ArrayList<PoliticalParty> queryAllPoliticalParties(long idElectoralProcess){
+        return politicalPartyDB.queryAll(idElectoralProcess);
     }
     public static PoliticalParty queryPoliticalPartyById(long politicalPartyId){
         return politicalPartyDB.queryById(politicalPartyId);

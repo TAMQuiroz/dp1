@@ -31,13 +31,15 @@ public class PoliticalPartyGui extends JFrame {
         partyModel = new MyTableModel();
 	jTable1.setModel(partyModel);
     }
-    
-    public PoliticalPartyGui(String processName) {
+    Integer ProcessElectoralId;
+    public PoliticalPartyGui(Integer id, String processName) {
        // setClosable(true);
         initComponents();
         this.setTitle("Mantenimiento Partido Político - " + processName);
+        ProcessElectoralId=id;
         partyModel = new MyTableModel();
 	jTable1.setModel(partyModel);
+        
     }
 
     /**
@@ -337,8 +339,7 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
                                 party.setId(id);
-                                long idProcess = 8;
-                                ElectoralProcess process=Manager.queryElectoralProcessById(idProcess);                             
+                                ElectoralProcess process=Manager.queryElectoralProcessById(ProcessElectoralId);                             
                                 party.setElectoralProcess(process);
                                 java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
                                 java.lang.System.out.println("Apunto de editar nuevo partido politico");
@@ -361,7 +362,7 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setStatus("Activo");
                                 party.setTelephone(phone);
                                 ElectoralProcess process=new ElectoralProcess();
-                                process.setId(8);
+                                process.setId(ProcessElectoralId);
                                 party.setElectoralProcess(process);
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
@@ -443,7 +444,7 @@ public class PoliticalPartyGui extends JFrame {
         });
     }
     class MyTableModel extends AbstractTableModel {
-        ArrayList<Model.PoliticalParty> partyList = Manager.queryAllPoliticalParties();
+        ArrayList<Model.PoliticalParty> partyList = Manager.queryAllPoliticalParties(ProcessElectoralId);
 		String [] titles = {"Codigo", "Nombre", "Correo","Estado"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -479,7 +480,8 @@ public class PoliticalPartyGui extends JFrame {
 		}
     }
     public void refreshTblParty() {
-		partyModel.partyList = Manager.queryAllPoliticalParties();
+                 java.lang.System.out.println("Tabla actualizada");
+		partyModel.partyList = Manager.queryAllPoliticalParties(ProcessElectoralId);
 		partyModel.fireTableChanged(null);
     }
 

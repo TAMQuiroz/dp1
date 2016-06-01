@@ -156,7 +156,7 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
     }
 
     @Override
-    public ArrayList<PoliticalParty> queryAll() {
+    public ArrayList<PoliticalParty> queryAll(long idElectoralProcess) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -168,9 +168,10 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from politicalParty WHERE status=?";
+                String sql = "Select* from politicalParty WHERE status=? and id_electoralProcess=?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, "Activo");                
+                pstmt.setLong(2, idElectoralProcess);                
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado

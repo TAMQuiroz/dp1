@@ -32,8 +32,8 @@ public class PoliticalPartyDB {
     public void delete(long politicalPartyId){
         daoPoliticalParty.delete(politicalPartyId);
     }
-    public ArrayList<PoliticalParty> queryAll(){
-        politicalPartyList = daoPoliticalParty.queryAll();
+    public ArrayList<PoliticalParty> queryAll(long idElectoralProcess){
+        politicalPartyList = daoPoliticalParty.queryAll(idElectoralProcess);
         return politicalPartyList;
     }
     public PoliticalParty queryById( long politicalPartyId){
