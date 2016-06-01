@@ -244,7 +244,7 @@ public class Upload1 extends JFrame {
             try {
                 UploadLib.console = txtConsole;
                 UploadLib.status = progressBar;
-                cargarPadrones(url, idPartido);
+                UploadLib.cargarPadrones(url, idPartido);
             } catch (IOException ex) {
                 Logger.getLogger(Upload1.class.getName()).log(Level.SEVERE, null, ex);
             }
