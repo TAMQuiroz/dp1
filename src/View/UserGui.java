@@ -11,6 +11,7 @@ import static BusinessModel.Manager.deleteUser;
 import static BusinessModel.Manager.updateUser;
 import Model.Profile;
 import Model.User;
+import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -444,6 +445,7 @@ public class UserGui extends javax.swing.JInternalFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
+        try {
         int selRow = jTable2.getSelectedRow();
 				int userId = Integer.parseInt(
 						jTable2.getValueAt(selRow, 0).toString());
@@ -455,8 +457,14 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 telephone1.setText(p.getDocType());
                                 telephone2.setText(p.getDocCode());
                                 telephone3.setText(p.getPhone());
-                                email1.setText(""+p.getBornDay());
+                                 String bornDay= p.getBornDay().toString();
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                Date bornday = formatter.parse(bornDay);
+                                email1.setText(""+bornday);
                                  java.lang.System.out.println("Usuario seleccionado");
+                                 }catch (ParseException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+				} 
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
