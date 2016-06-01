@@ -30,6 +30,7 @@ public class UploadLib {
     static String routeToCortes = "test\\auxiliar\\cortes\\";
     static String routeToPadrones = "test\\auxiliar\\padrones\\";
     static String outputRoute;
+    static int count;
     
     public static ImagePlus cortarInferior(ImagePlus imgOrigen){
         int x, y;
@@ -456,7 +457,7 @@ public class UploadLib {
         
         FileSaver fs = new FileSaver(img_rotated);
         String n_out = outputRoute + "test.jpg";
-        //fs.saveAsPng(n_out);
+        fs.saveAsPng(n_out);
         
         return img_rotated;
     }
@@ -506,14 +507,16 @@ public class UploadLib {
         
         idPartido = id;
         outputRoute = routeToCortes + id + "\\";
-        int cantidad =(int) Files.walk(Paths.get(route)).count() - 1;
+        int cantidad =(int) Files.walk(Paths.get(route)).count();
+        count = 0;
         java.lang.System.out.println("Cantidad de archivos: " + cantidad);
         status.setValue(0);
         
         Files.walk(Paths.get(route)).forEach(filePath -> {
-            int i = 1;
+            
             if (Files.isRegularFile(filePath)) {
                 console.append("\n======Analizando " + filePath.getFileName() + "======");
+                console.update(console.getGraphics());
                 java.lang.System.out.println("======Analizando " + filePath.getFileName() + "======");
                 String[] name = filePath.getFileName().toString().split("[.]");
                 if(name[1].equals("jpg")){
@@ -521,15 +524,20 @@ public class UploadLib {
                     directorio.mkdir();                    
                     cortarCajas(route,name[0],"." + name[1]);
                     console.append("\n======Fin de analisis " + filePath.getFileName() + "======");
+                    console.update(console.getGraphics());
                     java.lang.System.out.println("======Fin de analisis " + filePath.getFileName() + "======");
                 }else{
                     console.append("\n======Error en " + filePath.getFileName() + ", no es una imagen JPG======");
+                    console.update(console.getGraphics());
                     java.lang.System.out.println("======Error en " + filePath.getFileName() + ", no es una imagen JPG======");
                 }
             }
-            int porcentaje = (100*i)/cantidad;
+            count++;
+            int porcentaje = (100*count)/cantidad;
+            java.lang.System.out.println("Porcentaje: " + porcentaje);
             status.setValue(porcentaje);
-            i++;
+            status.update(status.getGraphics());
+            
         });
         
         status.setValue(100);
