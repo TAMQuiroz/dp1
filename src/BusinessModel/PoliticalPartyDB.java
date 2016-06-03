@@ -39,4 +39,8 @@ public class PoliticalPartyDB {
     public PoliticalParty queryById( long politicalPartyId){
         return daoPoliticalParty.queryById(politicalPartyId);
     }
+    
+    public void setWorker(long politicalPartyId, long workerId){
+        daoPoliticalParty.setWorker(politicalPartyId, workerId);
+    }
 }

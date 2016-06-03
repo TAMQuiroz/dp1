@@ -16,4 +16,5 @@ public interface DAOPoliticalParty {
     void delete(long politicalPartyId);
     ArrayList<PoliticalParty> queryAll(long idElectoralProcess);
     PoliticalParty queryById(long politicalPartyId);
+    void setWorker(long politicalPartyId, long workerId);
 }

@@ -316,7 +316,7 @@ public class PoliticalPartyGui extends JFrame {
     private void btnShowElectoralRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowElectoralRollActionPerformed
         int row = jTable1.getSelectedRow();
         if(row != -1){
-            String idParty = email1.getText();
+            long idParty = Long.valueOf(email1.getText());
             String nameParty = nameText.getText();
             new adherentListi(idParty, nameParty).setVisible(true);
         }else{

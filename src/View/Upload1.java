@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package View;
-import static View.UploadLib.cargarPadrones;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

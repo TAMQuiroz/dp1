@@ -260,7 +260,7 @@ public class UploadLib {
         java.lang.System.out.println("Guardando en base de datos");
         //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
         adherent.setPoliticalParty(idPartido);
-        
+        adherent.setStatus(0);
         adherentes.add(adherent);
         
     }
@@ -301,6 +301,7 @@ public class UploadLib {
         //java.lang.System.out.println(x);
         imgOrigen.setRoi(0,y, imgOrigen.getWidth(), rowSize);
         console.append("\nCortando fila " + n);
+        console.update(console.getGraphics());
         java.lang.System.out.println("Cortando fila " + n);
         IJ.run(imgOrigen, "Crop", "");
         
@@ -567,11 +568,15 @@ public class UploadLib {
             int porcentaje = (100*count)/cantidad;
             java.lang.System.out.println("Porcentaje: " + porcentaje);
             //WIP Subir a bd
+            Manager.addAdherentImages(adherentes);
             //imprimeLista();
             status.setValue(porcentaje);
             status.update(status.getGraphics());
             
         });
+        
+        //Actualizar trabajador asignado a partido politico
+        Manager.setWorker(idPartido, Manager.getSession().getId());
         
         status.setValue(100);
     }

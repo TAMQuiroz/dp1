@@ -18,7 +18,7 @@ public class PoliticalParty {
     private String email;
     private String status;
     private ElectoralProcess electoralProcess;
-    
+    private long idWorker;
     
     public void PoliticalParty(){
         
@@ -134,4 +134,13 @@ public class PoliticalParty {
     public void setElectoralProcess(ElectoralProcess electoralProcess) {
         this.electoralProcess = electoralProcess;
     }
+    
+    public long getIdWorker() {
+        return idWorker;
+    }
+
+    public void setIdWorker(long idWorker) {
+        this.idWorker = idWorker;
+    }
+    
 }

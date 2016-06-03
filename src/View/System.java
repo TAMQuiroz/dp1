@@ -5,6 +5,8 @@
  */
 package View;
 
+import BusinessModel.Manager;
+
 /**
  *
  * @author Andrea
@@ -16,6 +18,7 @@ public class System extends javax.swing.JFrame {
      */
     public System() {
         initComponents();
+        this.setTitle("Bienvenido " + Manager.getSession().getName() + " " + Manager.getSession().getLastName());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 

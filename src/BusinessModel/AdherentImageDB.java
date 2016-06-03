@@ -39,4 +39,12 @@ public class AdherentImageDB {
     public AdherentImage queryById( long adherentImageId){
         return daoAdherentImage.queryById(adherentImageId);
     }
+
+    public ArrayList<AdherentImage> queryAdherentImageNoValidatedbyPartyId(long id) {
+        return daoAdherentImage.queryAdherentImageNoValidatedbyPartyId(id);
+    }
+
+    void addAdherentImages(ArrayList<AdherentImage> adherentes) {
+        daoAdherentImage.addAdherentImages(adherentes);
+    }
 }

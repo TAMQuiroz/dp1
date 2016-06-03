@@ -17,7 +17,8 @@ public class Manager {
     private static ProcessTypeDB processTypeDB = new ProcessTypeDB();
     private static UbigeoDB ubigeoDB = new UbigeoDB();
     private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
-    private static AdherentImageDB adherentImageDB = new AdherentImageDB(); 
+    private static AdherentImageDB adherentImageDB = new AdherentImageDB();
+    private static User session;
     
     public static void addElectoralProcess(ElectoralProcess ep){
         electoralProcessDB.add(ep);
@@ -94,6 +95,11 @@ public class Manager {
     public static PoliticalParty queryPoliticalPartyById(long politicalPartyId){
         return politicalPartyDB.queryById(politicalPartyId);
     } 
+    
+    public static void setWorker(long politicalPartyId, long workerId){
+        politicalPartyDB.setWorker(politicalPartyId, workerId);
+    }
+    
     public static void addAdherentImage(AdherentImage ep){
         adherentImageDB.add(ep);
     }
@@ -108,6 +114,22 @@ public class Manager {
     }
     public static AdherentImage queryAdherentImageById(long adherentImageId){
         return adherentImageDB.queryById(adherentImageId);
+    }
+
+    public static User getSession() {
+        return session;
+    }
+
+    public static void setSession(User session) {
+        Manager.session = session;
+    }
+
+    public static ArrayList<AdherentImage> queryAdherentImageNoValidatedbyPartyId(long id) {
+        return adherentImageDB.queryAdherentImageNoValidatedbyPartyId(id);
+    }
+
+    public static void addAdherentImages(ArrayList<AdherentImage> adherentes) {
+        adherentImageDB.addAdherentImages(adherentes);
     }
     
 }

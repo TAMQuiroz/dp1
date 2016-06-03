@@ -115,6 +115,7 @@ public class Login extends javax.swing.JFrame {
         String pass = jPasswordField1.getText();
         User usuario = Manager.login(user, pass);
         if(usuario != null){
+            Manager.setSession(usuario);
             new System().setVisible(true);
             this.dispose();
         }else{

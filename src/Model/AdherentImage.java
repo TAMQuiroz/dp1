@@ -122,6 +122,14 @@ public class AdherentImage {
     public void setSignatureSource(String signatureSource) {
         this.signatureSource = signatureSource;
     }
+
+    public long getStatus() {
+        return status;
+    }
+
+    public void setStatus(long status) {
+        this.status = status;
+    }
         
-   
+    
 }
