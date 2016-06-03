@@ -17,6 +17,7 @@ public class AdherentImage {
     private String fingerprintSource;
     private String signatureSource;
     private long politicalParty;
+    private long status;
     
     
     public void AdherentImage(){
