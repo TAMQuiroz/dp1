@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package View;
+import BusinessModel.Manager;
+import Model.AdherentImage;
+import Model.PoliticalParty;
 import static View.SignatureLib.validarFirmas;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,6 +17,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -24,7 +28,7 @@ public class adherentListi extends javax.swing.JFrame {
     /**
      * Creates new form adherentListi
      */
-    String id;
+    long id;
     String name;
     int signaturesVal;
     
@@ -33,7 +37,7 @@ public class adherentListi extends javax.swing.JFrame {
         initComponents();
     }
     
-    public adherentListi(String idParty,String nameParty) {
+    public adherentListi(long idParty,String nameParty) {
 
         initComponents();
         id = idParty;
@@ -519,7 +523,6 @@ public class adherentListi extends javax.swing.JFrame {
             /*     for (int i =0; i<listSales.size();i++){
                 Sales s = listSales.get(i);
                 Customer cus = null;
-
                 if (s.getCustomer() instanceof Person){
                     cus = (Person)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
@@ -528,7 +531,6 @@ public class adherentListi extends javax.swing.JFrame {
                     cus = (Company)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
                 }
-
             }*/
             documento.close();
         } catch (FileNotFoundException e1) {
@@ -561,7 +563,6 @@ public class adherentListi extends javax.swing.JFrame {
             /*     for (int i =0; i<listSales.size();i++){
                 Sales s = listSales.get(i);
                 Customer cus = null;
-
                 if (s.getCustomer() instanceof Person){
                     cus = (Person)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
@@ -570,7 +571,6 @@ public class adherentListi extends javax.swing.JFrame {
                     cus = (Company)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
                 }
-
             }*/
             documento.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
@@ -598,7 +598,6 @@ public class adherentListi extends javax.swing.JFrame {
             /*     for (int i =0; i<listSales.size();i++){
                 Sales s = listSales.get(i);
                 Customer cus = null;
-
                 if (s.getCustomer() instanceof Person){
                     cus = (Person)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
@@ -607,7 +606,6 @@ public class adherentListi extends javax.swing.JFrame {
                     cus = (Company)s.getCustomer();
                     documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
                 }
-
             }*/
             documento.close();
         } catch (FileNotFoundException e1) {
@@ -623,11 +621,29 @@ public class adherentListi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAmountActionPerformed
 
+    private boolean check_route(long id){
+        String filePathString= "test\\auxiliar\\cortes\\"+id;
+        File f = new File(filePathString);
+        return f.exists() && f.isDirectory();
+    }
+    
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
 
+        PoliticalParty partido = Manager.queryPoliticalPartyById(id);
+        if(Manager.getSession().getId() == partido.getIdWorker()){
+            if (check_route(partido.getId())){
+                ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
+                for (AdherentImage registro : registros) {
+                    
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "El trabajador no esta asignado para este partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
         /*
-        Estados encontrados: Sin validar, rechazado, anulado.
-
+        Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
         Si (trabajador_id == partido.asignado_id){
             Si (check_route(partido.id)){
                 registros = buscar_sin_validar(partido);
@@ -685,6 +701,7 @@ public class adherentListi extends javax.swing.JFrame {
         }
         */
 
+        /*
         String filePathString= "test\\auxiliar\\cortes\\"+id+"\\padron";
         File f = new File(filePathString);
         if(f.exists() && !f.isDirectory()) {
@@ -693,6 +710,7 @@ public class adherentListi extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this, "No se han procesado los padrones", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
+        */
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
