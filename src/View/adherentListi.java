@@ -49,8 +49,9 @@ public class adherentListi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        paneAnulados = new javax.swing.JTabbedPane();
+        jPaneSinValidar = new javax.swing.JPanel();
         btnValidate = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
@@ -60,14 +61,14 @@ public class adherentListi extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jButton3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jPaneValidados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableValidated = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jPaneRechazados = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -75,13 +76,26 @@ public class adherentListi extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jLabel1 = new javax.swing.JLabel();
+        jPaneAnulados = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jButton7 = new javax.swing.JButton();
+        jPaneBaneados = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jSeparator5 = new javax.swing.JSeparator();
+        jButton9 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setTitle("Lista de adherente - Proceso Electoral Municipal 2016");
+
+        jLabel1.setText("Cantidad restante:");
 
         btnValidate.setText("Validar");
         btnValidate.addActionListener(new java.awt.event.ActionListener() {
@@ -120,15 +134,15 @@ public class adherentListi extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPaneSinValidarLayout = new javax.swing.GroupLayout(jPaneSinValidar);
+        jPaneSinValidar.setLayout(jPaneSinValidarLayout);
+        jPaneSinValidarLayout.setHorizontalGroup(
+            jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(51, 51, 51)
                         .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,18 +151,18 @@ public class adherentListi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPaneSinValidarLayout.setVerticalGroup(
+            jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
                         .addComponent(jButton3))
@@ -164,21 +178,21 @@ public class adherentListi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Sin Validar", jPanel1);
+        paneAnulados.addTab("Sin Validar", jPaneSinValidar);
 
         tableValidated.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Apellido Paterno", "Apellido Materno"
+                "DNI", "Nombre", "Apellido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -186,6 +200,9 @@ public class adherentListi extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tableValidated);
+        if (tableValidated.getColumnModel().getColumnCount() > 0) {
+            tableValidated.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jLabel3.setText("Cantidad:");
 
@@ -199,15 +216,15 @@ public class adherentListi extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPaneValidadosLayout = new javax.swing.GroupLayout(jPaneValidados);
+        jPaneValidados.setLayout(jPaneValidadosLayout);
+        jPaneValidadosLayout.setHorizontalGroup(
+            jPaneValidadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneValidadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPaneValidadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPaneValidadosLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(50, 50, 50)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,13 +234,13 @@ public class adherentListi extends javax.swing.JFrame {
                     .addComponent(jSeparator3))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPaneValidadosLayout.setVerticalGroup(
+            jPaneValidadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneValidadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPaneValidadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton5))
@@ -232,21 +249,21 @@ public class adherentListi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Validados", jPanel2);
+        paneAnulados.addTab("Validados", jPaneValidados);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Apellido Paterno", "Apellido Materno", "Firma", "Huella"
+                "DNI", "Nombre", "Apellido", "Firma", "Huella"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, false
+                false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -274,16 +291,16 @@ public class adherentListi extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPaneRechazadosLayout = new javax.swing.GroupLayout(jPaneRechazados);
+        jPaneRechazados.setLayout(jPaneRechazadosLayout);
+        jPaneRechazadosLayout.setHorizontalGroup(
+            jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneRechazadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneRechazadosLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(51, 51, 51)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,13 +310,13 @@ public class adherentListi extends javax.swing.JFrame {
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPaneRechazadosLayout.setVerticalGroup(
+            jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneRechazadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,11 +326,141 @@ public class adherentListi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Rechazados", jPanel3);
-        jTabbedPane1.addTab("Anulados", jTabbedPane2);
-        jTabbedPane1.addTab("Baneados", jTabbedPane3);
+        paneAnulados.addTab("Rechazados", jPaneRechazados);
 
-        jLabel1.setText("Cantidad restante:");
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "DNI", "Nombre", "Apellido", "Firma", "Huella"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(jTable4);
+
+        jLabel6.setText("Cantidad:");
+
+        jTextField4.setEditable(false);
+        jTextField4.setBackground(new java.awt.Color(204, 204, 204));
+
+        jButton7.setText("Reporte");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPaneAnuladosLayout = new javax.swing.GroupLayout(jPaneAnulados);
+        jPaneAnulados.setLayout(jPaneAnuladosLayout);
+        jPaneAnuladosLayout.setHorizontalGroup(
+            jPaneAnuladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneAnuladosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPaneAnuladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneAnuladosLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(51, 51, 51)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPaneAnuladosLayout.setVerticalGroup(
+            jPaneAnuladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneAnuladosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPaneAnuladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        paneAnulados.addTab("Anulados", jPaneAnulados);
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "DNI", "Nombre", "Apellido", "Firma", "Huella"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(jTable5);
+
+        jLabel7.setText("Cantidad:");
+
+        jTextField5.setEditable(false);
+        jTextField5.setBackground(new java.awt.Color(204, 204, 204));
+
+        jButton9.setText("Reporte");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPaneBaneadosLayout = new javax.swing.GroupLayout(jPaneBaneados);
+        jPaneBaneados.setLayout(jPaneBaneadosLayout);
+        jPaneBaneadosLayout.setHorizontalGroup(
+            jPaneBaneadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneBaneadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPaneBaneadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator5)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneBaneadosLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(51, 51, 51)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPaneBaneadosLayout.setVerticalGroup(
+            jPaneBaneadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneBaneadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPaneBaneadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        paneAnulados.addTab("Baneados", jPaneBaneados);
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(204, 204, 204));
@@ -328,7 +475,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1)
+                        .addComponent(paneAnulados)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -343,7 +490,7 @@ public class adherentListi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(paneAnulados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -355,11 +502,132 @@ public class adherentListi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        FileOutputStream archivo;
+        try {
+            archivo = new FileOutputStream("ReporteRechazados.pdf");
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            documento.open();
+            documento.add(new Paragraph("Reporte de Rechazados"));
+            documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
+            /*     for (int i =0; i<listSales.size();i++){
+                Sales s = listSales.get(i);
+                Customer cus = null;
+
+                if (s.getCustomer() instanceof Person){
+                    cus = (Person)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+                else{
+                    cus = (Company)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+
+            }*/
+            documento.close();
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (DocumentException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new addAdherent().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        FileOutputStream archivo;
+        try {
+            archivo = new FileOutputStream("ReporteValidados.pdf");
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            documento.open();
+            String titulo="Reporte de Lista Validada del Partido " + name;
+            documento.add(new Paragraph(titulo));
+            String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
+            documento.add(new Paragraph(cuerpo));
+            //documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
+            /*     for (int i =0; i<listSales.size();i++){
+                Sales s = listSales.get(i);
+                Customer cus = null;
+
+                if (s.getCustomer() instanceof Person){
+                    cus = (Person)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+                else{
+                    cus = (Company)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+
+            }*/
+            documento.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (DocumentException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:jskdkdsjkjds
+        FileOutputStream archivo;
+        try {
+            archivo = new FileOutputStream("ReporteSinValidar.pdf");
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            String titulo="Reporte de Lista Sin Validar del Partido " + name;
+            documento.open();
+            documento.add(new Paragraph(titulo));
+            documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
+
+            /*     for (int i =0; i<listSales.size();i++){
+                Sales s = listSales.get(i);
+                Customer cus = null;
+
+                if (s.getCustomer() instanceof Person){
+                    cus = (Person)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+                else{
+                    cus = (Company)s.getCustomer();
+                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
+                }
+
+            }*/
+            documento.close();
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (DocumentException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAmountActionPerformed
+
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-        
+
         /*
         Estados encontrados: Sin validar, rechazado, anulado.
-        
+
         Si (trabajador_id == partido.asignado_id){
             Si (check_route(partido.id)){
                 registros = buscar_sin_validar(partido);
@@ -383,7 +651,7 @@ public class adherentListi extends javax.swing.JFrame {
                                     Si (primera_etapa){
                                         registro.estado = rechazado;
                                     }Sino{
-                                        registro.estado = anulado;                            
+                                        registro.estado = anulado;
                                     }
                                 }
                             }Sino{
@@ -405,7 +673,7 @@ public class adherentListi extends javax.swing.JFrame {
                         Si (primera_etapa){
                             registro.estado = rechazado;
                         }Sino{
-                            registro.estado = anulado;                
+                            registro.estado = anulado;
                         }
                     }
                 }
@@ -416,137 +684,20 @@ public class adherentListi extends javax.swing.JFrame {
             Mensajito (El trabajador no esta asignado para este partido politico);
         }
         */
-        
+
         String filePathString= "test\\auxiliar\\cortes\\"+id+"\\padron";
         File f = new File(filePathString);
-        if(f.exists() && !f.isDirectory()) { 
+        if(f.exists() && !f.isDirectory()) {
             SignatureLib.console=jTextArea1;
             signaturesVal=validarFirmas(id);
         }else{
             JOptionPane.showMessageDialog(this, "No se han procesado los padrones", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnValidateActionPerformed
 
-    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAmountActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new addAdherent().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:jskdkdsjkjds
-                     FileOutputStream archivo;
-                    try {
-                            archivo = new FileOutputStream("ReporteSinValidar.pdf");
-                            Document documento = new Document();
-                  PdfWriter.getInstance(documento, archivo);
-                  String titulo="Reporte de Lista Sin Validar del Partido " + name;
-                  documento.open();
-                  documento.add(new Paragraph(titulo));
-                  documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-                  
-             /*     for (int i =0; i<listSales.size();i++){
-                      Sales s = listSales.get(i);    	  
-                      Customer cus = null;
-
-                      if (s.getCustomer() instanceof Person){
-                              cus = (Person)s.getCustomer();
-                              documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() )); 
-                      }
-                      else{
-                               cus = (Company)s.getCustomer();
-                               documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                      }
-
-                  }*/	
-                    documento.close();					
-                    } catch (FileNotFoundException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    } catch (DocumentException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    }	
-            
-    
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-                   FileOutputStream archivo;
-                    try {
-                            archivo = new FileOutputStream("ReporteValidados.pdf");
-                            Document documento = new Document();
-                  PdfWriter.getInstance(documento, archivo);
-                  documento.open();
-                  String titulo="Reporte de Lista Validada del Partido " + name;
-                  documento.add(new Paragraph(titulo));
-                  String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
-                  documento.add(new Paragraph(cuerpo));
-                  //documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-             /*     for (int i =0; i<listSales.size();i++){
-                      Sales s = listSales.get(i);    	  
-                      Customer cus = null;
-
-                      if (s.getCustomer() instanceof Person){
-                              cus = (Person)s.getCustomer();
-                              documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() )); 
-                      }
-                      else{
-                               cus = (Company)s.getCustomer();
-                               documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                      }
-
-                  }*/	
-                    documento.close();
-                    JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
-                    } catch (FileNotFoundException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    } catch (DocumentException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    }	
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        FileOutputStream archivo;
-                    try {
-                            archivo = new FileOutputStream("ReporteRechazados.pdf");
-                            Document documento = new Document();
-                  PdfWriter.getInstance(documento, archivo);
-                  documento.open();
-                  documento.add(new Paragraph("Reporte de Rechazados"));
-                  documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-             /*     for (int i =0; i<listSales.size();i++){
-                      Sales s = listSales.get(i);    	  
-                      Customer cus = null;
-
-                      if (s.getCustomer() instanceof Person){
-                              cus = (Person)s.getCustomer();
-                              documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() )); 
-                      }
-                      else{
-                               cus = (Company)s.getCustomer();
-                               documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                      }
-
-                  }*/	
-                    documento.close();					
-                    } catch (FileNotFoundException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    } catch (DocumentException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                    }	
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -556,29 +707,41 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPaneAnulados;
+    private javax.swing.JPanel jPaneBaneados;
+    private javax.swing.JPanel jPaneRechazados;
+    private javax.swing.JPanel jPaneSinValidar;
+    private javax.swing.JPanel jPaneValidados;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTabbedPane paneAnulados;
     private javax.swing.JTable tableValidated;
     private javax.swing.JTextField txtAmount;
     // End of variables declaration//GEN-END:variables
