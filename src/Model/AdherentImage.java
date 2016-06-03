@@ -16,7 +16,7 @@ public class AdherentImage {
     private String dniSource;
     private String fingerprintSource;
     private String signatureSource;
-    private PoliticalParty politicalParty;
+    private long politicalParty;
     
     
     public void AdherentImage(){
@@ -41,14 +41,14 @@ public class AdherentImage {
     /**
      * @return the politicalParty
      */
-    public PoliticalParty getPoliticalParty() {
+    public long getPoliticalParty() {
         return politicalParty;
     }
 
     /**
      * @param politicalParty the politicalParty to set
      */
-    public void setPoliticalParty(PoliticalParty politicalParty) {
+    public void setPoliticalParty(long politicalParty) {
         this.politicalParty = politicalParty;
     }
 

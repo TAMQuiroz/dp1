@@ -5,6 +5,9 @@
  */
 package View;
 
+import BusinessModel.Manager;
+import Model.AdherentImage;
+import Model.PoliticalParty;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Line;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
@@ -31,6 +35,7 @@ public class UploadLib {
     static String routeToPadrones = "test\\auxiliar\\padrones\\";
     static String outputRoute;
     static int count;
+    static ArrayList<AdherentImage> adherentes;
     
     public static ImagePlus cortarInferior(ImagePlus imgOrigen){
         int x, y;
@@ -195,6 +200,8 @@ public class UploadLib {
     
     public static void cortarCaracteres(String route, String n_img, int n, ImagePlus imgOrigen, String extension, int[] index){
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 9 y
+        AdherentImage adherent = new AdherentImage();        
+        
         //cortar dni
         int aux = index[1] - index[0];
         imgOrigen.setRoi(index[0],0,aux,imgOrigen.getHeight());
@@ -202,7 +209,9 @@ public class UploadLib {
         FileSaver fs = new FileSaver(imp);
         String n_out = outputRoute + n_img + n + "\\dni" + extension;
         fs.saveAsPng(n_out);
-        java.lang.System.out.println("Cortando dni en: " + index[0] + " y " + index[1]);
+        //adherent.setNameSource(n_out.replace("\\", "/"));
+        adherent.setDniSource(n_out);
+        //java.lang.System.out.println("Cortando dni en: " + index[0] + " y " + index[1]);
         
         //cortar apellido
         aux = index[3] - index[2];
@@ -211,7 +220,9 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "\\apellido" + extension;
         fs.saveAsPng(n_out);
-        java.lang.System.out.println("Cortando apellido en: " + index[2] + " y " + index[3]);
+        //adherent.setNameSource(n_out.replace("\\", "/"));
+        adherent.setLastNameSource(n_out);
+        //java.lang.System.out.println("Cortando apellido en: " + index[2] + " y " + index[3]);
         
         //cortar nombre
         aux = index[4] - index[3];
@@ -220,7 +231,9 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "\\nombre" + extension;
         fs.saveAsPng(n_out);
-        java.lang.System.out.println("Cortando nombre en: " + index[3] + " y " + index[4]);
+        //adherent.setNameSource(n_out.replace("\\", "/"));
+        adherent.setNameSource(n_out);
+        //java.lang.System.out.println("Cortando nombre en: " + index[3] + " y " + index[4]);
         
         //cortar firma
         aux = index[6] - index[5];
@@ -229,7 +242,9 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "\\firma" + extension;
         fs.saveAsPng(n_out);
-        java.lang.System.out.println("Cortando firma en: " + index[5] + " y " + index[6]);
+        //adherent.setNameSource(n_out.replace("\\", "/"));
+        adherent.setSignatureSource(n_out);
+        //java.lang.System.out.println("Cortando firma en: " + index[5] + " y " + index[6]);
         
         //cortar huella
         aux = index[8] - index[7];
@@ -238,7 +253,16 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "\\huella" + extension;
         fs.saveAsPng(n_out);
-        java.lang.System.out.println("Cortando huella en: " + index[7] + " y " + index[8]);
+        //adherent.setNameSource(n_out.replace("\\", "/"));
+        adherent.setFingerprintSource(n_out);
+        //java.lang.System.out.println("Cortando huella en: " + index[7] + " y " + index[8]);
+        
+        java.lang.System.out.println("Guardando en base de datos");
+        //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
+        adherent.setPoliticalParty(idPartido);
+        
+        adherentes.add(adherent);
+        
     }
     
     public static ImagePlus cortarFilas (int n, ImagePlus imgOrigen, String route, String n_img, String extension, int[] index){
@@ -324,12 +348,12 @@ public class UploadLib {
 
         y = bajar(imgPlus, x, y, 255); //Negro
         y = bajar(imgPlus, x, y, 0); //Blanco
-        java.lang.System.out.println("y: " + y);
+        //java.lang.System.out.println("y: " + y);
         y = bajar(imgPlus, x, y, 255); //Negro
-        java.lang.System.out.println("y: " + y);
+        //java.lang.System.out.println("y: " + y);
         y = y + 2;
         index[9] = y; //Control rotacion
-        java.lang.System.out.println("y: " + y);
+        //java.lang.System.out.println("y: " + y);
         //java.lang.System.exit(0);
         x = 0;
         x = derecha(imgPlus, x, y, 0); //Blanco
@@ -448,7 +472,7 @@ public class UploadLib {
         //java.lang.System.out.println(y1 + " " + y2);
         
         double angle = new Line(1,467,18,467).getAngle(x1, y1, x2, y2);
-        java.lang.System.out.println("Angulo: " + angle);
+        //java.lang.System.out.println("Angulo: " + angle);
         ImageProcessor img = imgOrigen.getProcessor();
         img.setBackgroundValue(255);
         img.rotate(angle);
@@ -457,7 +481,7 @@ public class UploadLib {
         
         FileSaver fs = new FileSaver(img_rotated);
         String n_out = outputRoute + "test.jpg";
-        fs.saveAsPng(n_out);
+        //fs.saveAsPng(n_out);
         
         return img_rotated;
     }
@@ -503,8 +527,15 @@ public class UploadLib {
         }
     }
     
+    public static void imprimeLista(){
+        for (int i = 0; i < adherentes.size(); i++){
+            java.lang.System.out.println(adherentes.get(i).getDniSource());
+        }
+    }
+    
     public static void cargarPadrones(String route, int id) throws IOException{
         
+        adherentes = new ArrayList<>();
         idPartido = id;
         outputRoute = routeToCortes + id + "\\";
         int cantidad =(int) Files.walk(Paths.get(route)).count();
@@ -535,6 +566,8 @@ public class UploadLib {
             count++;
             int porcentaje = (100*count)/cantidad;
             java.lang.System.out.println("Porcentaje: " + porcentaje);
+            //WIP Subir a bd
+            //imprimeLista();
             status.setValue(porcentaje);
             status.update(status.getGraphics());
             

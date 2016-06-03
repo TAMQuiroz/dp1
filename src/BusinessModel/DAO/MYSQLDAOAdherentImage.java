@@ -32,15 +32,14 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
 
-                String sql = "INSERT INTO adherentImage (nameSource, lastnameSource, dniSource, fingerprintSource, signatureSource, id_politicalParty"
-                        + "VALUES(?,?,?,?,?,?)";
+                String sql = "INSERT INTO adherentImage (nameSource, lastnameSource, dniSource, fingerprintSource, signatureSource, id_politicalParty) VALUES(?,?,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                
                 pstmt.setString(1, ep.getNameSource());                                                
                 pstmt.setString(2, ep.getLastNameSource());
                 pstmt.setString(3, ep.getDniSource());
                 pstmt.setString(4, ep.getFingerprintSource());
                 pstmt.setString(5, ep.getSignatureSource());                
-                pstmt.setLong(6, ep.getPoliticalParty().getId());                
+                pstmt.setLong(6, ep.getPoliticalParty());                
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -87,7 +86,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 pstmt.setString(3, ep.getDniSource());
                 pstmt.setString(4, ep.getFingerprintSource());
                 pstmt.setString(5, ep.getSignatureSource());                
-                pstmt.setLong(6, ep.getPoliticalParty().getId());                  
+                pstmt.setLong(6, ep.getPoliticalParty());                  
                 pstmt.setLong(7, ep.getId());                   
                 //Paso 4: Ejecutar la sentencia	
                 pstmt.executeUpdate();
@@ -189,9 +188,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                         String fingerprint = rs.getString("fingerprintSource"); adherentImage.setFingerprintSource(fingerprint);
                         String signature = rs.getString("signatureSource"); adherentImage.setSignatureSource(signature);                                            
                         long idPoliticalParty = rs.getLong("id_politicalParty");                         
-                        PoliticalParty politicalParty = new PoliticalParty();
-                        politicalParty = Manager.queryPoliticalPartyById(idPoliticalParty);
-                        adherentImage.setPoliticalParty(politicalParty);
+                        adherentImage.setPoliticalParty(idPoliticalParty);
                         adherentImageList.add(adherentImage);
                 }
 
@@ -249,9 +246,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                         String fingerprint = rs.getString("fingerprintSource"); adherentImage.setFingerprintSource(fingerprint);
                         String signature = rs.getString("signatureSource"); adherentImage.setSignatureSource(signature);                                            
                         long idPoliticalParty = rs.getLong("id_politicalParty");                         
-                        PoliticalParty politicalParty = new PoliticalParty();
-                        politicalParty = Manager.queryPoliticalPartyById(idPoliticalParty);
-                        adherentImage.setPoliticalParty(politicalParty);                                   
+                        adherentImage.setPoliticalParty(idPoliticalParty);                                   
                 }
 
         } catch (SQLException e) {
