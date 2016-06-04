@@ -637,7 +637,7 @@ public class adherentListi extends javax.swing.JFrame {
             if (check_route(partido.getId())){
                 ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
                 for (AdherentImage registro : registros) {
-                    Person persona = ocr(registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                    Person persona = ocrLib.ocr(registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
                     if(persona != null){
                         boolean esta_apto = busca_apto(persona, partido.getElectoralProcess().getId());
                         if(esta_apto){

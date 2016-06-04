@@ -71,52 +71,6 @@ public class FingerprintLib {
         
         //System.out.println("Finalizando preprocesamiento");
     }
-
-    public static Vector<String> preprocesamiento_ocr(String route, String nimg, String extension){
-        java.lang.System.out.println("Antes de preprocesamiento");
-        String url = route + nimg + extension;
-        java.lang.System.out.println("Reading from: " + url);
-        ImagePlus imgPlus = new ImagePlus(url);
-        java.lang.System.out.println("Preprocessing: " + url);
-        
-        ImageProcessor ip = imgPlus.getProcessor();
-        ip.setInterpolationMethod(ImageProcessor.BILINEAR);
-        ip = ip.resize(ip.getWidth() * 5, ip.getHeight() * 5);
-        BufferedImage img = ip.getBufferedImage();
-
-       
-        imgPlus = new ImagePlus("croppedImage", img);
-        
-        //imgPlus.show();
-        //Macro.SetOption("BlackBackground", false);
-        IJ.run(imgPlus, "Make Binary", "");
-        IJ.run(imgPlus, "Median...", "radius=5");
-        java.lang.System.out.println("Cutting: " + url);
-        Vector<String> imgs;
-        imgs = null;//cutDigits(route, nimg, extension, imgPlus);
-        java.lang.System.out.println("Despues de preprocesamiento");
-
-        return imgs;
-    }
-    
-    public static void ocr(ITesseract instance, Vector<String> imgs){
-        String final_result = new String();
-        for (int i = 0; i < imgs.size(); i++){
-            String url = imgs.get(i);
-            //System.out.println("Reading from: " + url);
-            File imageFile = new File(url);
-            
-            try {
-                String result = instance.doOCR(imageFile);
-                java.lang.System.out.print(result.trim() + " | ");
-                final_result += result.trim();
-                //System.out.print(result);
-            } catch (TesseractException e) {
-                java.lang.System.err.println(e.getMessage());
-            }
-        }
-        java.lang.System.out.println(final_result);
-    }
          
     public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
         long ini = java.lang.System.currentTimeMillis();
@@ -321,26 +275,14 @@ public class FingerprintLib {
         String route_base = "test\\";
         String route_huellas = route_base + "huellas\\";
         String route_pre = route_base + "pre\\";
-        String route_ocr = route_base + "ocr\\";
         
         String extension = ".jpg";
         String extension_huellas = ".tif";
         
-        String n_img_text = "1_cut";
+        
         String n_img1  = "lena";
         String n_img2  = "103_1";
         
-        //OCR TESSERACT
-        Vector<String> imgs;
-        imgs = preprocesamiento_ocr(route_ocr, n_img_text, extension);
-        ITesseract instance_num = new Tesseract1();
-        ITesseract instance_let = new Tesseract1();
-        instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
-        instance_let.setTessVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyz");
-        ocr(instance_num, imgs);
-        ocr(instance_let, imgs);
-        
-               
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
         java.lang.System.out.println("***INICIANDO ORB***");
@@ -348,7 +290,7 @@ public class FingerprintLib {
         java.lang.System.out.println("***FINALIZANDO ORB***");
         */
         
-        /*
+        
         java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
         preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
         preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
@@ -356,7 +298,7 @@ public class FingerprintLib {
         java.lang.System.out.println("***INICIANDO SURF***");
         surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO SURF***");       
-        */
+        
         
     }  
 }
