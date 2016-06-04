@@ -692,61 +692,6 @@ public class adherentListi extends javax.swing.JFrame {
         }
         /*
         Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
-        Si (trabajador_id == partido.asignado_id){
-            Si (check_route(partido.id)){
-                registros = buscar_sin_validar(partido);
-                para cada (registro EN registros){
-                    persona = ocr(registro.ruta_dni, registro.ruta_nombre, registro.ruta_apellido);
-                    Si (persona){
-                        esta_apto = busca_apto(persona, process_id); //Baneado o no en condiciones de ejercer la ciudadania
-                        Si (esta_apto){
-                            party_id = buscar_duplicidad(persona, process_id);
-                            Si (!party_id){
-                                puntuacion1 = huellas(persona.huella, ruta_huella);
-                                puntuacion2 = firmas(persona.firma, ruta_firma);
-                                resultado = analizar_resultado(puntuacion1, puntuacion2);
-                                Si (resultado == positivo){
-                                    Mensajito (Se pudo validar esta persona);
-                                    agregar_adherente(persona);
-                                    borrar_cortes(registro);
-                                    borrar_registro(registro);
-                                }Sino{
-                                    Mensajito (No se pudo validar esta persona);
-                                    Si (primera_etapa){
-                                        registro.estado = rechazado;
-                                    }Sino{
-                                        registro.estado = anulado;
-                                    }
-                                }
-                            }Sino{
-                                Mensajito (Se encontro duplicidad referida a esta persona);
-                                Si (primera_etapa){
-                                    retirar_adherente(persona, party_id);
-                                    banear_adherente(persona);
-                                }
-                                borrar_cortes(registro);
-                                registro.estado = anulado;
-                            }
-                        }Sino{
-                            Mensajito (Esta persona esta baneada, o no esta en condiciones de ejercer la ciudadania);
-                            borrar_cortes(registro);
-                            registro.estado = anulado;
-                        }
-                    }Sino{
-                        Mensajito (No se pudo determinar quien es esta persona);
-                        Si (primera_etapa){
-                            registro.estado = rechazado;
-                        }Sino{
-                            registro.estado = anulado;
-                        }
-                    }
-                }
-            }Sino{
-                Mensajito (No existe la ruta de los cortes para este partido);
-            }
-        }Sino{
-            Mensajito (El trabajador no esta asignado para este partido politico);
-        }
         */
 
         /*
