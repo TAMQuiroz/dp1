@@ -12,13 +12,12 @@ import Model.*;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Claudia
+ * 
  */
 public class ShowProcess extends JInternalFrame {
 private javax.swing.JDesktopPane jDesktopPane1;
-    /**
-     * Creates new form ShowProcess
-     */
+     Integer idElectoralProcess;
+
     public ShowProcess() {
         setClosable(true);
         initComponents();
@@ -153,7 +152,8 @@ private javax.swing.JDesktopPane jDesktopPane1;
      /* ElectoralProcessGui If= new ElectoralProcessGui();
       jDesktopPane1.add(If);
        If.show();*/
-         new ElectoralProcessGui().setVisible(true);
+         idElectoralProcess=Integer.parseInt(jTextField2.getText());
+         new ElectoralProcessGui(idElectoralProcess).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -165,6 +165,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
         int row = jTable1.getSelectedRow();
         if(row != -1){
             String processId = (String) jTable1.getValueAt(row, 0);
+            idElectoralProcess= Integer.parseInt(processId);
             String processName = (String) jTable1.getValueAt(row, 1);
             //java.lang.System.out.println(processName);
             PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName);
