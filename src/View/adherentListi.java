@@ -5,6 +5,7 @@
  */
 package View;
 import BusinessModel.Manager;
+import Model.Adherent;
 import Model.AdherentImage;
 import Model.Person;
 import Model.PoliticalParty;
@@ -644,49 +645,58 @@ public class adherentListi extends javax.swing.JFrame {
                 instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                 for (AdherentImage registro : registros) {
                     Person persona = ocrLib.ocr(instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
-                  /*  if(persona != null){
-                        boolean esta_apto = busca_apto(persona, partido.getElectoralProcess().getId());
-                        if(esta_apto){
-                            long party_id = buscar_duplicidad(persona, partido.getElectoralProcess().getId());
+                    if(persona != null){
+                        boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
+                        if(isSuitable){
+                            long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
                             if(party_id == -1){
-                                double puntuacion1 = huellas(persona.getFingerprint(), registro.getFingerprintSource());
-                                double puntuacion2 = firmas(persona.getSignature(), registro.getSignatureSource());
-                                boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
+                                //double puntuacion1 = huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                //double puntuacion2 = firmas(persona.getSignature(), registro.getSignatureSource());
+                                //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
+                                boolean resultado = true; //para continuar flujo
                                 if(resultado){
                                     java.lang.System.out.println("Se pudo validar a esta persona");
-                                    agregar_adherente(persona);
-                                    borrar_cortes(registro);
-                                    borrar_registro(registro);
+                                    Adherent ad = new Adherent();
+                                    ad.setDni(persona.getDni()); ad.setName(persona.getName());
+                                    ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
+                                    ad.setPoliticalParty(partido);
+                                    Manager.addAdherent(ad);
+                                    UtilLib.deleteImages(registro);
+                                    Manager.deleteAdherentImage(registro.getId()); 
                                 }else{
                                     java.lang.System.out.println("No se pudo validar a esta persona");
                                     if(primera_etapa){
-                                        registro.setStatus(1);
+                                        registro.setStatus(1);                                        
+                                        Manager.updateAdherentImage(registro);
                                     }else{
-                                        registro.setStatus(2);
-                                    }
+                                        Manager.deleteAdherentImage(registro.getId()); 
+                                    }                                    
                                 }
                             }else{
                                 java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
                                 if(primera_etapa){
-                                    retirar_adherente(persona, partido.getId());
-                                    banear_adherente(persona);
+                                    Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
+                                    ad.setObservation("Duplicado");
+                                    Manager.updateStatusAdherent(ad);                                    
                                 }
-                                borrar_cortes(registro);
-                                registro.setStatus(2);
+                                UtilLib.deleteImages(registro);
+                                Manager.deleteAdherentImage(registro.getId()); 
                             }
                         }else{
-                            java.lang.System.out.println("Esta persona esta baneada, no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
-                            borrar_cortes(registro);
-                            registro.setStatus(2);
+                            java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
+                            UtilLib.deleteImages(registro);
+                            Manager.deleteAdherentImage(registro.getId()); 
                         }
                     }else{
                         java.lang.System.out.println("No se pudo determinar quien es esta persona");
                         if(primera_etapa){
                             registro.setStatus(1);
+                            Manager.updateAdherentImage(registro);
                         }else{
-                            registro.setStatus(2);
+                            UtilLib.deleteImages(registro);
+                            Manager.deleteAdherentImage(registro.getId()); 
                         }
-                    }*/
+                    }
                 }
                 
                 JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.OK_OPTION);

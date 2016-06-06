@@ -46,4 +46,8 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOPerson getDAOPerson() {
         return new MYSQLDAOPerson();
     }
+    @Override
+    public DAOAdherent getDAOAdherent() {
+        return new MYSQLDAOAdherent();
+    }
 }
