@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import View.Login;
 import View.UtilLib;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -60,5 +61,11 @@ public class App {
         AdherentImage ad = Manager.queryAdherentImageById(idAd);
         UtilLib.deleteImages(ad);        
         */
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String sDate= sdf.format(date);
+
+        System.out.println("La fecha es: " + sDate);
     }
 }

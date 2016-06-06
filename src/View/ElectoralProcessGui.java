@@ -60,19 +60,19 @@ public class ElectoralProcessGui extends JFrame {
         jTextField1.setText(p.getName());
         jTextField3.setText(""+p.getPopulation());
         jTextField8.setText(""+p.getMinPercentage());
-        jComboBox1.setSelectedItem(p.getProcessType());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        jTextField2.setText(""+p.getDate());
-        jTextField5.setText(""+p.getStartRegistrationDate());
-        jTextField4.setText(""+p.getEndRegistrationDate());
-        jTextField7.setText(""+p.getStartValidationDate());
-        jTextField6.setText(""+p.getEndValidationDate());
-        jTextField10.setText(""+p.getStartExtraReceptionDate());
-        jTextField12.setText(""+p.getStartExtraValidationDate());
-        jTextField14.setText(""+p.getStartReceptionDate());
-        jTextField11.setText(""+p.getEndExtraReceptionDate());
-        jTextField13.setText(""+p.getEndExtraValidationDate());
-        jTextField15.setText(""+p.getEndReceptionDate()); 
+        jComboBox1.setSelectedItem(p.getProcessType());        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");                                                                
+        jTextField2.setText(""+ formatter.format(p.getDate()));
+        jTextField5.setText(""+formatter.format(p.getStartRegistrationDate()));
+        jTextField4.setText(""+formatter.format(p.getEndRegistrationDate()));
+        jTextField7.setText(""+formatter.format(p.getStartValidationDate()));
+        jTextField6.setText(""+formatter.format(p.getEndValidationDate()));
+        jTextField10.setText(""+formatter.format(p.getStartExtraReceptionDate()));
+        jTextField12.setText(""+formatter.format(p.getStartExtraValidationDate()));
+        jTextField14.setText(""+formatter.format(p.getStartReceptionDate()));
+        jTextField11.setText(""+formatter.format(p.getEndExtraReceptionDate()));
+        jTextField13.setText(""+formatter.format(p.getEndExtraValidationDate()));
+        jTextField15.setText(""+formatter.format(p.getEndReceptionDate()));
     }
     
      public ElectoralProcessGui() {
@@ -626,18 +626,18 @@ public class ElectoralProcessGui extends JFrame {
                                 jTextField3.setText(""+p.getPopulation());
                                 jTextField8.setText(""+p.getMinPercentage());
                                 jComboBox1.setSelectedItem(p.getProcessType());
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                jTextField2.setText(""+p.getDate());
-                                jTextField5.setText(""+p.getStartRegistrationDate());
-                                jTextField4.setText(""+p.getEndRegistrationDate());
-                                jTextField7.setText(""+p.getStartValidationDate());
-                                jTextField6.setText(""+p.getEndValidationDate());
-                                jTextField10.setText(""+p.getStartExtraReceptionDate());
-                                jTextField12.setText(""+p.getStartExtraValidationDate());
-                                jTextField14.setText(""+p.getStartReceptionDate());
-                                jTextField11.setText(""+p.getEndExtraReceptionDate());
-                                jTextField13.setText(""+p.getEndExtraValidationDate());
-                                jTextField15.setText(""+p.getEndReceptionDate());
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");                                                                
+                                jTextField2.setText(""+ formatter.format(p.getDate()));
+                                jTextField5.setText(""+formatter.format(p.getStartRegistrationDate()));
+                                jTextField4.setText(""+formatter.format(p.getEndRegistrationDate()));
+                                jTextField7.setText(""+formatter.format(p.getStartValidationDate()));
+                                jTextField6.setText(""+formatter.format(p.getEndValidationDate()));
+                                jTextField10.setText(""+formatter.format(p.getStartExtraReceptionDate()));
+                                jTextField12.setText(""+formatter.format(p.getStartExtraValidationDate()));
+                                jTextField14.setText(""+formatter.format(p.getStartReceptionDate()));
+                                jTextField11.setText(""+formatter.format(p.getEndExtraReceptionDate()));
+                                jTextField13.setText(""+formatter.format(p.getEndExtraValidationDate()));
+                                jTextField15.setText(""+formatter.format(p.getEndReceptionDate()));
                                 java.lang.System.out.println("Partido seleccionado");
                            java.lang.System.out.println("Proceso Electoral seleccionado");
     }//GEN-LAST:event_jTable1MouseClicked
@@ -704,7 +704,7 @@ public class ElectoralProcessGui extends JFrame {
 				value = "" + electoralProcessList.get(row).getProcessType().getName();
 				break;
 			case 3:
-				value = "" + electoralProcessList.get(row).getDate();
+				value = "" + new SimpleDateFormat("dd/MM/yyyy").format(electoralProcessList.get(row).getDate());
 				break;			
 			}
 			return value;
