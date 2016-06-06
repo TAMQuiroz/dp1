@@ -20,6 +20,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract1;
 /**
  *
  * @author Andrea
@@ -636,8 +638,12 @@ public class adherentListi extends javax.swing.JFrame {
         if(Manager.getSession().getId() == partido.getIdWorker()){
             if (check_route(partido.getId())){
                 ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
+                ITesseract instance_num = new Tesseract1();
+                ITesseract instance_let = new Tesseract1();
+                instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
+                instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                 for (AdherentImage registro : registros) {
-                    Person persona = ocrLib.ocr(registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                    Person persona = ocrLib.ocr(instance_num,instance_let,registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
                     if(persona != null){
                         boolean esta_apto = busca_apto(persona, partido.getElectoralProcess().getId());
                         if(esta_apto){
