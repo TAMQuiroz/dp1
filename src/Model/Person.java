@@ -15,8 +15,10 @@ public class Person {
     private long id;
     private String name;
     private String lastname;
-    private BufferedImage fingerprint;
-    private BufferedImage signature;
+    //private BufferedImage fingerprint;
+    //private BufferedImage signature;
+    private String fingerprint;
+    private String signature;
     private boolean citizen;
     private boolean disabled;
     private String ubigeo;
@@ -45,19 +47,19 @@ public class Person {
         this.lastname = lastname;
     }
 
-    public BufferedImage getFingerprint() {
+    public String getFingerprint() {
         return fingerprint;
     }
 
-    public void setFingerprint(BufferedImage fingerprint) {
+    public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }
 
-    public BufferedImage getSignature() {
+    public String getSignature() {
         return signature;
     }
 
-    public void setSignature(BufferedImage signature) {
+    public void setSignature(String signature) {
         this.signature = signature;
     }
 

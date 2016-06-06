@@ -35,24 +35,27 @@ import org.opencv.highgui.Highgui;
 public class SignatureLib {
     static JTextArea console;
     public static int max;
-    public static int indice;
-    public static int cambio;
-    
-    public static int validarFirmas(String id) {
+    //public static int indice;
+    //public static int cambio;
+    //firmas(persona existente, registro en padron)
+    public static int validarFirmas(String routeRNV, String routeAdherent) {
         int count=0;
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
-        String route = "firmas\\resized\\";
-        String extension = ".jpg";
+        //String extension = ".jpg";
+        console.append("======Inicio del análisis de la firma======");
+        sift(routeRNV, routeAdherent);
+        //String route = "firmas\\resized\\";
         
-        String routeVal="test\\auxiliar\\cortes\\"+id+"\\padron";
+        
+        //String routeVal="test\\auxiliar\\cortes\\"+id+"\\padron";
 
         //Firma a comparar
-        String n_img1  = "firma";
+        //String n_img1  = "firma";
         //String n_img1  = "f001rp";
         
-        for(int k=11;k<=48;k++){
+        /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 ){
                 max=0; indice=0; 
                 String routeAdd=k+"\\";
@@ -69,23 +72,25 @@ public class SignatureLib {
                     sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
                     if(cambio==1)
                         indice=i;
-                }
-
+                }*/
+                
+                
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma encontrada final: " + indice + ", matches: "+max);
+                java.lang.System.out.println("Firma - matches: "+max);
                 count++;
-                console.append("\nFirma encontrada:" + indice );
-            }
+                //console.append("\nFirma encontrada:" + indice );
+            //}
             console.append("\n");
-        }
-        console.append("======Fin del análisis de firmas======");
+        //}
+        console.append("======Fin del análisis de la firma======");
         return count;
     }  
-    
-        public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
+        
+        //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
+        public static void sift(String routeRNV, String routeAdherent){
   
-        String bookObject = routeVal + n_img1 + extension;
-        String bookScene = route + n_img2 + extension; 
+        String bookObject = routeRNV;
+        String bookScene = routeAdherent; 
 
         //System.out.println("Iniciando SIFT");
         //java.lang.System.out.print("Abriendo imagenes | ");
@@ -147,11 +152,12 @@ public class SignatureLib {
 
         if (goodMatchesList.size() >= 7)  
         {  
+            max=goodMatchesList.size();
             //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
-            if(goodMatchesList.size()>max){
+            /*if(goodMatchesList.size()>max){
                 max=goodMatchesList.size();
                 cambio = 1;
-            }    
+            } */   
             
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();  
             List<KeyPoint> scnKeypointlist = sceneKeyPoints.toList();  
@@ -196,12 +202,12 @@ public class SignatureLib {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = route + "\\results\\" + n_img2 + "_outputImage_sift" + extension;
+            /*String n_outputImage = route + "\\results\\" + n_img2 + "_outputImage_sift" + extension;
             String n_matchoutput = route + "\\results\\" + n_img2 + "_matchoutput_sift" + extension;
             String n_img = route + "\\results\\" + n_img2 + "_sift" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
-            Highgui.imwrite(n_img, img);  
+            Highgui.imwrite(n_img, img);  */
         }  
         else  
         {  
