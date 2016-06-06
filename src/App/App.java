@@ -55,8 +55,10 @@ public class App {
         System.out.println("Tiene el perfil de: " + u.getProfile().getName());
         new Login().setVisible(true);
         */
+        /*
         long idAd = 10;
         AdherentImage ad = Manager.queryAdherentImageById(idAd);
         UtilLib.deleteImages(ad);        
+        */
     }
 }

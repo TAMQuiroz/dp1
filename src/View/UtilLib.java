@@ -27,7 +27,8 @@ public class UtilLib {
     public static void deleteImages(AdherentImage adImage){
         File miDir = new File (".");
         String localPath = "";        
-        String path = "";        
+        String path = "";   
+        String fs = File.separator;
         String string = adImage.getNameSource();
         String[] parts = string.split("\\\\");        
         try {
@@ -39,14 +40,14 @@ public class UtilLib {
         }
         String[] partsProyect = localPath.split("/");
         path = partsProyect[0];
-        for ( int j = 1; j < partsProyect.length - 1; j++){
-            path = path + "\\" + partsProyect[j];
+        for ( int j = 1; j < partsProyect.length; j++){
+            path = path + fs + partsProyect[j];
         }        
         for ( int i = 0; i < parts.length - 1 ; i++){
-            path = path + "\\" + parts[i];
+            path = path + fs + parts[i];
         }
         java.lang.System.out.println("El directorio " + path);
-        File f = new File(path); 
+        File f = new File(path);                         
         deleteDirectory(f); 
         if (f.delete())
             java.lang.System.out.println("El directorio " + path + " ha sido borrado correctamente");
@@ -56,12 +57,14 @@ public class UtilLib {
     
     private static void deleteDirectory (File directorio){
         File[] ficheros = directorio.listFiles(); 
+        java.lang.System.out.println("Cantida de archivos " + ficheros.length);                        
         for (int x=0;x<ficheros.length;x++){
             if (ficheros[x].isDirectory()) {
                 deleteDirectory(ficheros[x]);
             }
             ficheros[x].delete();
         }
+        
     }
     
 }
