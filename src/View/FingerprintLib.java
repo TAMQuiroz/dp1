@@ -42,15 +42,15 @@ public class FingerprintLib {
     static int scalex = 27;
     static int scaley = 16;
     static int ImageSize = sizex * sizey;  
-    static String pathToImages = "test\\ocr\\opencv\\";  
 
 
-    public static void preprocesamiento(String route, String route_base , String nimg, String extension){
-        
-        String url = route + nimg + extension;
-        java.lang.System.out.print("Procesando: " + url + " | ");
-        ImagePlus imgPlus = new ImagePlus(url);
-        
+    public static String preprocesamiento(String nimg, int type){
+        String n_out;
+        java.lang.System.out.print("Procesando: " + nimg + " | ");
+        ImagePlus imgPlus = new ImagePlus(nimg);
+        ImageProcessor img = imgPlus.getProcessor();
+        img = img.resize(600);
+        imgPlus = new ImagePlus("resized",img);
         java.lang.System.out.print("Afilando imagen | ");
         IJ.run(imgPlus, "Sharpen", "");
         
@@ -60,15 +60,19 @@ public class FingerprintLib {
         java.lang.System.out.print("Filtrando imagen binaria | ");
         IJ.run(imgPlus,"Make Binary","");
         
-        java.lang.System.out.print("Esqueletonizando | ");
+        java.lang.System.out.print("Esqueletonizando\n");
         IJ.run(imgPlus,"Skeletonize","");
-        FileSaver fs = new FileSaver(imgPlus);
         
-        java.lang.System.out.println("Guardando imagen");
-        String n_out = route_base + "\\pre\\" + nimg + extension;
+        FileSaver fs = new FileSaver(imgPlus);
+        //java.lang.System.out.println("Guardando imagen");
+        if(type == 0){
+            n_out = "test\\pre\\source.jpg";
+        }else{
+            n_out = "test\\pre\\test.jpg";
+        }
         fs.saveAsJpeg(n_out);
         
-        
+        return n_out;
         //System.out.println("Finalizando preprocesamiento");
     }
          
@@ -138,12 +142,12 @@ public class FingerprintLib {
         //System.out.println("Final de orb");
     }
        
-    public static void surf(String route, String route_out, String n_img1, String n_img2, String extension){
-        long ini = java.lang.System.currentTimeMillis();
-        String bookObject = route + n_img1 + extension;
-        String bookScene = route + n_img2 + extension;
+    public static double surf(String n_img1, String n_img2){
+        String bookObject = n_img1;
+        String bookScene = n_img2;
         //String bookObject = "test//1.png";  
         //String bookScene = "test//4.png";  
+        
 
         //System.out.println("Started....");  
         java.lang.System.out.print("Abriendo imagenes | ");
@@ -200,13 +204,12 @@ public class FingerprintLib {
             if (m1.distance <= m2.distance * nndrRatio)  
             {  
                 goodMatchesList.addLast(m1);  
-
             }  
         }  
 
         if (goodMatchesList.size() >= 7)  
         {  
-            java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());  
+            //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());  
 
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();  
             List<KeyPoint> scnKeypointlist = sceneKeyPoints.toList();  
@@ -245,26 +248,46 @@ public class FingerprintLib {
             Core.line(img, new Point(scene_corners.get(2, 0)), new Point(scene_corners.get(3, 0)), new Scalar(0, 255, 0), 4);  
             Core.line(img, new Point(scene_corners.get(3, 0)), new Point(scene_corners.get(0, 0)), new Scalar(0, 255, 0), 4);  
 
-            java.lang.System.out.println("Dibujando imagen de coincidencias");
+            //java.lang.System.out.println("Dibujando imagen de coincidencias");
             MatOfDMatch goodMatches = new MatOfDMatch();  
             goodMatches.fromList(goodMatchesList);  
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = route_out + "\\results\\" + n_img1 + "_outputImage_surf" + extension;
-            String n_matchoutput = route_out + "\\results\\" + n_img1 + "_matchoutput_surf" + extension;
-            String n_img = route_out + "\\results\\" + n_img1 + "_surf" + extension;
+            String n_outputImage = "test\\pre\\outputImage_surf.jpg";
+            String n_matchoutput = "test\\pre\\matchoutput_surf.jpg";
+            String n_img = "test\\pre\\surf.jpg";
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
+            
+            java.lang.System.out.println("Matches: " + goodMatches.size().height);
+            double result = goodMatches.size().height;
+            if(result > 120){
+                return 1;
+            }else if(result <= 120 && result > 100){
+                return 0.85;
+            }else if(result <= 100 && result > 80){
+                return 0.5;
+            }else{
+                return 0.25;
+            }
         }  
         else  
         {  
             java.lang.System.out.println("Objeto no encontrado");
+            return 0;
         }  
-        long total = (java.lang.System.currentTimeMillis() - ini);
-        java.lang.System.out.println("Tiempo tomado: " + total);
-        //java.lang.System.out.println("Ended....");  
+    }
+    
+    public static double huellas(String rnvFingerprintSource, String testFingerprintSource){
+        double resultado = 0;
+        
+        String rnvFingerprint = preprocesamiento(rnvFingerprintSource, 0);
+        String testFingerprint = preprocesamiento(testFingerprintSource, 1);
+        resultado = surf(rnvFingerprint, testFingerprint);
+        
+        return resultado;
     }
 
     public static void main(String[] args) throws IOException{
@@ -272,16 +295,8 @@ public class FingerprintLib {
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
-        String route_base = "test\\";
-        String route_huellas = route_base + "huellas\\";
-        String route_pre = route_base + "pre\\";
-        
-        String extension = ".jpg";
-        String extension_huellas = ".tif";
-        
-        
-        String n_img1  = "lena";
-        String n_img2  = "103_1";
+        String n_img1  = "test\\huellas\\102_1.tif";
+        String n_img2  = "test\\huellas\\102_3.tif";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
@@ -290,14 +305,8 @@ public class FingerprintLib {
         java.lang.System.out.println("***FINALIZANDO ORB***");
         */
         
-        
-        java.lang.System.out.println("***INICIANDO PREPROCESAMIENTO***");
-        preprocesamiento(route_huellas, route_base, n_img1, extension_huellas);
-        preprocesamiento(route_huellas, route_base, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO PREPROCESAMIENTO***");
-        java.lang.System.out.println("***INICIANDO SURF***");
-        surf(route_pre, route_base, n_img1, n_img2, extension_huellas);
-        java.lang.System.out.println("***FINALIZANDO SURF***");       
+        double resultado = huellas(n_img1, n_img2);
+        java.lang.System.out.println("Resultado: " + resultado);
         
         
     }  
