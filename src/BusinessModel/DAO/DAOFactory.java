@@ -24,4 +24,5 @@ public abstract class DAOFactory {
     public abstract DAOPoliticalParty getDAOPoliticalParty();
     public abstract DAOAdherentImage getDAOAdherentImage();
     public abstract DAOPerson getDAOPerson();
+    public abstract DAOAdherent getDAOAdherent();
 }

@@ -18,6 +18,7 @@ public class Manager {
     private static UbigeoDB ubigeoDB = new UbigeoDB();
     private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
     private static AdherentImageDB adherentImageDB = new AdherentImageDB();
+    private static AdherentDB adherentDB = new AdherentDB();
     private static PersonDB personDB = new PersonDB();
     private static User session;
     
@@ -122,6 +123,37 @@ public class Manager {
     }
     public static AdherentImage queryAdherentImageById(long adherentImageId){
         return adherentImageDB.queryById(adherentImageId);
+    }
+    
+    public static void addAdherent(Adherent ep){
+        adherentDB.add(ep);
+    }
+    public static void updateStatusAdherent(Adherent ep){
+        adherentDB.updateStatus(ep);
+    }    
+    public static ArrayList<Adherent> queryAllAdherents(){
+        return adherentDB.queryAll();
+    }
+    public static long queryPersonByDniAndElectoralProcess(String dni, long electoralProcess){
+        ArrayList<Adherent> list = adherentDB.queryByDni(dni);
+        ArrayList<PoliticalParty> listPT = politicalPartyDB.queryAll(electoralProcess);
+        int size = list.size();
+        int sizePT = listPT.size();
+        for (int i = 0; i < size; i++){            
+            for (int j = 0; j<sizePT; j++){
+                if (list.get(i).getPoliticalParty().getId() == listPT.get(j).getId())
+                    return list.get(i).getPoliticalParty().getId();
+            }
+                    
+        }
+        return -1;        
+    }
+    public static Adherent queryAdherentByDniAndPoliticalParty(String dniP, long politicalPartyIdP){
+        return adherentDB.queryByDniAndPoliticalParty(dniP, politicalPartyIdP);
+    }
+    
+    public static Adherent queryAdherentById(long adherentId){
+        return adherentDB.queryById(adherentId);
     }
 
     public static User getSession() {

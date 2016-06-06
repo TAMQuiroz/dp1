@@ -10,6 +10,7 @@ import Model.*;
 import java.util.ArrayList;
 import java.util.Date;
 import View.Login;
+import View.UtilLib;
 
 /**
  *
@@ -17,6 +18,7 @@ import View.Login;
  */
 public class App {
     public static void main(String [] args) {
+        /*
         ElectoralProcess ep = new ElectoralProcess();        
         User u = new User(); ProcessType pt = new ProcessType();
         ArrayList<ElectoralProcess> list = new ArrayList<ElectoralProcess>();
@@ -52,5 +54,9 @@ public class App {
         System.out.println("El usuario es: " + ep.getUser().getName() + " - " + ep.getUser().getLastName() );
         System.out.println("Tiene el perfil de: " + u.getProfile().getName());
         new Login().setVisible(true);
+        */
+        long idAd = 10;
+        AdherentImage ad = Manager.queryAdherentImageById(idAd);
+        UtilLib.deleteImages(ad);        
     }
 }
