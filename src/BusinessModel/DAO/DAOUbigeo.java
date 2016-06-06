@@ -16,4 +16,5 @@ public interface DAOUbigeo {
     void delete(long ubigeoId);
     ArrayList<Ubigeo> queryAll();        
     Ubigeo queryById(long ubigeoId);
+    Ubigeo queryByIdAndElectoralProcess(String code, long electoralProcessId);
 }

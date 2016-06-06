@@ -31,7 +31,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 3: Preparar la sentencia
                 String sql = "INSERT INTO ubigeo (code, name, description, status, id_electoralProcess) VALUES(?, ?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                pstmt.setLong(1,  ep.getCode());
+                pstmt.setString(1,  ep.getCode());
                 pstmt.setString(2, ep.getName());
                 pstmt.setString(3, ep.getDescription());
                 pstmt.setString(4, ep.getStatus());
@@ -75,7 +75,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 3: Preparar la sentencia
                 String sql = "UPDATE ubigeo SET code=?, name=?, description=?, id_electoralProcess=?, status=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
-                pstmt.setLong(1,  ep.getCode());
+                pstmt.setString(1,  ep.getCode());
                 pstmt.setString(2, ep.getName());
                 pstmt.setString(3, ep.getDescription());
                 pstmt.setLong(4, ep.getElectoralProcess().getId());             
@@ -175,7 +175,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 while (rs.next()) {
                         Ubigeo ep = new Ubigeo();
                         long id = rs.getLong("id"); ep.setId(id);                        
-                        long code = rs.getLong("code"); ep.setCode(code);                        
+                        String code = rs.getString("code"); ep.setCode(code);                        
                         String name = rs.getString("name"); ep.setName(name);
                         String description = rs.getString("description"); ep.setDescription(description);
                         String status = rs.getString("status"); ep.setStatus(status);                         
@@ -231,7 +231,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 if (rs.next()) { 
                         ep = new Ubigeo();
                         long id = rs.getLong("id"); ep.setId(id);                        
-                        long code = rs.getLong("code"); ep.setCode(code);                        
+                        String code = rs.getString("code"); ep.setCode(code);                        
                         String name = rs.getString("name"); ep.setName(name);
                         String description = rs.getString("description"); ep.setDescription(description);
                         String status = rs.getString("status"); ep.setStatus(status);                         
@@ -264,5 +264,59 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
         }
         return ep;
     }
-    
+    @Override
+    public Ubigeo queryByIdAndElectoralProcess(String codeUbigeo, long electoralProcessIdcodeUbigeo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        Ubigeo ep = null;
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from ubigeo where code=? and id_electoralProcess=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, codeUbigeo);
+                pstmt.setLong(2, electoralProcessIdcodeUbigeo);
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                if (rs.next()) { 
+                        ep = new Ubigeo();
+                        long id = rs.getLong("id"); ep.setId(id);                        
+                        String code = rs.getString("code"); ep.setCode(code);                        
+                        String name = rs.getString("name"); ep.setName(name);
+                        String description = rs.getString("description"); ep.setDescription(description);
+                        String status = rs.getString("status"); ep.setStatus(status);                         
+                        long electoralProcessId = rs.getLong("id_electoralProcess");                        
+                        ElectoralProcess electoralProcess = new ElectoralProcess();
+                        electoralProcess = Manager.queryElectoralProcessById(electoralProcessId);
+                        ep.setElectoralProcess(electoralProcess);                        
+                }
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return ep;
+    }
 }

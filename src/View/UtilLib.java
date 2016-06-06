@@ -5,6 +5,7 @@
  */
 package View;
 
+import BusinessModel.Manager;
 import Model.*;
 
 /**
@@ -13,8 +14,7 @@ import Model.*;
  */
 public class UtilLib {
     public static boolean isSuitable(Person person, long electoralProcessId){
-        boolean value = true;
-        
+        boolean value = Manager.queryUbigeoByIdAndElectoralProcess(person.getUbigeo(), electoralProcessId);        
         return value;
     }
 }

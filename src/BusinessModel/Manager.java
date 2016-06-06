@@ -81,6 +81,13 @@ public class Manager {
     public static Ubigeo queryUbigeoById(long ubigeoId){
         return ubigeoDB.queryById(ubigeoId);
     }
+    public static boolean queryUbigeoByIdAndElectoralProcess(String ubigeoId, long electoralProcessId){
+        Ubigeo ub = ubigeoDB.queryByIdAndElectoralProcess(ubigeoId, electoralProcessId);
+        if (ub == null)
+            return false;
+        return true;
+    }
+    
     public static void addPoliticalParty(PoliticalParty ep){
         politicalPartyDB.add(ep);
     }

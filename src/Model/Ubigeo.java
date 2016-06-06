@@ -11,7 +11,7 @@ package Model;
  */
 public class Ubigeo {
     private long id;
-    private long code;
+    private String code;
     private String name;
     private String description;
     private String status;
@@ -94,14 +94,14 @@ public class Ubigeo {
     /**
      * @return the code
      */
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
     /**
      * @param code the code to set
      */
-    public void setCode(long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 }
