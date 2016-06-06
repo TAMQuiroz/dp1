@@ -46,7 +46,7 @@ public class adherentListi extends javax.swing.JFrame {
         initComponents();
         id = idParty;
         name = nameParty;
-        primera_etapa = check_etapa();
+      //  primera_etapa = check_etapa();
     }
 
     /**
@@ -643,8 +643,8 @@ public class adherentListi extends javax.swing.JFrame {
                 instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
                 instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                 for (AdherentImage registro : registros) {
-                    Person persona = ocrLib.ocr(instance_num,instance_let,registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
-                    if(persona != null){
+                    Person persona = ocrLib.ocr(instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                  /*  if(persona != null){
                         boolean esta_apto = busca_apto(persona, partido.getElectoralProcess().getId());
                         if(esta_apto){
                             long party_id = buscar_duplicidad(persona, partido.getElectoralProcess().getId());
@@ -686,7 +686,7 @@ public class adherentListi extends javax.swing.JFrame {
                         }else{
                             registro.setStatus(2);
                         }
-                    }
+                    }*/
                 }
                 
                 JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.OK_OPTION);

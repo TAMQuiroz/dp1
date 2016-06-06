@@ -44,15 +44,42 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ElectoralProcessGui extends JFrame {
  MyTableModel electoralProcessModel;
-    
+    Long ElectoralProcessId;
     /**
      * Creates new form ElectoralProcess
      */
-    public ElectoralProcessGui() {
-        
+    public ElectoralProcessGui(Integer processId) {
+        ElectoralProcessId=Long.parseLong(processId.toString());
         initComponents();
         electoralProcessModel = new MyTableModel();
 	jTable1.setModel(electoralProcessModel);
+        
+        ElectoralProcess p = Manager.queryElectoralProcessById(ElectoralProcessId);
+
+        jTextField9.setText("" + p.getId());
+        jTextField1.setText(p.getName());
+        jTextField3.setText(""+p.getPopulation());
+        jTextField8.setText(""+p.getMinPercentage());
+        jComboBox1.setSelectedItem(p.getProcessType());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        jTextField2.setText(""+p.getDate());
+        jTextField5.setText(""+p.getStartRegistrationDate());
+        jTextField4.setText(""+p.getEndRegistrationDate());
+        jTextField7.setText(""+p.getStartValidationDate());
+        jTextField6.setText(""+p.getEndValidationDate());
+        jTextField10.setText(""+p.getStartExtraReceptionDate());
+        jTextField12.setText(""+p.getStartExtraValidationDate());
+        jTextField14.setText(""+p.getStartReceptionDate());
+        jTextField11.setText(""+p.getEndExtraReceptionDate());
+        jTextField13.setText(""+p.getEndExtraValidationDate());
+        jTextField15.setText(""+p.getEndReceptionDate()); 
+    }
+    
+     public ElectoralProcessGui() {
+        initComponents();
+        electoralProcessModel = new MyTableModel();
+	jTable1.setModel(electoralProcessModel);
+        
     }
 
     /**

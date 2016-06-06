@@ -354,6 +354,8 @@ public class PoliticalPartyGui extends JFrame {
         String name = nameText.getText();
                                 String department= legalDepartment.getText();
                                 String phone = telephone.getText();
+                                try{                       
+                                if(phone.length()>=7 && phone.length()<=9 && Integer.parseInt(phone)>0){
                                 String e_mail= email.getText();
                                 PoliticalParty party = new PoliticalParty();
                                 party.setEmail(e_mail);
@@ -367,6 +369,15 @@ public class PoliticalPartyGui extends JFrame {
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
                                 refreshTblParty();
+                                 
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                                }
+                                }catch (NumberFormatException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+				} 
+                                
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
