@@ -14,9 +14,11 @@ import Model.User;
 import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -355,14 +357,20 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 String document= telephone2.getText();
                                 String telephone= telephone3.getText();
 
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date bornday = formatter.parse(email1.getText());
+                                DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+                                Date bornDay = (Date)formatter.parse(email1.getText());
+                                java.lang.System.out.println(bornDay);        
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(bornDay);
+                                String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+                                java.lang.System.out.println("formatedDate : " + formatedDate);    
+                               
                                 
                                 try{                       
                                 if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
                                 
                                     User user = new User();
-                                user.setBornDay(bornday);
+                                user.setBornDay(bornDay);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
                                 user.setLastName(lastname);
@@ -409,14 +417,21 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 java.lang.System.out.println("Documento ");
                                 String telephone= telephone3.getText();
                                 java.lang.System.out.println("Telefono");
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date bornday = formatter.parse(email1.getText());
+                                
+                                DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+                                Date bornDay = (Date)formatter.parse(email1.getText());
+                                java.lang.System.out.println(bornDay);        
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(bornDay);
+                                String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+                                java.lang.System.out.println("formatedDate : " + formatedDate);    
+                                
                                 java.lang.System.out.println("Fecha ");
                                 long idUser = Long.parseLong("" + nameText1.getText());
                                 java.lang.System.out.println("Id user: " + idUser);
                                 User user = Manager.queryUserById(idUser);
                                 java.lang.System.out.println("Usuario: " + user.getId() + " - " + user.getName());
-                                user.setBornDay(bornday);
+                                user.setBornDay(bornDay);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
                                 user.setLastName(lastname);
@@ -472,10 +487,17 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 telephone1.setText(p.getDocType());
                                 telephone2.setText(p.getDocCode());
                                 telephone3.setText(p.getPhone());
-                                 String bornDay= p.getBornDay().toString();
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                Date bornday = formatter.parse(bornDay);
-                                email1.setText(""+bornday);
+                                 String bornday= p.getBornDay().toString();
+                                java.lang.System.out.println( bornday);                                   
+                                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy");
+                                Date bornDay = (Date)formatter.parse(bornday);
+                                java.lang.System.out.println(bornDay);        
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(bornDay);
+                                String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+                              
+                                java.lang.System.out.println("formatedDate : " + formatedDate);  
+                                email1.setText(formatedDate);
                                  java.lang.System.out.println("Usuario seleccionado");
                                  }catch (ParseException ex) {
                                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
