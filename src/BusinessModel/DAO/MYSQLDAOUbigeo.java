@@ -29,13 +29,13 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "INSERT INTO ubigeo (name, description, status, id_electoralProcess) VALUES(?,?,?,?)";
+                String sql = "INSERT INTO ubigeo (code, name, description, status, id_electoralProcess) VALUES(?, ?,?,?,?)";
                 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                //pstmt.setInt(1,  p.getId());
-                pstmt.setString(1, ep.getName());
-                pstmt.setString(2, ep.getDescription());
-                pstmt.setString(3, ep.getStatus());
-                pstmt.setLong(4, ep.getElectoralProcess().getId());                
+                pstmt.setLong(1,  ep.getCode());
+                pstmt.setString(2, ep.getName());
+                pstmt.setString(3, ep.getDescription());
+                pstmt.setString(4, ep.getStatus());
+                pstmt.setLong(5, ep.getElectoralProcess().getId());                
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -73,14 +73,14 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "UPDATE ubigeo SET name=?, description=?, id_electoralProcess=?, status=? WHERE id=?";
+                String sql = "UPDATE ubigeo SET code=?, name=?, description=?, id_electoralProcess=?, status=? WHERE id=?";
                 pstmt = conn.prepareStatement(sql);
-                //pstmt.setInt(1,  p.getId());
-                pstmt.setString(1, ep.getName());
-                pstmt.setString(2, ep.getDescription());
-                pstmt.setLong(3, ep.getElectoralProcess().getId());             
-                pstmt.setString(4, ep.getStatus());
-                pstmt.setLong(5, ep.getId()); 
+                pstmt.setLong(1,  ep.getCode());
+                pstmt.setString(2, ep.getName());
+                pstmt.setString(3, ep.getDescription());
+                pstmt.setLong(4, ep.getElectoralProcess().getId());             
+                pstmt.setString(5, ep.getStatus());
+                pstmt.setLong(6, ep.getId()); 
                 //Paso 4: Ejecutar la sentencia						
                 pstmt.executeUpdate();
                 //Paso 5:(opc) Procesar los resultado
@@ -175,6 +175,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 while (rs.next()) {
                         Ubigeo ep = new Ubigeo();
                         long id = rs.getLong("id"); ep.setId(id);                        
+                        long code = rs.getLong("code"); ep.setCode(code);                        
                         String name = rs.getString("name"); ep.setName(name);
                         String description = rs.getString("description"); ep.setDescription(description);
                         String status = rs.getString("status"); ep.setStatus(status);                         
@@ -230,6 +231,7 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 if (rs.next()) { 
                         ep = new Ubigeo();
                         long id = rs.getLong("id"); ep.setId(id);                        
+                        long code = rs.getLong("code"); ep.setCode(code);                        
                         String name = rs.getString("name"); ep.setName(name);
                         String description = rs.getString("description"); ep.setDescription(description);
                         String status = rs.getString("status"); ep.setStatus(status);                         
@@ -262,4 +264,5 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
         }
         return ep;
     }
+    
 }

@@ -11,6 +11,7 @@ package Model;
  */
 public class Ubigeo {
     private long id;
+    private long code;
     private String name;
     private String description;
     private String status;
@@ -88,5 +89,19 @@ public class Ubigeo {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the code
+     */
+    public long getCode() {
+        return code;
+    }
+
+    /**
+     * @param code the code to set
+     */
+    public void setCode(long code) {
+        this.code = code;
     }
 }

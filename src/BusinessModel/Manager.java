@@ -18,6 +18,7 @@ public class Manager {
     private static UbigeoDB ubigeoDB = new UbigeoDB();
     private static PoliticalPartyDB politicalPartyDB = new PoliticalPartyDB();
     private static AdherentImageDB adherentImageDB = new AdherentImageDB();
+    private static PersonDB personDB = new PersonDB();
     private static User session;
     
     public static void addElectoralProcess(ElectoralProcess ep){
@@ -131,5 +132,11 @@ public class Manager {
     public static void addAdherentImages(ArrayList<AdherentImage> adherentes) {
         adherentImageDB.addAdherentImages(adherentes);
     }
-    
+    public static Person queryPersonByDni(String dni){
+        return personDB.queryByDni(dni);
+    }
+    public static ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname){
+        return personDB.queryByPerson(ocrDni, ocrName, ocrLastname);
+    }
+            
 }

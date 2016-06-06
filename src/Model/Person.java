@@ -15,6 +15,7 @@ public class Person {
     private long id;
     private String name;
     private String lastname;
+    private String dni;
     //private BufferedImage fingerprint;
     //private BufferedImage signature;
     private String fingerprint;
@@ -85,6 +86,20 @@ public class Person {
 
     public void setUbigeo(String ubigeo) {
         this.ubigeo = ubigeo;
+    }
+
+    /**
+     * @return the dni
+     */
+    public String getDni() {
+        return dni;
+    }
+
+    /**
+     * @param dni the dni to set
+     */
+    public void setDni(String dni) {
+        this.dni = dni;
     }
         
     

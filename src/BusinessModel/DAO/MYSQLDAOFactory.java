@@ -42,4 +42,8 @@ public class MYSQLDAOFactory extends DAOFactory {
     public DAOAdherentImage getDAOAdherentImage() {
         return new MYSQLDAOAdherentImage();
     }
+    @Override
+    public DAOPerson getDAOPerson() {
+        return new MYSQLDAOPerson();
+    }
 }
