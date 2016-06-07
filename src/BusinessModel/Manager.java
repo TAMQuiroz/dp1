@@ -177,5 +177,9 @@ public class Manager {
     public static ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname){
         return personDB.queryByPerson(ocrDni, ocrName, ocrLastname);
     }
+
+    public static int queryAmountAdherentImageNoValidatedbyPartyId(long id) {
+        return adherentImageDB.queryAmountAdherentImageNoValidatedbyPartyId(id);
+    }
             
 }

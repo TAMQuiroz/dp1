@@ -385,4 +385,53 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 }
         }
     }
+
+    @Override
+    public int queryAmountAdherentImageNoValidatedbyPartyId(long id) {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;
+        int amount = 0;
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select count(id) as amount from adherentImage where id_politicalParty = ? and status = ?";
+                pstmt = conn.prepareStatement(sql); 
+                pstmt.setLong(1, id);
+                pstmt.setLong(2, 0);
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                    amount = rs.getInt("amount");
+                }
+                
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return amount;
+    }
 }

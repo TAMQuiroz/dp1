@@ -9,7 +9,6 @@ import Model.Adherent;
 import Model.AdherentImage;
 import Model.Person;
 import Model.PoliticalParty;
-import static View.SignatureLib.validarFirmas;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
  
@@ -21,7 +20,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract1;
 /**
@@ -29,10 +27,7 @@ import net.sourceforge.tess4j.Tesseract1;
  * @author Andrea
  */
 public class adherentListi extends javax.swing.JFrame {
- MyTableModel validModel;
- MyTableModel rejectedModel;
- MyTableModel deleteModel;
- MyTableModel banModel;
+
     /**
      * Creates new form adherentListi
      */
@@ -40,33 +35,21 @@ public class adherentListi extends javax.swing.JFrame {
     String name;
     int signaturesVal;
     boolean primera_etapa;
+    static int count;
     
     public adherentListi() {
 
         initComponents();
-        validModel = new MyTableModel();
-	tableValidated.setModel(validModel);
-        rejectedModel = new MyTableModel();
-	jTable1.setModel(rejectedModel);
-        deleteModel = new MyTableModel();
-	jTable4.setModel(deleteModel);
-         banModel = new MyTableModel();
-	jTable5.setModel(banModel);
     }
     
     public adherentListi(long idParty,String nameParty) {
-
+        File dll = new File("lib\\opencv_java2412.dll");
+        java.lang.System.load(dll.getAbsolutePath());
         initComponents();
         id = idParty;
         name = nameParty;
-        validModel = new MyTableModel();
-	tableValidated.setModel(validModel);
-        rejectedModel = new MyTableModel();
-	jTable1.setModel(rejectedModel);
-        deleteModel = new MyTableModel();
-	jTable4.setModel(deleteModel);
-         banModel = new MyTableModel();
-	jTable5.setModel(banModel);
+        int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
+        txtAmount.setText(""+amountNotValidated);
       //  primera_etapa = check_etapa();
     }
 
@@ -87,9 +70,9 @@ public class adherentListi extends javax.swing.JFrame {
         txtAmount = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        validateConsole = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        validateProgressBar = new javax.swing.JProgressBar();
         jButton3 = new javax.swing.JButton();
         jPaneValidados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -100,8 +83,8 @@ public class adherentListi extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jPaneRechazados = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        tableRechazados = new javax.swing.JTable();
+        btnAnalizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -138,7 +121,7 @@ public class adherentListi extends javax.swing.JFrame {
 
         txtAmount.setEditable(false);
         txtAmount.setBackground(new java.awt.Color(204, 204, 204));
-        txtAmount.setText("4");
+        txtAmount.setText("0");
         txtAmount.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,15 +129,15 @@ public class adherentListi extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        validateConsole.setEditable(false);
+        validateConsole.setBackground(new java.awt.Color(204, 204, 204));
+        validateConsole.setColumns(20);
+        validateConsole.setRows(5);
+        jScrollPane3.setViewportView(validateConsole);
 
         jLabel4.setText("Progreso:");
 
-        jProgressBar1.setToolTipText("");
+        validateProgressBar.setToolTipText("");
 
         jButton3.setText("Reporte");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +166,7 @@ public class adherentListi extends javax.swing.JFrame {
                     .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(validateProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPaneSinValidarLayout.setVerticalGroup(
@@ -201,7 +184,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(validateProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addContainerGap())
@@ -237,6 +220,11 @@ public class adherentListi extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(204, 204, 204));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Reporte");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +268,7 @@ public class adherentListi extends javax.swing.JFrame {
 
         paneAnulados.addTab("Validados", jPaneValidados);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableRechazados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -299,12 +287,12 @@ public class adherentListi extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(tableRechazados);
 
-        jButton2.setText("Admitir Adherente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAnalizar.setText("Analizar Adherente");
+        btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAnalizarActionPerformed(evt);
             }
         });
 
@@ -336,7 +324,7 @@ public class adherentListi extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(btnAnalizar)))
                 .addContainerGap())
         );
         jPaneRechazadosLayout.setVerticalGroup(
@@ -346,7 +334,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(btnAnalizar)
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
@@ -426,17 +414,17 @@ public class adherentListi extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Apellido", "Firma", "Huella"
+                "DNI", "Nombre", "Apellido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -495,6 +483,11 @@ public class adherentListi extends javax.swing.JFrame {
         jTextField2.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -567,10 +560,22 @@ public class adherentListi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new addAdherent().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
+        int row = tableRechazados.getSelectedRow();
+        if(row != -1){
+            String dniSource = (String) tableRechazados.getValueAt(row, 0);
+            String nameSource = (String) tableRechazados.getValueAt(row, 1);
+            String lastnameSource = (String) tableRechazados.getValueAt(row, 2);
+            String signatureSource = (String) tableRechazados.getValueAt(row, 3);
+            String fingerprintSource = (String) tableRechazados.getValueAt(row, 4);
+            
+            addAdherent frame = new addAdherent(id, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
+            frame.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnAnalizarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -653,7 +658,9 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-
+        FingerprintLib.console = validateConsole;
+        FingerprintLib.status = validateProgressBar;
+        
         PoliticalParty partido = Manager.queryPoliticalPartyById(id);
         if(Manager.getSession().getId() == partido.getIdWorker()){
             if (check_route(partido.getId())){
@@ -662,19 +669,31 @@ public class adherentListi extends javax.swing.JFrame {
                 ITesseract instance_let = new Tesseract1();
                 instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
                 instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+                int cantidad = registros.size();
+                count = 0;
+                java.lang.System.out.println("Cantidad de archivos: " + cantidad);
+                validateProgressBar.setValue(0);
                 for (AdherentImage registro : registros) {
+                    validateConsole.append("\nInterpretando imagenes via OCR");
+                    validateConsole.update(validateConsole.getGraphics());
                     Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
                     if(persona != null){
                         boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
-                        if(isSuitable){
+                        if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
                             long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
                             if(party_id == -1){
+                                validateConsole.append("\nValidando Huellas");
+                                validateConsole.update(validateConsole.getGraphics());
                                 double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
-                                //double puntuacion2 = firmas(persona.getSignature(), registro.getSignatureSource());
+                                validateConsole.append("\nValidando Firmas");
+                                validateConsole.update(validateConsole.getGraphics());
+                                double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
                                 //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
                                 boolean resultado = true; //para continuar flujo
                                 if(resultado){
                                     java.lang.System.out.println("Se pudo validar a esta persona");
+                                    validateConsole.append("\nSe pudo validar a esta persona");
+                                    validateConsole.update(validateConsole.getGraphics());
                                     Adherent ad = new Adherent();
                                     ad.setDni(persona.getDni()); ad.setName(persona.getName());
                                     ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
@@ -684,6 +703,8 @@ public class adherentListi extends javax.swing.JFrame {
                                     Manager.deleteAdherentImage(registro.getId()); 
                                 }else{
                                     java.lang.System.out.println("No se pudo validar a esta persona");
+                                    validateConsole.append("\nNo se pudo validar a esta persona");
+                                    validateConsole.update(validateConsole.getGraphics());
                                     if(primera_etapa){
                                         registro.setStatus(1);                                        
                                         Manager.updateAdherentImage(registro);
@@ -693,6 +714,8 @@ public class adherentListi extends javax.swing.JFrame {
                                 }
                             }else{
                                 java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
+                                validateConsole.append("\nSe encontro duplicidad referida a esta persona");
+                                validateConsole.update(validateConsole.getGraphics());
                                 if(primera_etapa){
                                     Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
                                     ad.setObservation("Duplicado");
@@ -703,11 +726,15 @@ public class adherentListi extends javax.swing.JFrame {
                             }
                         }else{
                             java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
+                            validateConsole.append("\nEsta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
+                            validateConsole.update(validateConsole.getGraphics());
                             UtilLib.deleteImages(registro);
                             Manager.deleteAdherentImage(registro.getId()); 
                         }
                     }else{
                         java.lang.System.out.println("No se pudo determinar quien es esta persona");
+                        validateConsole.append("\nNo se pudo determinar quien es esta persona");
+                        validateConsole.update(validateConsole.getGraphics());
                         if(primera_etapa){
                             registro.setStatus(1);
                             Manager.updateAdherentImage(registro);
@@ -716,6 +743,11 @@ public class adherentListi extends javax.swing.JFrame {
                             Manager.deleteAdherentImage(registro.getId()); 
                         }
                     }
+                    count++;
+                    int porcentaje = (100*count)/cantidad;
+                    java.lang.System.out.println("Porcentaje: " + porcentaje);
+                    validateProgressBar.setValue(porcentaje);
+                    validateProgressBar.update(validateProgressBar.getGraphics());
                 }
                 
                 JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.OK_OPTION);
@@ -745,63 +777,19 @@ public class adherentListi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-         class MyTableModel extends AbstractTableModel {
-        ArrayList<Model.User> userList = Manager.queryAllUsers();
-		String [] titles = {"DNI", "Nombre","Apellido"};
-		public int getColumnCount() {
-			// TODO Auto-generated method stub
-			return 3;
-		}
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return userList.size();
-		}
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-		public Object getValueAt(int row, int col) {
-			// TODO Auto-generated method stub
-			String value = "";
-			switch (col) {
-			case 0:
-				value = "" + userList.get(row).getId();
-				break;
-			case 1:
-                                value = "" + userList.get(row).getName();
-				break;
-			case 2:
-				value = "" + userList.get(row).getLastName();
-				break;	
-                        case 3:
-				value = "" + userList.get(row).getPassword();
-				break;	
-                        case 4:
-				value = "" + userList.get(row).getDocCode();
-				break;	
-                        case 5:
-				value = "" + userList.get(row).getPhone();
-				break;	
-			}
-			return value;
-		}
-		public String getColumnName(int col){
-			return titles[col];
-		}
-    }
-    public void refreshTblAdherent() {
-		validModel.userList = Manager.queryAllUsers();
-		validModel.fireTableChanged(null);
-                rejectedModel.userList = Manager.queryAllUsers();
-		rejectedModel.fireTableChanged(null);
-                deleteModel.userList = Manager.queryAllUsers();
-		deleteModel.fireTableChanged(null);
-                banModel.userList = Manager.queryAllUsers();
-		banModel.fireTableChanged(null);
-                
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnalizar;
     private javax.swing.JButton btnValidate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -819,7 +807,6 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JPanel jPaneRechazados;
     private javax.swing.JPanel jPaneSinValidar;
     private javax.swing.JPanel jPaneValidados;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -830,17 +817,18 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTabbedPane paneAnulados;
+    private javax.swing.JTable tableRechazados;
     private javax.swing.JTable tableValidated;
     private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextArea validateConsole;
+    private javax.swing.JProgressBar validateProgressBar;
     // End of variables declaration//GEN-END:variables
 }

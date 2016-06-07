@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 import net.sourceforge.tess4j.*;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.MatOfByte;
@@ -41,7 +43,9 @@ public class FingerprintLib {
     static int sizey = 30;
     static int scalex = 27;
     static int scaley = 16;
-    static int ImageSize = sizex * sizey;  
+    static int ImageSize = sizex * sizey;
+    static JTextArea console;
+    static JProgressBar status;
 
 
     public static String preprocesamiento(String nimg, int type){
