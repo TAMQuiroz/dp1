@@ -43,7 +43,8 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     public adherentListi(long idParty,String nameParty) {
-
+        File dll = new File("lib\\opencv_java2412.dll");
+        java.lang.System.load(dll.getAbsolutePath());
         initComponents();
         id = idParty;
         name = nameParty;
