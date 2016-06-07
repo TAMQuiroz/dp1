@@ -135,7 +135,6 @@ public class adherentListi extends javax.swing.JFrame {
         jLabel4.setText("Progreso:");
 
         jProgressBar1.setToolTipText("");
-        jProgressBar1.setValue(25);
 
         jButton3.setText("Reporte");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -644,13 +643,13 @@ public class adherentListi extends javax.swing.JFrame {
                 instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
                 instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                 for (AdherentImage registro : registros) {
-                    Person persona = ocrLib.ocr(instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                    Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
                     if(persona != null){
                         boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
                         if(isSuitable){
                             long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
                             if(party_id == -1){
-                                //double puntuacion1 = huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
                                 //double puntuacion2 = firmas(persona.getSignature(), registro.getSignatureSource());
                                 //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
                                 boolean resultado = true; //para continuar flujo

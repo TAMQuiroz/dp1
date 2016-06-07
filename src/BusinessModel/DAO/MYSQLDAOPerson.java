@@ -75,11 +75,43 @@ public class MYSQLDAOPerson implements DAOPerson {
     }
     @Override
     public ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname) {
-        // TODO Auto-generated method stub        
+               
         Connection conn = null;
         PreparedStatement pstmt = null;        
         ResultSet rs = null;       
         ArrayList<Person> personList = new ArrayList<Person>();
+        
+        String queryDni = "";
+        for (int i = 0; i < ocrDni.size(); i++) {
+            if(ocrDni.get(i).getConfidence() > 60){
+                queryDni += ocrDni.get(i).getLetter();
+            }else{
+                queryDni += "%";
+            }
+        }
+        
+        String name = "";
+        for (int i = 0; i < ocrName.size(); i++) {
+            if(ocrName.get(i).getConfidence() > 60){
+                name += ocrName.get(i).getLetter();
+            }else{
+                name += "%";
+            }
+        }
+        
+        String lastname = "";
+        for (int i = 0; i < ocrLastname.size(); i++) {
+            if(ocrLastname.get(i).getConfidence() > 60){
+                lastname += ocrLastname.get(i).getLetter();
+            }else{
+                lastname += "%";
+            }
+        }
+        
+        java.lang.System.out.println("Dni a buscar: " + queryDni);
+        java.lang.System.out.println("Nombre a buscar: " + name);
+        java.lang.System.out.println("Apellido a buscar: " + lastname);
+        
         try {
                 //Paso 1: Registrar el Driver
                 DriverManager.registerDriver(new SQLServerDriver());
