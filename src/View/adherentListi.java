@@ -649,7 +649,7 @@ public class adherentListi extends javax.swing.JFrame {
                         if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
                             long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
                             if(party_id == -1){
-                                //double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
                                 double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
                                 //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
                                 boolean resultado = true; //para continuar flujo
