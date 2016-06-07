@@ -36,6 +36,16 @@ public class AdherentImageDB {
         adherentImageList = daoAdherentImage.queryAll();
         return adherentImageList;
     }
+    public ArrayList<AdherentImage> queryAllRejected(){
+        adherentImageList = daoAdherentImage.queryAll();
+        return adherentImageList;
+    }
+    public ArrayList<AdherentImage> queryAllCanceled(){
+        adherentImageList = daoAdherentImage.queryAllCanceled();
+        return adherentImageList;
+    }
+    
+    
     public AdherentImage queryById( long adherentImageId){
         return daoAdherentImage.queryById(adherentImageId);
     }

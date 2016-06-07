@@ -15,6 +15,8 @@ public interface DAOAdherentImage {
     void update(AdherentImage ep);
     void delete(long adherentImageId);
     ArrayList<AdherentImage> queryAll();
+    ArrayList<AdherentImage> queryAllRejected();
+    ArrayList<AdherentImage> queryAllCanceled();
     AdherentImage queryById(long adherentImageId);
     ArrayList<AdherentImage> queryAdherentImageNoValidatedbyPartyId(long id);
     void addAdherentImages(ArrayList<AdherentImage> adherentes);

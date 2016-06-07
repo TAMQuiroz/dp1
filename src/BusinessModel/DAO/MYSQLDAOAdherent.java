@@ -169,6 +169,65 @@ public class MYSQLDAOAdherent implements DAOAdherent {
     }
     
     @Override
+    public ArrayList<Adherent> queryAllDuplicated() {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<Adherent> adherentList = new ArrayList<Adherent>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from adherent where observation=?";
+                pstmt = conn.prepareStatement(sql);   
+                pstmt.setString(1, "Duplicado");
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                        Adherent adherent = new Adherent();
+                        long id = rs.getLong("id"); adherent.setId(id);                       
+                        String name = rs.getString("name"); adherent.setName(name);
+                        String lastName = rs.getString("lastname"); adherent.setLastName(lastName);                                                
+                        String dni = rs.getString("dni"); adherent.setDni(dni);                    
+                        String observation = rs.getString("observation"); adherent.setObservation(observation);                        
+                        long idPoliticalParty = rs.getLong("id_politicalParty"); 
+                        PoliticalParty pt = Manager.queryPoliticalPartyById(idPoliticalParty);
+                        adherent.setPoliticalParty(pt);                        
+                        adherentList.add(adherent);
+                }
+
+
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return adherentList;
+    }
+    
+    @Override
     public Adherent queryById(long adherentId){
         Connection conn = null;
         PreparedStatement pstmt = null;        

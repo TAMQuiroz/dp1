@@ -15,6 +15,7 @@ public interface DAOAdherent {
     void add(Adherent ep);
     void updateStatus(Adherent ep);    
     ArrayList<Adherent> queryAll();
+    ArrayList<Adherent> queryAllDuplicated();
     Adherent queryById(long adherentId);
     ArrayList<Adherent> queryByDni(String dni);
     Adherent queryByDniAndPoliticalParty(String dniP, long politicalPartyIdP);

@@ -34,6 +34,12 @@ public class AdherentDB {
         adherentList = daoAdherent.queryAll();
         return adherentList;
     }
+    
+    public ArrayList<Adherent> queryAllDulpicated(){
+        adherentList = daoAdherent.queryAllDuplicated();
+        return adherentList;
+    }
+    
     public Adherent queryById( long adherentId){
         return daoAdherent.queryById(adherentId);
     }

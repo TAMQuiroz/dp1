@@ -121,6 +121,12 @@ public class Manager {
     public static ArrayList<AdherentImage> queryAllAdherentImages(){
         return adherentImageDB.queryAll();
     }
+    public static ArrayList<AdherentImage> queryAllAdherentImagesRejected(){
+        return adherentImageDB.queryAllRejected();
+    }
+    public static ArrayList<AdherentImage> queryAllAdherentImagesCanceled(){
+        return adherentImageDB.queryAllCanceled();
+    }
     public static AdherentImage queryAdherentImageById(long adherentImageId){
         return adherentImageDB.queryById(adherentImageId);
     }
@@ -133,6 +139,9 @@ public class Manager {
     }    
     public static ArrayList<Adherent> queryAllAdherents(){
         return adherentDB.queryAll();
+    }
+    public static ArrayList<Adherent> queryAllAdherentsDuplicated(){
+        return adherentDB.queryAllDulpicated();
     }
     public static long queryPersonByDniAndElectoralProcess(String dni, long electoralProcess){
         ArrayList<Adherent> list = adherentDB.queryByDni(dni);

@@ -175,8 +175,125 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherentImage";
+                String sql = "Select* from adherentImage where status=?";
                 pstmt = conn.prepareStatement(sql);                
+                pstmt.setLong(1, 0);                                
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                        AdherentImage adherentImage = new AdherentImage();
+                        long id = rs.getLong("id"); adherentImage.setId(id);                       
+                        String name = rs.getString("nameSource"); adherentImage.setNameSource(name);
+                        String lastName = rs.getString("lastnameSource"); adherentImage.setLastNameSource(lastName);                                                
+                        String dni = rs.getString("dniSource"); adherentImage.setDniSource(dni);                    
+                        String fingerprint = rs.getString("fingerprintSource"); adherentImage.setFingerprintSource(fingerprint);
+                        String signature = rs.getString("signatureSource"); adherentImage.setSignatureSource(signature);                                            
+                        long idPoliticalParty = rs.getLong("id_politicalParty"); adherentImage.setPoliticalParty(idPoliticalParty);
+                        long status = rs.getLong("status"); adherentImage.setStatus(status);
+                        adherentImageList.add(adherentImage);
+                }
+
+
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return adherentImageList;
+    }
+    @Override
+    public ArrayList<AdherentImage> queryAllRejected() {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<AdherentImage> adherentImageList = new ArrayList<AdherentImage>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from adherentImage where status=?";
+                pstmt = conn.prepareStatement(sql);                
+                pstmt.setLong(1, 1);                                
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                        AdherentImage adherentImage = new AdherentImage();
+                        long id = rs.getLong("id"); adherentImage.setId(id);                       
+                        String name = rs.getString("nameSource"); adherentImage.setNameSource(name);
+                        String lastName = rs.getString("lastnameSource"); adherentImage.setLastNameSource(lastName);                                                
+                        String dni = rs.getString("dniSource"); adherentImage.setDniSource(dni);                    
+                        String fingerprint = rs.getString("fingerprintSource"); adherentImage.setFingerprintSource(fingerprint);
+                        String signature = rs.getString("signatureSource"); adherentImage.setSignatureSource(signature);                                            
+                        long idPoliticalParty = rs.getLong("id_politicalParty"); adherentImage.setPoliticalParty(idPoliticalParty);
+                        long status = rs.getLong("status"); adherentImage.setStatus(status);
+                        adherentImageList.add(adherentImage);
+                }
+
+
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return adherentImageList;
+    }
+    @Override
+    public ArrayList<AdherentImage> queryAllCanceled() {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<AdherentImage> adherentImageList = new ArrayList<AdherentImage>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from adherentImage where status=?";
+                pstmt = conn.prepareStatement(sql);                
+                pstmt.setLong(1, 2);                                
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
