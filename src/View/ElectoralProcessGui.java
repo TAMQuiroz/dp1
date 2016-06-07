@@ -444,9 +444,7 @@ public class ElectoralProcessGui extends JFrame {
 
         try {
             String name = jTextField1.getText();
-            Integer countprevious=Integer.parseInt(jTextField3.getText());
-            Double minpercent= Double.parseDouble(jTextField8.getText());
-            String processtype= (String)jComboBox1.getSelectedItem();
+             String processtype= (String)jComboBox1.getSelectedItem();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = formatter.parse(jTextField2.getText());
             Date startregistrationdate=formatter.parse(jTextField5.getText());
@@ -463,11 +461,11 @@ public class ElectoralProcessGui extends JFrame {
              
             long idUser = 3;
             User user = Manager.queryUserById(idUser);
-            
-            ElectoralProcess process = new ElectoralProcess();
+             
+            long idElectoralProcess= Integer.parseInt(jTextField9.getText());
+            ElectoralProcess process = Manager.queryElectoralProcessById(idElectoralProcess);
             process.setDate(date);
             process.setName(name);
-            process.setPopulation(countprevious);
             process.setStartExtraReceptionDate(startextrareceptiondate);
             process.setStartExtraValidationDate(startextravalidationdate);
             process.setStartReceptionDate(startreceptiondate);
@@ -478,30 +476,40 @@ public class ElectoralProcessGui extends JFrame {
             ProcessType proctype;
             proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
             process.setProcessType(proctype);
-            process.setMinPercentage(minpercent);
-            process.setStartValidationDate(startvaldationdate);
+             process.setStartValidationDate(startvaldationdate);
             process.setEndValidationDate(endvalidationdate);
             process.setStartRegistrationDate(startregistrationdate);
             process.setEndRegistrationDate(endregistrationdate);
             long id = Long.parseLong(jTextField9.getText());
             process.setId(id);
-           
-
-            /*Ubigeo ubi= new Ubigeo();
-            ubi.setName(ubigeo);
-            ubi.setDescription(description);
-            ubi.setElectoralProcess(process);
-            */
-
-            updateElectoralProcess(process);
-            refreshTblElectoralProcess();
+            
+            try{                       
+             if(Integer.parseInt(jTextField3.getText())>0){
+            Integer countprevious=Integer.parseInt(jTextField3.getText());
+            process.setPopulation(countprevious);
+             }else{
+                JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 ){
+                 Double minpercent= Double.parseDouble(jTextField8.getText());
+                 process.setMinPercentage(minpercent);
+                 updateElectoralProcess(process);
+                 JOptionPane.showMessageDialog(this, "El proceso electoral ha sido actualizado");
+                 refreshTblElectoralProcess();
+             }else{
+                JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a cero y menor a 1", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            
+            }catch (NumberFormatException ex) {
+           //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
+            } 
+                                
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
 
-        /*
-        refreshTblSalesmans();
-        */
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -527,82 +535,69 @@ public class ElectoralProcessGui extends JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
-        try {
+       try {
             String name = jTextField1.getText();
-            Integer countprevious=Integer.parseInt(jTextField3.getText());
-            Double minpercent= Double.parseDouble(jTextField8.getText());
-            String processtype= (String)jComboBox1.getSelectedItem();
-
+             String processtype= (String)jComboBox1.getSelectedItem();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = formatter.parse(jTextField2.getText());
             Date startregistrationdate=formatter.parse(jTextField5.getText());
             Date endregistrationdate=formatter.parse(jTextField4.getText());
             Date startvaldationdate=formatter.parse(jTextField7.getText());
             Date endvalidationdate=formatter.parse(jTextField6.getText());
-           
-             Date startextrareceptiondate=formatter.parse(jTextField10.getText());
+
+            Date startextrareceptiondate=formatter.parse(jTextField10.getText());
              Date startextravalidationdate=formatter.parse(jTextField12.getText());
              Date startreceptiondate=formatter.parse(jTextField14.getText());
              Date endextrareceptiondate=formatter.parse(jTextField11.getText());
              Date endextravalidationdate=formatter.parse(jTextField13.getText());   
              Date endreceptiondate=formatter.parse(jTextField15.getText());
+             
+            long idUser = 3;
+            User user = Manager.queryUserById(idUser);
             ElectoralProcess process = new ElectoralProcess();
             process.setDate(date);
             process.setName(name);
-            process.setPopulation(countprevious);
-
-            ProcessType proctype;
-            java.lang.System.out.println(processtype.substring(0,1));
-            proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
-            java.lang.System.out.println(processtype.substring(0,1));
-            process.setProcessType(proctype);
-            process.setMinPercentage(minpercent);
-            process.setStartValidationDate(startvaldationdate);
-            process.setEndValidationDate(endvalidationdate);
-            process.setStartRegistrationDate(startregistrationdate);
-            process.setEndRegistrationDate(endregistrationdate);
             process.setStartExtraReceptionDate(startextrareceptiondate);
             process.setStartExtraValidationDate(startextravalidationdate);
             process.setStartReceptionDate(startreceptiondate);
             process.setEndExtraReceptionDate(endextrareceptiondate);
             process.setEndExtraValidationDate(endextravalidationdate);
             process.setEndReceptionDate(endreceptiondate);
-            Model.User u = Manager.login("71844756", "eeee");
-            process.setUser(u);
-            process.setStatus("Activo");
-
-            /*Ubigeo ubi= new Ubigeo();
-            ubi.setName(ubigeo);
-            ubi.setDescription(description);
-            ubi.setElectoralProcess(process);
-            */
-
+            process.setUser(user);
+            ProcessType proctype;
+            proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
+            process.setProcessType(proctype);
+             process.setStartValidationDate(startvaldationdate);
+            process.setEndValidationDate(endvalidationdate);
+            process.setStartRegistrationDate(startregistrationdate);
+            process.setEndRegistrationDate(endregistrationdate);
+            try{                       
+             if(Integer.parseInt(jTextField3.getText())>0){
+            Integer countprevious=Integer.parseInt(jTextField3.getText());
+            process.setPopulation(countprevious);
+             }else{
+                JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 ){
+                 Double minpercent= Double.parseDouble(jTextField8.getText());
+                 process.setMinPercentage(minpercent);
+                 
+             }else{
+                JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a cero y menor a 1", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
             addElectoralProcess(process);
-            java.lang.System.out.println("Agrego nuevo proceso electoral");
-            
+            JOptionPane.showMessageDialog(this, "Proceso electoral creado");
             refreshTblElectoralProcess();
+            
+            }catch (NumberFormatException ex) {
+           //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
+            } 
+                                
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
 
-        /*	double quota = Double.parseDouble(textQuota.getText());
-        String username = textUsername.getText();
-        String password = textPassword.getText();
-
-        Salesman m = new Salesman();
-        //m.setId(id);
-        m.setName(name);
-        m.setQuota(quota);
-        m.setPassWord(password);
-        m.setUserName(username);
-        try {
-            App.proxy.addSalesman(m);
-        } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        refreshTblSalesmans();
-        */
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
