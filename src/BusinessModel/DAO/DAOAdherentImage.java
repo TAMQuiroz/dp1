@@ -18,4 +18,5 @@ public interface DAOAdherentImage {
     AdherentImage queryById(long adherentImageId);
     ArrayList<AdherentImage> queryAdherentImageNoValidatedbyPartyId(long id);
     void addAdherentImages(ArrayList<AdherentImage> adherentes);
+    int queryAmountAdherentImageNoValidatedbyPartyId(long id);
 }

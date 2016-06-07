@@ -47,4 +47,8 @@ public class AdherentImageDB {
     void addAdherentImages(ArrayList<AdherentImage> adherentes) {
         daoAdherentImage.addAdherentImages(adherentes);
     }
+
+    int queryAmountAdherentImageNoValidatedbyPartyId(long id) {
+        return daoAdherentImage.queryAmountAdherentImageNoValidatedbyPartyId(id);
+    }
 }
