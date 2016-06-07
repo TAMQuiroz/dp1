@@ -48,8 +48,8 @@ public class adherentListi extends javax.swing.JFrame {
         initComponents();
         id = idParty;
         name = nameParty;
-        int amount = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
-        txtAmount.setText(""+amount);
+        int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
+        txtAmount.setText(""+amountNotValidated);
       //  primera_etapa = check_etapa();
     }
 
@@ -83,8 +83,8 @@ public class adherentListi extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jPaneRechazados = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        tableRechazados = new javax.swing.JTable();
+        btnAnalizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -220,6 +220,11 @@ public class adherentListi extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(204, 204, 204));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Reporte");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +268,7 @@ public class adherentListi extends javax.swing.JFrame {
 
         paneAnulados.addTab("Validados", jPaneValidados);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableRechazados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -282,12 +287,12 @@ public class adherentListi extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(tableRechazados);
 
-        jButton2.setText("Analizar Adherente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAnalizar.setText("Analizar Adherente");
+        btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAnalizarActionPerformed(evt);
             }
         });
 
@@ -319,7 +324,7 @@ public class adherentListi extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(btnAnalizar)))
                 .addContainerGap())
         );
         jPaneRechazadosLayout.setVerticalGroup(
@@ -329,7 +334,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(btnAnalizar)
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
@@ -409,17 +414,17 @@ public class adherentListi extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Apellido", "Firma", "Huella"
+                "DNI", "Nombre", "Apellido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -555,10 +560,22 @@ public class adherentListi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new addAdherent().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
+        int row = tableRechazados.getSelectedRow();
+        if(row != -1){
+            String dniSource = (String) tableRechazados.getValueAt(row, 0);
+            String nameSource = (String) tableRechazados.getValueAt(row, 1);
+            String lastnameSource = (String) tableRechazados.getValueAt(row, 2);
+            String signatureSource = (String) tableRechazados.getValueAt(row, 3);
+            String fingerprintSource = (String) tableRechazados.getValueAt(row, 4);
+            
+            addAdherent frame = new addAdherent(id, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
+            frame.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnAnalizarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -764,11 +781,15 @@ public class adherentListi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnalizar;
     private javax.swing.JButton btnValidate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -796,7 +817,6 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
@@ -805,6 +825,7 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTabbedPane paneAnulados;
+    private javax.swing.JTable tableRechazados;
     private javax.swing.JTable tableValidated;
     private javax.swing.JTextField txtAmount;
     private javax.swing.JTextArea validateConsole;
