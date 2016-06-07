@@ -30,13 +30,13 @@ public class AdherentDB {
         daoAdherent.updateStatus(ep);        
     }
     
-    public ArrayList<Adherent> queryAll(){
-        adherentList = daoAdherent.queryAll();
+    public ArrayList<Adherent> queryAll( long politicalPartyIdP){
+        adherentList = daoAdherent.queryAll( politicalPartyIdP);
         return adherentList;
     }
     
-    public ArrayList<Adherent> queryAllDulpicated(){
-        adherentList = daoAdherent.queryAllDuplicated();
+    public ArrayList<Adherent> queryAllDulpicated( long politicalPartyIdP){
+        adherentList = daoAdherent.queryAllDuplicated( politicalPartyIdP);
         return adherentList;
     }
     

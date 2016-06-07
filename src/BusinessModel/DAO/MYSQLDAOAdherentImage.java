@@ -163,7 +163,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
     }
     
     @Override
-    public ArrayList<AdherentImage> queryAll() {
+    public ArrayList<AdherentImage> queryAll(long idPoliticalPartyA) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -175,9 +175,10 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherentImage where status=?";
+                String sql = "Select* from adherentImage where status=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);                
-                pstmt.setLong(1, 0);                                
+                pstmt.setLong(1, 0);            
+                pstmt.setLong(2, idPoliticalPartyA);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
@@ -221,7 +222,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
         return adherentImageList;
     }
     @Override
-    public ArrayList<AdherentImage> queryAllRejected() {
+    public ArrayList<AdherentImage> queryAllRejected(long idPoliticalPartyA) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -233,9 +234,10 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherentImage where status=?";
+                String sql = "Select* from adherentImage where status=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);                
-                pstmt.setLong(1, 1);                                
+                pstmt.setLong(1, 1);        
+                pstmt.setLong(2, idPoliticalPartyA);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
@@ -279,7 +281,7 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
         return adherentImageList;
     }
     @Override
-    public ArrayList<AdherentImage> queryAllCanceled() {
+    public ArrayList<AdherentImage> queryAllCanceled(long idPoliticalPartyA) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -291,9 +293,10 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherentImage where status=?";
+                String sql = "Select* from adherentImage where status=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);                
-                pstmt.setLong(1, 2);                                
+                pstmt.setLong(1, 2);         
+                pstmt.setLong(2, idPoliticalPartyA);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado

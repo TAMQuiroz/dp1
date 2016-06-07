@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public interface DAOAdherent {
     void add(Adherent ep);
     void updateStatus(Adherent ep);    
-    ArrayList<Adherent> queryAll();
-    ArrayList<Adherent> queryAllDuplicated();
+    ArrayList<Adherent> queryAll(long idPoliticalParty);
+    ArrayList<Adherent> queryAllDuplicated(long idPoliticalParty);
     Adherent queryById(long adherentId);
     ArrayList<Adherent> queryByDni(String dni);
     Adherent queryByDniAndPoliticalParty(String dniP, long politicalPartyIdP);

@@ -110,7 +110,7 @@ public class MYSQLDAOAdherent implements DAOAdherent {
     }    
     
     @Override
-    public ArrayList<Adherent> queryAll() {
+    public ArrayList<Adherent> queryAll(long idPoliticalPartyA) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -122,9 +122,10 @@ public class MYSQLDAOAdherent implements DAOAdherent {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherent where observation=?";
+                String sql = "Select* from adherent where observation=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);   
                 pstmt.setString(1, "Validado");
+                pstmt.setLong(2, idPoliticalPartyA);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
@@ -169,7 +170,7 @@ public class MYSQLDAOAdherent implements DAOAdherent {
     }
     
     @Override
-    public ArrayList<Adherent> queryAllDuplicated() {
+    public ArrayList<Adherent> queryAllDuplicated(long idPoliticalPartyA) {
         // TODO Auto-generated method stub        
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -181,9 +182,10 @@ public class MYSQLDAOAdherent implements DAOAdherent {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from adherent where observation=?";
+                String sql = "Select* from adherent where observation=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);   
                 pstmt.setString(1, "Duplicado");
+                pstmt.setLong(2, idPoliticalPartyA);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado

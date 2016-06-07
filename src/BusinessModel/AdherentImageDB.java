@@ -32,16 +32,16 @@ public class AdherentImageDB {
     public void delete(long adherentImageId){
         daoAdherentImage.delete(adherentImageId);
     }
-    public ArrayList<AdherentImage> queryAll(){
-        adherentImageList = daoAdherentImage.queryAll();
+    public ArrayList<AdherentImage> queryAll( long politicalPartyIdP){
+        adherentImageList = daoAdherentImage.queryAll(  politicalPartyIdP);
         return adherentImageList;
     }
-    public ArrayList<AdherentImage> queryAllRejected(){
-        adherentImageList = daoAdherentImage.queryAll();
+    public ArrayList<AdherentImage> queryAllRejected(long politicalPartyIdP){
+        adherentImageList = daoAdherentImage.queryAll( politicalPartyIdP);
         return adherentImageList;
     }
-    public ArrayList<AdherentImage> queryAllCanceled(){
-        adherentImageList = daoAdherentImage.queryAllCanceled();
+    public ArrayList<AdherentImage> queryAllCanceled( long politicalPartyIdP){
+        adherentImageList = daoAdherentImage.queryAllCanceled( politicalPartyIdP);
         return adherentImageList;
     }
     

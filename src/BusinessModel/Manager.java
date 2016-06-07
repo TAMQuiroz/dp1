@@ -118,14 +118,14 @@ public class Manager {
     public static void deleteAdherentImage(long adherentImageId){
         adherentImageDB.delete(adherentImageId);
     }
-    public static ArrayList<AdherentImage> queryAllAdherentImages(){
-        return adherentImageDB.queryAll();
+    public static ArrayList<AdherentImage> queryAllAdherentImages( long politicalPartyIdP){
+        return adherentImageDB.queryAll( politicalPartyIdP);
     }
-    public static ArrayList<AdherentImage> queryAllAdherentImagesRejected(){
-        return adherentImageDB.queryAllRejected();
+    public static ArrayList<AdherentImage> queryAllAdherentImagesRejected( long politicalPartyIdP){
+        return adherentImageDB.queryAllRejected( politicalPartyIdP);
     }
-    public static ArrayList<AdherentImage> queryAllAdherentImagesCanceled(){
-        return adherentImageDB.queryAllCanceled();
+    public static ArrayList<AdherentImage> queryAllAdherentImagesCanceled( long politicalPartyIdP){
+        return adherentImageDB.queryAllCanceled( politicalPartyIdP);
     }
     public static AdherentImage queryAdherentImageById(long adherentImageId){
         return adherentImageDB.queryById(adherentImageId);
@@ -137,11 +137,11 @@ public class Manager {
     public static void updateStatusAdherent(Adherent ep){
         adherentDB.updateStatus(ep);
     }    
-    public static ArrayList<Adherent> queryAllAdherents(){
-        return adherentDB.queryAll();
+    public static ArrayList<Adherent> queryAllAdherents( long politicalPartyIdP){
+        return adherentDB.queryAll( politicalPartyIdP);
     }
-    public static ArrayList<Adherent> queryAllAdherentsDuplicated(){
-        return adherentDB.queryAllDulpicated();
+    public static ArrayList<Adherent> queryAllAdherentsDuplicated( long politicalPartyIdP){
+        return adherentDB.queryAllDulpicated(  politicalPartyIdP);
     }
     public static long queryPersonByDniAndElectoralProcess(String dni, long electoralProcess){
         ArrayList<Adherent> list = adherentDB.queryByDni(dni);
