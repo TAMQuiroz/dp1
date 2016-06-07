@@ -225,9 +225,10 @@ public class ocrLib {
         ArrayList<OcrCharacter> final_result = new ArrayList<>();
         for (int i = 0; i < imgs.size(); i++){
             BufferedImage img = imgs.get(i);
-            if(img != null){
+            List<Word> palabra = instance.getWords(img, 0);
+            if(palabra.size() != 0){
                     //String result = instance.doOCR(img);
-                    List<Word> palabra = instance.getWords(img, 0);
+                    
                     OcrCharacter letter = new OcrCharacter ();
                     letter.setLetter(palabra.get(0).getText().replace(" ", "").replace("\n\r", "").replace("\r\n", "").replace("\n", "").replace("\r", "").trim());
                     letter.setConfidence(palabra.get(0).getConfidence());
@@ -283,9 +284,9 @@ public class ocrLib {
     }
     
     public static void main(String[] args){
-        String route_dni = "test\\auxiliar\\cortes\\9\\padron11\\dni.jpg";
-        String route_name = "test\\auxiliar\\cortes\\9\\padron11\\nombre.jpg";
-        String route_lastname = "test\\auxiliar\\cortes\\9\\padron11\\apellido.jpg";
+        String route_dni = "test\\auxiliar\\cortes\\9\\padron17\\dni.jpg";
+        String route_name = "test\\auxiliar\\cortes\\9\\padron17\\nombre.jpg";
+        String route_lastname = "test\\auxiliar\\cortes\\9\\padron17\\apellido.jpg";
 
         //OCR TESSERACT
         
