@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract1;
 /**
@@ -27,7 +28,11 @@ import net.sourceforge.tess4j.Tesseract1;
  * @author Andrea
  */
 public class adherentListi extends javax.swing.JFrame {
-
+ MyTableModel validModel;
+ MyTableModel1 rejectedModel;
+ MyTableModel3 deleteModel;
+ MyTableModel2 banModel;
+    /**
     /**
      * Creates new form adherentListi
      */
@@ -40,6 +45,14 @@ public class adherentListi extends javax.swing.JFrame {
     public adherentListi() {
 
         initComponents();
+        validModel = new MyTableModel();
+	tableValidated.setModel(validModel);
+        rejectedModel = new MyTableModel1();
+	tableRechazados.setModel(rejectedModel);
+        deleteModel = new MyTableModel3();
+	jTable4.setModel(deleteModel);
+         banModel = new MyTableModel2();
+	jTable5.setModel(banModel);
     }
     
     public adherentListi(long idParty,String nameParty) {
@@ -50,6 +63,14 @@ public class adherentListi extends javax.swing.JFrame {
         name = nameParty;
         int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
         txtAmount.setText(""+amountNotValidated);
+        validModel = new MyTableModel();
+	tableValidated.setModel(validModel);
+        rejectedModel = new MyTableModel1();
+	tableRechazados.setModel(rejectedModel);
+        deleteModel = new MyTableModel3();
+	jTable4.setModel(deleteModel);
+         banModel = new MyTableModel2();
+	jTable5.setModel(banModel);
       //  primera_etapa = check_etapa();
     }
 
@@ -748,6 +769,7 @@ public class adherentListi extends javax.swing.JFrame {
                     java.lang.System.out.println("Porcentaje: " + porcentaje);
                     validateProgressBar.setValue(porcentaje);
                     validateProgressBar.update(validateProgressBar.getGraphics());
+                    refreshTblAdherent();
                 }
                 
                 JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.OK_OPTION);
@@ -785,6 +807,185 @@ public class adherentListi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+   
+         class MyTableModel extends AbstractTableModel {
+        ArrayList<Model.User> userList = Manager.queryAllUsers();
+		String [] titles = {"DNI", "Nombre","Apellido"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 3;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return userList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + userList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 2:
+				value = "" + userList.get(row).getLastName();
+				break;	
+                        case 3:
+				value = "" + userList.get(row).getPassword();
+				break;	
+                        case 4:
+				value = "" + userList.get(row).getDocCode();
+				break;	
+                        case 5:
+				value = "" + userList.get(row).getPhone();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+     class MyTableModel1 extends AbstractTableModel {
+        ArrayList<Model.User> userList = Manager.queryAllUsers();
+		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 5;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return userList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + userList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 2:
+				value = "" + userList.get(row).getLastName();
+				break;	
+                        case 3:
+				value = "" + userList.get(row).getPassword();
+				break;	
+                        case 4:
+				value = "" + userList.get(row).getDocCode();
+				break;	
+                        case 5:
+				value = "" + userList.get(row).getPhone();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }     
+         class MyTableModel2 extends AbstractTableModel {
+        ArrayList<Model.User> userList = Manager.queryAllUsers();
+		String [] titles = {"DNI", "Nombre","Apellido"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 3;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return userList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + userList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 2:
+				value = "" + userList.get(row).getLastName();
+				break;	
+                        case 3:
+				value = "" + userList.get(row).getPassword();
+				break;	
+                        case 4:
+				value = "" + userList.get(row).getDocCode();
+				break;	
+                        case 5:
+				value = "" + userList.get(row).getPhone();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }
+     class MyTableModel3 extends AbstractTableModel {
+        ArrayList<Model.User> userList = Manager.queryAllUsers();
+		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 5;
+		}
+
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return userList.size();
+		}
+
+		public Object getValueAt(int row, int col) {
+			// TODO Auto-generated method stub
+			String value = "";
+			switch (col) {
+			case 0:
+				value = "" + userList.get(row).getId();
+				break;
+			case 1:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 2:
+				value = "" + userList.get(row).getLastName();
+				break;	
+                        case 3:
+				value = "" + userList.get(row).getPassword();
+				break;	
+                        case 4:
+				value = "" + userList.get(row).getDocCode();
+				break;	
+                        case 5:
+				value = "" + userList.get(row).getPhone();
+				break;	
+			}
+			return value;
+		}
+		public String getColumnName(int col){
+			return titles[col];
+		}
+    }     
+    public void refreshTblAdherent() {
+		validModel.userList = Manager.queryAllUsers();
+		validModel.fireTableChanged(null);
+                rejectedModel.userList = Manager.queryAllUsers();
+		rejectedModel.fireTableChanged(null);
+                deleteModel.userList = Manager.queryAllUsers();
+		deleteModel.fireTableChanged(null);
+                banModel.userList = Manager.queryAllUsers();
+		banModel.fireTableChanged(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnalizar;
