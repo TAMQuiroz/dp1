@@ -226,7 +226,7 @@ public class ocrLib {
         for (int i = 0; i < imgs.size(); i++){
             BufferedImage img = imgs.get(i);
             List<Word> palabra = instance.getWords(img, 0);
-            if(palabra.size() != 0){
+            if(!palabra.isEmpty()){
                     //String result = instance.doOCR(img);
                     
                     OcrCharacter letter = new OcrCharacter ();
