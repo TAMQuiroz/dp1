@@ -42,7 +42,8 @@ public class MYSQLDAOPerson implements DAOPerson {
                         long id = rs.getLong("id"); person.setId(id);                       
                         String name = rs.getString("name"); person.setName(name);
                         String lastName = rs.getString("lastname"); person.setLastname(lastName);                                                
-                        String dniP = rs.getString("dni"); person.setDni(dniP);                    
+                        String dniP = rs.getString("dni"); person.setDni(dniP); 
+                        String ubigeo = rs.getString("ubigeo"); person.setUbigeo(ubigeo);     
                         String fingerprint = rs.getString("fingerprint"); person.setFingerprint(fingerprint);
                         String signature = rs.getString("signature"); person.setSignature(signature);                                            
                         boolean citizen = rs.getBoolean("citizen"); person.setCitizen(citizen);                       
