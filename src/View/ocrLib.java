@@ -15,10 +15,9 @@ import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import net.sourceforge.tess4j.ITessAPI.TessPageSegMode;
+import javax.swing.JOptionPane;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract1;
-import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.Word;
 
 /**
@@ -232,13 +231,16 @@ public class ocrLib {
                     OcrCharacter letter = new OcrCharacter ();
                     letter.setLetter(palabra.get(0).getText().replace(" ", "").replace("\n\r", "").replace("\r\n", "").replace("\n", "").replace("\r", "").trim());
                     letter.setConfidence(palabra.get(0).getConfidence());
-                    java.lang.System.out.println("Caracter: " + letter.getLetter() + " Confianza: " + letter.getConfidence());
+                    //java.lang.System.out.println("Caracter: " + letter.getLetter() + " Confianza: " + letter.getConfidence());
                     //java.lang.System.out.print(result + " | ");
                     final_result.add(letter);
                     //final_result += letter.getLetter();
                     //System.out.print(result);
             }else{
-                final_result.add(null);
+                OcrCharacter letter = new OcrCharacter();
+                letter.setLetter(" ");
+                letter.setConfidence(100);
+                final_result.add(letter);
             }
         }
         //
@@ -251,14 +253,31 @@ public class ocrLib {
         return final_result;
     }
     
-    public static Person ocr(ITesseract instance_num, ITesseract instance_let, String dni, String name, String lastname){
-        Person persona;
+    public static Person ocr(adherentListi frame,ITesseract instance_num, ITesseract instance_let, String dni, String name, String lastname){
+        ArrayList<Person> personas;
         ArrayList<OcrCharacter> ocrDni, ocrName, ocrLastname; 
+        
         ocrDni = preprocesamiento_ocr(instance_num, dni, 8);
+        
+        String queryDni = "";
+        for (int i = 0; i < ocrDni.size(); i++) {
+            if(ocrDni.get(i).getConfidence() > 60){
+                queryDni += ocrDni.get(i).getLetter();
+            }else{
+                queryDni += "%";
+            }
+        }
+        
         ocrName = preprocesamiento_ocr(instance_let, name, 23);
         ocrLastname = preprocesamiento_ocr(instance_let, lastname, 25);
         
-        persona = null;//Manager.queryRnvPerson(ocrDni, ocrName, ocrLastname);
+        ImagePlus img = new ImagePlus(dni);
+        img.show();
+        String s = (String)JOptionPane.showInputDialog(frame, "DNI interpretado: "+ queryDni +"\nIngresa DNI:\n", "Input de prueba", JOptionPane.PLAIN_MESSAGE, null, null, "ham");
+        img.close();
+        
+        //personas = Manager.queryByPerson(ocrDni, ocrName, ocrLastname);
+        Person persona = Manager.queryPersonByDni(s);
         
         return persona;
     }
@@ -275,7 +294,14 @@ public class ocrLib {
         instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
         //instance_let.setPageSegMode(TessPageSegMode.PSM_SINGLE_CHAR);
         instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-        preprocesamiento_ocr(instance_num, route_dni, 8);
+        adherentListi frame = new adherentListi();
+        Person persona = ocr(frame,instance_num, instance_let, route_dni, route_name, route_lastname);
+        if(persona == null){
+            java.lang.System.out.println("No se encontro la persona");
+        }else{
+            java.lang.System.out.println("Nombre: " + persona.getName() + " Apellido: " + persona.getLastname());
+        }
+        frame.dispose();
         //preprocesamiento_ocr(instance_let, route_name, 23);
         //preprocesamiento_ocr(instance_let, route_lastname, 25);
         //tesseract(instance_num, imgs);
