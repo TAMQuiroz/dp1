@@ -646,11 +646,11 @@ public class adherentListi extends javax.swing.JFrame {
                     Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
                     if(persona != null){
                         boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
-                        if(isSuitable){
+                        if(isSuitable==false){
                             long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
                             if(party_id == -1){
-                                double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
-                                //double puntuacion2 = firmas(persona.getSignature(), registro.getSignatureSource());
+                                //double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
                                 //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
                                 boolean resultado = true; //para continuar flujo
                                 if(resultado){

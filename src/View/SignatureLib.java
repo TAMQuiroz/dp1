@@ -39,12 +39,12 @@ public class SignatureLib {
     //public static int cambio;
     //firmas(persona existente, registro en padron)
     public static int validarFirmas(String routeRNV, String routeAdherent) {
-        int count=0;
+        
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
         //String extension = ".jpg";
-        console.append("======Inicio del análisis de la firma======");
+        //console.append("======Inicio del análisis de la firma======");
         sift(routeRNV, routeAdherent);
         //String route = "firmas\\resized\\";
         
@@ -77,13 +77,13 @@ public class SignatureLib {
                 
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
                 java.lang.System.out.println("Firma - matches: "+max);
-                count++;
+                
                 //console.append("\nFirma encontrada:" + indice );
             //}
-            console.append("\n");
+            //console.append("\n");
         //}
-        console.append("======Fin del análisis de la firma======");
-        return count;
+        //console.append("======Fin del análisis de la firma======");
+        return max;
     }  
         
         //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
