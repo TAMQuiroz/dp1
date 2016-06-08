@@ -809,7 +809,7 @@ public class adherentListi extends javax.swing.JFrame {
 
    
          class MyTableModel extends AbstractTableModel {
-        ArrayList<Model.User> userList = Manager.queryAllUsers();
+        ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
 		String [] titles = {"DNI", "Nombre","Apellido"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -826,22 +826,13 @@ public class adherentListi extends javax.swing.JFrame {
 			String value = "";
 			switch (col) {
 			case 0:
-				value = "" + userList.get(row).getId();
+				value = "" + userList.get(row).getDni();
 				break;
 			case 1:
                                 value = "" + userList.get(row).getName();
 				break;
 			case 2:
 				value = "" + userList.get(row).getLastName();
-				break;	
-                        case 3:
-				value = "" + userList.get(row).getPassword();
-				break;	
-                        case 4:
-				value = "" + userList.get(row).getDocCode();
-				break;	
-                        case 5:
-				value = "" + userList.get(row).getPhone();
 				break;	
 			}
 			return value;
@@ -851,7 +842,8 @@ public class adherentListi extends javax.swing.JFrame {
 		}
     }
      class MyTableModel1 extends AbstractTableModel {
-        ArrayList<Model.User> userList = Manager.queryAllUsers();
+         
+        ArrayList<Model.AdherentImage> userList = Manager.queryAllAdherentImagesRejected(id);
 		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -868,23 +860,21 @@ public class adherentListi extends javax.swing.JFrame {
 			String value = "";
 			switch (col) {
 			case 0:
-				value = "" + userList.get(row).getId();
+				value = "" + userList.get(row).getDniSource();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getName();
+                                value = "" + userList.get(row).getNameSource();
 				break;
 			case 2:
-				value = "" + userList.get(row).getLastName();
+				value = "" + userList.get(row).getLastNameSource();
 				break;	
                         case 3:
-				value = "" + userList.get(row).getPassword();
+				value = "" + userList.get(row).getSignatureSource();
 				break;	
                         case 4:
-				value = "" + userList.get(row).getDocCode();
+				value = "" + userList.get(row).getFingerprintSource();
 				break;	
-                        case 5:
-				value = "" + userList.get(row).getPhone();
-				break;	
+ 
 			}
 			return value;
 		}
@@ -893,7 +883,7 @@ public class adherentListi extends javax.swing.JFrame {
 		}
     }     
          class MyTableModel2 extends AbstractTableModel {
-        ArrayList<Model.User> userList = Manager.queryAllUsers();
+          ArrayList<Model.Adherent> userList = Manager.queryAllAdherentsDuplicated(id);
 		String [] titles = {"DNI", "Nombre","Apellido"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -910,22 +900,13 @@ public class adherentListi extends javax.swing.JFrame {
 			String value = "";
 			switch (col) {
 			case 0:
-				value = "" + userList.get(row).getId();
+				value = "" + userList.get(row).getDni();
 				break;
 			case 1:
                                 value = "" + userList.get(row).getName();
 				break;
 			case 2:
 				value = "" + userList.get(row).getLastName();
-				break;	
-                        case 3:
-				value = "" + userList.get(row).getPassword();
-				break;	
-                        case 4:
-				value = "" + userList.get(row).getDocCode();
-				break;	
-                        case 5:
-				value = "" + userList.get(row).getPhone();
 				break;	
 			}
 			return value;
@@ -935,7 +916,7 @@ public class adherentListi extends javax.swing.JFrame {
 		}
     }
      class MyTableModel3 extends AbstractTableModel {
-        ArrayList<Model.User> userList = Manager.queryAllUsers();
+         ArrayList<Model.AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
 		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -952,23 +933,21 @@ public class adherentListi extends javax.swing.JFrame {
 			String value = "";
 			switch (col) {
 			case 0:
-				value = "" + userList.get(row).getId();
+				value = "" + userList.get(row).getDniSource();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getName();
+                                value = "" + userList.get(row).getNameSource();
 				break;
 			case 2:
-				value = "" + userList.get(row).getLastName();
+				value = "" + userList.get(row).getLastNameSource();
 				break;	
                         case 3:
-				value = "" + userList.get(row).getPassword();
+				value = "" + userList.get(row).getSignatureSource();
 				break;	
                         case 4:
-				value = "" + userList.get(row).getDocCode();
+				value = "" + userList.get(row).getFingerprintSource();
 				break;	
-                        case 5:
-				value = "" + userList.get(row).getPhone();
-				break;	
+ 
 			}
 			return value;
 		}
@@ -977,13 +956,13 @@ public class adherentListi extends javax.swing.JFrame {
 		}
     }     
     public void refreshTblAdherent() {
-		validModel.userList = Manager.queryAllUsers();
+		validModel.userList = Manager.queryAllAdherents(id);
 		validModel.fireTableChanged(null);
-                rejectedModel.userList = Manager.queryAllUsers();
+                rejectedModel.userList = Manager.queryAllAdherentImagesRejected(id);
 		rejectedModel.fireTableChanged(null);
-                deleteModel.userList = Manager.queryAllUsers();
+                deleteModel.userList = Manager.queryAllAdherentImagesCanceled(id);
 		deleteModel.fireTableChanged(null);
-                banModel.userList = Manager.queryAllUsers();
+                banModel.userList = Manager.queryAllAdherentsDuplicated(id);
 		banModel.fireTableChanged(null);
     }
 
