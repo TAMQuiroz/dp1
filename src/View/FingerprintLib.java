@@ -299,7 +299,7 @@ public class FingerprintLib {
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "test\\huellas\\102_1.tif";
+        String n_img1  = "test\\huellas\\101_1.tif";
         String n_img2  = "test\\huellas\\102_3.tif";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF

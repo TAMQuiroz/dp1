@@ -97,7 +97,7 @@ public class PoliticalPartyGui extends JFrame {
             }
         });
 
-        btnCancel.setText("Cancelar");
+        btnCancel.setText("Dar de baja");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
