@@ -6,6 +6,7 @@
 package View;
 import BusinessModel.Manager;
 import Model.Adherent;
+import Model.AdherentImage;
 import Model.Person;
 import Model.PoliticalParty;
 import java.awt.Image;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 public class addAdherent extends JFrame{
     static long partyId;
     static Person persona;
+    static long registerId;
     /**
      * Creates new form addAdherent
      */
@@ -27,7 +29,7 @@ public class addAdherent extends JFrame{
         initComponents();
     }
 
-    public addAdherent(long id, String name, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
+    public addAdherent(long id, long idRegistro, String name, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
        
         initComponents();
         labelRejectedDNI.setIcon(new ImageIcon(new ImageIcon(dniSource).getImage().getScaledInstance(-1, labelRejectedDNI.getHeight(), Image.SCALE_DEFAULT)));
@@ -35,6 +37,7 @@ public class addAdherent extends JFrame{
         labelRejectedLastname.setIcon(new ImageIcon(new ImageIcon(lastnameSource).getImage().getScaledInstance(-1, labelRejectedLastname.getHeight(), Image.SCALE_DEFAULT)));
         labelRejectedSignature.setIcon(new ImageIcon(new ImageIcon(signatureSource).getImage().getScaledInstance(-1, labelRejectedSignature.getHeight(), Image.SCALE_DEFAULT)));
         labelRejectedFingerprint.setIcon(new ImageIcon(new ImageIcon(fingerprintSource).getImage().getScaledInstance(-1, labelRejectedFingerprint.getHeight(), Image.SCALE_DEFAULT)));
+        registerId = idRegistro;
         this.setTitle(name);
         partyId = id;
     }
@@ -373,11 +376,16 @@ public class addAdherent extends JFrame{
         if(persona != null){
             Adherent adherente = new Adherent();
             adherente.setDni(persona.getDni());
+            adherente.setName(persona.getName());
             adherente.setLastName(persona.getLastname());
             PoliticalParty party = Manager.queryPoliticalPartyById(partyId);
             adherente.setPoliticalParty(party);
             adherente.setObservation("Admitido manualmente por perito");
             Manager.addAdherent(adherente);
+            AdherentImage deleteAdherentImage = Manager.queryAdherentImageById(registerId);
+            UtilLib.deleteImages(deleteAdherentImage);
+            Manager.deleteAdherentImage(registerId);
+            
         }else{
             JOptionPane.showMessageDialog(this, "Por favor eliga una persona", "Alerta", JOptionPane.WARNING_MESSAGE);
         }

@@ -357,7 +357,7 @@ public class MYSQLDAOAdherent implements DAOAdherent {
                 String sql = "Select* from adherent where dni=? and id_politicalParty=?";
                 pstmt = conn.prepareStatement(sql);		
                 pstmt.setString(1, dniP);
-                pstmt.setLong(1, politicalPartyIdP);
+                pstmt.setLong(2, politicalPartyIdP);
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado

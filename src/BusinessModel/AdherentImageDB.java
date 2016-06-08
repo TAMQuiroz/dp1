@@ -37,7 +37,7 @@ public class AdherentImageDB {
         return adherentImageList;
     }
     public ArrayList<AdherentImage> queryAllRejected(long politicalPartyIdP){
-        adherentImageList = daoAdherentImage.queryAll( politicalPartyIdP);
+        adherentImageList = daoAdherentImage.queryAllRejected(politicalPartyIdP);
         return adherentImageList;
     }
     public ArrayList<AdherentImage> queryAllCanceled( long politicalPartyIdP){

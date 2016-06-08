@@ -71,7 +71,7 @@ public class adherentListi extends javax.swing.JFrame {
 	jTable4.setModel(deleteModel);
          banModel = new MyTableModel2();
 	jTable5.setModel(banModel);
-      //  primera_etapa = check_etapa();
+        primera_etapa = true;//check_etapa();
     }
 
     /**
@@ -590,7 +590,7 @@ public class adherentListi extends javax.swing.JFrame {
             String signatureSource = (String) tableRechazados.getValueAt(row, 3);
             String fingerprintSource = (String) tableRechazados.getValueAt(row, 4);
             
-            addAdherent frame = new addAdherent(id, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
+            addAdherent frame = new addAdherent(id, name, idSource, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
             frame.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
