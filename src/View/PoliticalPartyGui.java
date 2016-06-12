@@ -324,6 +324,13 @@ public class PoliticalPartyGui extends JFrame {
         }
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
+    public int validation(String name, String department, String phone, String e_mail){
+       if (name.length()==0 || department.length()==0 || phone.length()==0 || e_mail.length()==0){
+          JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+        return 1;
+       }
+        return 0;
+    }
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
          
@@ -343,10 +350,11 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setElectoralProcess(process);
                                 java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
                                 java.lang.System.out.println("Apunto de editar nuevo partido politico");
+                               if(validation(name,department,phone,e_mail)==0){
                                 updatePoliticalParty(party);
                                 java.lang.System.out.println("Editado nuevo partido politico");
                                 refreshTblParty();
-                                 
+                               }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
@@ -366,10 +374,11 @@ public class PoliticalPartyGui extends JFrame {
                                 ElectoralProcess process=new ElectoralProcess();
                                 process.setId(ProcessElectoralId);
                                 party.setElectoralProcess(process);
+                                if(validation(name,department,phone,e_mail)==0){
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
                                 refreshTblParty();
-                                 
+                                }
                                 }else{
                                     JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
                                 }

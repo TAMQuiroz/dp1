@@ -40,8 +40,8 @@ public class SignatureLib {
     //firmas(persona existente, registro en padron)
     public static int validarFirmas(String routeRNV, String routeAdherent) {
         
-        File dll = new File("lib\\opencv_java2412.dll");
-        java.lang.System.load(dll.getAbsolutePath());
+        //File dll = new File("lib\\opencv_java2412.dll");
+        //java.lang.System.load(dll.getAbsolutePath());
         
         //String extension = ".jpg";
         //console.append("======Inicio del análisis de la firma======");

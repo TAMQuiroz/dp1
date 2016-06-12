@@ -271,7 +271,13 @@ public class ZoneGui  extends JFrame {
     private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameText1ActionPerformed
-
+   public int validation(String name, String description, String code){
+    if (name.length()==0 || description.length()==0 || code.length()==0 ){
+        JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+        return 1;
+    }
+    return 0;
+  }
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String name = nameText.getText();
@@ -288,9 +294,11 @@ public class ZoneGui  extends JFrame {
         ElectoralProcess process = Manager.queryElectoralProcessById(idProcessElectoral);
         ubigeo.setElectoralProcess(process);
         ubigeo.setDescription(description);
+        if(validation(name,description,code)==0){
         updateUbigeo(ubigeo);
         java.lang.System.out.println("Agrego nuevo ubigeo");
         refreshTblZone();
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -326,9 +334,11 @@ public class ZoneGui  extends JFrame {
         ElectoralProcess process = Manager.queryElectoralProcessById(idProcessElectoral);
         ubigeo.setElectoralProcess(process);
         ubigeo.setDescription(description);
+         if(validation(name,description,code)==0){
         addUbigeo(ubigeo);
         java.lang.System.out.println("Agrego nuevo ubigeo");
         refreshTblZone();
+         }
 
     }//GEN-LAST:event_btnRegisterActionPerformed
 

@@ -271,12 +271,10 @@ public class ElectoralProcessGui extends JFrame {
                                 .addComponent(jSeparator5)
                                 .addComponent(jSeparator3)
                                 .addComponent(jSeparator1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jSeparator2)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator4)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -287,7 +285,7 @@ public class ElectoralProcessGui extends JFrame {
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(jLabel4)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                                                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,10 +337,10 @@ public class ElectoralProcessGui extends JFrame {
                                 .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 21, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(138, 138, 138)
                                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,7 +427,7 @@ public class ElectoralProcessGui extends JFrame {
                     .addComponent(btnUpdate)
                     .addComponent(btnCancel))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -461,7 +459,7 @@ public class ElectoralProcessGui extends JFrame {
              
             long idUser = 3;
             User user = Manager.queryUserById(idUser);
-           if (jTextField1.getText()!= "" && processtype !="" && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
+           if (jTextField1.getText()!= " " && processtype !=" " && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
                  && startvaldationdate!=null && endvalidationdate!=null && startextrareceptiondate!=null && startextravalidationdate!=null
                  && startreceptiondate!=null && endextrareceptiondate!=null && endextravalidationdate!=null &&  endreceptiondate!=null){  
             long idElectoralProcess= Integer.parseInt(jTextField9.getText());
@@ -485,6 +483,10 @@ public class ElectoralProcessGui extends JFrame {
             long id = Long.parseLong(jTextField9.getText());
             process.setId(id);
             
+            int val=validacion(name,processtype, date , startregistrationdate,
+                    endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
+                    startextravalidationdate,startreceptiondate,endextrareceptiondate, 
+                    endextravalidationdate,  endreceptiondate);
             try{                       
              if(Integer.parseInt(jTextField3.getText())>0){
             Integer countprevious=Integer.parseInt(jTextField3.getText());
@@ -492,13 +494,13 @@ public class ElectoralProcessGui extends JFrame {
              }else{
                 JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 ){
+             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 && val==0){
                  Double minpercent= Double.parseDouble(jTextField8.getText());
                  process.setMinPercentage(minpercent);
                  updateElectoralProcess(process);
                  JOptionPane.showMessageDialog(this, "El proceso electoral ha sido actualizado");
                  refreshTblElectoralProcess();
-             }else{
+             }else if (Double.parseDouble(jTextField8.getText())<0 || Double.parseDouble(jTextField8.getText())>1){
                 JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a cero y menor a 1", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
             
@@ -536,7 +538,53 @@ public class ElectoralProcessGui extends JFrame {
             //	refreshTblSalesmans();
         }
     }//GEN-LAST:event_btnCancelActionPerformed
-
+public int validacion(String name, String processtype, Date date , Date startregistrationdate,
+        Date endregistrationdate, Date startvaldationdate,Date endvalidationdate, Date startextrareceptiondate, 
+        Date startextravalidationdate,Date startreceptiondate,Date endextrareceptiondate, 
+        Date endextravalidationdate, Date endreceptiondate){
+     if (name.length()==0 || date==null ||startregistrationdate==null || endregistrationdate==null ||
+         startvaldationdate==null || endvalidationdate==null ||  startreceptiondate==null     ||
+          endreceptiondate==null ){
+         JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }    
+     if (date.before(startregistrationdate)){
+          JOptionPane.showMessageDialog(this, "El proceso debe ser creado antes de empezar con la etapa de registro", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+     if (date.before(startvaldationdate)){
+          JOptionPane.showMessageDialog(this, "El proceso debe ser creado antes de empezar con la etapa de validación", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+     if (date.before(startreceptiondate)){
+          JOptionPane.showMessageDialog(this, "El proceso debe ser creado antes de empezar con la etapa de recepción", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+     if (startreceptiondate.before(endreceptiondate)==false){
+          JOptionPane.showMessageDialog(this, "Rango de fechas de recepción inválido", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+     if (startvaldationdate.before(endvalidationdate)==false){
+          JOptionPane.showMessageDialog(this, "Rango de fechas de validación inválido", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+      if (startregistrationdate.before(endregistrationdate)==false){
+          JOptionPane.showMessageDialog(this, "Rango de fechas de registro inválido", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+       if (endreceptiondate.before(startvaldationdate)==false){
+          JOptionPane.showMessageDialog(this, "Las fechas de recepción deben ser antes de la validación", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+        if (endregistrationdate.before(startvaldationdate)==false){
+          JOptionPane.showMessageDialog(this, "Las fechas de registro deben ser antes de la validación", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
+        
+     
+     
+     else return 0;
+  }
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
@@ -556,14 +604,12 @@ public class ElectoralProcessGui extends JFrame {
              Date endextrareceptiondate=formatter.parse(jTextField11.getText());
              Date endextravalidationdate=formatter.parse(jTextField13.getText());   
              Date endreceptiondate=formatter.parse(jTextField15.getText());
-             
-            if (jTextField1.getText()!= "" && processtype !="" && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
-                 && startvaldationdate!=null && endvalidationdate!=null && startextrareceptiondate!=null && startextravalidationdate!=null
-                 && startreceptiondate!=null && endextrareceptiondate!=null && endextravalidationdate!=null &&  endreceptiondate!=null){  
+               
             long idUser = 3;
              java.lang.System.out.println(jTextField1.getText());
             User user = Manager.queryUserById(idUser);
             ElectoralProcess process = new ElectoralProcess();
+            
             process.setDate(date);
             process.setName(name);
             process.setStartExtraReceptionDate(startextrareceptiondate);
@@ -587,24 +633,25 @@ public class ElectoralProcessGui extends JFrame {
              }else{
                 JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 ){
+             int val=validacion(name,processtype, date , startregistrationdate,
+         endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
+        startextravalidationdate,startreceptiondate,endextrareceptiondate, 
+         endextravalidationdate,  endreceptiondate);
+             if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 && val==0 ){
                  Double minpercent= Double.parseDouble(jTextField8.getText());
                  process.setMinPercentage(minpercent);
+                   java.lang.System.out.println(jTextField1.getText());
+                  addElectoralProcess(process);
+                 JOptionPane.showMessageDialog(this, "Proceso electoral creado");
+                  refreshTblElectoralProcess();
                  
-             }else{
+             }else if (Double.parseDouble(jTextField8.getText())<0 || Double.parseDouble(jTextField8.getText())>1){
                 JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a cero y menor a 1", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-            addElectoralProcess(process);
-            JOptionPane.showMessageDialog(this, "Proceso electoral creado");
-            refreshTblElectoralProcess();
-            
             }catch (NumberFormatException ex) {
            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
-            } 
-          }else{  
-            JOptionPane.showMessageDialog(this, "Los campos (*) son obligatorios llenar", "Alerta", JOptionPane.WARNING_MESSAGE);
-                }                         
+            }                      
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
