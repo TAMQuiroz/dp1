@@ -42,6 +42,7 @@ public class adherentListi extends javax.swing.JFrame {
     int signaturesVal;
     boolean primera_etapa;
     static int count;
+   
     
     public adherentListi() {
 
@@ -102,7 +103,6 @@ public class adherentListi extends javax.swing.JFrame {
         validateConsole = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         validateProgressBar = new javax.swing.JProgressBar();
-        jButton3 = new javax.swing.JButton();
         jPaneValidados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableValidated = new javax.swing.JTable();
@@ -168,13 +168,6 @@ public class adherentListi extends javax.swing.JFrame {
 
         validateProgressBar.setToolTipText("");
 
-        jButton3.setText("Reporte");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPaneSinValidarLayout = new javax.swing.GroupLayout(jPaneSinValidar);
         jPaneSinValidar.setLayout(jPaneSinValidarLayout);
         jPaneSinValidarLayout.setHorizontalGroup(
@@ -187,9 +180,7 @@ public class adherentListi extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(51, 51, 51)
                         .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                         .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3)
                     .addGroup(jPaneSinValidarLayout.createSequentialGroup()
@@ -205,8 +196,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addGroup(jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPaneSinValidarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jButton3))
+                        .addComponent(jLabel2))
                     .addComponent(btnValidate, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +205,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(validateProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -506,7 +496,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        paneAnulados.addTab("Baneados", jPaneBaneados);
+        paneAnulados.addTab("Duplicados", jPaneBaneados);
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(204, 204, 204));
@@ -555,6 +545,27 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+         FileOutputStream archivo;
+        try {
+            archivo = new FileOutputStream("ReporteAnulados.pdf");
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            documento.open();
+            documento.add(new Paragraph("Reporte de Anulados"));
+            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            ArrayList<AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
+                 for (int i =0; i<userList.size();i++){
+                    documento.add(new Paragraph(""+ userList.get(i).getDniSource() + " " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
+            }
+            documento.close();
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (DocumentException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -566,19 +577,11 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(documento, archivo);
             documento.open();
             documento.add(new Paragraph("Reporte de Rechazados"));
-            documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-            /*     for (int i =0; i<listSales.size();i++){
-                Sales s = listSales.get(i);
-                Customer cus = null;
-                if (s.getCustomer() instanceof Person){
-                    cus = (Person)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-                else{
-                    cus = (Company)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-            }*/
+            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
+                 for (int i =0; i<userList.size();i++){
+                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+            }
             documento.close();
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
@@ -618,19 +621,11 @@ public class adherentListi extends javax.swing.JFrame {
             documento.add(new Paragraph(titulo));
             String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
             documento.add(new Paragraph(cuerpo));
-            //documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-            /*     for (int i =0; i<listSales.size();i++){
-                Sales s = listSales.get(i);
-                Customer cus = null;
-                if (s.getCustomer() instanceof Person){
-                    cus = (Person)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-                else{
-                    cus = (Company)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-            }*/
+            documento.add(new Paragraph("DNI        Nombre          Apellido     "));
+            ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
+                 for (int i =0; i<userList.size();i++){
+                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+            }
             documento.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
@@ -641,40 +636,6 @@ public class adherentListi extends javax.swing.JFrame {
             e1.printStackTrace();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:jskdkdsjkjds
-        FileOutputStream archivo;
-        try {
-            archivo = new FileOutputStream("ReporteSinValidar.pdf");
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, archivo);
-            String titulo="Reporte de Lista Sin Validar del Partido " + name;
-            documento.open();
-            documento.add(new Paragraph(titulo));
-            documento.add(new Paragraph("DNI        Nombre          Apellido Paterno        Apellido Materno     "));
-
-            /*     for (int i =0; i<listSales.size();i++){
-                Sales s = listSales.get(i);
-                Customer cus = null;
-                if (s.getCustomer() instanceof Person){
-                    cus = (Person)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Person)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-                else{
-                    cus = (Company)s.getCustomer();
-                    documento.add(new Paragraph(""+ listSales.get(i).getId() + " " + ((Company)s.getCustomer()).getName()+ " " + s.getTotal() + " "+ s.getDetails().size() ));
-                }
-            }*/
-            documento.close();
-        } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (DocumentException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
         // TODO add your handling code here:
@@ -805,6 +766,26 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+         FileOutputStream archivo;
+        try {
+            archivo = new FileOutputStream("ReporteAnulados.pdf");
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            documento.open();
+            documento.add(new Paragraph("Reporte de Anulados"));
+            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            ArrayList<Adherent> userList =  Manager.queryAllAdherentsDuplicated(id);
+                 for (int i =0; i<userList.size();i++){
+                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+            }
+            documento.close();
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (DocumentException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -817,7 +798,7 @@ public class adherentListi extends javax.swing.JFrame {
 
    
          class MyTableModel extends AbstractTableModel {
-        ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
+                 ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
 		String [] titles = {"Id","DNI", "Nombre","Apellido"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -991,7 +972,6 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JButton btnAnalizar;
     private javax.swing.JButton btnValidate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
