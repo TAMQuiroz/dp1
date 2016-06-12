@@ -24,10 +24,12 @@ public class System extends javax.swing.JFrame {
         
         String padronesPathString = "../padrones";
         String cortesPathString = "../cortes";
-        String prePathString = "../pre";        
+        String prePathString = "../pre";     
+        String rnvPathString = "../rnv";   
         File padronesFile = new File(padronesPathString);
         File cortesFile = new File(cortesPathString);
         File preFile = new File(prePathString);
+        File rnvFile = new File(rnvPathString);
         if(padronesFile.exists() && padronesFile.isDirectory()) { 
             java.lang.System.out.println("Ya Existe");
         }else{
@@ -47,6 +49,13 @@ public class System extends javax.swing.JFrame {
         }else{
             java.lang.System.out.println("Creando");
             preFile.mkdir();
+        }
+                
+        if(rnvFile.exists() && rnvFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            rnvFile.mkdir();
         }
     }
 
