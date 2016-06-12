@@ -21,6 +21,8 @@ public class addAdherent extends JFrame{
     static long partyId;
     static Person persona;
     static long registerId;
+    static long processId;
+    static adherentListi adherentframe;
     /**
      * Creates new form addAdherent
      */
@@ -29,7 +31,7 @@ public class addAdherent extends JFrame{
         initComponents();
     }
 
-    public addAdherent(long id, long idRegistro, String name, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
+    public addAdherent(adherentListi frame, long id, long idRegistro, String name, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
        
         initComponents();
         labelRejectedDNI.setIcon(new ImageIcon(new ImageIcon(dniSource).getImage().getScaledInstance(labelRejectedDNI.getWidth(), -1, Image.SCALE_DEFAULT)));
@@ -40,6 +42,8 @@ public class addAdherent extends JFrame{
         registerId = idRegistro;
         this.setTitle(name);
         partyId = id;
+        processId = Manager.queryPoliticalPartyById(partyId).getElectoralProcess().getId();
+        adherentframe = frame;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -372,19 +376,29 @@ public class addAdherent extends JFrame{
     }//GEN-LAST:event_txtDniActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        
         if(persona != null){
-            Adherent adherente = new Adherent();
-            adherente.setDni(persona.getDni());
-            adherente.setName(persona.getName());
-            adherente.setLastName(persona.getLastname());
-            PoliticalParty party = Manager.queryPoliticalPartyById(partyId);
-            adherente.setPoliticalParty(party);
-            adherente.setObservation("Admitido manualmente por perito");
-            Manager.addAdherent(adherente);
-            AdherentImage deleteAdherentImage = Manager.queryAdherentImageById(registerId);
-            UtilLib.deleteImages(deleteAdherentImage);
-            Manager.deleteAdherentImage(registerId);
-            
+            long party_id = UtilLib.findDuplicity(persona, processId);
+            if(party_id == -1){
+                Adherent adherente = new Adherent();
+                adherente.setDni(persona.getDni());
+                adherente.setName(persona.getName());
+                adherente.setLastName(persona.getLastname());
+                PoliticalParty party = Manager.queryPoliticalPartyById(partyId);
+                adherente.setPoliticalParty(party);
+                adherente.setObservation("Validado");
+                Manager.addAdherent(adherente);
+                AdherentImage deleteAdherentImage = Manager.queryAdherentImageById(registerId);
+                UtilLib.deleteImages(deleteAdherentImage);
+                Manager.deleteAdherentImage(registerId);
+
+                JOptionPane.showMessageDialog(this, "Esta persona ha sido validada", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+
+                adherentframe.refreshTblAdherent();
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Esa persona ya se encuentra validada", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "Por favor eliga una persona", "Alerta", JOptionPane.WARNING_MESSAGE);
         }

@@ -601,7 +601,7 @@ public class adherentListi extends javax.swing.JFrame {
             String lastnameSource = (String) tableRechazados.getValueAt(row, 3);
             String signatureSource = (String) tableRechazados.getValueAt(row, 4);
             String fingerprintSource = (String) tableRechazados.getValueAt(row, 5);            
-            addAdherent frame = new addAdherent(id, idSource, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
+            addAdherent frame = new addAdherent(this, id, idSource, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
             frame.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -642,7 +642,7 @@ public class adherentListi extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAmountActionPerformed
 
     private boolean check_route(long id){
-        String filePathString= "test/auxiliar/cortes/"+id;
+        String filePathString= "../cortes/"+id;
         File f = new File(filePathString);
         return f.exists() && f.isDirectory();
     }
@@ -678,8 +678,8 @@ public class adherentListi extends javax.swing.JFrame {
                                 validateConsole.append("\nValidando Firmas");
                                 validateConsole.update(validateConsole.getGraphics());
                                 double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
-                                //boolean resultado = analizar_resultado(puntuacion1, puntuacion2);
-                                boolean resultado = true; //para continuar flujo
+                                boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
+                                //boolean resultado = true; //para continuar flujo
                                 if(resultado){
                                     java.lang.System.out.println("Se pudo validar a esta persona");
                                     validateConsole.append("\nSe pudo validar a esta persona");
@@ -741,7 +741,10 @@ public class adherentListi extends javax.swing.JFrame {
                     refreshTblAdherent();
                 }
                 
-                JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.OK_OPTION);
+                int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
+                txtAmount.setText(""+amountNotValidated);
+                                
+                JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
@@ -750,17 +753,6 @@ public class adherentListi extends javax.swing.JFrame {
         }
         /*
         Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
-        */
-
-        /*
-        String filePathString= "test\\auxiliar\\cortes\\"+id+"\\padron";
-        File f = new File(filePathString);
-        if(f.exists() && !f.isDirectory()) {
-            SignatureLib.console=jTextArea1;
-            signaturesVal=validarFirmas(id);
-        }else{
-            JOptionPane.showMessageDialog(this, "No se han procesado los padrones", "Alerta", JOptionPane.WARNING_MESSAGE);
-        }
         */
     }//GEN-LAST:event_btnValidateActionPerformed
 

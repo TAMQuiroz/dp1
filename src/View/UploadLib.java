@@ -31,8 +31,8 @@ public class UploadLib {
     static JTextArea console;
     static JProgressBar status;
     static int idPartido;
-    static String routeToCortes = "test/auxiliar/cortes/";
-    static String routeToPadrones = "test/auxiliar/padrones/";
+    static String routeToCortes = "../cortes/";
+    static String routeToPadrones = "../padrones/";
     static String outputRoute;
     static int count;
     static ArrayList<AdherentImage> adherentes;
