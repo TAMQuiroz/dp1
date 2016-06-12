@@ -473,6 +473,7 @@ public class ElectoralProcessGui extends JFrame {
             process.setEndExtraValidationDate(endextravalidationdate);
             process.setEndReceptionDate(endreceptiondate);
             process.setUser(user);
+            process.setStatus("Activo");
             ProcessType proctype;
             proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
             process.setProcessType(proctype);
