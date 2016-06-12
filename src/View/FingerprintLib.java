@@ -268,13 +268,15 @@ public class FingerprintLib {
             java.lang.System.out.println("Matches: " + goodMatches.size().height);
             double result = goodMatches.size().height;
             if(result > 120){
-                return 1;
+                return 100;
             }else if(result <= 120 && result > 100){
-                return 0.85;
+                return 85;
             }else if(result <= 100 && result > 80){
-                return 0.5;
+                return 50;
+            }else if(result <= 80 && result > 50){
+                return 25;
             }else{
-                return 0.25;
+                return 0;
             }
         }  
         else  
