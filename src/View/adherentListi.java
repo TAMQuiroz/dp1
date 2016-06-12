@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.Tesseract1;
 /**
  *
@@ -693,8 +694,8 @@ public class adherentListi extends javax.swing.JFrame {
         if(Manager.getSession().getId() == partido.getIdWorker()){
             if (check_route(partido.getId())){
                 ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
-                ITesseract instance_num = new Tesseract1();
-                ITesseract instance_let = new Tesseract1();
+                ITesseract instance_num = new Tesseract();
+                ITesseract instance_let = new Tesseract();
                 instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
                 instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                 int cantidad = registros.size();
