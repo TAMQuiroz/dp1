@@ -21,6 +21,7 @@ public class addAdherent extends JFrame{
     static long partyId;
     static Person persona;
     static long registerId;
+    static long processId;
     static adherentListi adherentframe;
     /**
      * Creates new form addAdherent
@@ -41,6 +42,7 @@ public class addAdherent extends JFrame{
         registerId = idRegistro;
         this.setTitle(name);
         partyId = id;
+        processId = Manager.queryPoliticalPartyById(partyId).getElectoralProcess().getId();
         adherentframe = frame;
     }
     /**
@@ -376,8 +378,8 @@ public class addAdherent extends JFrame{
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         
         if(persona != null){
-            long party_id = UtilLib.findDuplicity(persona, partyId);
-            if(party_id != -1){
+            long party_id = UtilLib.findDuplicity(persona, processId);
+            if(party_id == -1){
                 Adherent adherente = new Adherent();
                 adherente.setDni(persona.getDni());
                 adherente.setName(persona.getName());
@@ -393,6 +395,7 @@ public class addAdherent extends JFrame{
                 JOptionPane.showMessageDialog(this, "Esta persona ha sido validada", "Alerta", JOptionPane.INFORMATION_MESSAGE);
 
                 adherentframe.refreshTblAdherent();
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Esa persona ya se encuentra validada", "Alerta", JOptionPane.WARNING_MESSAGE);
             }

@@ -70,9 +70,9 @@ public class FingerprintLib {
         FileSaver fs = new FileSaver(imgPlus);
         //java.lang.System.out.println("Guardando imagen");
         if(type == 0){
-            n_out = "test/pre/source.jpg";
+            n_out = "../pre/source.jpg";
         }else{
-            n_out = "test/pre/test.jpg";
+            n_out = "../pre/test.jpg";
         }
         fs.saveAsJpeg(n_out);
         
@@ -258,9 +258,9 @@ public class FingerprintLib {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = "test/pre/outputImage_surf.jpg";
-            String n_matchoutput = "test/pre/matchoutput_surf.jpg";
-            String n_img = "test/pre/surf.jpg";
+            String n_outputImage = "../pre/outputImage_surf.jpg";
+            String n_matchoutput = "../pre/matchoutput_surf.jpg";
+            String n_img = "../pre/surf.jpg";
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
@@ -308,10 +308,28 @@ public class FingerprintLib {
         orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO ORB***");
         */
-        
+        /*
         double resultado = huellas(n_img1, n_img2);
         java.lang.System.out.println("Resultado: " + resultado);
+        */
         
+        String padronesPathString = "../padrones";
+        String cortesPathString = "../cortes";        
+        File padronesFile = new File(padronesPathString);
+        File cortesFile = new File(cortesPathString);
+        if(padronesFile.exists() && padronesFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            padronesFile.mkdir();
+        }
+        
+        if(cortesFile.exists() && cortesFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            cortesFile.mkdir();
+        }
         
     }  
 }

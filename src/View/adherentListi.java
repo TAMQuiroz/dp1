@@ -681,7 +681,7 @@ public class adherentListi extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAmountActionPerformed
 
     private boolean check_route(long id){
-        String filePathString= "test/auxiliar/cortes/"+id;
+        String filePathString= "../cortes/"+id;
         File f = new File(filePathString);
         return f.exists() && f.isDirectory();
     }

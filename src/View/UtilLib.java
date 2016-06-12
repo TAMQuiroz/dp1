@@ -47,22 +47,25 @@ public class UtilLib {
             path = path + fs + parts[i];
         }
         java.lang.System.out.println("El directorio " + path);
-        File f = new File(path);                         
-        deleteDirectory(f); 
+        File f = new File(path);
+        deleteDirectory(f);
+        
         if (f.delete())
             java.lang.System.out.println("El directorio " + path + " ha sido borrado correctamente");
         else
             java.lang.System.out.println("El directorio " + path + " no se ha podido borrar");                
+        
     }
     
     private static void deleteDirectory (File directorio){
         File[] ficheros = directorio.listFiles(); 
-        java.lang.System.out.println("Cantida de archivos " + ficheros.length);                        
+        java.lang.System.out.println("Cantidad de archivos " + ficheros.length);                        
         for (int x=0;x<ficheros.length;x++){
             if (ficheros[x].isDirectory()) {
                 deleteDirectory(ficheros[x]);
             }
             ficheros[x].delete();
+            java.lang.System.out.println(ficheros[x].getName());
         }
         
     }

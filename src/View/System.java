@@ -6,6 +6,7 @@
 package View;
 
 import BusinessModel.Manager;
+import java.io.File;
 
 /**
  *
@@ -20,6 +21,33 @@ public class System extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Bienvenido " + Manager.getSession().getName() + " " + Manager.getSession().getLastName());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        
+        String padronesPathString = "../padrones";
+        String cortesPathString = "../cortes";
+        String prePathString = "../pre";        
+        File padronesFile = new File(padronesPathString);
+        File cortesFile = new File(cortesPathString);
+        File preFile = new File(prePathString);
+        if(padronesFile.exists() && padronesFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            padronesFile.mkdir();
+        }
+        
+        if(cortesFile.exists() && cortesFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            cortesFile.mkdir();
+        }
+        
+        if(preFile.exists() && preFile.isDirectory()) { 
+            java.lang.System.out.println("Ya Existe");
+        }else{
+            java.lang.System.out.println("Creando");
+            preFile.mkdir();
+        }
     }
 
     /**
