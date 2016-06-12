@@ -30,7 +30,7 @@ public class UtilLib {
         String path = "";   
         String fs = File.separator;
         String string = adImage.getNameSource();
-        String[] parts = string.split("\\\\");        
+        String[] parts = string.split("/");        
         try {
            //localPath = miDir.getAbsolutePath();
            localPath = miDir.getCanonicalPath();

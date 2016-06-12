@@ -274,8 +274,8 @@ public class ocrLib {
             }
         }
         
-        ocrName = preprocesamiento_ocr(instance_let, name, 23);
-        ocrLastname = preprocesamiento_ocr(instance_let, lastname, 25);
+        //ocrName = preprocesamiento_ocr(instance_let, name, 23);
+        //ocrLastname = preprocesamiento_ocr(instance_let, lastname, 25);
         
         ImagePlus img = new ImagePlus(dni);
         img.show();
