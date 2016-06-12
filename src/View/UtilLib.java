@@ -82,4 +82,11 @@ public class UtilLib {
             return 1;
         return -1;
     }
+
+    static boolean analizar_resultado(double puntuacion1, double puntuacion2) {
+        if(puntuacion1 > 80 &&  puntuacion2 > 80){
+            return true;
+        }
+        return false;
+    }
 }
