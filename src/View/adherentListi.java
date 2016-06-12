@@ -71,7 +71,7 @@ public class adherentListi extends javax.swing.JFrame {
 	jTable4.setModel(deleteModel);
          banModel = new MyTableModel2();
 	jTable5.setModel(banModel);
-        primera_etapa = true;//check_etapa();
+        primera_etapa = true;//checkStage(idParty); Retorna "0" si es etapa 1 de validación, "1" si es etapa 2 de validación
     }
 
     /**

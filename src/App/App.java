@@ -65,7 +65,21 @@ public class App {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String sDate= sdf.format(date);
-
+        /*
         System.out.println("La fecha es: " + sDate);
+        long idAd = 4;
+        PoliticalParty pt = Manager.queryPoliticalPartyById(idAd);               
+        Date now = new Date();
+        int isLowerSV = pt.getElectoralProcess().getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
+        int isHigherSV = pt.getElectoralProcess().getEndValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            System.out.println("La etapa es primera validación");
+        isLowerSV = pt.getElectoralProcess().getStartExtraValidationDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            System.out.println("La etapa es segunda validación");
+        System.out.println("La etapa es cualquiera");
+        */
+        
     }
 }

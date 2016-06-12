@@ -8,6 +8,7 @@ package View;
 import BusinessModel.Manager;
 import Model.*;
 import java.io.File;
+import java.util.Date;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -22,8 +23,7 @@ public class UtilLib {
     public static long findDuplicity(Person person, long electoralProcessId){        
         long politicalPartyId = Manager.queryPersonByDniAndElectoralProcess(person.getDni(), electoralProcessId);
         return politicalPartyId;
-    }
-    
+    }    
     public static void deleteImages(AdherentImage adImage){
         File miDir = new File (".");
         String localPath = "";        
@@ -66,5 +66,20 @@ public class UtilLib {
         }
         
     }
-    
+    public static int checkStage( long electoralPartyId){        
+        
+        //La fase se representa con números: 
+        // -1: otra etapa; 0 : primera etapa de validación; 1: segunda etapa de validadción
+        PoliticalParty pt = Manager.queryPoliticalPartyById(electoralPartyId);               
+        Date now = new Date();
+        int isLowerSV = pt.getElectoralProcess().getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
+        int isHigherSV = pt.getElectoralProcess().getEndValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 0;
+        isLowerSV = pt.getElectoralProcess().getStartExtraValidationDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 1;
+        return -1;
+    }
 }
