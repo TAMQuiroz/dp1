@@ -584,13 +584,13 @@ public class adherentListi extends javax.swing.JFrame {
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         int row = tableRechazados.getSelectedRow();
         if(row != -1){
-            String dniSource = (String) tableRechazados.getValueAt(row, 0);
-            String nameSource = (String) tableRechazados.getValueAt(row, 1);
-            String lastnameSource = (String) tableRechazados.getValueAt(row, 2);
-            String signatureSource = (String) tableRechazados.getValueAt(row, 3);
-            String fingerprintSource = (String) tableRechazados.getValueAt(row, 4);
-            long idSource = 0;
-            addAdherent frame = new addAdherent(id, name, idSource, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
+            long idSource = Long.parseLong( (String) tableRechazados.getValueAt(row, 0));
+            String dniSource = (String) tableRechazados.getValueAt(row, 1);
+            String nameSource = (String) tableRechazados.getValueAt(row, 2);
+            String lastnameSource = (String) tableRechazados.getValueAt(row, 3);
+            String signatureSource = (String) tableRechazados.getValueAt(row, 4);
+            String fingerprintSource = (String) tableRechazados.getValueAt(row, 5);            
+            addAdherent frame = new addAdherent(id, idSource, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
             frame.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -810,10 +810,10 @@ public class adherentListi extends javax.swing.JFrame {
    
          class MyTableModel extends AbstractTableModel {
         ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
-		String [] titles = {"DNI", "Nombre","Apellido"};
+		String [] titles = {"Id","DNI", "Nombre","Apellido"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 3;
+			return 4;
 		}
 
 		public int getRowCount() {
@@ -825,13 +825,16 @@ public class adherentListi extends javax.swing.JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-			case 0:
-				value = "" + userList.get(row).getDni();
+                        case 0:
+				value = "" + userList.get(row).getId();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getName();
+				value = "" + userList.get(row).getDni();
 				break;
 			case 2:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 3:
 				value = "" + userList.get(row).getLastName();
 				break;	
 			}
@@ -844,10 +847,10 @@ public class adherentListi extends javax.swing.JFrame {
      class MyTableModel1 extends AbstractTableModel {
          
         ArrayList<Model.AdherentImage> userList = Manager.queryAllAdherentImagesRejected(id);
-		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
+		String [] titles = {"id", "DNI", "Nombre","Apellido","Firma", "Huella"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 5;
+			return 6;
 		}
 
 		public int getRowCount() {
@@ -859,19 +862,22 @@ public class adherentListi extends javax.swing.JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-			case 0:
-				value = "" + userList.get(row).getDniSource();
+                        case 0:
+				value = "" + userList.get(row).getId();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getNameSource();
+				value = "" + userList.get(row).getDniSource();
 				break;
 			case 2:
+                                value = "" + userList.get(row).getNameSource();
+				break;
+			case 3:
 				value = "" + userList.get(row).getLastNameSource();
 				break;	
-                        case 3:
+                        case 4:
 				value = "" + userList.get(row).getSignatureSource();
 				break;	
-                        case 4:
+                        case 5:
 				value = "" + userList.get(row).getFingerprintSource();
 				break;	
  
@@ -884,10 +890,11 @@ public class adherentListi extends javax.swing.JFrame {
     }     
          class MyTableModel2 extends AbstractTableModel {
           ArrayList<Model.Adherent> userList = Manager.queryAllAdherentsDuplicated(id);
-		String [] titles = {"DNI", "Nombre","Apellido"};
+		String [] titles
+                            = {"Id","DNI", "Nombre","Apellido"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 3;
+			return 4;
 		}
 
 		public int getRowCount() {
@@ -899,13 +906,16 @@ public class adherentListi extends javax.swing.JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-			case 0:
-				value = "" + userList.get(row).getDni();
+                        case 0:
+				value = "" + userList.get(row).getId();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getName();
+				value = "" + userList.get(row).getDni();
 				break;
 			case 2:
+                                value = "" + userList.get(row).getName();
+				break;
+			case 3:
 				value = "" + userList.get(row).getLastName();
 				break;	
 			}
@@ -917,10 +927,10 @@ public class adherentListi extends javax.swing.JFrame {
     }
      class MyTableModel3 extends AbstractTableModel {
          ArrayList<Model.AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
-		String [] titles = {"DNI", "Nombre","Apellido","Firma", "Huella"};
+		String [] titles = {"Id", "DNI", "Nombre","Apellido","Firma", "Huella"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 5;
+			return 6;
 		}
 
 		public int getRowCount() {
@@ -932,19 +942,22 @@ public class adherentListi extends javax.swing.JFrame {
 			// TODO Auto-generated method stub
 			String value = "";
 			switch (col) {
-			case 0:
-				value = "" + userList.get(row).getDniSource();
+                        case 0:
+				value = "" + userList.get(row).getId();
 				break;
 			case 1:
-                                value = "" + userList.get(row).getNameSource();
+				value = "" + userList.get(row).getDniSource();
 				break;
 			case 2:
+                                value = "" + userList.get(row).getNameSource();
+				break;
+			case 3:
 				value = "" + userList.get(row).getLastNameSource();
 				break;	
-                        case 3:
+                        case 4:
 				value = "" + userList.get(row).getSignatureSource();
 				break;	
-                        case 4:
+                        case 5:
 				value = "" + userList.get(row).getFingerprintSource();
 				break;	
  

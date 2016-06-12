@@ -29,7 +29,7 @@ public class addAdherent extends JFrame{
         initComponents();
     }
 
-    public addAdherent(long id, String name, long idRegistro, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
+    public addAdherent(long id, long idRegistro, String name, String dniSource, String nameSource, String lastnameSource, String signatureSource, String fingerprintSource) {
        
         initComponents();
         labelRejectedDNI.setIcon(new ImageIcon(new ImageIcon(dniSource).getImage().getScaledInstance(-1, labelRejectedDNI.getHeight(), Image.SCALE_DEFAULT)));
