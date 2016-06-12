@@ -13,8 +13,11 @@ import ij.ImagePlus;
 import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
@@ -284,7 +287,7 @@ public class ocrLib {
         return persona;
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
         String route_dni = "test/auxiliar/cortes/9/padron17/dni.jpg";
         String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
         String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
@@ -294,8 +297,12 @@ public class ocrLib {
         ITesseract instance_num = new Tesseract();
         ITesseract instance_let = new Tesseract();
         instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
-        //instance_let.setPageSegMode(TessPageSegMode.PSM_SINGLE_CHAR);
         instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+        
+        BufferedImage img = ImageIO.read(new File(route_dni));
+        List<Word> palabra = instance_num.getWords(img, 0);
+        java.lang.System.out.println(palabra.get(0).getText());
+        /*
         adherentListi frame = new adherentListi();
         Person persona = ocr(frame,instance_num, instance_let, route_dni, route_name, route_lastname);
         if(persona == null){
@@ -304,9 +311,6 @@ public class ocrLib {
             java.lang.System.out.println("Nombre: " + persona.getName() + " Apellido: " + persona.getLastname());
         }
         frame.dispose();
-        //preprocesamiento_ocr(instance_let, route_name, 23);
-        //preprocesamiento_ocr(instance_let, route_lastname, 25);
-        //tesseract(instance_num, imgs);
-        //tesseract(instance_let, imgs);
+        */
     }
 }
