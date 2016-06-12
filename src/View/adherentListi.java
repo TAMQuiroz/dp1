@@ -56,7 +56,7 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     public adherentListi(long idParty,String nameParty) {
-        File dll = new File("lib\\opencv_java2412.dll");
+        File dll = new File("lib/opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         initComponents();
         id = idParty;
@@ -589,7 +589,7 @@ public class adherentListi extends javax.swing.JFrame {
             String lastnameSource = (String) tableRechazados.getValueAt(row, 2);
             String signatureSource = (String) tableRechazados.getValueAt(row, 3);
             String fingerprintSource = (String) tableRechazados.getValueAt(row, 4);
-            
+            long idSource = 0;
             addAdherent frame = new addAdherent(id, name, idSource, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
             frame.setVisible(true);
         }else{
