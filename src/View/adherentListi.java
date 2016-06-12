@@ -780,6 +780,9 @@ public class adherentListi extends javax.swing.JFrame {
                     refreshTblAdherent();
                 }
                 
+                int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
+                txtAmount.setText(""+amountNotValidated);
+                                
                 JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
