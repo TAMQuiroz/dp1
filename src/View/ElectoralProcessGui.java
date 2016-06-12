@@ -461,7 +461,9 @@ public class ElectoralProcessGui extends JFrame {
              
             long idUser = 3;
             User user = Manager.queryUserById(idUser);
-             
+           if (jTextField1.getText()!= "" && processtype !="" && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
+                 && startvaldationdate!=null && endvalidationdate!=null && startextrareceptiondate!=null && startextravalidationdate!=null
+                 && startreceptiondate!=null && endextrareceptiondate!=null && endextravalidationdate!=null &&  endreceptiondate!=null){  
             long idElectoralProcess= Integer.parseInt(jTextField9.getText());
             ElectoralProcess process = Manager.queryElectoralProcessById(idElectoralProcess);
             process.setDate(date);
@@ -505,10 +507,13 @@ public class ElectoralProcessGui extends JFrame {
            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
             } 
-                                
+        }else{  
+            JOptionPane.showMessageDialog(this, "Los campos (*) son obligatorios llenar", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }                        
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
+        
 
 
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -552,7 +557,11 @@ public class ElectoralProcessGui extends JFrame {
              Date endextravalidationdate=formatter.parse(jTextField13.getText());   
              Date endreceptiondate=formatter.parse(jTextField15.getText());
              
+            if (jTextField1.getText()!= "" && processtype !="" && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
+                 && startvaldationdate!=null && endvalidationdate!=null && startextrareceptiondate!=null && startextravalidationdate!=null
+                 && startreceptiondate!=null && endextrareceptiondate!=null && endextravalidationdate!=null &&  endreceptiondate!=null){  
             long idUser = 3;
+             java.lang.System.out.println(jTextField1.getText());
             User user = Manager.queryUserById(idUser);
             ElectoralProcess process = new ElectoralProcess();
             process.setDate(date);
@@ -593,7 +602,9 @@ public class ElectoralProcessGui extends JFrame {
            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
             } 
-                                
+          }else{  
+            JOptionPane.showMessageDialog(this, "Los campos (*) son obligatorios llenar", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }                         
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }

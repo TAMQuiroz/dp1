@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.Tesseract1;
+import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.Word;
 
 /**
@@ -287,15 +288,15 @@ public class ocrLib {
         return persona;
     }
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws TesseractException, IOException{
         String route_dni = "test/auxiliar/cortes/9/padron17/dni.jpg";
         String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
         String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
 
         //OCR TESSERACT
-        
         ITesseract instance_num = new Tesseract();
         ITesseract instance_let = new Tesseract();
+        
         instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
         instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
         
