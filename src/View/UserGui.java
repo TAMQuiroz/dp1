@@ -346,7 +346,14 @@ public class UserGui extends javax.swing.JInternalFrame {
     private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextActionPerformed
-
+public int validation(String name, String lastname, String password, String typedocument,String document, String telephone , Date date){
+       if (name.length()==0 || lastname.length()==0 || password.length()==0 || typedocument.length()==0
+            ||document.length()==0 || telephone.length()==0 ||date ==null   ){
+          JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+        return 1;
+       }
+        return 0;
+    }
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
         try {
@@ -376,10 +383,11 @@ public class UserGui extends javax.swing.JInternalFrame {
                                 profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
                                 user.setProfile(profile);
                                 user.setStatus("Activo");
+                                if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
                                 addUser(user);
                                  java.lang.System.out.println("Agrego nuevo usuario");
                                  refreshTblUser();
-                                
+                                }
                                 
                                 }else{
                                     JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
