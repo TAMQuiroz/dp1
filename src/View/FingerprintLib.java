@@ -70,9 +70,9 @@ public class FingerprintLib {
         FileSaver fs = new FileSaver(imgPlus);
         //java.lang.System.out.println("Guardando imagen");
         if(type == 0){
-            n_out = "test\\pre\\source.jpg";
+            n_out = "test/pre/source.jpg";
         }else{
-            n_out = "test\\pre\\test.jpg";
+            n_out = "test/pre/test.jpg";
         }
         fs.saveAsJpeg(n_out);
         
@@ -258,9 +258,9 @@ public class FingerprintLib {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
 
-            String n_outputImage = "test\\pre\\outputImage_surf.jpg";
-            String n_matchoutput = "test\\pre\\matchoutput_surf.jpg";
-            String n_img = "test\\pre\\surf.jpg";
+            String n_outputImage = "test/pre/outputImage_surf.jpg";
+            String n_matchoutput = "test/pre/matchoutput_surf.jpg";
+            String n_img = "test/pre/surf.jpg";
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  

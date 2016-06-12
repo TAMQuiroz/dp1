@@ -263,7 +263,7 @@ public class Upload1 extends JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
         //    
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-            txtUploadUrl.setText(chooser.getSelectedFile().toString() + "\\");
+            txtUploadUrl.setText(chooser.getSelectedFile().toString() + "/");
         } else {
             //java.lang.System.out.println("No Selection ");
         }

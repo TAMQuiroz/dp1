@@ -31,8 +31,8 @@ public class UploadLib {
     static JTextArea console;
     static JProgressBar status;
     static int idPartido;
-    static String routeToCortes = "test\\auxiliar\\cortes\\";
-    static String routeToPadrones = "test\\auxiliar\\padrones\\";
+    static String routeToCortes = "test/auxiliar/cortes/";
+    static String routeToPadrones = "test/auxiliar/padrones/";
     static String outputRoute;
     static int count;
     static ArrayList<AdherentImage> adherentes;
@@ -207,7 +207,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[0],0,aux,imgOrigen.getHeight());
         ImagePlus imp = new Duplicator().run(imgOrigen);
         FileSaver fs = new FileSaver(imp);
-        String n_out = outputRoute + n_img + n + "\\dni" + extension;
+        String n_out = outputRoute + n_img + n + "/dni" + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setDniSource(n_out);
@@ -218,7 +218,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[2],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "\\apellido" + extension;
+        n_out = outputRoute + n_img + n + "/apellido" + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setLastNameSource(n_out);
@@ -229,7 +229,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[3],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "\\nombre" + extension;
+        n_out = outputRoute + n_img + n + "/nombre" + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setNameSource(n_out);
@@ -240,7 +240,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[5],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "\\firma" + extension;
+        n_out = outputRoute + n_img + n + "/firma" + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setSignatureSource(n_out);
@@ -251,7 +251,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[7],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "\\huella" + extension;
+        n_out = outputRoute + n_img + n + "/huella" + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setFingerprintSource(n_out);
@@ -538,7 +538,7 @@ public class UploadLib {
         
         adherentes = new ArrayList<>();
         idPartido = id;
-        outputRoute = routeToCortes + id + "\\";
+        outputRoute = routeToCortes + id + "/";
         int cantidad =(int) Files.walk(Paths.get(route)).count();
         count = 0;
         java.lang.System.out.println("Cantidad de archivos: " + cantidad);

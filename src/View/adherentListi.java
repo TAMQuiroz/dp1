@@ -56,7 +56,14 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     public adherentListi(long idParty,String nameParty) {
-        File dll = new File("lib/opencv_java2412.dll");
+        java.lang.System.out.println(java.lang.System.getProperty("os.name"));
+        File dll;
+        if(java.lang.System.getProperty("os.name").equals("Linux")){
+            dll = new File("lib/libopencv_java2412.so");
+        }else{
+            dll = new File("lib/opencv_java2412.dll");
+        }
+                
         java.lang.System.load(dll.getAbsolutePath());
         initComponents();
         id = idParty;
@@ -673,7 +680,7 @@ public class adherentListi extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAmountActionPerformed
 
     private boolean check_route(long id){
-        String filePathString= "test\\auxiliar\\cortes\\"+id;
+        String filePathString= "test/auxiliar/cortes/"+id;
         File f = new File(filePathString);
         return f.exists() && f.isDirectory();
     }
