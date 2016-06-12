@@ -82,13 +82,13 @@ public class UserGui extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Apellidos", "Contraseña", "Documento ", "Telefono"
+                "ID", "Nombre", "Apellidos", "Documento ", "Telefono"
             }
         ));
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -501,7 +501,7 @@ public int validation(String name, String lastname, String password, String type
 		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Telefono"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 6;
+			return 5;
 		}
 
 		public int getRowCount() {
@@ -521,14 +521,11 @@ public int validation(String name, String lastname, String password, String type
 				break;
 			case 2:
 				value = "" + userList.get(row).getLastName();
-				break;	
+				break;		
                         case 3:
-				value = "" + userList.get(row).getPassword();
-				break;	
-                        case 4:
 				value = "" + userList.get(row).getDocCode();
 				break;	
-                        case 5:
+                        case 4:
 				value = "" + userList.get(row).getPhone();
 				break;	
 			}
