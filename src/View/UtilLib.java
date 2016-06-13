@@ -105,4 +105,9 @@ public class UtilLib {
         }
         return false;
     }
+    
+    public static void main(String[] args){
+        int stage = checkStage(13);
+        java.lang.System.out.println(stage);
+    }
 }

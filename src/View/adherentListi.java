@@ -82,6 +82,7 @@ public class adherentListi extends javax.swing.JFrame {
 	jTable5.setModel(banModel);
         //checkStage(idParty); Retorna un valor integer, en UTILLIB están los estados
         etapa = UtilLib.checkStage(idParty);
+        java.lang.System.out.println(etapa);
         if (etapa == 4){ //Si ya se termino la segunda etapa de validación, se cancelan sus adherentes
             Manager.cancellAllAdherentImages(id);
         }
@@ -654,7 +655,7 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-        if (etapa != 4){
+        if (etapa == 1 || etapa == 3){
             FingerprintLib.console = validateConsole;
             FingerprintLib.status = validateProgressBar;
 
@@ -719,8 +720,8 @@ public class adherentListi extends javax.swing.JFrame {
                                         ad.setObservation("Duplicado");
                                         Manager.updateStatusAdherent(ad);                                    
                                     }
-                                    //UtilLib.deleteImages(registro);
-                                    //Manager.deleteAdherentImage(registro.getId()); 
+                                    UtilLib.deleteImages(registro);
+                                    Manager.deleteAdherentImage(registro.getId()); 
                                 }
                             }else{
                                 java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
@@ -762,6 +763,8 @@ public class adherentListi extends javax.swing.JFrame {
             /*
             Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
             */
+        }else{
+            JOptionPane.showMessageDialog(this, "No se puede validar en esta etapa", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnValidateActionPerformed
 
