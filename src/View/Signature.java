@@ -47,10 +47,10 @@ public class Signature {
         String routeVal="test\\auxiliar\\cortes\\0\\padron";
 
         //Firma a comparar
-        String n_img1  = "firma";
+        String n_img1  = "f001r";
         //String n_img1  = "f001rp";
         
-        for(int k=11;k<=48;k++){
+        /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
                 max=0; indice=0; 
                 String routeAdd=k+"\\";
@@ -61,18 +61,18 @@ public class Signature {
                     String n_img2  = "f0";
                     if(i<10)
                         n_img2=n_img2+"0";
-                    n_img2=n_img2+i+"r";
+                    n_img2=n_img2+i+"r";*/
 
-                    sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
-                    if(cambio==1)
+                    //sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
+                    /*if(cambio==1)
                         indice=i;
-                }
-
+                }*/
+                sift(route, route,n_img1, n_img1, extension);
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
                 java.lang.System.out.println("Firma encontrada final: " + indice + ", matches: "+max);
-            }
+            //}
             
-        }
+        //}
         
     }  
     

@@ -28,8 +28,8 @@ import org.opencv.imgproc.Imgproc;
  * @author Claudia
  */
 public class PreprocessSignature {
-    private static final int IMG_WIDTH = 146; //430
-    private static final int IMG_HEIGHT = 70; //221
+    private static final int IMG_WIDTH = 200; //430
+    private static final int IMG_HEIGHT = 120; //221
     
     public static void main(String[] args) throws IOException {
 
@@ -64,6 +64,24 @@ public class PreprocessSignature {
                 java.lang.System.out.println(e.getMessage());
 	}
       
+   }
+    
+   public static void preprocessSignatures(String routeRNV, String routeAdherent) throws IOException {
+        
+        BufferedImage originalImage1 = ImageIO.read(new File(routeRNV));
+        int type = originalImage1.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage1.getType();
+        
+        BufferedImage originalImage2 = ImageIO.read(new File(routeAdherent));
+        int type2 = originalImage2.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage2.getType();
+
+        int index1 =routeRNV.indexOf('.')-1;
+        int index2 =routeAdherent.indexOf('.')-1;
+        String routeRNV2= routeRNV.substring(0,index1) + 'r' + routeRNV.substring(index1, routeRNV.length());
+        String routeAdherent2= routeAdherent.substring(0,index2) + 'r' + routeAdherent.substring(index2, routeAdherent.length());
+        BufferedImage resizeImagePng = resizeImage(originalImage1, type);
+        BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
+        ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
+        ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
    }
     
    private static Mat doCanny(Mat frame)
