@@ -107,7 +107,7 @@ public class UtilLib {
     }
     
     public static void main(String[] args){
-        int stage = checkStage(13);
+        int stage = checkStage(12);
         java.lang.System.out.println(stage);
     }
 }
