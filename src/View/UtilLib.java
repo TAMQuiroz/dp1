@@ -72,17 +72,30 @@ public class UtilLib {
     public static int checkStage( long electoralPartyId){        
         
         //La fase se representa con números: 
-        // -1: otra etapa; 0 : primera etapa de validación; 1: segunda etapa de validadción
+        // -1: otra etapa; 0 : primera etapa de recepción; 1: primera etapa de validadción
+        // 2: segunda etapa extra recepción; 3: segunda etapa extra validación
+        // 4: ya se pasó la segunda etapa de validación
         PoliticalParty pt = Manager.queryPoliticalPartyById(electoralPartyId);               
-        Date now = new Date();
-        int isLowerSV = pt.getElectoralProcess().getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
-        int isHigherSV = pt.getElectoralProcess().getEndValidationDate().compareTo(now);        //Debe ser negativo
+        Date now = new Date(); 
+        int isLowerSV = pt.getElectoralProcess().getStartReceptionDate().compareTo(now);       //Debe ser 0 o mas
+        int isHigherSV = pt.getElectoralProcess().getEndReceptionDate().compareTo(now);        //Debe ser negativo
         if ( isLowerSV <= 0 && isHigherSV >= 0)
             return 0;
+        isLowerSV = pt.getElectoralProcess().getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getElectoralProcess().getEndValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 1;
+        isLowerSV = pt.getElectoralProcess().getStartExtraReceptionDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getElectoralProcess().getEndExtraReceptionDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 2;
         isLowerSV = pt.getElectoralProcess().getStartExtraValidationDate().compareTo(now);       //Debe ser 0 o mas
         isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser negativo
         if ( isLowerSV <= 0 && isHigherSV >= 0)
-            return 1;
+            return 3;
+        isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser 0 o mas
+        if ( isHigherSV >= 0)
+            return 4;
         return -1;
     }
 

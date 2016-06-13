@@ -554,4 +554,47 @@ public class MYSQLDAOAdherentImage implements DAOAdherentImage {
         }
         return amount;
     }
+    
+    @Override
+    public void cancellAllAdherentImages(long idPoliticalParty){
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+
+                String sql = "UPDATE adherentImage SET status=? WHERE id_politicalParty=?";
+                pstmt = conn.prepareStatement(sql);     
+                pstmt.setLong(1, 2);
+                pstmt.setLong(2, idPoliticalParty);                   
+                //Paso 4: Ejecutar la sentencia	
+                pstmt.executeUpdate();
+                //Paso 5:(opc) Procesar los resultado
+
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
 }

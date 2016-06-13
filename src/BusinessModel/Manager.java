@@ -130,7 +130,9 @@ public class Manager {
     public static AdherentImage queryAdherentImageById(long adherentImageId){
         return adherentImageDB.queryById(adherentImageId);
     }
-    
+    public static void cancellAllAdherentImages(long idPoliticalParty){
+        adherentImageDB.cancellAllAdherentImages(idPoliticalParty);
+    }
     public static void addAdherent(Adherent ep){
         adherentDB.add(ep);
     }

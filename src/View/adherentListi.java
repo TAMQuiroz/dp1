@@ -40,7 +40,7 @@ public class adherentListi extends javax.swing.JFrame {
     long id;
     String name;
     int signaturesVal;
-    boolean primera_etapa;
+    int etapa;
     static int count;
    
     
@@ -80,7 +80,13 @@ public class adherentListi extends javax.swing.JFrame {
 	jTable4.setModel(deleteModel);
          banModel = new MyTableModel2();
 	jTable5.setModel(banModel);
-        primera_etapa = true;//checkStage(idParty); Retorna "0" si es etapa 1 de validación, "1" si es etapa 2 de validación
+        //checkStage(idParty); Retorna un valor integer, en UTILLIB están los estados
+        etapa = UtilLib.checkStage(idParty);
+        if (etapa == 4){ //Si ya se termino la segunda etapa de validación, se cancelan sus adherentes
+            Manager.cancellAllAdherentImages(id);
+        }
+            
+        
     }
 
     /**
@@ -648,112 +654,115 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-        FingerprintLib.console = validateConsole;
-        FingerprintLib.status = validateProgressBar;
-        
-        PoliticalParty partido = Manager.queryPoliticalPartyById(id);
-        if(Manager.getSession().getId() == partido.getIdWorker()){
-            if (check_route(partido.getId())){
-                ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
-                ITesseract instance_num = new Tesseract();
-                ITesseract instance_let = new Tesseract();
-                instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
-                instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-                int cantidad = registros.size();
-                count = 0;
-                java.lang.System.out.println("Cantidad de archivos: " + cantidad);
-                validateProgressBar.setValue(0);
-                for (AdherentImage registro : registros) {
-                    validateConsole.append("\nInterpretando imagenes via OCR");
-                    validateConsole.update(validateConsole.getGraphics());
-                    Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
-                    if(persona != null){
-                        boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
-                        if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
-                            long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
-                            if(party_id == -1){
-                                validateConsole.append("\nValidando Huellas");
-                                validateConsole.update(validateConsole.getGraphics());
-                                double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
-                                validateConsole.append("\nValidando Firmas");
-                                validateConsole.update(validateConsole.getGraphics());
-                                double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
-                                boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
-                                //boolean resultado = true; //para continuar flujo
-                                if(resultado){
-                                    java.lang.System.out.println("Se pudo validar a esta persona");
-                                    validateConsole.append("\nSe pudo validar a esta persona");
+        if (etapa != 4){
+            FingerprintLib.console = validateConsole;
+            FingerprintLib.status = validateProgressBar;
+
+            PoliticalParty partido = Manager.queryPoliticalPartyById(id);
+            if(Manager.getSession().getId() == partido.getIdWorker()){
+                if (check_route(partido.getId())){
+                    ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
+                    ITesseract instance_num = new Tesseract();
+                    ITesseract instance_let = new Tesseract();
+                    instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
+                    instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+                    int cantidad = registros.size();
+                    count = 0;
+                    java.lang.System.out.println("Cantidad de archivos: " + cantidad);
+                    validateProgressBar.setValue(0);
+                    for (AdherentImage registro : registros) {
+                        validateConsole.append("\nInterpretando imagenes via OCR");
+                        validateConsole.update(validateConsole.getGraphics());
+                        Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                        if(persona != null){
+                            boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
+                            if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
+                                long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
+                                if(party_id == -1){
+                                    validateConsole.append("\nValidando Huellas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    Adherent ad = new Adherent();
-                                    ad.setDni(persona.getDni()); ad.setName(persona.getName());
-                                    ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
-                                    ad.setPoliticalParty(partido);
-                                    Manager.addAdherent(ad);
-                                    UtilLib.deleteImages(registro);
-                                    Manager.deleteAdherentImage(registro.getId()); 
-                                }else{
-                                    java.lang.System.out.println("No se pudo validar a esta persona");
-                                    validateConsole.append("\nNo se pudo validar a esta persona");
+                                    double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                    validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    if(primera_etapa){
-                                        registro.setStatus(1);                                        
-                                        Manager.updateAdherentImage(registro);
-                                    }else{
+                                    double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
+                                    boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
+                                    //boolean resultado = true; //para continuar flujo
+                                    if(resultado){
+                                        java.lang.System.out.println("Se pudo validar a esta persona");
+                                        validateConsole.append("\nSe pudo validar a esta persona");
+                                        validateConsole.update(validateConsole.getGraphics());
+                                        Adherent ad = new Adherent();
+                                        ad.setDni(persona.getDni()); ad.setName(persona.getName());
+                                        ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
+                                        ad.setPoliticalParty(partido);
+                                        Manager.addAdherent(ad);
+                                        UtilLib.deleteImages(registro);
                                         Manager.deleteAdherentImage(registro.getId()); 
-                                    }                                    
+                                    }else{
+                                        java.lang.System.out.println("No se pudo validar a esta persona");
+                                        validateConsole.append("\nNo se pudo validar a esta persona");
+                                        validateConsole.update(validateConsole.getGraphics());
+                                        if(etapa == 1 || etapa == 3){
+                                            registro.setStatus(1);                                        
+                                            Manager.updateAdherentImage(registro);
+                                        }
+                                        /*else{
+                                            Manager.deleteAdherentImage(registro.getId()); 
+                                        } */                                   
+                                    }
+                                }else{
+                                    java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
+                                    validateConsole.append("\nSe encontro duplicidad referida a esta persona");
+                                    validateConsole.update(validateConsole.getGraphics());
+                                    if(etapa == 1 || etapa == 3){
+                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
+                                        ad.setObservation("Duplicado");
+                                        Manager.updateStatusAdherent(ad);                                    
+                                    }
+                                    //UtilLib.deleteImages(registro);
+                                    //Manager.deleteAdherentImage(registro.getId()); 
                                 }
                             }else{
-                                java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
-                                validateConsole.append("\nSe encontro duplicidad referida a esta persona");
+                                java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
+                                validateConsole.append("\nEsta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
                                 validateConsole.update(validateConsole.getGraphics());
-                                if(primera_etapa){
-                                    Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
-                                    ad.setObservation("Duplicado");
-                                    Manager.updateStatusAdherent(ad);                                    
-                                }
                                 UtilLib.deleteImages(registro);
                                 Manager.deleteAdherentImage(registro.getId()); 
                             }
                         }else{
-                            java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
-                            validateConsole.append("\nEsta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
+                            java.lang.System.out.println("No se pudo determinar quien es esta persona");
+                            validateConsole.append("\nNo se pudo determinar quien es esta persona");
                             validateConsole.update(validateConsole.getGraphics());
-                            UtilLib.deleteImages(registro);
-                            Manager.deleteAdherentImage(registro.getId()); 
+                            if(etapa == 1 || etapa == 3){
+                                registro.setStatus(1);
+                                Manager.updateAdherentImage(registro);
+                            }/*else{
+                                UtilLib.deleteImages(registro);
+                                Manager.deleteAdherentImage(registro.getId()); 
+                            }*/
                         }
-                    }else{
-                        java.lang.System.out.println("No se pudo determinar quien es esta persona");
-                        validateConsole.append("\nNo se pudo determinar quien es esta persona");
-                        validateConsole.update(validateConsole.getGraphics());
-                        if(primera_etapa){
-                            registro.setStatus(1);
-                            Manager.updateAdherentImage(registro);
-                        }else{
-                            UtilLib.deleteImages(registro);
-                            Manager.deleteAdherentImage(registro.getId()); 
-                        }
+                        count++;
+                        int porcentaje = (100*count)/cantidad;
+                        java.lang.System.out.println("Porcentaje: " + porcentaje);
+                        validateProgressBar.setValue(porcentaje);
+                        validateProgressBar.update(validateProgressBar.getGraphics());
+                        refreshTblAdherent();
                     }
-                    count++;
-                    int porcentaje = (100*count)/cantidad;
-                    java.lang.System.out.println("Porcentaje: " + porcentaje);
-                    validateProgressBar.setValue(porcentaje);
-                    validateProgressBar.update(validateProgressBar.getGraphics());
-                    refreshTblAdherent();
+
+                    int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
+                    txtAmount.setText(""+amountNotValidated);
+
+                    JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
                 }
-                
-                int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
-                txtAmount.setText(""+amountNotValidated);
-                                
-                JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El trabajador no esta asignado para este partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "El trabajador no esta asignado para este partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
+            /*
+            Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
+            */
         }
-        /*
-        Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
-        */
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
