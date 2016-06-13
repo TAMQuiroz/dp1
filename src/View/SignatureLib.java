@@ -39,8 +39,8 @@ import org.opencv.highgui.Highgui;
 public class SignatureLib {
     static JTextArea console;
     public static int max;
-    private static final int IMG_WIDTH = 450; //430
-    private static final int IMG_HEIGHT = 240; //221
+    private static final int IMG_WIDTH = 640; //430
+    private static final int IMG_HEIGHT = 430; //221
     //public static int indice;
     //public static int cambio;
     //firmas(persona existente, registro en padron)
@@ -51,7 +51,7 @@ public class SignatureLib {
         
         //String extension = ".jpg";
         //console.append("======Inicio del análisis de la firma======");
-        int res = sift(routeRNV, routeAdherent);
+        int res =sift(routeRNV, routeAdherent);
         //String route = "firmas\\resized\\";
         
         

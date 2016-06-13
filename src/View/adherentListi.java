@@ -18,7 +18,10 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
@@ -683,9 +686,20 @@ public class adherentListi extends javax.swing.JFrame {
                                     validateConsole.append("\nValidando Huellas");
                                     validateConsole.update(validateConsole.getGraphics());
                                     double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                    validateConsole.append("\nPreprocesando Firmas");
+                                    String route1 = persona.getSignature(); String route2 = registro.getSignatureSource();
+                                    try {
+                                        SignatureLib.preprocessSignatures(route1, route2);
+                                        int index1 =route1.length()-4;
+                                        int index2 =route2.length()-4;
+                                        route1= route1.substring(0,index1) + 'r' + route1.substring(index1, index1+4);
+                                        route2= route2.substring(0,index2) + 'r' + route2.substring(index2, index2+4);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                     validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
+                                    double puntuacion2 = SignatureLib.validarFirmas(route1, route2);
                                     boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
                                     //boolean resultado = true; //para continuar flujo
                                     if(resultado){
