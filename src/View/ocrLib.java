@@ -261,9 +261,11 @@ public class ocrLib {
     
     public static Person ocr(adherentListi frame,ITesseract instance_num, ITesseract instance_let, String dni, String name, String lastname){
         ArrayList<Person> personas;
-        ArrayList<OcrCharacter> ocrDni, ocrName, ocrLastname; 
-        
+        ArrayList<OcrCharacter> ocrDni = null, ocrName, ocrLastname; 
+
         ocrDni = preprocesamiento_ocr(instance_num, dni, 8);
+
+        //JOptionPane.showMessageDialog(frame, "Error "+ocrDni.get(0).getLetter(), "Alerta", JOptionPane.WARNING_MESSAGE);
         
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
@@ -279,7 +281,7 @@ public class ocrLib {
         
         ImagePlus img = new ImagePlus(dni);
         img.show();
-        String s = (String)JOptionPane.showInputDialog(frame, "DNI interpretado: "+ queryDni +"\nIngresa DNI:\n", "Input de prueba", JOptionPane.PLAIN_MESSAGE, null, null, "ham");
+        String s = (String)JOptionPane.showInputDialog(frame, "DNI interpretado: "+ queryDni +"\nIngresa DNI:\n", "Input de prueba", JOptionPane.PLAIN_MESSAGE, null, null, "");
         img.close();
         
         //personas = Manager.queryByPerson(ocrDni, ocrName, ocrLastname);

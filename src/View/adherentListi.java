@@ -666,7 +666,10 @@ public class adherentListi extends javax.swing.JFrame {
                 for (AdherentImage registro : registros) {
                     validateConsole.append("\nInterpretando imagenes via OCR");
                     validateConsole.update(validateConsole.getGraphics());
-                    Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                    Person persona = null;
+
+                    persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());                         
+
                     if(persona != null){
                         boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
                         if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
