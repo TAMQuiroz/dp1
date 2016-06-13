@@ -44,8 +44,9 @@ public class AdherentImageDB {
         adherentImageList = daoAdherentImage.queryAllCanceled( politicalPartyIdP);
         return adherentImageList;
     }
-    
-    
+    public void cancellAllAdherentImages(long idPoliticalParty){
+        daoAdherentImage.cancellAllAdherentImages(idPoliticalParty);
+    }    
     public AdherentImage queryById( long adherentImageId){
         return daoAdherentImage.queryById(adherentImageId);
     }
