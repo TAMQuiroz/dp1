@@ -51,7 +51,7 @@ public class SignatureLib {
         
         //String extension = ".jpg";
         //console.append("======Inicio del análisis de la firma======");
-        sift(routeRNV, routeAdherent);
+        int res = sift(routeRNV, routeAdherent);
         //String route = "firmas\\resized\\";
         
         
@@ -82,18 +82,18 @@ public class SignatureLib {
                 
                 
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma - matches: "+max);
+                java.lang.System.out.println("Firma - matches: "+max+" res:"+res);
                 
                 //console.append("\nFirma encontrada:" + indice );
             //}
             //console.append("\n");
         //}
         //console.append("======Fin del análisis de la firma======");
-        return max;
+        return res;
     }  
         
         //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
-        public static void sift(String routeRNV, String routeAdherent){
+        public static int sift(String routeRNV, String routeAdherent){
   
         String bookObject = routeRNV;
         String bookScene = routeAdherent; 
@@ -214,12 +214,25 @@ public class SignatureLib {
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
+            
+            double result = goodMatches.size().height;
+            if(result > 100){
+                return 100;
+            }else if(result <= 100 && result > 60){
+                return 85;
+            }else if(result <= 60 && result > 40){
+                return 50;
+            }else if(result <= 40 && result > 30){
+                return 25;
+            }else{
+                return 0;
+            }
         }  
         else  
         {  
-            //java.lang.System.out.println("Firma no encontrada");  
-        }  
-
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0;
+        }
         //System.out.println("Terminando SIFT");  
     }
         
