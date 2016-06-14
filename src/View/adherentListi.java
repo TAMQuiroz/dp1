@@ -716,23 +716,21 @@ public class adherentListi extends javax.swing.JFrame {
                                         java.lang.System.out.println("No se pudo validar a esta persona");
                                         validateConsole.append("\nNo se pudo validar a esta persona");
                                         validateConsole.update(validateConsole.getGraphics());
-                                        if(etapa == 1 || etapa == 3){
-                                            register.setStatus(1);                                        
-                                            Manager.updateAdherentImage(register);
-                                        }
-                                        /*else{
-                                            Manager.deleteAdherentImage(register.getId()); 
-                                        } */                                   
+                                        register.setStatus(1);  //Se rechaza adherente                                      
+                                        Manager.updateAdherentImage(register);                                        
                                     }
                                 }else{
                                     java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
                                     validateConsole.append("\nSe encontro duplicidad referida a esta persona");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    if(etapa == 1 || etapa == 3){
+                                    if(etapa == 1){
                                         Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
                                         ad.setObservation("Duplicado");
-                                        Manager.updateStatusAdherent(ad);                                    
+                                        Manager.updateStatusAdherent(ad);                               
                                     }
+                                    Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), id);
+                                    ad.setObservation("Duplicado");
+                                    Manager.updateStatusAdherent(ad);                                    
                                     UtilLib.deleteImages(register);
                                     Manager.deleteAdherentImage(register.getId()); 
                                 }
@@ -746,14 +744,9 @@ public class adherentListi extends javax.swing.JFrame {
                         }else{
                             java.lang.System.out.println("No se pudo determinar quien es esta persona");
                             validateConsole.append("\nNo se pudo determinar quien es esta persona");
-                            validateConsole.update(validateConsole.getGraphics());
-                            if(etapa == 1 || etapa == 3){
-                                register.setStatus(1);
-                                Manager.updateAdherentImage(register);
-                            }/*else{
-                                UtilLib.deleteImages(register);
-                                Manager.deleteAdherentImage(register.getId()); 
-                            }*/
+                            validateConsole.update(validateConsole.getGraphics());                            
+                            register.setStatus(1); //Se rechaza al adherente
+                            Manager.updateAdherentImage(register);                           
                         }
                         count++;
                         int porcentaje = (100*count)/size;
