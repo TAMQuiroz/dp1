@@ -262,9 +262,6 @@ public class ElectoralProcessGui extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(697, 697, 697)
-                        .addComponent(jTextField13))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -331,7 +328,8 @@ public class ElectoralProcessGui extends JFrame {
                                         .addComponent(jTextField11)
                                         .addComponent(jComboBox1, 0, 158, Short.MAX_VALUE)
                                         .addComponent(jTextField6)
-                                        .addComponent(jTextField15))))
+                                        .addComponent(jTextField15)
+                                        .addComponent(jTextField13))))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -484,7 +482,7 @@ public class ElectoralProcessGui extends JFrame {
             long id = Long.parseLong(jTextField9.getText());
             process.setId(id);
             
-            int val=validacion(name,processtype, date , startregistrationdate,
+            int val=validation(name,processtype, date , startregistrationdate,
                     endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
                     startextravalidationdate,startreceptiondate,endextrareceptiondate, 
                     endextravalidationdate,  endreceptiondate);
@@ -539,11 +537,11 @@ public class ElectoralProcessGui extends JFrame {
             //	refreshTblSalesmans();
         }
     }//GEN-LAST:event_btnCancelActionPerformed
-public int validacion(String name, String processtype, Date date , Date startregistrationdate,
+public int validation(String name, String processtype, Date date , Date startregistrationdate,
         Date endregistrationdate, Date startvaldationdate,Date endvalidationdate, Date startextrareceptiondate, 
         Date startextravalidationdate,Date startreceptiondate,Date endextrareceptiondate, 
         Date endextravalidationdate, Date endreceptiondate){
-     if (name.length()==0 || date==null ||startregistrationdate==null || endregistrationdate==null ||
+     if (name.trim().length()==0 || date==null ||startregistrationdate==null || endregistrationdate==null ||
          startvaldationdate==null || endvalidationdate==null ||  startreceptiondate==null     ||
           endreceptiondate==null ){
          JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -634,7 +632,7 @@ public int validacion(String name, String processtype, Date date , Date startreg
              }else{
                 JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-             int val=validacion(name,processtype, date , startregistrationdate,
+             int val=validation(name,processtype, date , startregistrationdate,
          endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
         startextravalidationdate,startreceptiondate,endextrareceptiondate, 
          endextravalidationdate,  endreceptiondate);

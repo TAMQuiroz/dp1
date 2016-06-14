@@ -47,10 +47,10 @@ public class Signature {
         String routeVal="test\\auxiliar\\cortes\\0\\padron";
 
         //Firma a comparar
-        String n_img1  = "firma";
-        //String n_img1  = "f001rp";
+        String n_img1  = "f001r";
+        String n_img2  = "f002r";
         
-        for(int k=11;k<=48;k++){
+        /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
                 max=0; indice=0; 
                 String routeAdd=k+"\\";
@@ -61,22 +61,22 @@ public class Signature {
                     String n_img2  = "f0";
                     if(i<10)
                         n_img2=n_img2+"0";
-                    n_img2=n_img2+i+"r";
+                    n_img2=n_img2+i+"r";*/
 
-                    sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
-                    if(cambio==1)
+                    //sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
+                    /*if(cambio==1)
                         indice=i;
-                }
-
+                }*/
+                int res = sift(route, route,n_img1, n_img2, extension);
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma encontrada final: " + indice + ", matches: "+max);
-            }
+                java.lang.System.out.println("Firma encontrada final - res: " + res + ", matches: "+max);
+            //}
             
-        }
+        //}
         
     }  
     
-        public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
+    public static int sift(String routeVal,String route, String n_img1, String n_img2, String extension){
   
         String bookObject = routeVal + n_img1 + extension;
         String bookScene = route + n_img2 + extension; 
@@ -142,10 +142,10 @@ public class Signature {
         if (goodMatchesList.size() >= 7)  
         {  
             //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
-            if(goodMatchesList.size()>max){
-                max=goodMatchesList.size();
-                cambio = 1;
-            }    
+            //if(goodMatchesList.size()>max){
+                
+                //cambio = 1;
+            //}    
             
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();  
             List<KeyPoint> scnKeypointlist = sceneKeyPoints.toList();  
@@ -189,19 +189,32 @@ public class Signature {
             goodMatches.fromList(goodMatchesList);  
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
-
-            String n_outputImage = route + "\\results\\" + n_img2 + "_outputImage_sift" + extension;
-            String n_matchoutput = route + "\\results\\" + n_img2 + "_matchoutput_sift" + extension;
-            String n_img = route + "\\results\\" + n_img2 + "_sift" + extension;
+            String n_outputImage = route + "results\\" + n_img2 + "_outputImage_sift" + extension;
+            String n_matchoutput = route + "results\\" + n_img2 + "_matchoutput_sift" + extension;
+            String n_img = route + "results\\" + n_img2 + "_sift" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
+            
+            double result =goodMatches.size().height;
+            if(result > 100){
+                return 100;
+            }else if(result <= 100 && result > 60){
+                return 85;
+            }else if(result <= 60 && result > 40){
+                return 50;
+            }else if(result <= 40 && result > 30){
+                return 25;
+            }else{
+                return 0;
+            }
         }  
         else  
         {  
             //java.lang.System.out.println("Firma no encontrada");  
         }  
-
+        return 0;
         //System.out.println("Terminando SIFT");  
     }
+    
 }

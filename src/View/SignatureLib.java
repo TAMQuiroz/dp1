@@ -6,9 +6,13 @@
 package View;
 
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JTextArea;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.Core;
@@ -35,6 +39,8 @@ import org.opencv.highgui.Highgui;
 public class SignatureLib {
     static JTextArea console;
     public static int max;
+    private static final int IMG_WIDTH = 640; //430
+    private static final int IMG_HEIGHT = 430; //221
     //public static int indice;
     //public static int cambio;
     //firmas(persona existente, registro en padron)
@@ -45,7 +51,7 @@ public class SignatureLib {
         
         //String extension = ".jpg";
         //console.append("======Inicio del análisis de la firma======");
-        sift(routeRNV, routeAdherent);
+        int res =sift(routeRNV, routeAdherent);
         //String route = "firmas\\resized\\";
         
         
@@ -76,18 +82,18 @@ public class SignatureLib {
                 
                 
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma - matches: "+max);
+                java.lang.System.out.println("Firma - matches: "+max+" res:"+res);
                 
                 //console.append("\nFirma encontrada:" + indice );
             //}
             //console.append("\n");
         //}
         //console.append("======Fin del análisis de la firma======");
-        return max;
+        return res;
     }  
         
         //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
-        public static void sift(String routeRNV, String routeAdherent){
+        public static int sift(String routeRNV, String routeAdherent){
   
         String bookObject = routeRNV;
         String bookScene = routeAdherent; 
@@ -201,19 +207,59 @@ public class SignatureLib {
             goodMatches.fromList(goodMatchesList);  
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
-
-            /*String n_outputImage = route + "\\results\\" + n_img2 + "_outputImage_sift" + extension;
-            String n_matchoutput = route + "\\results\\" + n_img2 + "_matchoutput_sift" + extension;
-            String n_img = route + "\\results\\" + n_img2 + "_sift" + extension;
+            
+            String n_outputImage = "../pre/outputImage_sift.jpg";
+            String n_matchoutput = "../pre/matchoutput_sift.jpg";
+            String n_img = "../pre/sift.jpg";
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
-            Highgui.imwrite(n_img, img);  */
+            Highgui.imwrite(n_img, img);  
+            
+            double result = goodMatches.size().height;
+            if(result > 100){
+                return 100;
+            }else if(result <= 100 && result > 60){
+                return 85;
+            }else if(result <= 60 && result > 40){
+                return 50;
+            }else if(result <= 40 && result > 30){
+                return 25;
+            }else{
+                return 0;
+            }
         }  
         else  
         {  
-            //java.lang.System.out.println("Firma no encontrada");  
-        }  
-
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0;
+        }
         //System.out.println("Terminando SIFT");  
+    }
+        
+    public static void preprocessSignatures(String routeRNV, String routeAdherent) throws IOException {
+        
+        BufferedImage originalImage1 = ImageIO.read(new File(routeRNV));
+        int type = originalImage1.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage1.getType();
+        
+        BufferedImage originalImage2 = ImageIO.read(new File(routeAdherent));
+        int type2 = originalImage2.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage2.getType();
+
+        int index1 =routeRNV.length()-4;
+        int index2 =routeAdherent.length()-4;
+        String routeRNV2= routeRNV.substring(0,index1) + 'r' + routeRNV.substring(index1, index1+4);
+        String routeAdherent2= routeAdherent.substring(0,index2) + 'r' + routeAdherent.substring(index2, index2+4);
+        BufferedImage resizeImagePng = resizeImage(originalImage1, type);
+        BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
+        ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
+        ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
+   }
+    
+   private static BufferedImage resizeImage(BufferedImage originalImage, int type){
+	BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, type);
+	Graphics2D g = resizedImage.createGraphics();
+	g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+	g.dispose();
+		
+	return resizedImage;
     }
 }

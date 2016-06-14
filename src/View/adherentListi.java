@@ -18,7 +18,10 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
@@ -611,7 +614,7 @@ public class adherentListi extends javax.swing.JFrame {
             addAdherent frame = new addAdherent(this, id, idSource, name, dniSource, nameSource, lastnameSource, signatureSource, fingerprintSource);
             frame.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(this, "Debe elegir un registro rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe elegir un register rechazado", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAnalizarActionPerformed
@@ -662,88 +665,94 @@ public class adherentListi extends javax.swing.JFrame {
             PoliticalParty partido = Manager.queryPoliticalPartyById(id);
             if(Manager.getSession().getId() == partido.getIdWorker()){
                 if (check_route(partido.getId())){
-                    ArrayList<AdherentImage> registros = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
+                    ArrayList<AdherentImage> registers = Manager.queryAdherentImageNoValidatedbyPartyId(partido.getId());
                     ITesseract instance_num = new Tesseract();
                     ITesseract instance_let = new Tesseract();
                     instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
                     instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-                    int cantidad = registros.size();
+                    int size = registers.size();
                     count = 0;
-                    java.lang.System.out.println("Cantidad de archivos: " + cantidad);
+                    java.lang.System.out.println("Cantidad de archivos: " + size);
                     validateProgressBar.setValue(0);
-                    for (AdherentImage registro : registros) {
+                    for (AdherentImage register : registers) {
                         validateConsole.append("\nInterpretando imagenes via OCR");
                         validateConsole.update(validateConsole.getGraphics());
-                        Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
-                        if(persona != null){
-                            boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
+                        Person person = ocrLib.ocr(this, instance_num, instance_let, register.getDniSource(), register.getNameSource(), register.getLastNameSource());
+                        if(person != null){
+                            boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
                             if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
-                                long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
+                                long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                    double punctuation1 = FingerprintLib.huellas(person.getFingerprint(), register.getFingerprintSource());
+                                    validateConsole.append("\nPreprocesando Firmas");
+                                    String route1 = person.getSignature(); String route2 = register.getSignatureSource();
+                                    try {
+                                        SignatureLib.preprocessSignatures(route1, route2);
+                                        int index1 =route1.length()-4;
+                                        int index2 =route2.length()-4;
+                                        route1= route1.substring(0,index1) + 'r' + route1.substring(index1, index1+4);
+                                        route2= route2.substring(0,index2) + 'r' + route2.substring(index2, index2+4);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                     validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double puntuacion2 = SignatureLib.validarFirmas(persona.getSignature(), registro.getSignatureSource());
-                                    boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
-                                    //boolean resultado = true; //para continuar flujo
-                                    if(resultado){
+                                    double punctuation2 = SignatureLib.validarFirmas(route1, route2);
+                                    boolean result = UtilLib.analyze_result(punctuation1, punctuation2);                                    
+                                    if(result){
                                         java.lang.System.out.println("Se pudo validar a esta persona");
                                         validateConsole.append("\nSe pudo validar a esta persona");
                                         validateConsole.update(validateConsole.getGraphics());
                                         Adherent ad = new Adherent();
-                                        ad.setDni(persona.getDni()); ad.setName(persona.getName());
-                                        ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
+                                        ad.setDni(person.getDni()); ad.setName(person.getName());
+                                        ad.setLastName(person.getLastname()); ad.setObservation("Validado");                                    
                                         ad.setPoliticalParty(partido);
                                         Manager.addAdherent(ad);
-                                        UtilLib.deleteImages(registro);
-                                        Manager.deleteAdherentImage(registro.getId()); 
+                                        UtilLib.deleteImages(register);
+                                        Manager.deleteAdherentImage(register.getId()); 
                                     }else{
                                         java.lang.System.out.println("No se pudo validar a esta persona");
                                         validateConsole.append("\nNo se pudo validar a esta persona");
                                         validateConsole.update(validateConsole.getGraphics());
-                                        if(etapa == 1 || etapa == 3){
-                                            registro.setStatus(1);                                        
-                                            Manager.updateAdherentImage(registro);
-                                        }
-                                        /*else{
-                                            Manager.deleteAdherentImage(registro.getId()); 
-                                        } */                                   
+                                        register.setStatus(1);  //Se rechaza adherente                                      
+                                        Manager.updateAdherentImage(register);                                        
                                     }
                                 }else{
                                     java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
                                     validateConsole.append("\nSe encontro duplicidad referida a esta persona");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    if(etapa == 1 || etapa == 3){
-                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
+                                    if(etapa == 1){
+                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
                                         ad.setObservation("Duplicado");
-                                        Manager.updateStatusAdherent(ad);                                    
+                                        Manager.updateStatusAdherent(ad);                               
                                     }
-                                    UtilLib.deleteImages(registro);
-                                    Manager.deleteAdherentImage(registro.getId()); 
+                                    Adherent ad = new Adherent();
+                                    ad.setDni(person.getDni()); ad.setName(person.getName());
+                                    ad.setLastName(person.getLastname());                                   
+                                    ad.setPoliticalParty(partido);
+                                    ad.setObservation("Duplicado");
+                                    Manager.addAdherent(ad);
+                                    UtilLib.deleteImages(register);
+                                    Manager.deleteAdherentImage(register.getId()); 
                                 }
                             }else{
                                 java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
                                 validateConsole.append("\nEsta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
                                 validateConsole.update(validateConsole.getGraphics());
-                                UtilLib.deleteImages(registro);
-                                Manager.deleteAdherentImage(registro.getId()); 
+                                UtilLib.deleteImages(register);
+                                Manager.deleteAdherentImage(register.getId()); 
                             }
                         }else{
                             java.lang.System.out.println("No se pudo determinar quien es esta persona");
                             validateConsole.append("\nNo se pudo determinar quien es esta persona");
-                            validateConsole.update(validateConsole.getGraphics());
-                            if(etapa == 1 || etapa == 3){
-                                registro.setStatus(1);
-                                Manager.updateAdherentImage(registro);
-                            }/*else{
-                                UtilLib.deleteImages(registro);
-                                Manager.deleteAdherentImage(registro.getId()); 
-                            }*/
+                            validateConsole.update(validateConsole.getGraphics());                            
+                            register.setStatus(1); //Se rechaza al adherente
+                            Manager.updateAdherentImage(register);                           
                         }
                         count++;
-                        int porcentaje = (100*count)/cantidad;
+                        int porcentaje = (100*count)/size;
                         java.lang.System.out.println("Porcentaje: " + porcentaje);
                         validateProgressBar.setValue(porcentaje);
                         validateProgressBar.update(validateProgressBar.getGraphics());

@@ -94,12 +94,12 @@ public class UtilLib {
         if ( isLowerSV <= 0 && isHigherSV >= 0)
             return 3;
         isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser 0 o mas
-        if ( isHigherSV >= 0)
+        if ( isHigherSV < 0)
             return 4;
         return -1;
     }
 
-    static boolean analizar_resultado(double puntuacion1, double puntuacion2) {
+    static boolean analyze_result(double puntuacion1, double puntuacion2) {
         if(puntuacion1 > 80 &&  puntuacion2 > 80){
             return true;
         }
@@ -107,7 +107,7 @@ public class UtilLib {
     }
     
     public static void main(String[] args){
-        int stage = checkStage(12);
+        int stage = checkStage(13);
         java.lang.System.out.println(stage);
     }
 }

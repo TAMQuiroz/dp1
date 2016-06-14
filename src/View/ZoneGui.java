@@ -272,7 +272,7 @@ public class ZoneGui  extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameText1ActionPerformed
    public int validation(String name, String description, String code){
-    if (name.length()==0 || description.length()==0 || code.length()==0 ){
+    if (name.trim().length()==0 || description.trim().length()==0 || code.trim().length()==0 ){
         JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
         return 1;
     }
