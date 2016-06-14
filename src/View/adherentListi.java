@@ -728,9 +728,12 @@ public class adherentListi extends javax.swing.JFrame {
                                         ad.setObservation("Duplicado");
                                         Manager.updateStatusAdherent(ad);                               
                                     }
-                                    Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), id);
+                                    Adherent ad = new Adherent();
+                                    ad.setDni(person.getDni()); ad.setName(person.getName());
+                                    ad.setLastName(person.getLastname());                                   
+                                    ad.setPoliticalParty(partido);
                                     ad.setObservation("Duplicado");
-                                    Manager.updateStatusAdherent(ad);                                    
+                                    Manager.addAdherent(ad);
                                     UtilLib.deleteImages(register);
                                     Manager.deleteAdherentImage(register.getId()); 
                                 }
