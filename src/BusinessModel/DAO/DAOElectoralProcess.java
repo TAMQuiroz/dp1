@@ -18,4 +18,5 @@ public interface DAOElectoralProcess {
     void delete(long electoralProcessId);
     ArrayList<ElectoralProcess> queryAll();
     ElectoralProcess queryById(long electoralProcessId);
+    void setProcessStage(int etapa, long idProcess);
 }

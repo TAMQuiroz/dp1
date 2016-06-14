@@ -192,5 +192,9 @@ public class Manager {
     public static int queryAmountAdherentImageNoValidatedbyPartyId(long id) {
         return adherentImageDB.queryAmountAdherentImageNoValidatedbyPartyId(id);
     }
+
+    public static void setProcessStage(int etapa, long idProcess) {
+        electoralProcessDB.setProcessStage(etapa, idProcess);
+    }
             
 }

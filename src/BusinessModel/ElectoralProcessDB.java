@@ -37,4 +37,8 @@ public class ElectoralProcessDB {
     public ElectoralProcess queryById( long electoralProcessId){
         return daoElectoralProcess.queryById(electoralProcessId);
     }
+
+    public void setProcessStage(int etapa, long idProcess) {
+        daoElectoralProcess.setProcessStage(etapa, idProcess);
+    }
 }
