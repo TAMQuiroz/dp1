@@ -85,9 +85,11 @@ public class adherentListi extends javax.swing.JFrame {
 	jTable5.setModel(banModel);
         //checkStage(idParty); Retorna un valor integer, en UTILLIB están los estados
         etapa = UtilLib.checkStage(idParty);
+        Manager.setProcessStage(etapa);
         java.lang.System.out.println(etapa);
         if (etapa == 4){ //Si ya se termino la segunda etapa de validación, se cancelan sus adherentes
             Manager.cancellAllAdherentImages(id);
+            
         }
             
         
