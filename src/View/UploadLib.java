@@ -17,8 +17,10 @@ import ij.process.ImageProcessor;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
@@ -539,29 +541,31 @@ public class UploadLib {
         adherentes = new ArrayList<>();
         idPartido = id;
         outputRoute = routeToCortes + id + "/";
-        int cantidad =(int) Files.walk(Paths.get(route)).count();
+        
         count = 0;
-        java.lang.System.out.println("Cantidad de archivos: " + cantidad);
         status.setValue(0);
         
-        Files.walk(Paths.get(route)).forEach(filePath -> {
-            
-            if (Files.isRegularFile(filePath)) {
-                console.append("\n======Analizando " + filePath.getFileName() + "======");
+        File folder = new File(route);
+        File[] listOfFiles = folder.listFiles();
+        int cantidad = listOfFiles.length;
+        
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                console.append("\n======Analizando " + file.getName() + "======");
                 console.update(console.getGraphics());
-                java.lang.System.out.println("======Analizando " + filePath.getFileName() + "======");
-                String[] name = filePath.getFileName().toString().split("[.]");
+                java.lang.System.out.println("======Analizando " + file.getName() + "======");
+                String[] name = file.getName().split("[.]");
                 if(name[1].equals("jpg")){
                     File directorio = new File(outputRoute);
                     directorio.mkdir();                    
                     cortarCajas(route,name[0],"." + name[1]);
-                    console.append("\n======Fin de analisis " + filePath.getFileName() + "======");
+                    console.append("\n======Fin de analisis " + file.getName() + "======");
                     console.update(console.getGraphics());
-                    java.lang.System.out.println("======Fin de analisis " + filePath.getFileName() + "======");
+                    java.lang.System.out.println("======Fin de analisis " + file.getName() + "======");
                 }else{
-                    console.append("\n======Error en " + filePath.getFileName() + ", no es una imagen JPG======");
+                    console.append("\n======Error en " + file.getName() + ", no es una imagen JPG======");
                     console.update(console.getGraphics());
-                    java.lang.System.out.println("======Error en " + filePath.getFileName() + ", no es una imagen JPG======");
+                    java.lang.System.out.println("======Error en " + file.getName() + ", no es una imagen JPG======");
                 }
             }
             count++;
@@ -572,8 +576,7 @@ public class UploadLib {
             //imprimeLista();
             status.setValue(porcentaje);
             status.update(status.getGraphics());
-            
-        });
+        }
         
         //Actualizar trabajador asignado a partido politico
         Manager.setWorker(idPartido, Manager.getSession().getId());
