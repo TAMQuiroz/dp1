@@ -305,9 +305,14 @@ public class PoliticalPartyGui extends JFrame {
         if(row != -1){
             String idParty = email1.getText();
             String nameParty = nameText.getText();
+            if (UtilLib.checkStage(ProcessElectoralId)==0 ||UtilLib.checkStage(ProcessElectoralId)==2){
             Upload1 view = new Upload1(idParty, nameParty);
-
             view.setVisible(true);
+            }
+            else
+            {
+             JOptionPane.showMessageDialog(this, "Vencimiento de Etapa de Subida de Padrones", "Alerta", JOptionPane.ERROR_MESSAGE);    
+            }
         }else{
             JOptionPane.showMessageDialog(this, "No se eligio un partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
