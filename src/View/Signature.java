@@ -48,7 +48,7 @@ public class Signature {
 
         //Firma a comparar
         String n_img1  = "f001r";
-        //String n_img1  = "f001rp";
+        String n_img2  = "f002r";
         
         /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
@@ -67,7 +67,7 @@ public class Signature {
                     /*if(cambio==1)
                         indice=i;
                 }*/
-                int res = sift(route, route,n_img1, n_img1, extension);
+                int res = sift(route, route,n_img1, n_img2, extension);
                 //java.lang.System.out.println("***FINALIZANDO SIFT***");
                 java.lang.System.out.println("Firma encontrada final - res: " + res + ", matches: "+max);
             //}
@@ -189,9 +189,9 @@ public class Signature {
             goodMatches.fromList(goodMatchesList);  
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);  
-            String n_outputImage = route + "\\results\\" + n_img2 + "_outputImage_sift" + extension;
-            String n_matchoutput = route + "\\results\\" + n_img2 + "_matchoutput_sift" + extension;
-            String n_img = route + "\\results\\" + n_img2 + "_sift" + extension;
+            String n_outputImage = route + "results\\" + n_img2 + "_outputImage_sift" + extension;
+            String n_matchoutput = route + "results\\" + n_img2 + "_matchoutput_sift" + extension;
+            String n_img = route + "results\\" + n_img2 + "_sift" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  

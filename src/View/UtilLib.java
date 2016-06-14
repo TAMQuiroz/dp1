@@ -94,7 +94,7 @@ public class UtilLib {
         if ( isLowerSV <= 0 && isHigherSV >= 0)
             return 3;
         isHigherSV = pt.getElectoralProcess().getEndExtraValidationDate().compareTo(now);        //Debe ser 0 o mas
-        if ( isHigherSV >= 0)
+        if ( isHigherSV < 0)
             return 4;
         return -1;
     }
@@ -107,7 +107,7 @@ public class UtilLib {
     }
     
     public static void main(String[] args){
-        int stage = checkStage(12);
+        int stage = checkStage(13);
         java.lang.System.out.println(stage);
     }
 }
