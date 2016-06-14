@@ -677,17 +677,17 @@ public class adherentListi extends javax.swing.JFrame {
                     for (AdherentImage registro : registros) {
                         validateConsole.append("\nInterpretando imagenes via OCR");
                         validateConsole.update(validateConsole.getGraphics());
-                        Person persona = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
-                        if(persona != null){
-                            boolean isSuitable = UtilLib.isSuitable(persona, partido.getElectoralProcess().getId());
+                        Person person = ocrLib.ocr(this, instance_num, instance_let, registro.getDniSource(), registro.getNameSource(), registro.getLastNameSource());
+                        if(person != null){
+                            boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
                             if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
-                                long party_id = UtilLib.findDuplicity(persona, partido.getElectoralProcess().getId());
+                                long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double puntuacion1 = FingerprintLib.huellas(persona.getFingerprint(), registro.getFingerprintSource());
+                                    double punctuation1 = FingerprintLib.huellas(person.getFingerprint(), registro.getFingerprintSource());
                                     validateConsole.append("\nPreprocesando Firmas");
-                                    String route1 = persona.getSignature(); String route2 = registro.getSignatureSource();
+                                    String route1 = person.getSignature(); String route2 = registro.getSignatureSource();
                                     try {
                                         SignatureLib.preprocessSignatures(route1, route2);
                                         int index1 =route1.length()-4;
@@ -699,16 +699,15 @@ public class adherentListi extends javax.swing.JFrame {
                                     }
                                     validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double puntuacion2 = SignatureLib.validarFirmas(route1, route2);
-                                    boolean resultado = UtilLib.analizar_resultado(puntuacion1, puntuacion2);
-                                    //boolean resultado = true; //para continuar flujo
-                                    if(resultado){
+                                    double punctuation2 = SignatureLib.validarFirmas(route1, route2);
+                                    boolean result = UtilLib.analyze_result(punctuation1, punctuation2);                                    
+                                    if(result){
                                         java.lang.System.out.println("Se pudo validar a esta persona");
                                         validateConsole.append("\nSe pudo validar a esta persona");
                                         validateConsole.update(validateConsole.getGraphics());
                                         Adherent ad = new Adherent();
-                                        ad.setDni(persona.getDni()); ad.setName(persona.getName());
-                                        ad.setLastName(persona.getLastname()); ad.setObservation("Validado");                                    
+                                        ad.setDni(person.getDni()); ad.setName(person.getName());
+                                        ad.setLastName(person.getLastname()); ad.setObservation("Validado");                                    
                                         ad.setPoliticalParty(partido);
                                         Manager.addAdherent(ad);
                                         UtilLib.deleteImages(registro);
@@ -730,7 +729,7 @@ public class adherentListi extends javax.swing.JFrame {
                                     validateConsole.append("\nSe encontro duplicidad referida a esta persona");
                                     validateConsole.update(validateConsole.getGraphics());
                                     if(etapa == 1 || etapa == 3){
-                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(persona.getDni(), party_id);
+                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
                                         ad.setObservation("Duplicado");
                                         Manager.updateStatusAdherent(ad);                                    
                                     }
