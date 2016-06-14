@@ -30,6 +30,7 @@ public class ElectoralProcess {
     private int population;
     private ProcessType processType;
     private User user;
+    private int stage;
     
     
     /**
@@ -38,6 +39,7 @@ public class ElectoralProcess {
     public long getId() {
         return id;
     }
+    
 
     /**
      * @param id the id to set
@@ -287,4 +289,13 @@ public class ElectoralProcess {
     public void ElectoralProcess(){
         
     }
+
+    public int getStage() {
+        return stage;
+    }
+
+    public void setStage(int stage) {
+        this.stage = stage;
+    }
+    
 }

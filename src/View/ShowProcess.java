@@ -50,13 +50,13 @@ private javax.swing.JDesktopPane jDesktopPane1;
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Tipo de proceso", "Fecha de proceso"
+                "ID", "Nombre", "Tipo de proceso", "Etapa", "Fecha de proceso"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,6 +143,8 @@ private javax.swing.JDesktopPane jDesktopPane1;
                 .addComponent(jToggleButton1)
                 .addGap(39, 39, 39))
         );
+
+        jScrollPane1.getAccessibleContext().setAccessibleParent(jTable1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -241,10 +243,10 @@ private javax.swing.JDesktopPane jDesktopPane1;
     
     class MyTableModel extends AbstractTableModel {
         ArrayList<Model.ElectoralProcess> electoralProcessList = Manager.queryAllElectoralProcess();
-		String [] titles = { "ID","Nombre", "Tipo Proceso","Fecha Proceso"};
+		String [] titles = { "ID","Nombre", "Tipo Proceso","Etapa","Fecha Proceso"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 4;
+			return 5;
 		}
 
 		public int getRowCount() {
@@ -265,7 +267,18 @@ private javax.swing.JDesktopPane jDesktopPane1;
 			case 2:
 				value = "" + electoralProcessList.get(row).getProcessType().getName();
 				break;
-			case 3:
+                        case 3: 
+                                int stage=electoralProcessList.get(row).getStage();
+                                String stagename=null;
+                                if(stage==0)stagename="Primera Recepción";
+                                if(stage==1)stagename="Primera Validación";
+                                if(stage==2)stagename="Segunda Recepción";
+                                if(stage==3)stagename="Segunda Validación";
+                                if(stage==4)stagename="Finalizado";
+                                if(stage==-1)stagename="En Proceso";
+				value = "" + stagename;
+				break;	        
+			case 4:
 				value = "" + electoralProcessList.get(row).getDate();
 				break;			
 			}
