@@ -347,8 +347,8 @@ public class UserGui extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextActionPerformed
 public int validation(String name, String lastname, String password, String typedocument,String document, String telephone , Date date){
-       if (name.length()==0 || lastname.length()==0 || password.length()==0 || typedocument.length()==0
-            ||document.length()==0 || telephone.length()==0 ||date ==null   ){
+       if (name.trim().length()==0 || lastname.trim().length()==0 || password.trim().length()==0 || typedocument.trim().length()==0
+            ||document.trim().length()==0 || telephone.trim().length()==0 ||date ==null   ){
           JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
         return 1;
        }
@@ -405,28 +405,19 @@ public int validation(String name, String lastname, String password, String type
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
           try {
-                                java.lang.System.out.println("Entro al update user ");
                                 String name = nameText.getText();
-                                java.lang.System.out.println("Nombre ");
                                 String lastname= legalDepartment.getText();
-                                java.lang.System.out.println("Apellido ");
                                 String password = telephone.getText();
-                                java.lang.System.out.println("Contrasena ");
                                 String typedocument= telephone1.getText();
-                                java.lang.System.out.println("Tipo de documento");
                                 String document= telephone2.getText();
-                                java.lang.System.out.println("Documento ");
                                 String telephone= telephone3.getText();
-                                java.lang.System.out.println("Telefono");
-          
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");     
+
+                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                  Date date = formatter.parse(email1.getText());
-                                 
-                                java.lang.System.out.println("Fecha ");
-                                long idUser = Long.parseLong("" + nameText1.getText());
-                                java.lang.System.out.println("Id user: " + idUser);
-                                User user = Manager.queryUserById(idUser);
-                                java.lang.System.out.println("Usuario: " + user.getId() + " - " + user.getName());
+                                try{                       
+                                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
+                                
+                                    User user = new User();
                                 user.setBornDay(date);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
@@ -434,17 +425,30 @@ public int validation(String name, String lastname, String password, String type
                                 user.setName(name);
                                 user.setPassword(password);
                                 user.setPhone(telephone);
+                                
                                 String role= (String)jComboBox1.getSelectedItem();
                                 Profile profile;
                                 profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
                                 user.setProfile(profile);
                                 user.setStatus("Activo");
+                                if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
                                 updateUser(user);
-                                 java.lang.System.out.println("Usuario modificado");
+                                 java.lang.System.out.println("Agrego nuevo usuario");
                                  refreshTblUser();
-                                 }catch (ParseException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+                                }
+                                
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                                }
+                                }catch (NumberFormatException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} 
+                                
+                                }catch (ParseException ex) {
+                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+				}                                 
+                                 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

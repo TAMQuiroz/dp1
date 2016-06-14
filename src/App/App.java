@@ -65,6 +65,8 @@ public class App {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String sDate= sdf.format(date);
+        String str = "    ";
+        System.out.println("El tamaño del string es:" + str.trim().length());
         /*
         System.out.println("La fecha es: " + sDate);
         long idAd = 4;

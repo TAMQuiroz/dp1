@@ -325,7 +325,7 @@ public class PoliticalPartyGui extends JFrame {
     }//GEN-LAST:event_btnShowElectoralRollActionPerformed
 
     public int validation(String name, String department, String phone, String e_mail){
-       if (name.length()==0 || department.length()==0 || phone.length()==0 || e_mail.length()==0){
+       if (name.trim().length()==0 || department.trim().length()==0 || phone.trim().length()==0 || e_mail.trim().length()==0){
           JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
         return 1;
        }
