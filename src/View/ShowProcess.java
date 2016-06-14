@@ -75,14 +75,14 @@ private javax.swing.JDesktopPane jDesktopPane1;
             }
         });
 
-        jToggleButton1.setText("Mantenimiento de Partido");
+        jToggleButton1.setText("Ver Partidos Politicos");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Mantenimiento de procesos");
+        jButton2.setText("Ver procesos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -119,7 +119,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );

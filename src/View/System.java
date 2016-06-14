@@ -6,7 +6,9 @@
 package View;
 
 import BusinessModel.Manager;
+import java.awt.Image;
 import java.io.File;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -77,7 +79,6 @@ public class System extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -99,6 +100,7 @@ public class System extends javax.swing.JFrame {
         jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 102, 102));
 
         jInternalFrame1.setVisible(true);
 
@@ -113,23 +115,17 @@ public class System extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 741, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 766, Short.MAX_VALUE)
         );
 
         jMenu5.setText("Mantenimientos");
@@ -166,7 +162,7 @@ public class System extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -226,7 +222,6 @@ public class System extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
