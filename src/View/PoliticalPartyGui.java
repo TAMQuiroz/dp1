@@ -350,7 +350,7 @@ public class PoliticalPartyGui extends JFrame {
                                 party.setElectoralProcess(process);
                                 java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
                                 java.lang.System.out.println("Apunto de editar nuevo partido politico");
-                               if(validation(name,department,phone,e_mail)==0){
+                               if(validation(name,department,phone,e_mail)==0 && UtilLib.checkStage(ProcessElectoralId)==0){
                                 updatePoliticalParty(party);
                                 java.lang.System.out.println("Editado nuevo partido politico");
                                 refreshTblParty();
@@ -374,7 +374,7 @@ public class PoliticalPartyGui extends JFrame {
                                 ElectoralProcess process=new ElectoralProcess();
                                 process.setId(ProcessElectoralId);
                                 party.setElectoralProcess(process);
-                                if(validation(name,department,phone,e_mail)==0){
+                                if(validation(name,department,phone,e_mail)==0  && UtilLib.checkStage(ProcessElectoralId)==0 ){
                                 java.lang.System.out.println("Agrego nuevo partido politico");
                                 addPoliticalParty(party);
                                 refreshTblParty();
@@ -396,6 +396,7 @@ public class PoliticalPartyGui extends JFrame {
          int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
 			if (res == JOptionPane.OK_OPTION) {
 				try {
+                                        if(UtilLib.checkStage(ProcessElectoralId)==0)
 					deletePoliticalParty(Long.parseLong(email1.getText()));
                                         refreshTblParty();
                                         //jTable2.clear();
