@@ -611,6 +611,8 @@ public int validation(String name, String processtype, Date date , Date startreg
             process.setEndExtraReceptionDate(endextrareceptiondate);
             process.setEndExtraValidationDate(endextravalidationdate);
             process.setEndReceptionDate(endreceptiondate);
+            process.setStage(-1);
+            process.setStatus("Activo");
             process.setUser(user);
             ProcessType proctype;
             proctype=  Manager.queryProcessTypeById(Long.parseLong(processtype.substring(0,1)));
