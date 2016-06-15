@@ -281,6 +281,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
                                 if(stage==2)stagename="Segunda Recepción";
                                 if(stage==3)stagename="Segunda Validación";
                                 if(stage==4)stagename="Finalizado";
+                                if(stage==5)stagename="Fase de Registro";
                                 if(stage==-1)stagename="En Proceso";
 				value = "" + stagename;
 				break;	        
