@@ -325,6 +325,8 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ProcessType processType = new ProcessType();
                         processType = Manager.queryProcessTypeById(processTypeId);
                         ep.setProcessType(processType);
+                        int stage = rs.getInt("stage");
+                        ep.setStage(stage);
                         User user = new User();
                         user = Manager.queryUserById(userId);
                         ep.setUser(user);
@@ -418,6 +420,8 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                         ep.setEndExtraValidationDate(endExtraValidationDate);       
                         long processTypeId = rs.getLong("id_processType");
                         long userId = rs.getLong("id_user");
+                        int stage = rs.getInt("stage");
+                        ep.setStage(stage);
                         ProcessType processType = new ProcessType();
                         processType = Manager.queryProcessTypeById(processTypeId);
                         ep.setProcessType(processType);
