@@ -329,12 +329,12 @@ public class PoliticalPartyGui extends JFrame {
             String idParty = email1.getText();
             String nameParty = nameText.getText();
             if (Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==0 ||Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==2){
-            Upload1 view = new Upload1(idParty, nameParty);
-            view.setVisible(true);
+                Upload1 view = new Upload1(idParty, nameParty);
+                view.setVisible(true);
             }
             else
             {
-             JOptionPane.showMessageDialog(this, "Vencimiento de Etapa de Subida de Padrones", "Alerta", JOptionPane.ERROR_MESSAGE);    
+                JOptionPane.showMessageDialog(this, "Vencimiento de Etapa de Subida de Padrones", "Alerta", JOptionPane.ERROR_MESSAGE);    
             }
         }else{
             JOptionPane.showMessageDialog(this, "No se eligio un partido politico", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -360,66 +360,64 @@ public class PoliticalPartyGui extends JFrame {
         return 0;
     }
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
          
-                                String name = nameText.getText().trim();
-                                String department= legalDepartment.getText().trim();
-                                String phone = telephone.getText().trim();
-                                String e_mail= email.getText().trim();
-                                long id = Long.parseLong(email1.getText().trim());
-                                PoliticalParty party = new PoliticalParty();
-                                party.setEmail(e_mail);
-                                party.setLegalRepresentative(department);
-                                party.setName(name);
-                                party.setStatus("Activo");
-                                party.setTelephone(phone);
-                                party.setId(id);
-                                ElectoralProcess process=Manager.queryElectoralProcessById(ProcessElectoralId);                             
-                                party.setElectoralProcess(process);
-                                java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
-                                java.lang.System.out.println("Apunto de editar nuevo partido politico");
-                               if(validation(name,department,phone,e_mail)==0 && Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==5){
-                                updatePoliticalParty(party);
-                                java.lang.System.out.println("Editado nuevo partido politico");
-                                refreshTblParty();
-                               }else{
-                                JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);    
-                               }
+        String name = nameText.getText().trim();
+        String department= legalDepartment.getText().trim();
+        String phone = telephone.getText().trim();
+        String e_mail= email.getText().trim();
+        long id = Long.parseLong(email1.getText().trim());
+        PoliticalParty party = new PoliticalParty();
+        party.setEmail(e_mail);
+        party.setLegalRepresentative(department);
+        party.setName(name);
+        party.setStatus("Activo");
+        party.setTelephone(phone);
+        party.setId(id);
+        ElectoralProcess process=Manager.queryElectoralProcessById(ProcessElectoralId);                             
+        party.setElectoralProcess(process);
+        java.lang.System.out.println("Proceso electoral del partido politico: " + party.getElectoralProcess().getName());
+        java.lang.System.out.println("Apunto de editar nuevo partido politico");
+           if(validation(name,department,phone,e_mail)==0 && Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==5){
+             updatePoliticalParty(party);
+             java.lang.System.out.println("Editado nuevo partido politico");
+             refreshTblParty();
+           }else{
+             JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);    
+           }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-                                String name = nameText.getText().trim();
-                                String department= legalDepartment.getText().trim();
-                                String phone = telephone.getText().trim();
-                                try{                       
-                                if(phone.length()>=7 && phone.length()<=9 && Integer.parseInt(phone)>0){
-                                String e_mail= email.getText().trim();
-                                PoliticalParty party = new PoliticalParty();
-                                party.setEmail(e_mail);
-                                party.setLegalRepresentative(department);
-                                party.setName(name);
-                                party.setStatus("Activo");
-                                party.setTelephone(phone);
-                                ElectoralProcess process=new ElectoralProcess();
-                                process.setId(ProcessElectoralId);
-                                party.setElectoralProcess(process);
-                                if(validation(name,department,phone,e_mail)==0  && Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==5){
-                                java.lang.System.out.println("Agrego nuevo partido politico");
-                                addPoliticalParty(party);
-                                refreshTblParty();
-                                }
-                                else{
-                                JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);
-    
-                                }
-                                }else{
-                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
-                                }
-                                }catch (NumberFormatException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
-                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
-				} 
+        String name = nameText.getText().trim();
+        String department= legalDepartment.getText().trim();
+        String phone = telephone.getText().trim();
+        try{                       
+            if(phone.length()>=7 && phone.length()<=9 && Integer.parseInt(phone)>0){
+            String e_mail= email.getText().trim();
+            PoliticalParty party = new PoliticalParty();
+            party.setEmail(e_mail);
+            party.setLegalRepresentative(department);
+            party.setName(name);
+            party.setStatus("Activo");
+            party.setTelephone(phone);
+            ElectoralProcess process=new ElectoralProcess();
+            process.setId(ProcessElectoralId);
+            party.setElectoralProcess(process);
+                if(validation(name,department,phone,e_mail)==0  && Manager.queryElectoralProcessById(ProcessElectoralId).getStage()==5){
+                    java.lang.System.out.println("Agrego nuevo partido politico");
+                    addPoliticalParty(party);
+                    refreshTblParty();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+        }catch (NumberFormatException ex) {
+       //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } 
                                 
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -436,9 +434,6 @@ public class PoliticalPartyGui extends JFrame {
                                           JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);   
                                         }
                                         refreshTblParty();
-                                        
-                                        //jTable2.clear();
-                                        //jTable2.addAll(tableQuery.getResultList());
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -449,16 +444,15 @@ public class PoliticalPartyGui extends JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-      int selRow = jTable1.getSelectedRow();
-				int partyId = Integer.parseInt(
-						jTable1.getValueAt(selRow, 0).toString());
-				PoliticalParty p = Manager.queryPoliticalPartyById(partyId);
-                                email1.setText("" + p.getId());
-                                legalDepartment.setText(p.getLegalRepresentative());
-                                telephone.setText("" + p.getTelephone());
-                                email.setText(p.getEmail());
-                                nameText.setText(p.getName());
-                           java.lang.System.out.println("Partido seleccionado");
+        int selRow = jTable1.getSelectedRow();
+        int partyId = Integer.parseInt(jTable1.getValueAt(selRow, 0).toString());
+        PoliticalParty p = Manager.queryPoliticalPartyById(partyId);
+        email1.setText("" + p.getId());
+        legalDepartment.setText(p.getLegalRepresentative());
+        telephone.setText("" + p.getTelephone());
+        email.setText(p.getEmail());
+        nameText.setText(p.getName());
+        java.lang.System.out.println("Partido seleccionado");
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email1ActionPerformed
