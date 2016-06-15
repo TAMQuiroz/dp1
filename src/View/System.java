@@ -170,7 +170,7 @@ public class System extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        
+        UtilLib.checkStageAllElectoralProcess();
         ShowProcess If= new ShowProcess();
        jDesktopPane1.add(If);
        If.show();
