@@ -8,6 +8,7 @@ package View;
 import BusinessModel.Manager;
 import Model.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.io.FileUtils;
 
@@ -69,6 +70,46 @@ public class UtilLib {
         }
         
     }
+    
+    public static void checkStageAllElectoralProcess(){
+        ArrayList<ElectoralProcess> listEP = new ArrayList<ElectoralProcess>();
+        listEP = Manager.queryAllElectoralProcess();
+        int size = listEP.size();
+        int stage = -1;
+        for (int i = 0 ; i < size ; i++){
+            stage = checkStageForElectoralProcess(listEP.get(i));            
+            Manager.setProcessStage(stage, listEP.get(i).getId());
+            java.lang.System.out.println("Electoral process stage:" + stage);
+        }
+    }
+    private static int checkStageForElectoralProcess(ElectoralProcess pt){        
+        Date now = new Date(); 
+        int isLowerSV = pt.getStartRegistrationDate().compareTo(now);       //Debe ser 0 o mas
+        int isHigherSV = pt.getEndRegistrationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 5;
+        isLowerSV = pt.getStartReceptionDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getEndReceptionDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 0;
+        isLowerSV = pt.getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getEndValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 1;
+        isLowerSV = pt.getStartExtraReceptionDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getEndExtraReceptionDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 2;
+        isLowerSV = pt.getStartExtraValidationDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getEndExtraValidationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 3;
+        isHigherSV = pt.getEndExtraValidationDate().compareTo(now);        //Debe ser 0 o mas
+        if ( isHigherSV < 0)
+            return 4;
+        return -1;
+    }
+    
     public static int checkStage( long electoralPartyId){        
         
         //La fase se representa con números: 
@@ -113,5 +154,7 @@ public class UtilLib {
     public static void main(String[] args){
         int stage = checkStage(12);
         java.lang.System.out.println(stage);
+        
+        checkStageAllElectoralProcess();
     }
 }
