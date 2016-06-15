@@ -215,13 +215,13 @@ public class ElectoralProcessGui extends JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Tipo de proceso", "Fecha de proceso"
+                "ID", "Nombre", "Tipo de proceso", "Etapa", "Fecha de proceso"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -426,6 +426,8 @@ public class ElectoralProcessGui extends JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane1.getAccessibleContext().setAccessibleParent(jTable1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -727,10 +729,10 @@ public int validation(String name, String processtype, Date date , Date startreg
     }
     class MyTableModel extends AbstractTableModel {
         ArrayList<Model.ElectoralProcess> electoralProcessList = Manager.queryAllElectoralProcess();
-		String [] titles = {"Id", "Nombre", "Tipo Proceso","Fecha Proceso"};
+		String [] titles = {"Id", "Nombre", "Tipo Proceso","Etapa","Fecha Proceso"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
-			return 4;
+			return 5;
 		}
 
 		public int getRowCount() {
@@ -751,7 +753,19 @@ public int validation(String name, String processtype, Date date , Date startreg
 			case 2:
 				value = "" + electoralProcessList.get(row).getProcessType().getName();
 				break;
-			case 3:
+                        case 3: 
+                                int stage=electoralProcessList.get(row).getStage();
+                                String stagename=null;
+                                if(stage==0)stagename="Primera Recepción";
+                                if(stage==1)stagename="Primera Validación";
+                                if(stage==2)stagename="Segunda Recepción";
+                                if(stage==3)stagename="Segunda Validación";
+                                if(stage==4)stagename="Finalizado";
+                                if(stage==5)stagename="Fase de Registro";
+                                if(stage==-1)stagename="En Proceso";
+				value = "" + stagename;
+				break;	        
+			case 4:
 				value = "" + new SimpleDateFormat("dd/MM/yyyy").format(electoralProcessList.get(row).getDate());
 				break;			
 			}
