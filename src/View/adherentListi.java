@@ -88,6 +88,10 @@ public class adherentListi extends javax.swing.JFrame {
         long idProcess = Manager.queryPoliticalPartyById(idParty).getElectoralProcess().getId();
         Manager.setProcessStage(etapa, idProcess);
         java.lang.System.out.println(etapa);
+        jTextValidatedAmount.setText(""+tableValidated.getRowCount());
+        jTextRejectedAmount.setText(""+tableRechazados.getRowCount());
+        jTextDuplicatedAmount.setText(""+jTable5.getRowCount());
+        jTextDisabledAmount.setText(""+jTable4.getRowCount());
         if (etapa == 4){ //Si ya se termino la segunda etapa de validación, se cancelan sus adherentes
             Manager.cancellAllAdherentImages(id);
             
@@ -120,7 +124,7 @@ public class adherentListi extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableValidated = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextValidatedAmount = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
         jPaneRechazados = new javax.swing.JPanel();
@@ -128,21 +132,21 @@ public class adherentListi extends javax.swing.JFrame {
         tableRechazados = new javax.swing.JTable();
         btnAnalizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextRejectedAmount = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
         jPaneAnulados = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextDisabledAmount = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jButton7 = new javax.swing.JButton();
         jPaneBaneados = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextDuplicatedAmount = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jButton9 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
@@ -250,11 +254,11 @@ public class adherentListi extends javax.swing.JFrame {
 
         jLabel3.setText("Cantidad:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextValidatedAmount.setEditable(false);
+        jTextValidatedAmount.setBackground(new java.awt.Color(204, 204, 204));
+        jTextValidatedAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextValidatedAmountActionPerformed(evt);
             }
         });
 
@@ -276,7 +280,7 @@ public class adherentListi extends javax.swing.JFrame {
                     .addGroup(jPaneValidadosLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(50, 50, 50)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextValidatedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))
@@ -290,7 +294,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneValidadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextValidatedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,8 +334,8 @@ public class adherentListi extends javax.swing.JFrame {
 
         jLabel5.setText("Cantidad:");
 
-        jTextField3.setEditable(false);
-        jTextField3.setBackground(new java.awt.Color(204, 204, 204));
+        jTextRejectedAmount.setEditable(false);
+        jTextRejectedAmount.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton4.setText("Reporte");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +356,7 @@ public class adherentListi extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneRechazadosLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(51, 51, 51)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextRejectedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -368,7 +372,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addGroup(jPaneRechazadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnalizar)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextRejectedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,8 +404,8 @@ public class adherentListi extends javax.swing.JFrame {
 
         jLabel6.setText("Cantidad:");
 
-        jTextField4.setEditable(false);
-        jTextField4.setBackground(new java.awt.Color(204, 204, 204));
+        jTextDisabledAmount.setEditable(false);
+        jTextDisabledAmount.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton7.setText("Reporte");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +426,7 @@ public class adherentListi extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneAnuladosLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(51, 51, 51)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextDisabledAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -435,7 +439,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneAnuladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextDisabledAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,8 +471,8 @@ public class adherentListi extends javax.swing.JFrame {
 
         jLabel7.setText("Cantidad:");
 
-        jTextField5.setEditable(false);
-        jTextField5.setBackground(new java.awt.Color(204, 204, 204));
+        jTextDuplicatedAmount.setEditable(false);
+        jTextDuplicatedAmount.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton9.setText("Reporte");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -489,7 +493,7 @@ public class adherentListi extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneBaneadosLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(51, 51, 51)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextDuplicatedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -502,7 +506,7 @@ public class adherentListi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneBaneadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextDuplicatedAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -808,9 +812,9 @@ public class adherentListi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextValidatedAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextValidatedAmountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextValidatedAmountActionPerformed
 
    
          class MyTableModel extends AbstractTableModel {
@@ -1016,11 +1020,11 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextDisabledAmount;
+    private javax.swing.JTextField jTextDuplicatedAmount;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextRejectedAmount;
+    private javax.swing.JTextField jTextValidatedAmount;
     private javax.swing.JTabbedPane paneAnulados;
     private javax.swing.JTable tableRechazados;
     private javax.swing.JTable tableValidated;
