@@ -367,38 +367,38 @@ public int validation(String name, String lastname, String password, String type
                                  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                  Date date = formatter.parse(email1.getText().trim());
                                 try{                       
-                                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
-                                
-                                    User user = new User();
-                                user.setBornDay(date);
-                                user.setDocCode(document);
-                                user.setDocType(typedocument);
-                                user.setLastName(lastname);
-                                user.setName(name);
-                                user.setPassword(password);
-                                user.setPhone(telephone);
-                                
-                                String role= (String)jComboBox1.getSelectedItem();
-                                Profile profile;
-                                profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
-                                user.setProfile(profile);
-                                user.setStatus("Activo");
-                                if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
-                                addUser(user);
-                                 java.lang.System.out.println("Agrego nuevo usuario");
-                                 refreshTblUser();
-                                }
-                                
-                                }else{
-                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
-                                }
-                                }catch (NumberFormatException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
-                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
-				} 
-                                
+                                    if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
+
+                                        User user = new User();
+                                    user.setBornDay(date);
+                                    user.setDocCode(document);
+                                    user.setDocType(typedocument);
+                                    user.setLastName(lastname);
+                                    user.setName(name);
+                                    user.setPassword(password);
+                                    user.setPhone(telephone);
+
+                                    String role= (String)jComboBox1.getSelectedItem();
+                                    Profile profile;
+                                    profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
+                                    user.setProfile(profile);
+                                    user.setStatus("Activo");
+                                    if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
+                                    addUser(user);
+                                     java.lang.System.out.println("Agrego nuevo usuario");
+                                     refreshTblUser();
+                                    }
+
+                                    }else{
+                                        JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                                    }
+                                    }catch (NumberFormatException ex) {
+                                   //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                                    JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+                                    } 
+
                                 }catch (ParseException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+                                    JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} 
     }//GEN-LAST:event_btnRegisterActionPerformed
 
