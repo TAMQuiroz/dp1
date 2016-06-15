@@ -411,8 +411,8 @@ public class PoliticalPartyGui extends JFrame {
                 JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
         }catch (NumberFormatException ex) {
-       //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
         } 
                                 
     }//GEN-LAST:event_btnRegisterActionPerformed
