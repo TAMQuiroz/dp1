@@ -74,11 +74,15 @@ public class UtilLib {
         //La fase se representa con números: 
         // -1: otra etapa; 0 : primera etapa de recepción; 1: primera etapa de validadción
         // 2: segunda etapa extra recepción; 3: segunda etapa extra validación
-        // 4: ya se pasó la segunda etapa de validación
+        // 4: ya se pasó la segunda etapa de validación; 5: etapa de inscripcion
         PoliticalParty pt = Manager.queryPoliticalPartyById(electoralPartyId);               
         Date now = new Date(); 
-        int isLowerSV = pt.getElectoralProcess().getStartReceptionDate().compareTo(now);       //Debe ser 0 o mas
-        int isHigherSV = pt.getElectoralProcess().getEndReceptionDate().compareTo(now);        //Debe ser negativo
+        int isLowerSV = pt.getElectoralProcess().getStartRegistrationDate().compareTo(now);       //Debe ser 0 o mas
+        int isHigherSV = pt.getElectoralProcess().getEndRegistrationDate().compareTo(now);        //Debe ser negativo
+        if ( isLowerSV <= 0 && isHigherSV >= 0)
+            return 5;
+        isLowerSV = pt.getElectoralProcess().getStartReceptionDate().compareTo(now);       //Debe ser 0 o mas
+        isHigherSV = pt.getElectoralProcess().getEndReceptionDate().compareTo(now);        //Debe ser negativo
         if ( isLowerSV <= 0 && isHigherSV >= 0)
             return 0;
         isLowerSV = pt.getElectoralProcess().getStartValidationDate().compareTo(now);       //Debe ser 0 o mas
@@ -107,7 +111,7 @@ public class UtilLib {
     }
     
     public static void main(String[] args){
-        int stage = checkStage(13);
+        int stage = checkStage(12);
         java.lang.System.out.println(stage);
     }
 }
