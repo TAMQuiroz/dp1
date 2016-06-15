@@ -10,7 +10,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.table.AbstractTableModel;
 import Model.*;
 import javax.swing.JOptionPane;
-/**
+import java.text.SimpleDateFormat;
+/**import java.text.SimpleDateFormat;
  *
  * 
  */
@@ -286,7 +287,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
 				value = "" + stagename;
 				break;	        
 			case 4:
-				value = "" + electoralProcessList.get(row).getDate();
+				value = "" + new SimpleDateFormat("dd/MM/yyyy").format(electoralProcessList.get(row).getDate());
 				break;			
 			}
 			return value;
