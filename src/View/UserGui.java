@@ -357,15 +357,15 @@ public int validation(String name, String lastname, String password, String type
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
         try {
-                                String name = nameText.getText();
-                                String lastname= legalDepartment.getText();
-                                String password = telephone.getText();
-                                String typedocument= telephone1.getText();
-                                String document= telephone2.getText();
-                                String telephone= telephone3.getText();
+                                String name = nameText.getText().trim();
+                                String lastname= legalDepartment.getText().trim();
+                                String password = telephone.getText().trim();
+                                String typedocument= telephone1.getText().trim();
+                                String document= telephone2.getText().trim();
+                                String telephone= telephone3.getText().trim();
 
                                  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                 Date date = formatter.parse(email1.getText());
+                                 Date date = formatter.parse(email1.getText().trim());
                                 try{                       
                                 if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
                                 
@@ -405,15 +405,15 @@ public int validation(String name, String lastname, String password, String type
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
           try {
-                                String name = nameText.getText();
-                                String lastname= legalDepartment.getText();
-                                String password = telephone.getText();
-                                String typedocument= telephone1.getText();
-                                String document= telephone2.getText();
-                                String telephone= telephone3.getText();
+                                String name = nameText.getText().trim();
+                                String lastname= legalDepartment.getText().trim();
+                                String password = telephone.getText().trim();
+                                String typedocument= telephone1.getText().trim();
+                                String document= telephone2.getText().trim();
+                                String telephone= telephone3.getText().trim();
 
                                  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                 Date date = formatter.parse(email1.getText());
+                                 Date date = formatter.parse(email1.getText().trim());
                                 try{                       
                                 if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
                                 
