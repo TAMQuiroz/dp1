@@ -176,7 +176,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
             String processName = (String) jTable1.getValueAt(row, 1);
             String processStage = (String) jTable1.getValueAt(row, 3);
             //java.lang.System.out.println(processName);
-            if(UtilLib.checkStage(idElectoralProcess)==5){
+            if(Manager.queryElectoralProcessById(idElectoralProcess).getStage()==5){
                 PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName, processStage);
                 view.setVisible(true);
             }
