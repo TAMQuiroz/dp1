@@ -175,14 +175,10 @@ private javax.swing.JDesktopPane jDesktopPane1;
             idElectoralProcess= Integer.parseInt(processId);
             String processName = (String) jTable1.getValueAt(row, 1);
             String processStage = (String) jTable1.getValueAt(row, 3);
-            //java.lang.System.out.println(processName);
-            if(UtilLib.checkStage(idElectoralProcess)==5){
-                PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName, processStage);
-                view.setVisible(true);
-            }
-            else {
-                JOptionPane.showMessageDialog(this, "No se encuentra en etapa de Registro", "Alerta", JOptionPane.ERROR_MESSAGE);
-            }
+            //java.lang.System.out.println(idElectoralProcess);
+            
+            PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName, processStage);
+            view.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "No se eligio un proceso electoral", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
