@@ -280,10 +280,10 @@ public class ZoneGui  extends JFrame {
   }
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String name = nameText.getText();
-        String description= legalDepartment.getText();
-        long id = Long.parseLong(nameText1.getText());
-        String code = jTextField1.getText();
+        String name = nameText.getText().trim();
+        String description= legalDepartment.getText().trim();
+        long id = Long.parseLong(nameText1.getText().trim());
+        String code = jTextField1.getText().trim();
         
         Ubigeo ubigeo = new Ubigeo();
         ubigeo.setName(name);
@@ -308,7 +308,7 @@ public class ZoneGui  extends JFrame {
         int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
         if (res == JOptionPane.OK_OPTION) {
             try {
-                deleteUbigeo(Integer.parseInt(nameText1.getText()));
+                deleteUbigeo(Integer.parseInt(nameText1.getText().trim()));
                 refreshTblZone();
                 //jTable2.clear();
                 //jTable2.addAll(tableQuery.getResultList());
@@ -323,9 +323,9 @@ public class ZoneGui  extends JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
-        String name = nameText.getText();
-        String description= legalDepartment.getText();
-        String code= jTextField1.getText();
+        String name = nameText.getText().trim();
+        String description= legalDepartment.getText().trim();
+        String code= jTextField1.getText().trim();
 
         Ubigeo ubigeo = new Ubigeo();
         ubigeo.setName(name);
