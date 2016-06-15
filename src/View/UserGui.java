@@ -405,6 +405,7 @@ public int validation(String name, String lastname, String password, String type
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
           try {
+                                long idU = Long.parseLong(nameText1.getText());
                                 String name = nameText.getText().trim();
                                 String lastname= legalDepartment.getText().trim();
                                 String password = telephone.getText().trim();
@@ -419,6 +420,7 @@ public int validation(String name, String lastname, String password, String type
                                 
                                     User user = new User();
                                 user.setBornDay(date);
+                                user.setId(idU);
                                 user.setDocCode(document);
                                 user.setDocType(typedocument);
                                 user.setLastName(lastname);
@@ -446,7 +448,7 @@ public int validation(String name, String lastname, String password, String type
 				} 
                                 
                                 }catch (ParseException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
+                                    JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
 				}                                 
                                  
     }//GEN-LAST:event_btnUpdateActionPerformed
