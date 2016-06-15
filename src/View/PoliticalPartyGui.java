@@ -362,11 +362,11 @@ public class PoliticalPartyGui extends JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
          
-                                String name = nameText.getText();
-                                String department= legalDepartment.getText();
-                                String phone = telephone.getText();
-                                String e_mail= email.getText();
-                                long id = Long.parseLong(email1.getText());
+                                String name = nameText.getText().trim();
+                                String department= legalDepartment.getText().trim();
+                                String phone = telephone.getText().trim();
+                                String e_mail= email.getText().trim();
+                                long id = Long.parseLong(email1.getText().trim());
                                 PoliticalParty party = new PoliticalParty();
                                 party.setEmail(e_mail);
                                 party.setLegalRepresentative(department);
@@ -387,9 +387,9 @@ public class PoliticalPartyGui extends JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        String name = nameText.getText();
-        String department= legalDepartment.getText();
-        String phone = telephone.getText();
+        String name = nameText.getText().trim();
+        String department= legalDepartment.getText().trim();
+        String phone = telephone.getText().trim();
         try{                       
             if(phone.length()>=7 && phone.length()<=9 && Integer.parseInt(phone)>0){
                 String e_mail= email.getText();
@@ -413,8 +413,7 @@ public class PoliticalPartyGui extends JFrame {
         }catch (NumberFormatException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
-        } 
-                                
+        }                                 
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -425,7 +424,7 @@ public class PoliticalPartyGui extends JFrame {
 			if (res == JOptionPane.OK_OPTION) {
 				try {
                                         if(UtilLib.checkStage(ProcessElectoralId)==0)
-					deletePoliticalParty(Long.parseLong(email1.getText()));
+					deletePoliticalParty(Long.parseLong(email1.getText().trim()));
                                         refreshTblParty();
                                         //jTable2.clear();
                                         //jTable2.addAll(tableQuery.getResultList());

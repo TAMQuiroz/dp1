@@ -437,28 +437,26 @@ public class ElectoralProcessGui extends JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         try {
-            String name = jTextField1.getText();
+            String name = jTextField1.getText().trim();
              String processtype= (String)jComboBox1.getSelectedItem();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = formatter.parse(jTextField2.getText());
-            Date startregistrationdate=formatter.parse(jTextField5.getText());
-            Date endregistrationdate=formatter.parse(jTextField4.getText());
-            Date startvaldationdate=formatter.parse(jTextField7.getText());
-            Date endvalidationdate=formatter.parse(jTextField6.getText());
+            Date date = formatter.parse(jTextField2.getText().trim());
+            Date startregistrationdate=formatter.parse(jTextField5.getText().trim());
+            Date endregistrationdate=formatter.parse(jTextField4.getText().trim());
+            Date startvaldationdate=formatter.parse(jTextField7.getText().trim());
+            Date endvalidationdate=formatter.parse(jTextField6.getText().trim());
 
-            Date startextrareceptiondate=formatter.parse(jTextField10.getText());
-             Date startextravalidationdate=formatter.parse(jTextField12.getText());
-             Date startreceptiondate=formatter.parse(jTextField14.getText());
-             Date endextrareceptiondate=formatter.parse(jTextField11.getText());
-             Date endextravalidationdate=formatter.parse(jTextField13.getText());   
-             Date endreceptiondate=formatter.parse(jTextField15.getText());
+            Date startextrareceptiondate=formatter.parse(jTextField10.getText().trim());
+             Date startextravalidationdate=formatter.parse(jTextField12.getText().trim());
+             Date startreceptiondate=formatter.parse(jTextField14.getText().trim());
+             Date endextrareceptiondate=formatter.parse(jTextField11.getText().trim());
+             Date endextravalidationdate=formatter.parse(jTextField13.getText().trim());   
+             Date endreceptiondate=formatter.parse(jTextField15.getText().trim());
              
             long idUser = 3;
             User user = Manager.queryUserById(idUser);
-           if (jTextField1.getText()!= " " && processtype !=" " && date !=null && startregistrationdate!=null &&  endregistrationdate!=null
-                 && startvaldationdate!=null && endvalidationdate!=null && startextrareceptiondate!=null && startextravalidationdate!=null
-                 && startreceptiondate!=null && endextrareceptiondate!=null && endextravalidationdate!=null &&  endreceptiondate!=null){  
-            long idElectoralProcess= Integer.parseInt(jTextField9.getText());
+          
+            long idElectoralProcess= Integer.parseInt(jTextField9.getText().trim());
             ElectoralProcess process = Manager.queryElectoralProcessById(idElectoralProcess);
             process.setDate(date);
             process.setName(name);
@@ -477,7 +475,7 @@ public class ElectoralProcessGui extends JFrame {
             process.setEndValidationDate(endvalidationdate);
             process.setStartRegistrationDate(startregistrationdate);
             process.setEndRegistrationDate(endregistrationdate);
-            long id = Long.parseLong(jTextField9.getText());
+            long id = Long.parseLong(jTextField9.getText().trim());
             process.setId(id);
             
             int val=validation(name,processtype, date , startregistrationdate,
@@ -506,9 +504,7 @@ public class ElectoralProcessGui extends JFrame {
            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
             } 
-        }else{  
-            JOptionPane.showMessageDialog(this, "Los campos (*) son obligatorios llenar", "Alerta", JOptionPane.WARNING_MESSAGE);
-                }                        
+                         
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
@@ -586,24 +582,24 @@ public int validation(String name, String processtype, Date date , Date startreg
         // TODO add your handling code here:
 
        try {
-            String name = jTextField1.getText();
+            String name = jTextField1.getText().trim();
              String processtype= (String)jComboBox1.getSelectedItem();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = formatter.parse(jTextField2.getText());
-            Date startregistrationdate=formatter.parse(jTextField5.getText());
-            Date endregistrationdate=formatter.parse(jTextField4.getText());
-            Date startvaldationdate=formatter.parse(jTextField7.getText());
-            Date endvalidationdate=formatter.parse(jTextField6.getText());
+            Date date = formatter.parse(jTextField2.getText().trim());
+            Date startregistrationdate=formatter.parse(jTextField5.getText().trim());
+            Date endregistrationdate=formatter.parse(jTextField4.getText().trim());
+            Date startvaldationdate=formatter.parse(jTextField7.getText().trim());
+            Date endvalidationdate=formatter.parse(jTextField6.getText().trim());
 
-            Date startextrareceptiondate=formatter.parse(jTextField10.getText());
-             Date startextravalidationdate=formatter.parse(jTextField12.getText());
-             Date startreceptiondate=formatter.parse(jTextField14.getText());
-             Date endextrareceptiondate=formatter.parse(jTextField11.getText());
-             Date endextravalidationdate=formatter.parse(jTextField13.getText());   
-             Date endreceptiondate=formatter.parse(jTextField15.getText());
+            Date startextrareceptiondate=formatter.parse(jTextField10.getText().trim());
+             Date startextravalidationdate=formatter.parse(jTextField12.getText().trim());
+             Date startreceptiondate=formatter.parse(jTextField14.getText().trim());
+             Date endextrareceptiondate=formatter.parse(jTextField11.getText().trim());
+             Date endextravalidationdate=formatter.parse(jTextField13.getText().trim());   
+             Date endreceptiondate=formatter.parse(jTextField15.getText().trim());
                
             long idUser = 3;
-             java.lang.System.out.println(jTextField1.getText());
+             java.lang.System.out.println(jTextField1.getText().trim());
             User user = Manager.queryUserById(idUser);
             ElectoralProcess process = new ElectoralProcess();
             
@@ -625,7 +621,7 @@ public int validation(String name, String processtype, Date date , Date startreg
             process.setEndRegistrationDate(endregistrationdate);
             try{                       
              if(Integer.parseInt(jTextField3.getText())>0){
-            Integer countprevious=Integer.parseInt(jTextField3.getText());
+            Integer countprevious=Integer.parseInt(jTextField3.getText().trim());
             process.setPopulation(countprevious);
              }else{
                 JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -657,7 +653,7 @@ public int validation(String name, String processtype, Date date , Date startreg
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        long idElectoralProcess=Long.parseLong(jTextField9.getText());
+        long idElectoralProcess=Long.parseLong(jTextField9.getText().trim());
          new ZoneGui(idElectoralProcess).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
