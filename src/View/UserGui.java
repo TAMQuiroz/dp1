@@ -502,7 +502,7 @@ public int validation(String name, String lastname, String password, String type
     }//GEN-LAST:event_jComboBox1ActionPerformed
      class MyTableModel extends AbstractTableModel {
         ArrayList<Model.User> userList = Manager.queryAllUsers();
-		String [] titles = {"ID", "Nombre","Apellidos", "Contraseña", "Documento","Telefono"};
+		String [] titles = {"ID", "Nombre","Apellidos", "Documento","Telefono"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
 			return 5;
