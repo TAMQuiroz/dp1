@@ -32,14 +32,14 @@ public class UploadLib {
     
     static JTextArea console;
     static JProgressBar status;
-    static int idPartido;
+    static int idParty;
     static String routeToCortes = "../cortes/";
     static String routeToPadrones = "../padrones/";
     static String outputRoute;
     static int count;
-    static ArrayList<AdherentImage> adherentes;
+    static ArrayList<AdherentImage> adherents;
     
-    public static ImagePlus cortarInferior(ImagePlus imgOrigen){
+    public static ImagePlus cutDown(ImagePlus imgOrigen){
         int x, y;
         double r,g,b;
         
@@ -86,7 +86,7 @@ public class UploadLib {
         return imgOrigen;
     }
     
-    public static ImagePlus cortarLaterales(ImagePlus imgOrigen){
+    public static ImagePlus cutLaterals(ImagePlus imgOrigen){
         int x, y;
         double r,g,b;
         
@@ -133,7 +133,7 @@ public class UploadLib {
         return imgOrigen;
     }
     
-    public static ImagePlus cortarLateralDer(ImagePlus imgOrigen){
+    public static ImagePlus cutLateralDer(ImagePlus imgOrigen){
         int x, y;
         double r,g,b;
         
@@ -200,7 +200,7 @@ public class UploadLib {
         return imgOrigen;
     }
     
-    public static void cortarCaracteres(String route, String n_img, int n, ImagePlus imgOrigen, String extension, int[] index){
+    public static void cutColumns(String route, String n_img, int n, ImagePlus imgOrigen, String extension, int[] index){
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 9 y
         AdherentImage adherent = new AdherentImage();        
         
@@ -261,13 +261,13 @@ public class UploadLib {
         
         java.lang.System.out.println("Guardando en base de datos");
         //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
-        adherent.setPoliticalParty(idPartido);
+        adherent.setPoliticalParty(idParty);
         adherent.setStatus(0);
-        adherentes.add(adherent);
+        adherents.add(adherent);
         
     }
     
-    public static ImagePlus cortarFilas (int n, ImagePlus imgOrigen, String route, String n_img, String extension, int[] index){
+    public static ImagePlus cutRows (int n, ImagePlus imgOrigen, String route, String n_img, String extension, int[] index){
         int x, y;
         double r,g,b;
         
@@ -315,7 +315,7 @@ public class UploadLib {
         */
         
         //Cortar Caracteres de fila
-        cortarCaracteres(route, n_img, n, imgOrigen, extension, index);
+        cutColumns(route, n_img, n, imgOrigen, extension, index);
         
         return img;
         
@@ -429,7 +429,7 @@ public class UploadLib {
         return index;
     }
         
-    public static int[] contarCabecera(ImagePlus imgOrigen){
+    public static int[] countHeader(ImagePlus imgOrigen){
         int[] index = new int[10];
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
@@ -489,57 +489,48 @@ public class UploadLib {
         return img_rotated;
     }
     
-    public static void cortarCajas(String route, String n_img, String extension){     
+    public static void cutBoxes(String route, String n_img, String extension){     
         
+        //Abriendo imagen
         String inFile = route + n_img + extension;
-        
-        console.append("\n=======Abriendo imagen " + n_img + extension + " para binarizar=======");
-        java.lang.System.out.println("=======Abriendo imagen " + n_img + extension + " para binarizar=======");
-        //java.lang.System.out.println("Path: " + inFile);
+        console.append("\n=======Abriendo imagen " + n_img + extension +
+        " para binarizar=======");
         ImagePlus imgOrigen = new ImagePlus(inFile);
         ImageProcessor img = imgOrigen.getProcessor();
+        
+        //Agrandando imagen
         img = img.resize(3500);
         ImagePlus imgResize = new ImagePlus("resized",img);
+
         //Cortar bordes
-        //java.lang.System.out.println("=======Cortando borde izquierdo=======");
-        imgOrigen = cortarLaterales(imgResize);
-        //java.lang.System.out.println("=======Cortando borde inferior=======");
-        imgOrigen = cortarInferior(imgResize);
-        //java.lang.System.out.println("=======Cortando borde derecho=======");
-        imgOrigen = cortarLateralDer(imgResize);
+        imgOrigen = cutLaterals(imgResize);
+        imgOrigen = cutDown(imgResize);
+        imgOrigen = cutLateralDer(imgResize);
         
-        
-        
-        //java.lang.System.exit(0);
-        FileSaver fs = new FileSaver(imgResize);
-        String n_out = outputRoute + n_img + "_crop" + extension;
-        //fs.saveAsPng(n_out);
-        
-        
-        //Cortar
+        //Contar pixeles
         console.append("\n=======Contando cabecera=======");
-        java.lang.System.out.println("=======Contando cabecera=======");
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 
-        int[] index = contarCabecera(imgResize);
+        int[] index = countHeader(imgResize);
+
+        //Cortar filas
         console.append("\n=======Cortando filas de imagen=======");
-        java.lang.System.out.println("=======Cortando filas de imagen=======");
         for(int n = 1; n < 9 ; n++){
-            File directorio = new File(outputRoute + n_img + n); 
-            directorio.mkdir(); 
-            imgResize = cortarFilas(n,imgResize, route, n_img, extension, index);
+            File directory = new File(outputRoute + n_img + n); 
+            directory.mkdir(); 
+            imgResize = cutRows(n,imgResize, route, n_img, extension, index);
         }
     }
     
     public static void imprimeLista(){
-        for (int i = 0; i < adherentes.size(); i++){
-            java.lang.System.out.println(adherentes.get(i).getDniSource());
+        for (int i = 0; i < adherents.size(); i++){
+            java.lang.System.out.println(adherents.get(i).getDniSource());
         }
     }
     
     public static void cargarPadrones(String route, int id) throws IOException{
         
-        adherentes = new ArrayList<>();
-        idPartido = id;
+        adherents = new ArrayList<>();
+        idParty = id;
         outputRoute = routeToCortes + id + "/";
         
         count = 0;
@@ -556,9 +547,9 @@ public class UploadLib {
                 java.lang.System.out.println("======Analizando " + file.getName() + "======");
                 String[] name = file.getName().split("[.]");
                 if(name[1].equals("jpg")){
-                    File directorio = new File(outputRoute);
-                    directorio.mkdir();                    
-                    cortarCajas(route,name[0],"." + name[1]);
+                    File directory = new File(outputRoute);
+                    directory.mkdir();                    
+                    cutBoxes(route,name[0],"." + name[1]);
                     console.append("\n======Fin de analisis " + file.getName() + "======");
                     console.update(console.getGraphics());
                     java.lang.System.out.println("======Fin de analisis " + file.getName() + "======");
@@ -569,17 +560,17 @@ public class UploadLib {
                 }
             }
             count++;
-            int porcentaje = (100*count)/cantidad;
-            java.lang.System.out.println("Porcentaje: " + porcentaje);
+            int percentage = (100*count)/cantidad;
+            java.lang.System.out.println("Porcentaje: " + percentage);
             //WIP Subir a bd
-            Manager.addAdherentImages(adherentes);
+            Manager.addAdherentImages(adherents);
             //imprimeLista();
-            status.setValue(porcentaje);
+            status.setValue(percentage);
             status.update(status.getGraphics());
         }
         
         //Actualizar trabajador asignado a partido politico
-        Manager.setWorker(idPartido, Manager.getSession().getId());
+        Manager.setWorker(idParty, Manager.getSession().getId());
         
         status.setValue(100);
     }
