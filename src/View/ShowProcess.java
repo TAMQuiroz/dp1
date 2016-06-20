@@ -10,7 +10,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.table.AbstractTableModel;
 import Model.*;
 import javax.swing.JOptionPane;
-/**
+import java.text.SimpleDateFormat;
+/**import java.text.SimpleDateFormat;
  *
  * 
  */
@@ -175,10 +176,14 @@ private javax.swing.JDesktopPane jDesktopPane1;
             idElectoralProcess= Integer.parseInt(processId);
             String processName = (String) jTable1.getValueAt(row, 1);
             String processStage = (String) jTable1.getValueAt(row, 3);
-            //java.lang.System.out.println(idElectoralProcess);
-            
-            PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName, processStage);
-            view.setVisible(true);
+            //java.lang.System.out.println(processName);
+            if(Manager.queryElectoralProcessById(idElectoralProcess).getStage()==5){
+                PoliticalPartyGui view = new PoliticalPartyGui(Integer.parseInt(processId),processName, processStage);
+                view.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "No se encuentra en etapa de Registro", "Alerta", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "No se eligio un proceso electoral", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
@@ -282,7 +287,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
 				value = "" + stagename;
 				break;	        
 			case 4:
-				value = "" + electoralProcessList.get(row).getDate();
+				value = "" + new SimpleDateFormat("dd/MM/yyyy").format(electoralProcessList.get(row).getDate());
 				break;			
 			}
 			return value;
