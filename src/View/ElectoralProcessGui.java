@@ -648,7 +648,8 @@ public int validation(String name, String processtype, Date date , Date startreg
             }catch (NumberFormatException ex) {
            //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No debe contener caracteres la cantidad de votantes o el porcentaje minimo", "Alerta", JOptionPane.WARNING_MESSAGE);
-            }                      
+            }
+            refreshTblElectoralProcess();
         }catch (ParseException ex) {
             //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);					e.printStackTrace();
         }
