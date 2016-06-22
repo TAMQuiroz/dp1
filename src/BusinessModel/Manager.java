@@ -196,5 +196,9 @@ public class Manager {
     public static void setProcessStage(int etapa, long idProcess) {
         electoralProcessDB.setProcessStage(etapa, idProcess);
     }
+
+    public static void addPeople(ArrayList<Person> personas) {
+        personDB.addPeople(personas);
+    }
             
 }

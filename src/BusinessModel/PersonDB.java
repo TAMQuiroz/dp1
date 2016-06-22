@@ -28,4 +28,8 @@ public class PersonDB {
     public ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname){
         return daoPerson.queryByPerson(ocrDni, ocrName, ocrLastname);
     }
+
+    public void addPeople(ArrayList<Person> personas) {
+        daoPerson.addPeople(personas);
+    }
 }

@@ -154,4 +154,56 @@ public class MYSQLDAOPerson implements DAOPerson {
         }
         return personList;
     }
+
+    @Override
+    public void addPeople(ArrayList<Person> personas) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                for(int i = 0; i <  personas.size(); i++){
+                    Person ep = personas.get(i);
+                    
+                    String sql = "INSERT INTO rnv (dni, name, lastname, signature, fingerprint, ubigeo, citizen, disabled) VALUES(?,?,?,?,?,?,?,?)";
+                    pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                
+                    pstmt.setString(1, ep.getDni());                                                
+                    pstmt.setString(2, ep.getName());
+                    pstmt.setString(3, ep.getLastname());
+                    pstmt.setString(4, ep.getSignature());
+                    pstmt.setString(5, ep.getFingerprint()); 
+                    pstmt.setString(6, ep.getUbigeo());
+                    pstmt.setBoolean(7, ep.isCitizen()); 
+                    pstmt.setBoolean(8, ep.isDisabled()); 
+                    //Paso 4: Ejecutar la sentencia						
+                    pstmt.executeUpdate();
+                    
+                }    
+                //Paso 5:(opc) Procesar los resultado
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
 }

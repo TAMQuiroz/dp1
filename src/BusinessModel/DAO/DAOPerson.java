@@ -15,4 +15,5 @@ import java.util.ArrayList;
 public interface DAOPerson {
     Person queryByDni(String dni);
     ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname);
+    void addPeople(ArrayList<Person> personas);
 }

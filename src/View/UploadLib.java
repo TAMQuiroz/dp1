@@ -268,51 +268,33 @@ public class UploadLib {
     }
     
     public static ImagePlus cutRows (int n, ImagePlus imgOrigen, String route, String n_img, String extension, int[] index){
-        int x, y;
-        double r,g,b;
+        int x, y, rowSize;
+        double r;
         
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
         //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         x = 10;
         y = imgPlus.getHeight() - 10;
-                
-        //java.lang.System.out.println("Buscando color en punto " + x + ", " + y);
         r = imgPlus.getPixel(x,y)[0];
-        g = imgPlus.getPixel(x,y)[1];
-        b = imgPlus.getPixel(x,y)[2];
-        //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
+        
         
         while (r == 0){
             y = y - 1;
-            
             r = imgPlus.getPixel(x,y)[0];
-            g = imgPlus.getPixel(x,y)[1];
-            b = imgPlus.getPixel(x,y)[2];
-            //java.lang.System.out.println("Color en punto " + x + ", " + y + ": " + r + " " + g + " " + b);        
         }
         
-        int rowSize = imgPlus.getHeight() - y;
-        //java.lang.System.out.println("Tamaño de fila: " + rowSize);        
+        rowSize = imgPlus.getHeight() - y;
         
         //Copiar imagen
         imgOrigen.setRoi(0,0, imgOrigen.getWidth(), y);
         ImagePlus img = new Duplicator().run(imgOrigen);
         
         //Cortar Filas
-        //java.lang.System.out.println(x);
-        imgOrigen.setRoi(0,y, imgOrigen.getWidth(), rowSize);
+        imgOrigen.setRoi(0, y, imgOrigen.getWidth(), rowSize);
         console.append("\nCortando fila " + n);
         console.update(console.getGraphics());
-        java.lang.System.out.println("Cortando fila " + n);
         IJ.run(imgOrigen, "Crop", "");
-        
-        /*
-        FileSaver fs = new FileSaver(imgOrigen);
-        String n_out = outputRoute + n_img + n + "\\" + n_img + "_row_" + n + extension;
-        java.lang.System.out.println("=======Guardando imagen en " + n_out + "=======");
-        fs.saveAsJpeg(n_out);
-        */
         
         //Cortar Caracteres de fila
         cutColumns(route, n_img, n, imgOrigen, extension, index);
@@ -345,7 +327,7 @@ public class UploadLib {
         return x;
     }
     
-    public static int[] saltarNumero(ImagePlus imgPlus, int[] index){
+    public static int[] forwardNumber(ImagePlus imgPlus, int[] index){
         int x = 10;
         int y = 0;
 
@@ -355,7 +337,7 @@ public class UploadLib {
         y = bajar(imgPlus, x, y, 255); //Negro
         //java.lang.System.out.println("y: " + y);
         y = y + 2;
-        index[9] = y; //Control rotacion
+        index[9] = y;
         //java.lang.System.out.println("y: " + y);
         //java.lang.System.exit(0);
         x = 0;
@@ -371,7 +353,7 @@ public class UploadLib {
         return index;
     }
     
-    public static int[] contarDni(ImagePlus imgPlus, int[] index){
+    public static int[] forwardDni(ImagePlus imgPlus, int[] index){
         int x = index[0];
         int y = index[9];
 
@@ -383,7 +365,7 @@ public class UploadLib {
         return index;
     }
     
-    public static int[] contarApellidos(ImagePlus imgPlus, int[] index){
+    public static int[] forwardLastname(ImagePlus imgPlus, int[] index){
         int x = index[2];
         int y = index[9];
 
@@ -396,7 +378,7 @@ public class UploadLib {
         return index;
     }
     
-    public static int[] contarNombres(ImagePlus imgPlus, int[] index){
+    public static int[] forwardNames(ImagePlus imgPlus, int[] index){
         double porcentajeApellidos = 52.083333;
         int longitud = index[4] - index[2];
         int longitudApellido = (int) (longitud*porcentajeApellidos/100);
@@ -407,7 +389,7 @@ public class UploadLib {
         return index;
     }
     
-    public static int[] contarFirma(ImagePlus imgPlus, int[] index){
+    public static int[] forwardSignature(ImagePlus imgPlus, int[] index){
         int x = index[5];
         int y = index[9];
 
@@ -419,7 +401,7 @@ public class UploadLib {
         return index;
     }
     
-    public static int[] contarHuella(ImagePlus imgPlus, int[] index){
+    public static int[] forwardFingerprint(ImagePlus imgPlus, int[] index){
         int x = index[7];
         int y = index[9];
 
@@ -432,36 +414,37 @@ public class UploadLib {
     public static int[] countHeader(ImagePlus imgOrigen){
         int[] index = new int[10];
         
+        //Duplicando imagen y binarizandola
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
         java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
         
-        //GIRAR IMAGEN
-        imgPlus = girarImagen(imgPlus);
+        //Girar imagen
+        imgPlus = rotateImage(imgPlus);
         
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 9 y
         java.lang.System.out.println("Saltando numero");
-        index = saltarNumero(imgPlus, index);
-        //contar dni
+        index = forwardNumber(imgPlus, index);
+        //Contar dni
         java.lang.System.out.println("Contando dni");
-        index = contarDni(imgPlus, index);
-        //contar apellidos
+        index = forwardDni(imgPlus, index);
+        //Contar apellidos
         java.lang.System.out.println("Contando apellidos");
-        index = contarApellidos(imgPlus, index);
-        //contar nombres
+        index = forwardLastname(imgPlus, index);
+        //Contar nombres
         java.lang.System.out.println("Contando nombres");
-        index = contarNombres(imgPlus, index);
-        //contar firma
+        index = forwardNames(imgPlus, index);
+        //Contar firma
         java.lang.System.out.println("Contando firmas");
-        index = contarFirma(imgPlus, index);
-        //contar huella
+        index = forwardSignature(imgPlus, index);
+        //Contar huella
         java.lang.System.out.println("Contando huellas");
-        index = contarHuella(imgPlus, index);
+        index = forwardFingerprint(imgPlus, index);
         
         return index;
     }
     
-    public static ImagePlus girarImagen(ImagePlus imgOrigen){
+    public static ImagePlus rotateImage(ImagePlus imgOrigen){
         int x1 = 10;
         int y1 = 0;
         
