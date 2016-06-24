@@ -12,6 +12,8 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 import org.opencv.calib3d.Calib3d;
@@ -48,7 +50,7 @@ public class Signature {
 
         //Firma a comparar
         String n_img1  = "f001r";
-        String n_img2  = "f002r";
+        String n_img2  = "f003r";
         
         /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
@@ -78,8 +80,8 @@ public class Signature {
     
     public static int sift(String routeVal,String route, String n_img1, String n_img2, String extension){
   
-        String bookObject = routeVal + n_img1 + extension;
-        String bookScene = route + n_img2 + extension; 
+        String bookObject = routeVal + n_img2 + extension;
+        String bookScene = route + n_img1 + extension; 
 
         //System.out.println("Iniciando SIFT");
         //java.lang.System.out.print("Abriendo imagenes | ");
@@ -90,7 +92,7 @@ public class Signature {
         FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.SIFT);  
         //java.lang.System.out.print("Encontrar keypoints con SIFT | ");  
         featureDetector.detect(objectImage, objectKeyPoints);  
-        KeyPoint[] keypoints = objectKeyPoints.toArray();  
+        KeyPoint[] keypoints = objectKeyPoints.toArray(); 
 
         MatOfKeyPoint objectDescriptors = new MatOfKeyPoint();  
         DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.SIFT);  
@@ -124,7 +126,7 @@ public class Signature {
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();  
 
         float nndrRatio = 0.7f;  
-
+        java.lang.System.out.println(matches.size());
         for (int i = 0; i < matches.size(); i++)  
         {  
             MatOfDMatch matofDMatch = matches.get(i);  
@@ -195,15 +197,19 @@ public class Signature {
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
-            
-            double result =goodMatches.size().height;
+            java.lang.System.out.println(goodMatches.size().height);
+            double result =goodMatches.size().height*100/matches.size();
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            java.lang.System.out.println((int)result);
+            //double result =goodMatches.size().height;
             if(result > 100){
                 return 100;
-            }else if(result <= 100 && result > 60){
+            }else if(result <= 100 && result > 85){
                 return 85;
-            }else if(result <= 60 && result > 40){
+            }else if(result <= 85 && result > 50){
                 return 50;
-            }else if(result <= 40 && result > 30){
+            }else if(result <= 50 && result > 25){
                 return 25;
             }else{
                 return 0;
