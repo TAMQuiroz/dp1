@@ -79,7 +79,8 @@ public class UtilLib {
         for (int i = 0 ; i < size ; i++){
             stage = checkStageForElectoralProcess(listEP.get(i));            
             Manager.setProcessStage(stage, listEP.get(i).getId());
-            java.lang.System.out.println("Electoral process stage:" + stage);
+            if (stage == 4)
+                validatePolitialParties(listEP.get(i).getId());            
         }
     }
     private static int checkStageForElectoralProcess(ElectoralProcess pt){        
@@ -151,10 +152,32 @@ public class UtilLib {
         return false;
     }
     
+    public static void validatePolitialParties(long idEP){
+        ElectoralProcess ep = Manager.queryElectoralProcessById(idEP);
+        int minAdeherents = (int) Math.rint(ep.getPopulation()*ep.getMinPercentage()/100);        
+        ArrayList<PoliticalParty> partyList = new ArrayList<PoliticalParty>();
+        ArrayList<Adherent> adherentList = new ArrayList<Adherent>();
+        partyList = Manager.queryAllPoliticalParties(idEP);
+        int sizePL = partyList.size();
+        int adherentAmount = 0;
+        for ( int i = 0; i<sizePL; i++){
+            adherentList = Manager.queryAllAdherents(partyList.get(i).getId());
+            adherentAmount = adherentList.size();
+            if (adherentAmount >= minAdeherents)
+                partyList.get(i).setStatus("Validado");                                            
+            else
+                partyList.get(i).setStatus("Rechazado");                                            
+            Manager.updatePoliticalParty(partyList.get(i));
+        }
+    }
+    
+    
     public static void main(String[] args){
         int stage = checkStage(12);
-        java.lang.System.out.println(stage);
-        
+        java.lang.System.out.println(stage);        
         checkStageAllElectoralProcess();
+        validatePolitialParties(28);
     }
+    
+    
 }
