@@ -574,6 +574,7 @@ public class adherentListi extends javax.swing.JFrame {
                     document.add(new Paragraph(""+ userList.get(i).getDniSource() + " " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
             }
             document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -599,6 +600,7 @@ public class adherentListi extends javax.swing.JFrame {
                     document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
             document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -798,6 +800,7 @@ public class adherentListi extends javax.swing.JFrame {
                     document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
             document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
