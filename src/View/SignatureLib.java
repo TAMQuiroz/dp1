@@ -95,8 +95,8 @@ public class SignatureLib {
         //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
         public static int sift(String routeRNV, String routeAdherent){
   
-        String bookObject = routeRNV;
-        String bookScene = routeAdherent; 
+        String bookObject = routeAdherent;
+        String bookScene = routeRNV; 
 
         //System.out.println("Iniciando SIFT");
         //java.lang.System.out.print("Abriendo imagenes | ");
@@ -214,19 +214,11 @@ public class SignatureLib {
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
-            
-            double result = goodMatches.size().height;
-            if(result > 100){
-                return 100;
-            }else if(result <= 100 && result > 60){
-                return 85;
-            }else if(result <= 60 && result > 40){
-                return 50;
-            }else if(result <= 40 && result > 30){
-                return 25;
-            }else{
-                return 0;
-            }
+            java.lang.System.out.println(goodMatches.size().height);
+            double result =goodMatches.size().height*100/matches.size();
+            java.lang.System.out.println(result);
+            //double result = goodMatches.size().height;
+            return (int)result;
         }  
         else  
         {  

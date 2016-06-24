@@ -168,9 +168,9 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from politicalParty WHERE status=? and id_electoralProcess=?";
+                String sql = "Select* from politicalParty WHERE status<>? and id_electoralProcess=?";
                 pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, "Activo");                
+                pstmt.setString(1, "Inactivo");                
                 pstmt.setLong(2, idElectoralProcess);                
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();

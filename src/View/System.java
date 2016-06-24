@@ -170,18 +170,18 @@ public class System extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        UtilLib.checkStageAllElectoralProcess();
-        ShowProcess If= new ShowProcess();
+       UtilLib.checkStageAllElectoralProcess();
+       ShowProcess If= new ShowProcess();
        jDesktopPane1.add(If);
        If.show();
        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
-        UserGui If= new UserGui();
-         jDesktopPane1.add(If);
-         If.show();
+       // TODO add your handling code here:
+       UserGui If= new UserGui();
+       jDesktopPane1.add(If);
+       If.show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**

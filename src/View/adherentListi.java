@@ -43,7 +43,7 @@ public class adherentListi extends javax.swing.JFrame {
     long id;
     String name;
     int signaturesVal;
-    int etapa;
+    int stage;
     static int count;
    
     
@@ -84,17 +84,16 @@ public class adherentListi extends javax.swing.JFrame {
          banModel = new MyTableModel2();
 	jTable5.setModel(banModel);
         //checkStage(idParty); Retorna un valor integer, en UTILLIB están los estados
-        etapa = UtilLib.checkStage(idParty);
+        stage = UtilLib.checkStage(idParty);
         long idProcess = Manager.queryPoliticalPartyById(idParty).getElectoralProcess().getId();
-        Manager.setProcessStage(etapa, idProcess);
-        java.lang.System.out.println(etapa);
+        Manager.setProcessStage(stage, idProcess);
+        java.lang.System.out.println(stage);
         jTextValidatedAmount.setText(""+tableValidated.getRowCount());
         jTextRejectedAmount.setText(""+tableRechazados.getRowCount());
         jTextDuplicatedAmount.setText(""+jTable5.getRowCount());
         jTextDisabledAmount.setText(""+jTable4.getRowCount());
-        if (etapa == 4){ //Si ya se termino la segunda etapa de validación, se cancelan sus adherentes
-            Manager.cancellAllAdherentImages(id);
-            
+        if (stage == 4){ //Si ya se termino la segunda stage de validación, se cancelan sus adherentes
+            Manager.cancellAllAdherentImages(id);            
         }
             
         
@@ -562,19 +561,20 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-         FileOutputStream archivo;
+         FileOutputStream file;
         try {
-            archivo = new FileOutputStream("ReporteAnulados.pdf");
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, archivo);
-            documento.open();
-            documento.add(new Paragraph("Reporte de Anulados"));
-            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            file = new FileOutputStream("ReporteAnulados.pdf");
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
+            document.add(new Paragraph("Reporte de Anulados"));
+            document.add(new Paragraph("DNI        Nombre          Apellido      "));
             ArrayList<AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
                  for (int i =0; i<userList.size();i++){
-                    documento.add(new Paragraph(""+ userList.get(i).getDniSource() + " " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDniSource() + " " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
             }
-            documento.close();
+            document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -587,19 +587,20 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        FileOutputStream archivo;
+        FileOutputStream file;
         try {
-            archivo = new FileOutputStream("ReporteRechazados.pdf");
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, archivo);
-            documento.open();
-            documento.add(new Paragraph("Reporte de Rechazados"));
-            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            file = new FileOutputStream("ReporteRechazados.pdf");
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
+            document.add(new Paragraph("Reporte de Rechazados"));
+            document.add(new Paragraph("DNI        Nombre          Apellido      "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
                  for (int i =0; i<userList.size();i++){
-                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
-            documento.close();
+            document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -628,22 +629,22 @@ public class adherentListi extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        FileOutputStream archivo;
+        FileOutputStream file;
         try {
-            archivo = new FileOutputStream("ReporteValidados.pdf");
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, archivo);
-            documento.open();
+            file = new FileOutputStream("ReporteValidados.pdf");
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
             String titulo="Reporte de Lista Validada del Partido " + name;
-            documento.add(new Paragraph(titulo));
+            document.add(new Paragraph(titulo));
             String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
-            documento.add(new Paragraph(cuerpo));
-            documento.add(new Paragraph("DNI        Nombre          Apellido     "));
+            document.add(new Paragraph(cuerpo));
+            document.add(new Paragraph("DNI        Nombre          Apellido     "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
                  for (int i =0; i<userList.size();i++){
-                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
-            documento.close();
+            document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
@@ -665,7 +666,7 @@ public class adherentListi extends javax.swing.JFrame {
     }
     
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-        if (etapa == 1 || etapa == 3){
+        if (stage == 1 || stage == 3){
             FingerprintLib.console = validateConsole;
             FingerprintLib.status = validateProgressBar;
 
@@ -679,7 +680,7 @@ public class adherentListi extends javax.swing.JFrame {
                     instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
                     int size = registers.size();
                     count = 0;
-                    java.lang.System.out.println("Cantidad de archivos: " + size);
+                    java.lang.System.out.println("Cantidad de files: " + size);
                     validateProgressBar.setValue(0);
                     for (AdherentImage register : registers) {
                         validateConsole.append("\nInterpretando imagenes via OCR");
@@ -730,7 +731,7 @@ public class adherentListi extends javax.swing.JFrame {
                                     java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
                                     validateConsole.append("\nSe encontro duplicidad referida a esta persona");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    if(etapa == 1){
+                                    if(stage == 1){
                                         Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
                                         ad.setObservation("Duplicado");
                                         Manager.updateStatusAdherent(ad);                               
@@ -780,25 +781,26 @@ public class adherentListi extends javax.swing.JFrame {
             Estados encontrados: 0 - Sin validar, 1 - rechazado, 2 - anulado.
             */
         }else{
-            JOptionPane.showMessageDialog(this, "No se puede validar en esta etapa", "Alerta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puede validar en esta stage", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnValidateActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         FileOutputStream archivo;
+         FileOutputStream file;
         try {
-            archivo = new FileOutputStream("ReporteAnulados.pdf");
-            Document documento = new Document();
-            PdfWriter.getInstance(documento, archivo);
-            documento.open();
-            documento.add(new Paragraph("Reporte de Anulados"));
-            documento.add(new Paragraph("DNI        Nombre          Apellido      "));
+            file = new FileOutputStream("ReporteAnulados.pdf");
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
+            document.add(new Paragraph("Reporte de Anulados"));
+            document.add(new Paragraph("DNI        Nombre          Apellido      "));
             ArrayList<Adherent> userList =  Manager.queryAllAdherentsDuplicated(id);
                  for (int i =0; i<userList.size();i++){
-                    documento.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
-            documento.close();
+            document.close();
+            JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
