@@ -23,7 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class rnvLib {
     public static void main(String[] args){
-        String url = "C:/Users/tamqu/Desktop/Archivos de prueba/rnv.xlsx";
+        String url = "C:/Users/tamqu/Desktop/g.rnv.xlsx";
         
         try
         {
@@ -31,9 +31,7 @@ public class rnvLib {
             ArrayList<Person> personas = new ArrayList<>();
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
-            DataFormatter df = new DataFormatter();
             DecimalFormat dformatDni = new DecimalFormat("00000000");
-            DecimalFormat dformatFingerprint = new DecimalFormat("000");
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             //Iterate through each rows one by one
@@ -63,6 +61,7 @@ public class rnvLib {
                             persona.setLastname(str);
                             break;
                         case 2: java.lang.System.out.print("DNI: ");
+                            //java.lang.System.out.print(str);
                             str = dformatDni.format(Integer.parseInt(str));
                             persona.setDni(str);
                             break;
@@ -70,19 +69,20 @@ public class rnvLib {
                             persona.setUbigeo(str);
                             break;
                         case 4: java.lang.System.out.print("Huella: ");
-                            str = dformatFingerprint.format(Integer.parseInt(str));
                             persona.setFingerprint("../rnv/"+str+".jpg");
                             break;
                         case 5: java.lang.System.out.print("Firma: ");
                             persona.setSignature("../rnv/"+str+".jpg");
                             break;
+                        case 6: java.lang.System.out.print("Habilitado: ");
+                            persona.setCitizen(!Boolean.parseBoolean(str));
+                            break;                       
                     }
 
                     java.lang.System.out.print(str + " | ");
                     nrow++;
                 }
                 java.lang.System.out.println("");
-                persona.setCitizen(true);
                 persona.setDisabled(false);
                 personas.add(persona);
             }
