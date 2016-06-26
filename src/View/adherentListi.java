@@ -698,19 +698,22 @@ public class adherentListi extends javax.swing.JFrame {
                                 long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");
+                                    java.lang.System.out.println("\nValidando huellas");
                                     validateConsole.update(validateConsole.getGraphics());
                                     double punctuation1 = FingerprintLib.huellas(person.getFingerprint(), register.getFingerprintSource());
+                                    java.lang.System.out.println("\nPreprocesando Firmas");
                                     validateConsole.append("\nPreprocesando Firmas");
                                     String route1 = person.getSignature(); String route2 = register.getSignatureSource();
                                     try {
                                         SignatureLib.preprocessSignatures(route1, route2);
                                         int index1 =route1.length()-4;
                                         int index2 =route2.length()-4;
-                                        route1= route1.substring(0,index1) + 'r' + route1.substring(index1, index1+4);
-                                        route2= route2.substring(0,index2) + 'r' + route2.substring(index2, index2+4);
+                                        route1= route1.substring(0,index1) + route1.substring(index1, index1+4);
+                                        route2= route2.substring(0,index2) + route2.substring(index2, index2+4);
                                     } catch (IOException ex) {
                                         Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
                                     }
+                                    java.lang.System.out.println("\nValidando Firmas");
                                     validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
                                     double punctuation2 = SignatureLib.validarFirmas(route1, route2);

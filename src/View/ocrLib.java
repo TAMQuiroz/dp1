@@ -291,11 +291,14 @@ public class ocrLib {
     }
     
     public static void main(String[] args) throws TesseractException, IOException{
-        String route_dni = "/home/dpclean/NetBeansProjects/cortes/23/part.G.original1.1/dni.jpg";
+        //String route_dni = "/home/dpclean/NetBeansProjects/cortes/23/part.G.original1.1/dni.jpg";
+        String route_dni = "../cortes/23/part.G.original1.1/dni.jpg";
         String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
         String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
-
-        java.lang.System.loadLibrary("tess");
+        
+        if(java.lang.System.getProperty("os.name").equals("Linux")){
+            java.lang.System.loadLibrary("tess");
+        }
         
         //OCR TESSERACT
         ITesseract instance_num = new Tesseract();

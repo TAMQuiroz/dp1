@@ -79,73 +79,7 @@ public class FingerprintLib {
         return n_out;
         //System.out.println("Finalizando preprocesamiento");
     }
-         
-    public static void orb(String route, String route_out, String n_img1, String n_img2, String extension){
-        long ini = java.lang.System.currentTimeMillis();
-        //System.out.println("Iniciando ORB");
-        String url1 = route + n_img1 + extension;
-        String url2 = route + n_img2 + extension;
-        
-        java.lang.System.out.print("Abriendo imagenes | ");
-        Mat img1 = Highgui.imread(url1, 0); //imagen query
-        Mat img2 = Highgui.imread(url2, 0); //imagen base
-        
-        //iniciar detector ORB
-        FeatureDetector orb = FeatureDetector.create(FeatureDetector.ORB);
-        DescriptorExtractor descriptor = DescriptorExtractor.create(DescriptorExtractor.ORB);
-        DescriptorMatcher bf = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
 
-        Mat descriptors1 = new Mat();
-        Mat descriptors2 = new Mat();
-        MatOfKeyPoint keypoints1 = new MatOfKeyPoint();
-        MatOfKeyPoint keypoints2 = new MatOfKeyPoint();
-        
-        //encontrar keypoints y descriptores con orb
-        java.lang.System.out.print("Encontrar keypoints con ORB | ");
-        orb.detect(img1, keypoints1);
-        descriptor.compute(img1, keypoints1, descriptors1);
-        
-        orb.detect(img2, keypoints2);
-        descriptor.compute(img2, keypoints2, descriptors2);
-        
-        //crear un matcher de fuerza bruta
-        java.lang.System.out.print("Encontrar matches brutos | ");
-        MatOfDMatch matches = new MatOfDMatch();
-        
-        //matchear descriptores
-        bf.match(descriptors1, descriptors2, matches);
-        
-        // Linking
-        Scalar RED = new Scalar(255,0,0);
-        Scalar GREEN = new Scalar(0,255,0);
-        List<DMatch> matchesList = matches.toList();
-        Double max_dist = 0.0;
-        Double min_dist = 45.0;
-        
-        java.lang.System.out.print(" Encontrar matches buenos | ");
-        LinkedList<DMatch> good_matches = new LinkedList<>();
-        for(int i = 0;i < matchesList.size(); i++){
-            if (matchesList.get(i).distance <= min_dist)
-                good_matches.addLast(matchesList.get(i));
-        }
-
-        // Printing
-        MatOfDMatch goodMatches = new MatOfDMatch();
-        goodMatches.fromList(good_matches);
-        
-        Mat outputImg = new Mat();
-        MatOfByte drawnMatches = new MatOfByte();
-        Features2d.drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, outputImg, GREEN, RED, drawnMatches, Features2d.NOT_DRAW_SINGLE_POINTS);
-        java.lang.System.out.println("Guardar imagen");
-        String n_out = route_out + "\\results\\" + n_img1 + "_orb" + extension;
-        Highgui.imwrite(n_out, outputImg);
-        
-        java.lang.System.out.println("Resultados: " + matches.size() + " " + goodMatches.size());  
-        long total = (java.lang.System.currentTimeMillis() - ini);
-        java.lang.System.out.println("Tiempo tomado: " + total);
-        //System.out.println("Final de orb");
-    }
-       
     public static double surf(String n_img1, String n_img2){
         String bookObject = n_img1;
         String bookScene = n_img2;
@@ -211,7 +145,7 @@ public class FingerprintLib {
             }  
         }  
 
-        if (goodMatchesList.size() >= 7)  
+        if (goodMatchesList.size() >= 10)  
         {  
             //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());  
 
@@ -267,17 +201,20 @@ public class FingerprintLib {
             
             java.lang.System.out.println("Matches: " + goodMatches.size().height);
             double result = goodMatches.size().height;
-            if(result > 120){
-                return 100;
-            }else if(result <= 120 && result > 100){
-                return 85;
-            }else if(result <= 100 && result > 80){
-                return 50;
-            }else if(result <= 80 && result > 50){
-                return 25;
+            int score = 0;
+            if(result > 50){
+                score = 100;
+            }else if(result <= 50 && result > 40){
+                score = 85;
+            }else if(result <= 40 && result > 30){
+                score = 50;
+            }else if(result <= 30 && result > 20){
+                score = 25;
             }else{
-                return 0;
+                score = 0;
             }
+            java.lang.System.out.println("Score: " + score);
+            return score;
         }  
         else  
         {  
@@ -286,13 +223,19 @@ public class FingerprintLib {
         }  
     }
     
-    public static double huellas(String rnvFingerprintSource, String testFingerprintSource){
+    public static double huellas(String rnvFingerprint, String testFingerprint){
         double resultado = 0;
         
-        String rnvFingerprint = preprocesamiento(rnvFingerprintSource, 0);
-        String testFingerprint = preprocesamiento(testFingerprintSource, 1);
-        resultado = surf(rnvFingerprint, testFingerprint);
-        
+        //rnvFingerprint = preprocesamiento(rnvFingerprint, 0);
+        //testFingerprint = preprocesamiento(rnvFingerprint, 1);
+        /*
+        ImagePlus img1 = new ImagePlus(testFingerprint);
+        img1.show("Imagen de prueba");
+        ImagePlus img2 = new ImagePlus(rnvFingerprint);
+        img2.show("Imagen de RNV");
+        */
+        resultado = surf(testFingerprint, rnvFingerprint);
+
         return resultado;
     }
 
@@ -301,8 +244,8 @@ public class FingerprintLib {
         File dll = new File("lib\\opencv_java2412.dll");
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "../cortes/";
-        String n_img2  = "../rnv/gfi001.jpg";
+        String n_img1  = "../cortes/23/part.G.original1.7/huella.jpg";
+        String n_img2  = "../rnv/ghu002.jpg";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
@@ -310,11 +253,12 @@ public class FingerprintLib {
         orb(route_pre, route_base, n_img1, n_img2, extension_huellas);
         java.lang.System.out.println("***FINALIZANDO ORB***");
         */
-        /*
+        
         double resultado = huellas(n_img1, n_img2);
         java.lang.System.out.println("Resultado: " + resultado);
-        */
         
+        
+        /*
         String padronesPathString = "../padrones";
         String cortesPathString = "../cortes";        
         File padronesFile = new File(padronesPathString);
@@ -332,7 +276,7 @@ public class FingerprintLib {
             java.lang.System.out.println("Creando");
             cortesFile.mkdir();
         }
-        
+        */
     }  
 }
 

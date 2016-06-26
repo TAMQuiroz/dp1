@@ -6,6 +6,9 @@
 package View;
 
 
+import ij.IJ;
+import ij.ImagePlus;
+import ij.io.FileSaver;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -215,10 +218,22 @@ public class SignatureLib {
             Highgui.imwrite(n_matchoutput, matchoutput);  
             Highgui.imwrite(n_img, img);  
             java.lang.System.out.println(goodMatches.size().height);
-            double result =goodMatches.size().height*100/matches.size();
-            java.lang.System.out.println(result);
+            double result =goodMatches.size().height;//*100/matches.size();
             //double result = goodMatches.size().height;
-            return (int)result;
+            int score = 0;
+            if(result > 50){
+                score = 100;
+            }else if(result <= 50 && result > 40){
+                score = 85;
+            }else if(result <= 40 && result > 30){
+                score = 50;
+            }else if(result <= 30 && result > 20){
+                score = 25;
+            }else{
+                score = 0;
+            }
+            java.lang.System.out.println("Score: " + score);
+            return score;
         }  
         else  
         {  
@@ -238,12 +253,19 @@ public class SignatureLib {
 
         int index1 =routeRNV.length()-4;
         int index2 =routeAdherent.length()-4;
-        String routeRNV2= routeRNV.substring(0,index1) + 'r' + routeRNV.substring(index1, index1+4);
-        String routeAdherent2= routeAdherent.substring(0,index2) + 'r' + routeAdherent.substring(index2, index2+4);
+        String routeRNV2= routeRNV.substring(0,index1) + routeRNV.substring(index1, index1+4);
+        String routeAdherent2= routeAdherent.substring(0,index2) + routeAdherent.substring(index2, index2+4);
         BufferedImage resizeImagePng = resizeImage(originalImage1, type);
         BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
         ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
         ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
+        
+        ImagePlus imgPlusAdherent = new ImagePlus(routeAdherent2);
+        ImagePlus imgPlusRNV = new ImagePlus(routeRNV2);
+        
+        IJ.run(imgPlusAdherent,"Make Binary","");
+        FileSaver fs = new FileSaver(imgPlusAdherent);
+        fs.saveAsJpeg(routeAdherent2);
    }
     
    private static BufferedImage resizeImage(BufferedImage originalImage, int type){
@@ -254,4 +276,21 @@ public class SignatureLib {
 		
 	return resizedImage;
     }
+   
+   public static void main(String[] args) throws IOException{
+        File dll = new File("lib/opencv_java2412.dll");
+        java.lang.System.load(dll.getAbsolutePath());
+        
+        String n_img2  = "../cortes/23/part.G.original1.7/firma.jpg";
+        String n_img1  = "../rnv/gfi002.jpg";
+        SignatureLib.preprocessSignatures(n_img1, n_img2);
+        /*
+        ImagePlus img1 = new ImagePlus(n_img1);
+        img1.show();
+        ImagePlus img2 = new ImagePlus(n_img2);
+        img2.show();
+        */
+        double resultado = validarFirmas(n_img1, n_img2);
+        java.lang.System.out.println("Resultado: " + resultado);
+   }
 }
