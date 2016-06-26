@@ -157,7 +157,7 @@ private javax.swing.JDesktopPane jDesktopPane1;
        If.show();*/
         if(!jTextField2.getText().equals("")){
             idElectoralProcess=Integer.parseInt(jTextField2.getText());
-            new ElectoralProcessGui(idElectoralProcess).setVisible(true);
+            new ElectoralProcessGui(idElectoralProcess,jTable1).setVisible(true);
         }else{
             new ElectoralProcessGui().setVisible(true);
         }

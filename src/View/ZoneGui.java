@@ -257,10 +257,8 @@ public class ZoneGui  extends JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
           int selRow = jTable2.getSelectedRow();
-				int zoneId = Integer.parseInt(
-						jTable2.getValueAt(selRow, 0).toString());
-				Ubigeo p = Manager.queryUbigeoById(zoneId);
-                                
+				int zoneId = Integer.parseInt(jTable2.getValueAt(selRow, 0).toString());
+				Ubigeo p = Manager.queryUbigeoById(zoneId);                          
                                 jTextField1.setText(""+ p.getCode());
                                 nameText1.setText("" + p.getId());
                                 legalDepartment.setText(p.getDescription());
