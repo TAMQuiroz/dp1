@@ -56,7 +56,7 @@ public class adherentListi extends javax.swing.JFrame {
 	tableRechazados.setModel(rejectedModel);
         deleteModel = new MyTableModel3();
 	jTable4.setModel(deleteModel);
-         banModel = new MyTableModel2();
+        banModel = new MyTableModel2();
 	jTable5.setModel(banModel);
     }
     
