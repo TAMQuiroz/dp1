@@ -17,6 +17,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.jna.NativeLibrary;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.Tesseract1;
 /**
  *
  * @author Andrea
@@ -68,7 +68,11 @@ public class adherentListi extends javax.swing.JFrame {
         }else{
             dll = new File("lib/opencv_java2412.dll");
         }
-                
+               
+        //String libPath = "/lib:" + "/lib:" + java.lang.System.getProperty("java.library.path");
+        //java.lang.System.setProperty("jna.library.path", libPath);
+        //NativeLibrary.getInstance("lept");
+        
         java.lang.System.load(dll.getAbsolutePath());
         initComponents();
         id = idParty;

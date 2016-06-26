@@ -209,7 +209,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[0],0,aux,imgOrigen.getHeight());
         ImagePlus imp = new Duplicator().run(imgOrigen);
         FileSaver fs = new FileSaver(imp);
-        String n_out = outputRoute + n_img + n + "/dni" + extension;
+        String n_out = outputRoute + n_img + n + "/dni." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setDniSource(n_out);
@@ -220,7 +220,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[2],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/apellido" + extension;
+        n_out = outputRoute + n_img + n + "/apellido." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setLastNameSource(n_out);
@@ -231,7 +231,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[3],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/nombre" + extension;
+        n_out = outputRoute + n_img + n + "/nombre." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setNameSource(n_out);
@@ -242,7 +242,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[5],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/firma" + extension;
+        n_out = outputRoute + n_img + n + "/firma." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setSignatureSource(n_out);
@@ -253,7 +253,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[7],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/huella" + extension;
+        n_out = outputRoute + n_img + n + "/huella." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setFingerprintSource(n_out);
@@ -478,6 +478,7 @@ public class UploadLib {
         String inFile = route + n_img + extension;
         console.append("\n=======Abriendo imagen " + n_img + extension +
         " para binarizar=======");
+        java.lang.System.out.println(inFile);
         ImagePlus imgOrigen = new ImagePlus(inFile);
         ImageProcessor img = imgOrigen.getProcessor();
         
@@ -515,10 +516,9 @@ public class UploadLib {
         adherents = new ArrayList<>();
         idParty = id;
         outputRoute = routeToCortes + id + "/";
-        
         count = 0;
         status.setValue(0);
-        
+        String singleName = "";
         File folder = new File(route);
         File[] listOfFiles = folder.listFiles();
         int cantidad = listOfFiles.length;
@@ -529,10 +529,11 @@ public class UploadLib {
                 console.update(console.getGraphics());
                 java.lang.System.out.println("======Analizando " + file.getName() + "======");
                 String[] name = file.getName().split("[.]");
-                if(name[1].equals("jpg")){
+                for(int i = 0; i < name.length - 1; i++) singleName = singleName + name[i] + ".";
+                if(name[name.length-1].equals("jpg")){
                     File directory = new File(outputRoute);
                     directory.mkdir();                    
-                    cutBoxes(route,name[0],"." + name[1]);
+                    cutBoxes(route,singleName, name[name.length-1]);
                     console.append("\n======Fin de analisis " + file.getName() + "======");
                     console.update(console.getGraphics());
                     java.lang.System.out.println("======Fin de analisis " + file.getName() + "======");
