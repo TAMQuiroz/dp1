@@ -241,11 +241,17 @@ public class FingerprintLib {
 
     public static void main(String[] args) throws IOException{
         
-        File dll = new File("lib\\opencv_java2412.dll");
+        File dll;
+        if(java.lang.System.getProperty("os.name").equals("Linux")){
+           dll = new File("lib/libopencv_java2412.so");
+        }else{
+            dll = new File("lib/opencv_java2412.dll");
+        }
+        
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "../cortes/23/part.G.original1.7/huella.jpg";
-        String n_img2  = "../rnv/ghu002.jpg";
+        String n_img1  = "../cortes/23/part.G.original1.3/huella.jpg";
+        String n_img2  = "../rnv/ghu044.jpg";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
