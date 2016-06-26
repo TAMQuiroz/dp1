@@ -62,9 +62,10 @@ public class adherentListi extends javax.swing.JFrame {
     
     public adherentListi(long idParty,String nameParty) {
         java.lang.System.out.println(java.lang.System.getProperty("os.name"));
-        File dll;
+        File dll, tess = null;
         if(java.lang.System.getProperty("os.name").equals("Linux")){
             dll = new File("lib/libopencv_java2412.so");
+            java.lang.System.loadLibrary("tess");
         }else{
             dll = new File("lib/opencv_java2412.dll");
         }
@@ -74,6 +75,7 @@ public class adherentListi extends javax.swing.JFrame {
         //NativeLibrary.getInstance("lept");
         
         java.lang.System.load(dll.getAbsolutePath());
+
         initComponents();
         id = idParty;
         name = nameParty;
