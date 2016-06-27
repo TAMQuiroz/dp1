@@ -529,6 +529,7 @@ public class UploadLib {
                 console.update(console.getGraphics());
                 java.lang.System.out.println("======Analizando " + file.getName() + "======");
                 String[] name = file.getName().split("[.]");
+                singleName = "";
                 for(int i = 0; i < name.length - 1; i++) singleName = singleName + name[i] + ".";
                 if(name[name.length-1].equals("jpg")){
                     File directory = new File(outputRoute);

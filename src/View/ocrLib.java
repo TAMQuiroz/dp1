@@ -292,12 +292,14 @@ public class ocrLib {
     
     public static void main(String[] args) throws TesseractException, IOException{
         //String route_dni = "/home/dpclean/NetBeansProjects/cortes/23/part.G.original1.1/dni.jpg";
-        String route_dni = "../cortes/23/part.G.original1.2/dni.jpg";
+        String route_dni = "../cortes/23/part.G.original4.3/dni.jpg";
         String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
         String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
         
+        java.lang.System.out.println(java.lang.System.getProperty("os.name"));
+        
         if(java.lang.System.getProperty("os.name").equals("Linux")){
-            java.lang.System.loadLibrary("tess");
+            java.lang.System.load("/home/alulab/Escritorio/Aplicacion/Software/libtess.so");
         }
         
         //OCR TESSERACT
@@ -309,7 +311,12 @@ public class ocrLib {
         
         BufferedImage img = ImageIO.read(new File(route_dni));
         List<Word> palabra = instance_num.getWords(img, 0);
-        java.lang.System.out.println(palabra.get(0).getText());
+        if(!palabra.isEmpty()){
+            java.lang.System.out.println(palabra.get(0).getText());
+        }else{
+            java.lang.System.out.println("Vacio");
+        }
+        
         /*
         adherentListi frame = new adherentListi();
         Person persona = ocr(frame,instance_num, instance_let, route_dni, route_name, route_lastname);

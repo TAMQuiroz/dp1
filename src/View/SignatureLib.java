@@ -290,7 +290,7 @@ public class SignatureLib {
         java.lang.System.load(dll.getAbsolutePath());
         
         String n_img1  = "../rnv/gfi044.jpg";
-        String n_img2  = "../cortes/23/part.G.original1.3/firma.jpg";
+        String n_img2  = "../cortes/23/part.G.original4.4/firma.jpg";
         
         SignatureLib.preprocessSignatures(n_img1, n_img2);
         

@@ -59,6 +59,9 @@ public class System extends javax.swing.JFrame {
             java.lang.System.out.println("Creando");
             rnvFile.mkdir();
         }
+        java.lang.System.setProperty("java.library.path", "/home/alulab/Escritorio/Aplicacion/Software/");
+        java.lang.System.out.println(java.lang.System.getProperty("java.library.path"));
+        
     }
 
     /**
