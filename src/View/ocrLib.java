@@ -13,15 +13,12 @@ import ij.ImagePlus;
 import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.Tesseract1;
 import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.Word;
 
@@ -67,8 +64,10 @@ public class ocrLib {
     
     public static ImagePlus borrarBordeArriba(ImagePlus img){
         int x, y;
-        x = derechaNegro(0,30,img)+5;
         y = 0;
+        x = derechaNegro(0,50,img)+5;
+        //java.lang.System.out.println("Coordenada x,y: " +x + "," + y);
+        
         int r = img.getPixel(x, y)[0];
         if (r == 255){
             while(r == 255){
@@ -112,6 +111,7 @@ public class ocrLib {
     public static int derechaNegro(int x, int y, ImagePlus img){
 
         int r = img.getPixel(x, y)[0];
+        //java.lang.System.out.println("Color:" + r);
         while(r == 255){
             x = x + 1;
             r = img.getPixel(x, y)[0];
@@ -161,21 +161,16 @@ public class ocrLib {
         if (img.getHeight() < 10 || img.getWidth() < 10){
             img = null;
         }
-        //java.lang.System.out.println(img);
         //img.show();
         return img;
     }
     
     public static ArrayList<BufferedImage> cutDigits(ImagePlus img, int n){
         ArrayList<BufferedImage> imgs = new ArrayList<>();
-
         img = borrarBordeArriba(img);
-        //Borrar borde izq
         img = borrarBordeIzq(img);
-        //Borrar borde der
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
-        //img.show();
         
         int x1 = 0, x2 = 0;
         for (int i = 0; i < n; i++){
@@ -226,33 +221,34 @@ public class ocrLib {
     }
         
     public static ArrayList<OcrCharacter> tesseract(ITesseract instance, ArrayList<BufferedImage> imgs){
-        //String final_result = new String();
         ArrayList<OcrCharacter> final_result = new ArrayList<>();
         for (int i = 0; i < imgs.size(); i++){
             BufferedImage img = imgs.get(i);
             List<Word> palabra = instance.getWords(img, 0);
             if(!palabra.isEmpty()){
-                    //String result = instance.doOCR(img);
-                    
-                    OcrCharacter letter = new OcrCharacter ();
-                    letter.setLetter(palabra.get(0).getText().replace(" ", "").replace("\n\r", "").replace("\r\n", "").replace("\n", "").replace("\r", "").trim());
+
+                OcrCharacter letter = new OcrCharacter ();
+                String interpretado = palabra.get(0).getText().replace(" ", "").replace("\n\r", "").replace("\r\n", "").replace("\n", "").replace("\r", "").trim();
+                if(interpretado.equals("")){
+                    letter.setLetter("%");
+                    letter.setConfidence(100);
+                }else{
+                    interpretado = interpretado.substring(0, 1);
+                    letter.setLetter(interpretado);
                     letter.setConfidence(palabra.get(0).getConfidence());
-                    //java.lang.System.out.println("Caracter: " + letter.getLetter() + " Confianza: " + letter.getConfidence());
-                    //java.lang.System.out.print(result + " | ");
-                    final_result.add(letter);
-                    //final_result += letter.getLetter();
-                    //System.out.print(result);
+                }
+                final_result.add(letter);
             }else{
                 OcrCharacter letter = new OcrCharacter();
-                letter.setLetter(" ");
+                letter.setLetter("%");
                 letter.setConfidence(100);
                 final_result.add(letter);
             }
         }
-        //
+
         for (OcrCharacter result : final_result) {
             if(result != null){
-                java.lang.System.out.print(result.getLetter());
+                java.lang.System.out.print(result.getLetter() + "|");
             }
         }
         java.lang.System.out.println("");
@@ -276,9 +272,6 @@ public class ocrLib {
             }
         }
         
-        //ocrName = preprocesamiento_ocr(instance_let, name, 23);
-        //ocrLastname = preprocesamiento_ocr(instance_let, lastname, 25);
-        
         ImagePlus img = new ImagePlus(dni);
         img.show();
         String s = (String)JOptionPane.showInputDialog(frame, "DNI interpretado: "+ queryDni +"\nIngresa DNI:\n", "Input de prueba", JOptionPane.PLAIN_MESSAGE, null, null, "");
@@ -291,11 +284,10 @@ public class ocrLib {
     }
     
     public static void main(String[] args) throws TesseractException, IOException{
-        //String route_dni = "/home/dpclean/NetBeansProjects/cortes/23/part.G.original1.1/dni.jpg";
-        String route_dni = "../cortes/23/part.G.original4.3/dni.jpg";
-        String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
-        String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
+        String route_dni = "../cortes/23/part.G.original5.3/dni.jpg";
         
+        ImagePlus img = new ImagePlus(route_dni);
+        img.show();
         //OCR TESSERACT
         ITesseract instance_num = new Tesseract();
         ITesseract instance_let = new Tesseract();
@@ -303,13 +295,17 @@ public class ocrLib {
         instance_num.setTessVariable("tessedit_char_whitelist", "0123456789");
         instance_let.setTessVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
         
-        BufferedImage img = ImageIO.read(new File(route_dni));
-        List<Word> palabra = instance_num.getWords(img, 0);
-        if(!palabra.isEmpty()){
-            java.lang.System.out.println(palabra.get(0).getText());
-        }else{
-            java.lang.System.out.println("Vacio");
+        ArrayList<OcrCharacter> ocrDni = preprocesamiento_ocr(instance_num, route_dni, 8);
+        
+        String queryDni = "";
+        for (int i = 0; i < ocrDni.size(); i++) {
+            if(ocrDni.get(i).getConfidence() > 60){
+                queryDni += ocrDni.get(i).getLetter();
+            }else{
+                queryDni += "%";
+            }
         }
         
+        java.lang.System.out.println(queryDni);
     }
 }

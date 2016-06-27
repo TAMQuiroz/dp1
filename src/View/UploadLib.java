@@ -7,7 +7,6 @@ package View;
 
 import BusinessModel.Manager;
 import Model.AdherentImage;
-import Model.PoliticalParty;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Line;
@@ -16,11 +15,7 @@ import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
@@ -263,7 +258,7 @@ public class UploadLib {
         //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
         adherent.setPoliticalParty(idParty);
         adherent.setStatus(0);
-        adherents.add(adherent);
+        //adherents.add(adherent);
         
     }
     
@@ -274,7 +269,7 @@ public class UploadLib {
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
         //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
-        x = 10;
+        x = 15;
         y = imgPlus.getHeight() - 10;
         r = imgPlus.getPixel(x,y)[0];
         
@@ -292,8 +287,8 @@ public class UploadLib {
         
         //Cortar Filas
         imgOrigen.setRoi(0, y, imgOrigen.getWidth(), rowSize);
-        console.append("\nCortando fila " + n);
-        console.update(console.getGraphics());
+        //console.append("\nCortando fila " + n);
+        //console.update(console.getGraphics());
         IJ.run(imgOrigen, "Crop", "");
         
         //Cortar Caracteres de fila
@@ -328,7 +323,7 @@ public class UploadLib {
     }
     
     public static int[] forwardNumber(ImagePlus imgPlus, int[] index){
-        int x = 10;
+        int x = 15;
         int y = 0;
 
         y = bajar(imgPlus, x, y, 255); //Negro
@@ -476,8 +471,7 @@ public class UploadLib {
         
         //Abriendo imagen
         String inFile = route + n_img + extension;
-        console.append("\n=======Abriendo imagen " + n_img + extension +
-        " para binarizar=======");
+        //console.append("\n=======Abriendo imagen " + n_img + extension + " para binarizar=======");
         java.lang.System.out.println(inFile);
         ImagePlus imgOrigen = new ImagePlus(inFile);
         ImageProcessor img = imgOrigen.getProcessor();
@@ -492,12 +486,12 @@ public class UploadLib {
         imgOrigen = cutLateralDer(imgResize);
         
         //Contar pixeles
-        console.append("\n=======Contando cabecera=======");
+        //console.append("\n=======Contando cabecera=======");
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 
         int[] index = countHeader(imgResize);
 
         //Cortar filas
-        console.append("\n=======Cortando filas de imagen=======");
+        //console.append("\n=======Cortando filas de imagen=======");
         for(int n = 1; n < 9 ; n++){
             File directory = new File(outputRoute + n_img + n); 
             directory.mkdir(); 
@@ -558,5 +552,14 @@ public class UploadLib {
         Manager.setWorker(idParty, Manager.getSession().getId());
         
         status.setValue(100);
+    }
+    
+    public static void main(String[] args){
+        
+        adherents = new ArrayList<>();
+        idParty = 99;
+        outputRoute = routeToCortes + idParty + "/";
+        count = 0;
+        cutBoxes("C:/Users/tamqu/Desktop/","part.G.original9.", "jpg");
     }
 }
