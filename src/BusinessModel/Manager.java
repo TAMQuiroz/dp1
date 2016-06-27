@@ -30,7 +30,7 @@ public class Manager {
     }
     public static void deleteElectoralProcess(long electoralProcessId){
         electoralProcessDB.delete(electoralProcessId);
-    }
+    }       
     public static ArrayList<ProcessType> queryAllProcessTypes(){
         return processTypeDB.queryAll();
     }
@@ -43,6 +43,13 @@ public class Manager {
     public static ElectoralProcess queryElectoralProcessById(long electoralProcessId){
         return electoralProcessDB.queryById(electoralProcessId);
     }    
+    public static void setProcessStage(int etapa, long idProcess) {
+        electoralProcessDB.setProcessStage(etapa, idProcess);
+    }
+    public static void setProcessListStage(ArrayList<ElectoralProcess> epList) {
+        electoralProcessDB.setProcessListStage(epList);
+    } 
+    
     public static ArrayList<Profile> queryAllProfiles(){
         return profileDB.queryAll();
     }
@@ -108,6 +115,10 @@ public class Manager {
     public static void setWorker(long politicalPartyId, long workerId){
         politicalPartyDB.setWorker(politicalPartyId, workerId);
     }
+    public static void updatePoliticalPartyList(ArrayList<PoliticalParty> epList){
+        politicalPartyDB.updatePoliticalPartyList(epList);
+    }
+    
     
     public static void addAdherentImage(AdherentImage ep){
         adherentImageDB.add(ep);
@@ -193,10 +204,7 @@ public class Manager {
         return adherentImageDB.queryAmountAdherentImageNoValidatedbyPartyId(id);
     }
 
-    public static void setProcessStage(int etapa, long idProcess) {
-        electoralProcessDB.setProcessStage(etapa, idProcess);
-    }
-
+    
     public static void addPeople(ArrayList<Person> personas) {
         personDB.addPeople(personas);
     }

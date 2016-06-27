@@ -43,4 +43,7 @@ public class PoliticalPartyDB {
     public void setWorker(long politicalPartyId, long workerId){
         daoPoliticalParty.setWorker(politicalPartyId, workerId);
     }
+    public void updatePoliticalPartyList( ArrayList<PoliticalParty> epList){
+        daoPoliticalParty.updatePoliticalPartyList(epList);
+    }
 }

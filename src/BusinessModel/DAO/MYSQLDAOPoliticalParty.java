@@ -312,4 +312,54 @@ public class MYSQLDAOPoliticalParty implements DAOPoliticalParty{
                 }
         }    
     }
+    
+    @Override
+    public void updatePoliticalPartyList(ArrayList<PoliticalParty> epList) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;	
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                int size = epList.size();
+                for( int i = 0; i < size; i++){
+                    String sql = "UPDATE politicalParty SET name=?, legalRepresentative=?, telephone=?, email=?, status=?, id_electoralProcess=? WHERE id=?";
+                    pstmt = conn.prepareStatement(sql);
+                    //pstmt.setInt(1,  p.getId());
+                    pstmt.setString(1, epList.get(i).getName());
+                    pstmt.setString(2, epList.get(i).getLegalRepresentative());
+                    pstmt.setString(3, epList.get(i).getTelephone());
+                    pstmt.setString(4, epList.get(i).getEmail());
+                    pstmt.setString(5, epList.get(i).getStatus());
+                    pstmt.setLong(6, epList.get(i).getElectoralProcess().getId());                             
+                    pstmt.setLong(7, epList.get(i).getId()); 
+                    //Paso 4: Ejecutar la sentencia						
+                    pstmt.executeUpdate();
+                }
+                //Paso 5:(opc) Procesar los resultado
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null){
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+    }
 }
