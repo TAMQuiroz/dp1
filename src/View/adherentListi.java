@@ -65,8 +65,6 @@ public class adherentListi extends javax.swing.JFrame {
         File dll, tess = null;
         if(java.lang.System.getProperty("os.name").equals("Linux")){
             dll = new File("lib/libopencv_java2412.so");
-            java.lang.System.load("/home/alulab/Escritorio/Aplicacion/Software/liblept.so");
-            java.lang.System.load("/home/alulab/Escritorio/Aplicacion/Software/libtess.so");
         }else{
             dll = new File("lib/opencv_java2412.dll");
         }

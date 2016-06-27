@@ -296,12 +296,6 @@ public class ocrLib {
         String route_name = "test/auxiliar/cortes/9/padron17/nombre.jpg";
         String route_lastname = "test/auxiliar/cortes/9/padron17/apellido.jpg";
         
-        java.lang.System.out.println(java.lang.System.getProperty("os.name"));
-        
-        if(java.lang.System.getProperty("os.name").equals("Linux")){
-            java.lang.System.load("/home/alulab/Escritorio/Aplicacion/Software/libtess.so");
-        }
-        
         //OCR TESSERACT
         ITesseract instance_num = new Tesseract();
         ITesseract instance_let = new Tesseract();
@@ -317,15 +311,5 @@ public class ocrLib {
             java.lang.System.out.println("Vacio");
         }
         
-        /*
-        adherentListi frame = new adherentListi();
-        Person persona = ocr(frame,instance_num, instance_let, route_dni, route_name, route_lastname);
-        if(persona == null){
-            java.lang.System.out.println("No se encontro la persona");
-        }else{
-            java.lang.System.out.println("Nombre: " + persona.getName() + " Apellido: " + persona.getLastname());
-        }
-        frame.dispose();
-        */
     }
 }
