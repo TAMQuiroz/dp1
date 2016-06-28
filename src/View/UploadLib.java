@@ -562,6 +562,6 @@ public class UploadLib {
         idParty = 99;
         outputRoute = routeToCortes + idParty + "/";
         count = 0;
-        cutBoxes("../padrones/","part.G.original2.", "jpg");
+        cutBoxes("../padrones/","part.G.original9.", "jpg");
     }
 }

@@ -33,7 +33,7 @@ public class ocrLib {
     public static ImagePlus borrarBordeIzq(ImagePlus img){
         int x, y;
         x = 0;
-        y = 10;
+        y = 25;
         int r = img.getPixel(x, y)[0];
         if (r == 255){
             while(r == 255){
@@ -173,7 +173,7 @@ public class ocrLib {
         img = borrarBordeIzq(img);
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
-        
+        //img.show();
         int x1 = 0, x2;
         for (int i = 0; i < n; i++){
             //moverme hasta linea
@@ -250,7 +250,7 @@ public class ocrLib {
 
         for (OcrCharacter result : final_result) {
             if(result != null){
-                java.lang.System.out.print(result.getLetter() + "|");
+                java.lang.System.out.println("Letra: " + result.getLetter() + "| Confianza: " + result.getConfidence());
             }
         }
         java.lang.System.out.println("");
@@ -266,7 +266,7 @@ public class ocrLib {
 
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 60){
+            if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "%";
@@ -328,8 +328,8 @@ public class ocrLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String route_dni = "../cortes/99/part.G.original2.4/dni.jpg";
-        String route_fingerprint = "../cortes/99/part.G.original2.4/huella.jpg";
+        String route_dni = "../cortes/99/part.G.original9.8/dni.jpg";
+        String route_fingerprint = "../cortes/99/part.G.original9.8/huella.jpg";
         ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
@@ -344,7 +344,7 @@ public class ocrLib {
         
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 70 && i != 0){
+            if(ocrDni.get(i).getConfidence() > 75 && i != 0){
                 queryDni += ocrDni.get(i).getLetter();
             }else if(i == 0){
                 queryDni += "7";
