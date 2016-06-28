@@ -510,11 +510,12 @@ public class ElectoralProcessGui extends JFrame {
                 process.setEndRegistrationDate(endregistrationdate);
                 long id = Long.parseLong(jTextField9.getText().trim());
                 process.setId(id);
-
+                
+                int cant= Manager.queryUbigeosByElectoralProcess(Long.parseLong(jTextField9.getText().trim())).size();  
                 int val=validation(name,processtype, date , startregistrationdate,
                         endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
                         startextravalidationdate,startreceptiondate,endextrareceptiondate, 
-                        endextravalidationdate,  endreceptiondate);
+                        endextravalidationdate,  endreceptiondate,cant);
                 try{                       
                     if(Integer.parseInt(jTextField3.getText())>0){
                     Integer countprevious=Integer.parseInt(jTextField3.getText());
@@ -565,14 +566,18 @@ public class ElectoralProcessGui extends JFrame {
 public int validation(String name, String processtype, Date date , Date startregistrationdate,
         Date endregistrationdate, Date startvaldationdate,Date endvalidationdate, Date startextrareceptiondate, 
         Date startextravalidationdate,Date startreceptiondate,Date endextrareceptiondate, 
-        Date endextravalidationdate, Date endreceptiondate){
+        Date endextravalidationdate, Date endreceptiondate,Integer cant){
      if (name.trim().length()==0 || date==null ||startregistrationdate==null || endregistrationdate==null ||
          startvaldationdate==null || endvalidationdate==null ||  startreceptiondate==null     ||
           endreceptiondate==null || startextravalidationdate==null || endextravalidationdate==null  ||
-           startextrareceptiondate==null || endextrareceptiondate==null    ){
+           startextrareceptiondate==null || endextrareceptiondate==null ){
          JOptionPane.showMessageDialog(this, "Completar campos obligatorios (*)", "Alerta", JOptionPane.WARNING_MESSAGE);
          return 1;
      }  
+     if (cant==0){
+         JOptionPane.showMessageDialog(this, "Debe agregar Ubigeos", "Alerta", JOptionPane.WARNING_MESSAGE);
+         return 1;
+     }
      if (startextrareceptiondate.before(endextrareceptiondate)==false){
           JOptionPane.showMessageDialog(this, "Rango de fechas de extra recepción inválido", "Alerta", JOptionPane.WARNING_MESSAGE);
          return 1;
@@ -668,8 +673,9 @@ public int validation(String name, String processtype, Date date , Date startreg
                 }else{
                    JOptionPane.showMessageDialog(this, "Cantidad de votantes debe ser mayor a cero", "Alerta", JOptionPane.WARNING_MESSAGE);
                }
+            // int cant= Manager.queryUbigeosByElectoralProcess(Long.parseLong(jTextField9.getText().trim())).size();   
              int val=validation(name,processtype, date , startregistrationdate, endregistrationdate,  startvaldationdate,endvalidationdate, startextrareceptiondate, 
-                 startextravalidationdate,startreceptiondate,endextrareceptiondate, endextravalidationdate,  endreceptiondate);
+                 startextravalidationdate,startreceptiondate,endextrareceptiondate, endextravalidationdate,  endreceptiondate,1000);
              if(Double.parseDouble(jTextField8.getText())>0 && Double.parseDouble(jTextField8.getText())<1 && val==0 ){
                  Double minpercent= Double.parseDouble(jTextField8.getText());
                  process.setMinPercentage(minpercent);
@@ -704,8 +710,10 @@ public int validation(String name, String processtype, Date date , Date startreg
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
          int selRow = jTable1.getSelectedRow();
+         int cant= Manager.queryUbigeosByElectoralProcess(Long.parseLong(jTextField9.getText().trim())).size();   
 				long processId = Long.parseLong(jTable1.getValueAt(selRow, 0).toString());
 				ElectoralProcess p = Manager.queryElectoralProcessById(processId);
+                                jTextField16.setText(""+cant);
                                 jTextField9.setText("" + p.getId());
                                 jTextField1.setText(p.getName());
                                 jTextField3.setText(""+p.getPopulation());
