@@ -125,6 +125,11 @@ public class FingerprintLib {
         List<MatOfDMatch> matches = new LinkedList<>();  
         DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);  
         java.lang.System.out.print("Encontrando matches entre imagenes | ");  
+        
+        if(sceneDescriptors.empty()){
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0;
+        }
         descriptorMatcher.knnMatch(objectDescriptors, sceneDescriptors, matches, 2);  
 
         java.lang.System.out.println("Calculando buenos matches");
