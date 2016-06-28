@@ -148,7 +148,7 @@ public class UtilLib {
     }
 
     static boolean analyze_result(double puntuacion1, double puntuacion2) {
-        double prom = (puntuacion1 + puntuacion2) / 2;
+        double prom = ((1.5*puntuacion1) + puntuacion2) / 2.5;
         java.lang.System.out.println("Promedio: " + prom);
         if(prom > 70){
             java.lang.System.out.println("Es validado");

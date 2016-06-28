@@ -328,6 +328,7 @@ public class ZoneGui  extends JFrame {
         Ubigeo ubigeo = new Ubigeo();
         ubigeo.setName(name);
         ubigeo.setStatus("Activo");
+        ubigeo.setCode(code);
 
         ElectoralProcess process = Manager.queryElectoralProcessById(idProcessElectoral);
         ubigeo.setElectoralProcess(process);

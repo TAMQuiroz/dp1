@@ -97,7 +97,13 @@ public class SignatureLib {
 
         List<MatOfDMatch> matches = new LinkedList<MatOfDMatch>();  
         DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);  
-        //java.lang.System.out.print("Encontrando matches entre imagenes | ");  
+        //java.lang.System.out.println(sceneDescriptors);  
+        
+        if(sceneDescriptors.empty()){
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0; 
+        }
+        
         descriptorMatcher.knnMatch(objectDescriptors, sceneDescriptors, matches, 2);  
 
         //java.lang.System.out.println("Calculando buenos matches");
@@ -244,8 +250,8 @@ public class SignatureLib {
         
         java.lang.System.load(dll.getAbsolutePath());
             
-        String n_img1= "../rnv/gfi002.jpg";
-        String n_img2  = "../cortes/24/part.G.original7.8/firma.jpg";
+        String n_img1= "../rnv/gfi001.jpg";
+        String n_img2  = "../cortes/23/part.G.original1.8/firma.jpg";
 
         SignatureLib.preprocessSignatures(n_img1, n_img2);
 

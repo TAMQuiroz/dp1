@@ -266,7 +266,9 @@ public class ocrLib {
 
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 75){
+            if(i == 0){
+                queryDni += "7";
+            }else if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "%";
@@ -274,7 +276,11 @@ public class ocrLib {
         }
         personas = Manager.queryByPerson(queryDni);
         String s  = findPerson(console, personas, route_fingerprint);
-        
+        java.lang.System.out.println("Dni encontrado: " + s);
+        if(console != null){
+            console.append("\nAnalizando: " + s);
+            console.update(console.getGraphics());
+        }
         /*
         ImagePlus img = new ImagePlus(dni);
         img.show();
@@ -298,10 +304,7 @@ public class ocrLib {
         String dni;
         Person bestChoice = null;
         for (Person persona : personas) {
-            if(console != null){
-                console.append("\nAnalizando: " + persona.getDni());
-                console.update(console.getGraphics());
-            }
+            
             score = FingerprintLib.huellas_ocr(persona.getFingerprint(), route_fingerprint);
             if(score > maxscore){
                 maxscore = score;
@@ -344,10 +347,10 @@ public class ocrLib {
         
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 75 && i != 0){
-                queryDni += ocrDni.get(i).getLetter();
-            }else if(i == 0){
+            if(i == 0){
                 queryDni += "7";
+            }else if(ocrDni.get(i).getConfidence() > 75 && i != 0){
+                queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "%";
             }
