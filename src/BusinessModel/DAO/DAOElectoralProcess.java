@@ -20,4 +20,5 @@ public interface DAOElectoralProcess {
     ElectoralProcess queryById(long electoralProcessId);
     void setProcessStage(int etapa, long idProcess);
     void setProcessListStage(ArrayList<ElectoralProcess> epList);
+    ArrayList<ElectoralProcess> queryElectoralProcessByName( String name );
 }

@@ -17,4 +17,5 @@ public interface DAOUbigeo {
     ArrayList<Ubigeo> queryAll();        
     Ubigeo queryById(long ubigeoId);
     Ubigeo queryByIdAndElectoralProcess(String code, long electoralProcessId);
+    ArrayList<Ubigeo> queryByElectoralProcess( long electoralProcessId );
 }

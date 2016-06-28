@@ -385,7 +385,7 @@ public class ZoneGui  extends JFrame {
     }
 
     class MyTableModel extends AbstractTableModel {
-        ArrayList<Model.Ubigeo> zoneList = Manager.queryAllUbigeos();
+        ArrayList<Model.Ubigeo> zoneList = Manager.queryUbigeosByElectoralProcess(idProcessElectoral);
 		String [] titles = {"ID","Codigo", "Nombre","Descripcion"};
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -421,7 +421,7 @@ public class ZoneGui  extends JFrame {
 		}
     }
     public void refreshTblZone() {
-		zoneModel.zoneList = Manager.queryAllUbigeos();
+		zoneModel.zoneList = Manager.queryUbigeosByElectoralProcess(idProcessElectoral);
 		zoneModel.fireTableChanged(null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

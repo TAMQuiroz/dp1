@@ -48,7 +48,10 @@ public class Manager {
     }
     public static void setProcessListStage(ArrayList<ElectoralProcess> epList) {
         electoralProcessDB.setProcessListStage(epList);
-    } 
+    }
+    public static ArrayList<ElectoralProcess> queryElectoralProcessByName(String name){
+        return electoralProcessDB.queryElectoralProcessByName(name);
+    }
     
     public static ArrayList<Profile> queryAllProfiles(){
         return profileDB.queryAll();
@@ -94,6 +97,9 @@ public class Manager {
         if (ub == null)
             return false;
         return true;
+    }
+    public static ArrayList<Ubigeo> queryUbigeosByElectoralProcess( long electoralProcessId){
+        return ubigeoDB.queryByElectoralProcess(electoralProcessId);
     }
     
     public static void addPoliticalParty(PoliticalParty ep){

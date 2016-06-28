@@ -42,5 +42,7 @@ public class UbigeoDB {
     public Ubigeo queryByIdAndElectoralProcess(String code, long electoralProcessId){
         return daoUbigeo.queryByIdAndElectoralProcess(code, electoralProcessId);
     }
-    
+    public ArrayList<Ubigeo> queryByElectoralProcess( long electoralProcessId ){
+        return daoUbigeo.queryByElectoralProcess(electoralProcessId);
+    }
 }

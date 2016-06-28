@@ -319,4 +319,60 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
         }
         return ep;
     }
+    
+    @Override
+    public ArrayList<Ubigeo> queryByElectoralProcess( long electoralProcessId ) {
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<Ubigeo> ubigeoList = new ArrayList<Ubigeo>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from ubigeo WHERE id_electoralProcess=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setLong(1, electoralProcessId);           			
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado                
+                ElectoralProcess electoralProcess = new ElectoralProcess();
+                electoralProcess = Manager.queryElectoralProcessById(electoralProcessId);
+                while (rs.next()) {
+                        Ubigeo ep = new Ubigeo();
+                        long id = rs.getLong("id"); ep.setId(id);                        
+                        String code = rs.getString("code"); ep.setCode(code);                        
+                        String name = rs.getString("name"); ep.setName(name);
+                        String description = rs.getString("description"); ep.setDescription(description);
+                        String status = rs.getString("status"); ep.setStatus(status);                                                 
+                        ep.setElectoralProcess(electoralProcess);                        
+                        ubigeoList.add(ep);
+                }
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return ubigeoList;
+    }
 }
