@@ -43,4 +43,7 @@ public class ElectoralProcessDB {
     public void setProcessListStage(ArrayList<ElectoralProcess> epList) {
         daoElectoralProcess.setProcessListStage(epList);
     }
+    public ArrayList<ElectoralProcess> queryElectoralProcessByName(String name) {
+        return daoElectoralProcess.queryElectoralProcessByName(name);
+    }
 }

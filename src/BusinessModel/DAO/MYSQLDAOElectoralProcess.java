@@ -540,5 +540,99 @@ public class MYSQLDAOElectoralProcess implements DAOElectoralProcess{
                 }
         }
     }
+    @Override
+    public ArrayList<ElectoralProcess> queryElectoralProcessByName( String name ){
+        // TODO Auto-generated method stub        
+        Connection conn = null;
+        PreparedStatement pstmt = null;        
+        ResultSet rs = null;       
+        ArrayList<ElectoralProcess> electoralProcessList = new ArrayList<ElectoralProcess>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new SQLServerDriver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "Select* from electoralProcess WHERE name like ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,"%" + name);             		
+                //Paso 4: Ejecutar la sentencia						
+                rs = pstmt.executeQuery();
+                //Paso 5:(opc) Procesar los resultado
+                while (rs.next()) {
+                        ElectoralProcess ep = new ElectoralProcess();
+                        long id = rs.getLong("id"); ep.setId(id);
+                        int population = rs.getInt("population"); ep.setPopulation(population);
+                        String nameEP = rs.getString("name"); ep.setName(nameEP);
+                        String status = rs.getString("status"); ep.setStatus(status);
+                        double minPercentage  = rs.getDouble("minPercentage"); ep.setMinPercentage(minPercentage);
+                        java.sql.Date date = rs.getDate("date"); ep.setDate(date);
+                        java.util.Date dateJava = new java.util.Date(date.getTime()); ep.setDate(dateJava);
+                        date = rs.getDate("startRegistrationDate"); 
+                        java.util.Date startRegistrationDate = new java.util.Date(date.getTime()); 
+                        ep.setStartRegistrationDate(startRegistrationDate);
+                        date = rs.getDate("endRegistrationDate"); 
+                        java.util.Date endRegistrationDate = new java.util.Date(date.getTime());
+                        ep.setEndRegistrationDate(endRegistrationDate);
+                        date = rs.getDate("startReceptionDate");                        
+                        java.util.Date startReceptionDate = new java.util.Date(date.getTime());
+                        ep.setStartReceptionDate(startReceptionDate);
+                        date = rs.getDate("endReceptionDate");                        
+                        java.util.Date endReceptionDate = new java.util.Date(date.getTime());
+                        ep.setEndReceptionDate(endReceptionDate);
+                        date = rs.getDate("startValidationDate");                        
+                        java.util.Date startValidationDate = new java.util.Date(date.getTime());
+                        ep.setStartValidationDate(startValidationDate);
+                        date = rs.getDate("endValidationDate");                        
+                        java.util.Date endValidationDate = new java.util.Date(date.getTime());
+                        ep.setEndValidationDate(endValidationDate);
+                        date = rs.getDate("startExtraReceptionDate");                        
+                        java.util.Date startExtraReceptionDate = new java.util.Date(date.getTime());
+                        ep.setStartExtraReceptionDate(startExtraReceptionDate);
+                        date = rs.getDate("endExtraReceptionDate");                        
+                        java.util.Date endExtraReceptionDate = new java.util.Date(date.getTime());
+                        ep.setEndExtraReceptionDate(endExtraReceptionDate);
+                        date = rs.getDate("startExtraValidationDate");                        
+                        java.util.Date startExtraValidationDate = new java.util.Date(date.getTime());
+                        ep.setStartExtraValidationDate(startExtraValidationDate);
+                        date = rs.getDate("endExtraValidationDate");                         
+                        java.util.Date endExtraValidationDate = new java.util.Date(date.getTime());
+                        ep.setEndExtraValidationDate(endExtraValidationDate);  
+                        long processTypeId = rs.getLong("id_processType");
+                        long userId = rs.getLong("id_user");
+                        ProcessType processType = new ProcessType();
+                        processType = Manager.queryProcessTypeById(processTypeId);
+                        ep.setProcessType(processType);
+                        int stage = rs.getInt("stage");
+                        ep.setStage(stage);
+                        User user = new User();
+                        user = Manager.queryUserById(userId);
+                        ep.setUser(user);
+                        electoralProcessList.add(ep);
+                }
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally{
+                //Paso 6: (ATENCION1)  CERRAR LA CONEXION
+                if (pstmt != null) {
+                        try {
+                                pstmt.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+                }                
+                if(conn != null){
+                        try {
+                                conn.close();
+                        } catch (SQLException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }			
+                }
+        }
+        return electoralProcessList;
+    }
     
 }
