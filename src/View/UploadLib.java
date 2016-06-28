@@ -7,7 +7,6 @@ package View;
 
 import BusinessModel.Manager;
 import Model.AdherentImage;
-import Model.PoliticalParty;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Line;
@@ -16,11 +15,7 @@ import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
@@ -209,7 +204,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[0],0,aux,imgOrigen.getHeight());
         ImagePlus imp = new Duplicator().run(imgOrigen);
         FileSaver fs = new FileSaver(imp);
-        String n_out = outputRoute + n_img + n + "/dni" + extension;
+        String n_out = outputRoute + n_img + n + "/dni." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setDniSource(n_out);
@@ -220,7 +215,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[2],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/apellido" + extension;
+        n_out = outputRoute + n_img + n + "/apellido." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setLastNameSource(n_out);
@@ -231,7 +226,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[3],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/nombre" + extension;
+        n_out = outputRoute + n_img + n + "/nombre." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setNameSource(n_out);
@@ -242,7 +237,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[5],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/firma" + extension;
+        n_out = outputRoute + n_img + n + "/firma." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setSignatureSource(n_out);
@@ -253,7 +248,7 @@ public class UploadLib {
         imgOrigen.setRoi(index[7],0,aux,imgOrigen.getHeight());
         imp = new Duplicator().run(imgOrigen);
         fs = new FileSaver(imp);
-        n_out = outputRoute + n_img + n + "/huella" + extension;
+        n_out = outputRoute + n_img + n + "/huella." + extension;
         fs.saveAsPng(n_out);
         //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setFingerprintSource(n_out);
@@ -263,7 +258,7 @@ public class UploadLib {
         //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
         adherent.setPoliticalParty(idParty);
         adherent.setStatus(0);
-        adherents.add(adherent);
+        //adherents.add(adherent);
         
     }
     
@@ -274,7 +269,7 @@ public class UploadLib {
         ImagePlus imgPlus = new Duplicator().run(imgOrigen);
         //java.lang.System.out.println("Binarizando");
         IJ.run(imgPlus, "Make Binary", "");
-        x = 10;
+        x = 15;
         y = imgPlus.getHeight() - 10;
         r = imgPlus.getPixel(x,y)[0];
         
@@ -292,8 +287,8 @@ public class UploadLib {
         
         //Cortar Filas
         imgOrigen.setRoi(0, y, imgOrigen.getWidth(), rowSize);
-        console.append("\nCortando fila " + n);
-        console.update(console.getGraphics());
+        //console.append("\nCortando fila " + n);
+        //console.update(console.getGraphics());
         IJ.run(imgOrigen, "Crop", "");
         
         //Cortar Caracteres de fila
@@ -328,7 +323,7 @@ public class UploadLib {
     }
     
     public static int[] forwardNumber(ImagePlus imgPlus, int[] index){
-        int x = 10;
+        int x = 15;
         int y = 0;
 
         y = bajar(imgPlus, x, y, 255); //Negro
@@ -476,8 +471,8 @@ public class UploadLib {
         
         //Abriendo imagen
         String inFile = route + n_img + extension;
-        console.append("\n=======Abriendo imagen " + n_img + extension +
-        " para binarizar=======");
+        //console.append("\n=======Abriendo imagen " + n_img + extension + " para binarizar=======");
+        java.lang.System.out.println(inFile);
         ImagePlus imgOrigen = new ImagePlus(inFile);
         ImageProcessor img = imgOrigen.getProcessor();
         
@@ -491,12 +486,12 @@ public class UploadLib {
         imgOrigen = cutLateralDer(imgResize);
         
         //Contar pixeles
-        console.append("\n=======Contando cabecera=======");
+        //console.append("\n=======Contando cabecera=======");
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 
         int[] index = countHeader(imgResize);
 
         //Cortar filas
-        console.append("\n=======Cortando filas de imagen=======");
+        //console.append("\n=======Cortando filas de imagen=======");
         for(int n = 1; n < 9 ; n++){
             File directory = new File(outputRoute + n_img + n); 
             directory.mkdir(); 
@@ -515,10 +510,9 @@ public class UploadLib {
         adherents = new ArrayList<>();
         idParty = id;
         outputRoute = routeToCortes + id + "/";
-        
         count = 0;
         status.setValue(0);
-        
+        String singleName = "";
         File folder = new File(route);
         File[] listOfFiles = folder.listFiles();
         int cantidad = listOfFiles.length;
@@ -529,10 +523,12 @@ public class UploadLib {
                 console.update(console.getGraphics());
                 java.lang.System.out.println("======Analizando " + file.getName() + "======");
                 String[] name = file.getName().split("[.]");
-                if(name[1].equals("jpg")){
+                singleName = "";
+                for(int i = 0; i < name.length - 1; i++) singleName = singleName + name[i] + ".";
+                if(name[name.length-1].equals("jpg")){
                     File directory = new File(outputRoute);
                     directory.mkdir();                    
-                    cutBoxes(route,name[0],"." + name[1]);
+                    cutBoxes(route,singleName, name[name.length-1]);
                     console.append("\n======Fin de analisis " + file.getName() + "======");
                     console.update(console.getGraphics());
                     java.lang.System.out.println("======Fin de analisis " + file.getName() + "======");
@@ -556,5 +552,14 @@ public class UploadLib {
         Manager.setWorker(idParty, Manager.getSession().getId());
         
         status.setValue(100);
+    }
+    
+    public static void main(String[] args){
+        
+        adherents = new ArrayList<>();
+        idParty = 99;
+        outputRoute = routeToCortes + idParty + "/";
+        count = 0;
+        cutBoxes("C:/Users/tamqu/Desktop/","part.G.original9.", "jpg");
     }
 }

@@ -17,6 +17,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.jna.NativeLibrary;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.Tesseract1;
 /**
  *
  * @author Andrea
@@ -62,14 +62,19 @@ public class adherentListi extends javax.swing.JFrame {
     
     public adherentListi(long idParty,String nameParty) {
         java.lang.System.out.println(java.lang.System.getProperty("os.name"));
-        File dll;
+        File dll, tess = null;
         if(java.lang.System.getProperty("os.name").equals("Linux")){
             dll = new File("lib/libopencv_java2412.so");
         }else{
             dll = new File("lib/opencv_java2412.dll");
         }
-                
+               
+        //String libPath = "/lib:" + "/lib:" + java.lang.System.getProperty("java.library.path");
+        //java.lang.System.setProperty("jna.library.path", libPath);
+        //NativeLibrary.getInstance("lept");
+        
         java.lang.System.load(dll.getAbsolutePath());
+
         initComponents();
         id = idParty;
         name = nameParty;
@@ -692,19 +697,22 @@ public class adherentListi extends javax.swing.JFrame {
                                 long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");
+                                    java.lang.System.out.println("\nValidando huellas");
                                     validateConsole.update(validateConsole.getGraphics());
                                     double punctuation1 = FingerprintLib.huellas(person.getFingerprint(), register.getFingerprintSource());
+                                    java.lang.System.out.println("\nPreprocesando Firmas");
                                     validateConsole.append("\nPreprocesando Firmas");
                                     String route1 = person.getSignature(); String route2 = register.getSignatureSource();
                                     try {
                                         SignatureLib.preprocessSignatures(route1, route2);
                                         int index1 =route1.length()-4;
                                         int index2 =route2.length()-4;
-                                        route1= route1.substring(0,index1) + 'r' + route1.substring(index1, index1+4);
-                                        route2= route2.substring(0,index2) + 'r' + route2.substring(index2, index2+4);
+                                        route1= route1.substring(0,index1) + route1.substring(index1, index1+4);
+                                        route2= route2.substring(0,index2) + route2.substring(index2, index2+4);
                                     } catch (IOException ex) {
                                         Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
                                     }
+                                    java.lang.System.out.println("\nValidando Firmas");
                                     validateConsole.append("\nValidando Firmas");
                                     validateConsole.update(validateConsole.getGraphics());
                                     double punctuation2 = SignatureLib.validarFirmas(route1, route2);

@@ -382,7 +382,7 @@ public class PoliticalPartyGui extends JFrame {
              java.lang.System.out.println("Editado nuevo partido politico");
              refreshTblParty();
            }else{
-             JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);    
+             JOptionPane.showMessageDialog(this, "La estapa de registro ha finalizado", "Alerta", JOptionPane.ERROR_MESSAGE);    
            }
     }//GEN-LAST:event_btnUpdateActionPerformed
 

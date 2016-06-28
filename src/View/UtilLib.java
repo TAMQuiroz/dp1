@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 public class UtilLib {
     public static boolean isSuitable(Person person, long electoralProcessId){
         boolean value = Manager.queryUbigeoByIdAndElectoralProcess(person.getUbigeo(), electoralProcessId);        
+        value = value && !(person.isDisabled());
         return value;
     }
     public static long findDuplicity(Person person, long electoralProcessId){        
@@ -77,11 +78,12 @@ public class UtilLib {
         int size = listEP.size();
         int stage = -1;
         for (int i = 0 ; i < size ; i++){
-            stage = checkStageForElectoralProcess(listEP.get(i));            
-            Manager.setProcessStage(stage, listEP.get(i).getId());
+            stage = checkStageForElectoralProcess(listEP.get(i));                        
+            listEP.get(i).setStage(stage);
             if (stage == 4)
-                validatePolitialParties(listEP.get(i).getId());            
+                validatePolitialParties(listEP.get(i));            
         }
+        Manager.setProcessListStage(listEP);
     }
     private static int checkStageForElectoralProcess(ElectoralProcess pt){        
         Date now = new Date(); 
@@ -146,18 +148,21 @@ public class UtilLib {
     }
 
     static boolean analyze_result(double puntuacion1, double puntuacion2) {
-        if(puntuacion1 > 80 &&  puntuacion2 > 80){
+        double prom = (puntuacion1 * puntuacion2) / 2;
+        java.lang.System.out.println("Promedio: " + prom);
+        if(prom > 70){
+            java.lang.System.out.println("Es validado");
             return true;
         }
+        java.lang.System.out.println("No es validado");
         return false;
     }
     
-    public static void validatePolitialParties(long idEP){
-        ElectoralProcess ep = Manager.queryElectoralProcessById(idEP);
-        int minAdeherents = (int) Math.rint(ep.getPopulation()*ep.getMinPercentage()/100);        
+    public static void validatePolitialParties(ElectoralProcess ep){        
+        int minAdeherents = (int) Math.rint(ep.getPopulation()*ep.getMinPercentage());        
         ArrayList<PoliticalParty> partyList = new ArrayList<PoliticalParty>();
         ArrayList<Adherent> adherentList = new ArrayList<Adherent>();
-        partyList = Manager.queryAllPoliticalParties(idEP);
+        partyList = Manager.queryAllPoliticalParties(ep.getId());
         int sizePL = partyList.size();
         int adherentAmount = 0;
         for ( int i = 0; i<sizePL; i++){
@@ -166,9 +171,9 @@ public class UtilLib {
             if (adherentAmount >= minAdeherents)
                 partyList.get(i).setStatus("Validado");                                            
             else
-                partyList.get(i).setStatus("Rechazado");                                            
-            Manager.updatePoliticalParty(partyList.get(i));
+                partyList.get(i).setStatus("Rechazado");                                                    
         }
+        Manager.updatePoliticalPartyList(partyList);
     }
     
     
@@ -176,7 +181,7 @@ public class UtilLib {
         int stage = checkStage(12);
         java.lang.System.out.println(stage);        
         checkStageAllElectoralProcess();
-        validatePolitialParties(28);
+//        validatePolitialParties(28);
     }
     
     

@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -43,6 +42,10 @@ public class rnvLib {
             {
                 Person persona = new Person();
                 Row row = rowIterator.next();
+                Cell c = row.getCell(0);
+                if(c == null || c.getCellType() == Cell.CELL_TYPE_BLANK){
+                    break;
+                }
                 //For each row, iterate through all the columns
                 java.util.Iterator<Cell> cellIterator = row.cellIterator();
                 int nrow = 0;

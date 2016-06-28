@@ -17,4 +17,5 @@ public interface DAOPoliticalParty {
     ArrayList<PoliticalParty> queryAll(long idElectoralProcess);
     PoliticalParty queryById(long politicalPartyId);
     void setWorker(long politicalPartyId, long workerId);
+    void updatePoliticalPartyList(ArrayList<PoliticalParty> epList);
 }

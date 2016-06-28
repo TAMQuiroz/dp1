@@ -49,8 +49,8 @@ public class Signature {
         String routeVal="test\\auxiliar\\cortes\\0\\padron";
 
         //Firma a comparar
-        String n_img1  = "f001r";
-        String n_img2  = "f003r";
+        String n_img1  = "f001";
+        String n_img2  = "f003";
         
         /*for(int k=11;k<=48;k++){
             if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
@@ -196,7 +196,7 @@ public class Signature {
             String n_img = route + "results\\" + n_img2 + "_sift" + extension;
             Highgui.imwrite(n_outputImage, outputImage);
             Highgui.imwrite(n_matchoutput, matchoutput);  
-            Highgui.imwrite(n_img, img);  
+            //Highgui.imwrite(n_img, img);  
             java.lang.System.out.println(goodMatches.size().height);
             double result =goodMatches.size().height*100/matches.size();
             DecimalFormat df = new DecimalFormat("##.##");
