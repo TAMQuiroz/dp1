@@ -690,10 +690,10 @@ public class adherentListi extends javax.swing.JFrame {
                     for (AdherentImage register : registers) {
                         validateConsole.append("\nInterpretando imagenes via OCR");
                         validateConsole.update(validateConsole.getGraphics());
-                        Person person = ocrLib.ocr(this, instance_num, instance_let, register.getDniSource(), register.getNameSource(), register.getLastNameSource());
+                        Person person = ocrLib.ocr(validateConsole, instance_num, instance_let, register.getDniSource(), register.getFingerprintSource());
                         if(person != null){
                             boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
-                            if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
+                            if(isSuitable){ // para continuar flujo. sino quitar el FALSE
                                 long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");

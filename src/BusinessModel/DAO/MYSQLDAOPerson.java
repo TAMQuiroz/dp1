@@ -47,7 +47,7 @@ public class MYSQLDAOPerson implements DAOPerson {
                         String fingerprint = rs.getString("fingerprint"); person.setFingerprint(fingerprint);
                         String signature = rs.getString("signature"); person.setSignature(signature);                                            
                         boolean citizen = rs.getBoolean("citizen"); person.setCitizen(citizen);                       
-                        boolean disabled = rs.getBoolean("disabled"); person.setDisabled(disabled);                                               
+                        boolean disabled = rs.getBoolean("disabled"); person.setDisabled(disabled);
                 }
 
         } catch (SQLException e) {
@@ -75,43 +75,14 @@ public class MYSQLDAOPerson implements DAOPerson {
         return person;
     }
     @Override
-    public ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname) {
+    public ArrayList<Person> queryByPerson(String queryDni) {
                
         Connection conn = null;
         PreparedStatement pstmt = null;        
         ResultSet rs = null;       
         ArrayList<Person> personList = new ArrayList<Person>();
-        
-        String queryDni = "";
-        for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 60){
-                queryDni += ocrDni.get(i).getLetter();
-            }else{
-                queryDni += "%";
-            }
-        }
-        
-        String name = "";
-        for (int i = 0; i < ocrName.size(); i++) {
-            if(ocrName.get(i).getConfidence() > 60){
-                name += ocrName.get(i).getLetter();
-            }else{
-                name += "%";
-            }
-        }
-        
-        String lastname = "";
-        for (int i = 0; i < ocrLastname.size(); i++) {
-            if(ocrLastname.get(i).getConfidence() > 60){
-                lastname += ocrLastname.get(i).getLetter();
-            }else{
-                lastname += "%";
-            }
-        }
-        
+
         java.lang.System.out.println("Dni a buscar: " + queryDni);
-        java.lang.System.out.println("Nombre a buscar: " + name);
-        java.lang.System.out.println("Apellido a buscar: " + lastname);
         
         try {
                 //Paso 1: Registrar el Driver
@@ -119,17 +90,24 @@ public class MYSQLDAOPerson implements DAOPerson {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from rnv";
-                pstmt = conn.prepareStatement(sql);                
+                String sql = "SELECT * FROM rnv WHERE dni LIKE '" + queryDni + "'";
+                pstmt = conn.prepareStatement(sql); 
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado
                 while (rs.next()) {
-                        //completar
+                    Person person = new Person();
+                    long id = rs.getLong("id"); person.setId(id);                       
+                    String name = rs.getString("name"); person.setName(name);
+                    String lastName = rs.getString("lastname"); person.setLastname(lastName);                                                
+                    String dniP = rs.getString("dni"); person.setDni(dniP); 
+                    String ubigeo = rs.getString("ubigeo"); person.setUbigeo(ubigeo);     
+                    String fingerprint = rs.getString("fingerprint"); person.setFingerprint(fingerprint);
+                    String signature = rs.getString("signature"); person.setSignature(signature);                                            
+                    boolean citizen = rs.getBoolean("citizen"); person.setCitizen(citizen);                       
+                    boolean disabled = rs.getBoolean("disabled"); person.setDisabled(disabled);
+                    personList.add(person);
                 }
-
-
-
         } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

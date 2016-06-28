@@ -196,8 +196,8 @@ public class Manager {
     public static Person queryPersonByDni(String dni){
         return personDB.queryByDni(dni);
     }
-    public static ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname){
-        return personDB.queryByPerson(ocrDni, ocrName, ocrLastname);
+    public static ArrayList<Person> queryByPerson(String queryDni){
+        return personDB.queryByPerson(queryDni);
     }
 
     public static int queryAmountAdherentImageNoValidatedbyPartyId(long id) {

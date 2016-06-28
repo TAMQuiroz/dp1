@@ -8,15 +8,17 @@ package View;
 import BusinessModel.Manager;
 import Model.OcrCharacter;
 import Model.Person;
+import static View.UploadLib.console;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -121,7 +123,7 @@ public class ocrLib {
     }
        
     public static ImagePlus cutPadding(ImagePlus img){
-        int y = 10, min = 10000, max = 0;
+        int y, min = 10000, max = 0;
         int r;
         
         for(int i = 10; i < img.getWidth()-10; i++){
@@ -172,7 +174,7 @@ public class ocrLib {
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
         
-        int x1 = 0, x2 = 0;
+        int x1 = 0, x2;
         for (int i = 0; i < n; i++){
             //moverme hasta linea
             x2 = derechaBlanco(x1, img);
@@ -255,14 +257,13 @@ public class ocrLib {
         return final_result;
     }
     
-    public static Person ocr(adherentListi frame,ITesseract instance_num, ITesseract instance_let, String dni, String name, String lastname){
+    public static Person ocr(JTextArea console,ITesseract instance_num, ITesseract instance_let, String dni, String route_fingerprint){
         ArrayList<Person> personas;
-        ArrayList<OcrCharacter> ocrDni = null, ocrName, ocrLastname; 
+        Person persona;
+        ArrayList<OcrCharacter> ocrDni = null; 
 
         ocrDni = preprocesamiento_ocr(instance_num, dni, 8);
 
-        //JOptionPane.showMessageDialog(frame, "Error "+ocrDni.get(0).getLetter(), "Alerta", JOptionPane.WARNING_MESSAGE);
-        
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
             if(ocrDni.get(i).getConfidence() > 60){
@@ -271,21 +272,65 @@ public class ocrLib {
                 queryDni += "%";
             }
         }
+        personas = Manager.queryByPerson(queryDni);
+        String s  = findPerson(console, personas, route_fingerprint);
         
+        /*
         ImagePlus img = new ImagePlus(dni);
         img.show();
         String s = (String)JOptionPane.showInputDialog(frame, "DNI interpretado: "+ queryDni +"\nIngresa DNI:\n", "Input de prueba", JOptionPane.PLAIN_MESSAGE, null, null, "");
         img.close();
-        
+        */
+                
         //personas = Manager.queryByPerson(ocrDni, ocrName, ocrLastname);
-        Person persona = Manager.queryPersonByDni(s);
+        if (s!=null){
+            persona = Manager.queryPersonByDni(s);
+        }else{
+            persona = null;
+        }
         
         return persona;
     }
     
+    
+    private static String findPerson(JTextArea console, ArrayList<Person> personas, String route_fingerprint) {
+        double score, maxscore = 0;
+        String dni;
+        Person bestChoice = null;
+        for (Person persona : personas) {
+            if(console != null){
+                console.append("\nAnalizando: " + persona.getDni());
+                console.update(console.getGraphics());
+            }
+            score = FingerprintLib.huellas_ocr(persona.getFingerprint(), route_fingerprint);
+            if(score > maxscore){
+                maxscore = score;
+                bestChoice = persona;
+            }
+        }
+        if(bestChoice == null && personas.isEmpty()){
+            dni = null;
+        }else if(bestChoice == null && !personas.isEmpty()){
+            dni = personas.get(0).getDni();
+        }else{
+            dni = bestChoice.getDni();
+        }
+        return dni;
+    }
+    
     public static void main(String[] args) throws TesseractException, IOException{
-        String route_dni = "../cortes/23/part.G.original5.3/dni.jpg";
+        File dll;
+        if(java.lang.System.getProperty("os.name").equals("Linux")){
+           dll = new File("lib/libopencv_java2412.so");
+        }else{
+            dll = new File("lib/opencv_java2412.dll");
+        }
         
+        java.lang.System.load(dll.getAbsolutePath());
+        
+        String route_dni = "../cortes/99/part.G.original2.4/dni.jpg";
+        String route_fingerprint = "../cortes/99/part.G.original2.4/huella.jpg";
+        ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
         //OCR TESSERACT
@@ -299,13 +344,22 @@ public class ocrLib {
         
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(ocrDni.get(i).getConfidence() > 60){
+            if(ocrDni.get(i).getConfidence() > 70 && i != 0){
                 queryDni += ocrDni.get(i).getLetter();
+            }else if(i == 0){
+                queryDni += "7";
             }else{
                 queryDni += "%";
             }
         }
         
         java.lang.System.out.println(queryDni);
+        personas = Manager.queryByPerson(queryDni);
+        for (Person person : personas){
+            java.lang.System.out.println(person.getDni() + " " + person.getName() + " " + person.getLastname());
+        }
+        String s  = findPerson(null, personas, route_fingerprint);
+        java.lang.System.out.println("Dni encontrado: " + s);
     }
+
 }

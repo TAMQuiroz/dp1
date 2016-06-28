@@ -206,7 +206,6 @@ public class UploadLib {
         FileSaver fs = new FileSaver(imp);
         String n_out = outputRoute + n_img + n + "/dni." + extension;
         fs.saveAsPng(n_out);
-        //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setDniSource(n_out);
         //java.lang.System.out.println("Cortando dni en: " + index[0] + " y " + index[1]);
         
@@ -217,7 +216,6 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "/apellido." + extension;
         fs.saveAsPng(n_out);
-        //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setLastNameSource(n_out);
         //java.lang.System.out.println("Cortando apellido en: " + index[2] + " y " + index[3]);
         
@@ -228,7 +226,6 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "/nombre." + extension;
         fs.saveAsPng(n_out);
-        //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setNameSource(n_out);
         //java.lang.System.out.println("Cortando nombre en: " + index[3] + " y " + index[4]);
         
@@ -239,7 +236,6 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "/firma." + extension;
         fs.saveAsPng(n_out);
-        //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setSignatureSource(n_out);
         //java.lang.System.out.println("Cortando firma en: " + index[5] + " y " + index[6]);
         
@@ -250,15 +246,13 @@ public class UploadLib {
         fs = new FileSaver(imp);
         n_out = outputRoute + n_img + n + "/huella." + extension;
         fs.saveAsPng(n_out);
-        //adherent.setNameSource(n_out.replace("\\", "/"));
         adherent.setFingerprintSource(n_out);
         //java.lang.System.out.println("Cortando huella en: " + index[7] + " y " + index[8]);
         
         java.lang.System.out.println("Guardando en base de datos");
-        //PoliticalParty p = Manager.queryPoliticalPartyById(idPartido);
         adherent.setPoliticalParty(idParty);
         adherent.setStatus(0);
-        //adherents.add(adherent);
+        adherents.add(adherent);
         
     }
     
@@ -287,8 +281,10 @@ public class UploadLib {
         
         //Cortar Filas
         imgOrigen.setRoi(0, y, imgOrigen.getWidth(), rowSize);
-        //console.append("\nCortando fila " + n);
-        //console.update(console.getGraphics());
+        if(console != null){
+            console.append("\nCortando fila " + n);
+            console.update(console.getGraphics());
+        }
         IJ.run(imgOrigen, "Crop", "");
         
         //Cortar Caracteres de fila
@@ -471,7 +467,9 @@ public class UploadLib {
         
         //Abriendo imagen
         String inFile = route + n_img + extension;
-        //console.append("\n=======Abriendo imagen " + n_img + extension + " para binarizar=======");
+        if(console != null){
+            console.append("\n=======Abriendo imagen " + n_img + extension + " para binarizar=======");
+        }
         java.lang.System.out.println(inFile);
         ImagePlus imgOrigen = new ImagePlus(inFile);
         ImageProcessor img = imgOrigen.getProcessor();
@@ -486,12 +484,16 @@ public class UploadLib {
         imgOrigen = cutLateralDer(imgResize);
         
         //Contar pixeles
-        //console.append("\n=======Contando cabecera=======");
+        if(console != null){
+            console.append("\n=======Contando cabecera=======");
+        }
         //| 0 DNI 1 | 2 Apellidos 3 Nombres 4 | 5 Firma 6 | 7 Huella 8 | 
         int[] index = countHeader(imgResize);
 
         //Cortar filas
-        //console.append("\n=======Cortando filas de imagen=======");
+        if(console != null){
+            console.append("\n=======Cortando filas de imagen=======");
+        }
         for(int n = 1; n < 9 ; n++){
             File directory = new File(outputRoute + n_img + n); 
             directory.mkdir(); 
@@ -542,12 +544,12 @@ public class UploadLib {
             int percentage = (100*count)/cantidad;
             java.lang.System.out.println("Porcentaje: " + percentage);
             //WIP Subir a bd
-            Manager.addAdherentImages(adherents);
+            //
             //imprimeLista();
             status.setValue(percentage);
             status.update(status.getGraphics());
         }
-        
+        Manager.addAdherentImages(adherents);
         //Actualizar trabajador asignado a partido politico
         Manager.setWorker(idParty, Manager.getSession().getId());
         
@@ -560,6 +562,6 @@ public class UploadLib {
         idParty = 99;
         outputRoute = routeToCortes + idParty + "/";
         count = 0;
-        cutBoxes("C:/Users/tamqu/Desktop/","part.G.original9.", "jpg");
+        cutBoxes("../padrones/","part.G.original2.", "jpg");
     }
 }

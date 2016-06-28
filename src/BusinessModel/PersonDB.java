@@ -25,8 +25,8 @@ public class PersonDB {
     public Person queryByDni(String dni){
         return daoPerson.queryByDni(dni);
     }
-    public ArrayList<Person> queryByPerson(ArrayList<OcrCharacter> ocrDni, ArrayList<OcrCharacter> ocrName, ArrayList<OcrCharacter> ocrLastname){
-        return daoPerson.queryByPerson(ocrDni, ocrName, ocrLastname);
+    public ArrayList<Person> queryByPerson(String queryDni){
+        return daoPerson.queryByPerson(queryDni);
     }
 
     public void addPeople(ArrayList<Person> personas) {
