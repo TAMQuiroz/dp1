@@ -49,53 +49,13 @@ public class SignatureLib {
     //firmas(persona existente, registro en padron)
     public static int validarFirmas(String routeRNV, String routeAdherent) {
         
-        //File dll = new File("lib\\opencv_java2412.dll");
-        //java.lang.System.load(dll.getAbsolutePath());
-        
-        //String extension = ".jpg";
-        //console.append("======Inicio del análisis de la firma======");
         int res =sift(routeRNV, routeAdherent);
-        //String route = "firmas\\resized\\";
+       
+        java.lang.System.out.println("Firma - matches: "+max+" res:"+res);
         
-        
-        //String routeVal="test\\auxiliar\\cortes\\"+id+"\\padron";
-
-        //Firma a comparar
-        //String n_img1  = "firma";
-        //String n_img1  = "f001rp";
-        
-        /*for(int k=11;k<=48;k++){
-            if(k==11 || k==12 || k==13 || k==14 ){
-                max=0; indice=0; 
-                String routeAdd=k+"\\";
-                java.lang.System.out.print(k);
-                console.append("======Analizando firma de carpeta: padron" + k  + "======");
-                //java.lang.System.out.println("***INICIANDO SIFT***");
-                for(int i=1;i<=58;i++){
-                    cambio=0;
-                    String n_img2  = "f0";
-                    if(i<10)
-                        n_img2=n_img2+"0";
-                    n_img2=n_img2+i+"r";
-
-                    sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
-                    if(cambio==1)
-                        indice=i;
-                }*/
-                
-                
-                //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma - matches: "+max+" res:"+res);
-                
-                //console.append("\nFirma encontrada:" + indice );
-            //}
-            //console.append("\n");
-        //}
-        //console.append("======Fin del análisis de la firma======");
         return res;
     }  
         
-        //public static void sift(String routeVal,String route, String n_img1, String n_img2, String extension){
         public static int sift(String routeRNV, String routeAdherent){
   
         String bookObject = routeAdherent;
@@ -162,11 +122,6 @@ public class SignatureLib {
         if (goodMatchesList.size() >= 7)  
         {  
             max=goodMatchesList.size();
-            //java.lang.System.out.println("Match enontrado!!! Matches: "+goodMatchesList.size());
-            /*if(goodMatchesList.size()>max){
-                max=goodMatchesList.size();
-                cambio = 1;
-            } */   
             
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();  
             List<KeyPoint> scnKeypointlist = sceneKeyPoints.toList();  
@@ -220,13 +175,13 @@ public class SignatureLib {
             java.lang.System.out.println(goodMatches.size().height);
             double result =goodMatches.size().height;//*100/matches.size();
             int score = 0;
-            if(result > 25){
+            if(result > 35){
                 score = 100;
-            }else if(result <= 25 && result > 20){
+            }else if(result <= 30 && result > 25){
                 score = 85;
-            }else if(result <= 20 && result > 15){
+            }else if(result <= 25 && result > 20){
                 score = 50;
-            }else if(result <= 15 && result > 10){
+            }else if(result <= 20 && result > 15){
                 score = 25;
             }else{
                 score = 0;
@@ -255,9 +210,9 @@ public class SignatureLib {
         String routeRNV2= routeRNV.substring(0,index1) + routeRNV.substring(index1, index1+4);
         String routeAdherent2= routeAdherent.substring(0,index2) + routeAdherent.substring(index2, index2+4);
         //BufferedImage resizeImagePng = resizeImage(originalImage1, type);
-        //BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
+        BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
         //ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
-        //ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
+        ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
         
         ImagePlus imgPlusAdherent = new ImagePlus(routeAdherent2);
         
@@ -288,18 +243,19 @@ public class SignatureLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        
-        String n_img1  = "../rnv/gfi044.jpg";
-        String n_img2  = "../cortes/23/part.G.original4.4/firma.jpg";
-        
+            
+        String n_img1= "../rnv/gfi002.jpg";
+        String n_img2  = "../cortes/24/part.G.original7.8/firma.jpg";
+
         SignatureLib.preprocessSignatures(n_img1, n_img2);
-        
+
         ImagePlus img1 = new ImagePlus(n_img1);
         img1.show();
         ImagePlus img2 = new ImagePlus("../pre/sig.jpg");
         img2.show();
-        
+
         double resultado = validarFirmas(n_img1, "../pre/sig.jpg");
         java.lang.System.out.println("Resultado: " + resultado);
+        
    }
 }

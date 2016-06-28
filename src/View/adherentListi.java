@@ -693,7 +693,7 @@ public class adherentListi extends javax.swing.JFrame {
                         Person person = ocrLib.ocr(this, instance_num, instance_let, register.getDniSource(), register.getNameSource(), register.getLastNameSource());
                         if(person != null){
                             boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
-                            if(isSuitable==false){ // para continuar flujo. sino quitar el FALSE
+                            if(isSuitable){ // para continuar flujo. sino quitar el FALSE
                                 long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
                                 if(party_id == -1){
                                     validateConsole.append("\nValidando Huellas");

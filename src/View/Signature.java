@@ -52,29 +52,10 @@ public class Signature {
         String n_img1  = "f001";
         String n_img2  = "f003";
         
-        /*for(int k=11;k<=48;k++){
-            if(k==11 || k==12 || k==13 || k==14 || k==15 || k==16 || k==17 || k==18){
-                max=0; indice=0; 
-                String routeAdd=k+"\\";
-                java.lang.System.out.print(k);
-                //java.lang.System.out.println("***INICIANDO SIFT***");
-                for(int i=1;i<=58;i++){
-                    cambio=0;
-                    String n_img2  = "f0";
-                    if(i<10)
-                        n_img2=n_img2+"0";
-                    n_img2=n_img2+i+"r";*/
 
-                    //sift(routeVal+routeAdd, route,n_img1, n_img2, extension);
-                    /*if(cambio==1)
-                        indice=i;
-                }*/
-                int res = sift(route, route,n_img1, n_img2, extension);
-                //java.lang.System.out.println("***FINALIZANDO SIFT***");
-                java.lang.System.out.println("Firma encontrada final - res: " + res + ", matches: "+max);
-            //}
-            
-        //}
+        int res = sift(route, route,n_img1, n_img2, extension);
+        
+        java.lang.System.out.println("Firma encontrada final - res: " + res + ", matches: "+max);
         
     }  
     
@@ -199,8 +180,7 @@ public class Signature {
             //Highgui.imwrite(n_img, img);  
             java.lang.System.out.println(goodMatches.size().height);
             double result =goodMatches.size().height*100/matches.size();
-            DecimalFormat df = new DecimalFormat("##.##");
-            df.setRoundingMode(RoundingMode.DOWN);
+            
             java.lang.System.out.println((int)result);
             //double result =goodMatches.size().height;
             if(result > 100){
