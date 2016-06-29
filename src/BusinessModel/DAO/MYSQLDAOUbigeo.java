@@ -333,9 +333,10 @@ public class MYSQLDAOUbigeo implements DAOUbigeo {
                 //Paso 2: Obtener la conexión
                 conn = DriverManager.getConnection(DBConnection.URL_JDBC_MYSQL, DBConnection.user, DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "Select* from ubigeo WHERE id_electoralProcess=?";
+                String sql = "Select* from ubigeo WHERE id_electoralProcess=? and status=?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setLong(1, electoralProcessId);           			
+                pstmt.setString(2, "Activo");           			
                 //Paso 4: Ejecutar la sentencia						
                 rs = pstmt.executeQuery();
                 //Paso 5:(opc) Procesar los resultado                

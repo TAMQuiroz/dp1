@@ -113,7 +113,7 @@
                               <Component id="jLabel16" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btnCancel" alignment="0" pref="128" max="32767" attributes="0"/>
+                                  <Component id="btnCancel" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">

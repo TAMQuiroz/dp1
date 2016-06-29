@@ -434,6 +434,7 @@ public class PoliticalPartyGui extends JFrame {
                                           JOptionPane.showMessageDialog(this, "No se encuentra en el rango de registro", "Alerta", JOptionPane.ERROR_MESSAGE);   
                                         }
                                         refreshTblParty();
+                                        cleanForm();
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -537,7 +538,13 @@ public class PoliticalPartyGui extends JFrame {
 		partyModel.partyList = Manager.queryAllPoliticalParties(ProcessElectoralId);
 		partyModel.fireTableChanged(null);
     }
-
+    public void cleanForm(){
+                email1.setText("");
+                legalDepartment.setText("");
+                telephone.setText("");
+                email.setText("");
+                nameText.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;
