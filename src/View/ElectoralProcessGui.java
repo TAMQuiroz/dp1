@@ -759,7 +759,7 @@ public int validation(String name, String processtype, Date date , Date startreg
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        cleanForm();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
