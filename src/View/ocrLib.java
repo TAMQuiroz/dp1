@@ -43,6 +43,7 @@ public class ocrLib {
             }
             img.setRoi(x, 0, img.getWidth() - x, img.getHeight());
             img = new Duplicator().run(img);
+            
         }
         return img;
     }
@@ -60,6 +61,7 @@ public class ocrLib {
             }
             img.setRoi(0, 0, x, img.getHeight());
             img = new Duplicator().run(img);
+            
         }
         return img;
     }
@@ -84,7 +86,7 @@ public class ocrLib {
     
     public static ImagePlus borrarBordeAbajo(ImagePlus img){
         int x, y;
-        x = 10;
+        x = 15;
         y = img.getHeight()-1;
         int r = img.getPixel(x, y)[0];
         
@@ -126,7 +128,7 @@ public class ocrLib {
         int y, min = 10000, max = 0;
         int r;
         
-        for(int i = 10; i < img.getWidth()-10; i++){
+        for(int i = 20; i < img.getWidth()-10; i++){
             y = 10;
             while(y < img.getHeight()){
                 r = img.getPixel(i, y)[0];
@@ -167,13 +169,23 @@ public class ocrLib {
         return img;
     }
     
+    public static ImagePlus eraseBlack(ImagePlus img){
+        img = borrarBordeIzq(img);
+        img = borrarBordeDer(img);
+        img = borrarBordeArriba(img);
+        img = borrarBordeAbajo(img);
+        
+        return img;
+    }
+    
     public static ArrayList<BufferedImage> cutDigits(ImagePlus img, int n){
         ArrayList<BufferedImage> imgs = new ArrayList<>();
         img = borrarBordeArriba(img);
+        //img.show();
         img = borrarBordeIzq(img);
+        //img.show();
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
-        //img.show();
         int x1 = 5, x2;
         for (int i = 0; i < n; i++){
             //moverme hasta linea
@@ -182,8 +194,9 @@ public class ocrLib {
             
             img.setRoi(x1, 0, x2 - x1, img.getHeight());
             ImagePlus aux = new Duplicator().run(img);
-            //aux.show();
+            
             aux = cutPadding(aux);
+            aux = eraseBlack(aux);
             if(aux != null){
                 //aux.show();
                 imgs.add(aux.getBufferedImage());
@@ -333,9 +346,9 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        
-        String route_dni = "../cortes/99/part.G.original6.8/dni.jpg";
-        String route_fingerprint = "../cortes/99/part.G.original6.8/huella.jpg";
+        String name = "part.G.original9.8";
+        String route_dni = "../cortes/99/" + name + "/dni.jpg";
+        String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
