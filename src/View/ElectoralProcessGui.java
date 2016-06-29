@@ -556,6 +556,7 @@ public class ElectoralProcessGui extends JFrame {
             try {
                 deleteElectoralProcess(Integer.parseInt(jTextField9.getText()));           
                 refreshTblElectoralProcess();
+                cleanForm();
                 //jTable2.clear();
                 //jTable2.addAll(tableQuery.getResultList());
             } catch (NumberFormatException e1) {
@@ -711,30 +712,30 @@ public int validation(String name, String processtype, Date date , Date startreg
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-         int selRow = jTable1.getSelectedRow();
-         int cant= Manager.queryUbigeosByElectoralProcess(Long.parseLong(jTextField9.getText().trim())).size();   
-				long processId = Long.parseLong(jTable1.getValueAt(selRow, 0).toString());
-				ElectoralProcess p = Manager.queryElectoralProcessById(processId);
-                                jTextField16.setText(""+cant);
-                                jTextField9.setText("" + p.getId());
-                                jTextField1.setText(p.getName());
-                                jTextField3.setText(""+p.getPopulation());
-                                jTextField8.setText(""+p.getMinPercentage());
-                                jComboBox1.setSelectedItem(p.getProcessType());
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");                                                                
-                                jTextField2.setText(""+ formatter.format(p.getDate()));
-                                jTextField5.setText(""+formatter.format(p.getStartRegistrationDate()));
-                                jTextField4.setText(""+formatter.format(p.getEndRegistrationDate()));
-                                jTextField7.setText(""+formatter.format(p.getStartValidationDate()));
-                                jTextField6.setText(""+formatter.format(p.getEndValidationDate()));
-                                jTextField10.setText(""+formatter.format(p.getStartExtraReceptionDate()));
-                                jTextField12.setText(""+formatter.format(p.getStartExtraValidationDate()));
-                                jTextField14.setText(""+formatter.format(p.getStartReceptionDate()));
-                                jTextField11.setText(""+formatter.format(p.getEndExtraReceptionDate()));
-                                jTextField13.setText(""+formatter.format(p.getEndExtraValidationDate()));
-                                jTextField15.setText(""+formatter.format(p.getEndReceptionDate()));
-                                java.lang.System.out.println("Partido seleccionado");
-                           java.lang.System.out.println("Proceso Electoral seleccionado");
+        int selRow = jTable1.getSelectedRow();
+        int cant= Manager.queryUbigeosByElectoralProcess(Long.parseLong(jTextField9.getText().trim())).size();   
+        long processId = Long.parseLong(jTable1.getValueAt(selRow, 0).toString());
+        ElectoralProcess p = Manager.queryElectoralProcessById(processId);
+        jTextField16.setText(""+cant);
+        jTextField9.setText("" + p.getId());
+        jTextField1.setText(p.getName());
+        jTextField3.setText(""+p.getPopulation());
+        jTextField8.setText(""+p.getMinPercentage());
+        jComboBox1.setSelectedItem(p.getProcessType());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");                                                                
+        jTextField2.setText(""+ formatter.format(p.getDate()));
+        jTextField5.setText(""+formatter.format(p.getStartRegistrationDate()));
+        jTextField4.setText(""+formatter.format(p.getEndRegistrationDate()));
+        jTextField7.setText(""+formatter.format(p.getStartValidationDate()));
+        jTextField6.setText(""+formatter.format(p.getEndValidationDate()));
+        jTextField10.setText(""+formatter.format(p.getStartExtraReceptionDate()));
+        jTextField12.setText(""+formatter.format(p.getStartExtraValidationDate()));
+        jTextField14.setText(""+formatter.format(p.getStartReceptionDate()));
+        jTextField11.setText(""+formatter.format(p.getEndExtraReceptionDate()));
+        jTextField13.setText(""+formatter.format(p.getEndExtraValidationDate()));
+        jTextField15.setText(""+formatter.format(p.getEndReceptionDate()));
+        java.lang.System.out.println("Partido seleccionado");
+        java.lang.System.out.println("Proceso Electoral seleccionado");
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
@@ -832,7 +833,25 @@ public int validation(String name, String processtype, Date date , Date startreg
 		electoralProcessModel.electoralProcessList = Manager.queryAllElectoralProcess();
 		electoralProcessModel.fireTableChanged(null);
     }
-
+    public void cleanForm(){
+                jTextField16.setText("");
+                jTextField9.setText("");
+                jTextField1.setText("");
+                jTextField3.setText("");
+                jTextField8.setText("");
+                jComboBox1.setSelectedItem(null);                                                                             
+                jTextField2.setText("");
+                jTextField5.setText("");
+                jTextField4.setText("");
+                jTextField7.setText("");
+                jTextField6.setText("");
+                jTextField10.setText("");
+                jTextField12.setText("");
+                jTextField14.setText("");
+                jTextField11.setText("");
+                jTextField13.setText("");
+                jTextField15.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;

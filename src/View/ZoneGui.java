@@ -313,6 +313,7 @@ public class ZoneGui  extends JFrame {
             try {
                 deleteUbigeo(Integer.parseInt(nameText1.getText().trim()));
                 refreshTblZone();
+                cleanForm();
                 int cant= Manager.queryUbigeosByElectoralProcess(idProcessElectoral).size();  
                 labelcant.setText(""+cant);
                 //jTable2.clear();
@@ -434,6 +435,13 @@ public class ZoneGui  extends JFrame {
 		zoneModel.zoneList = Manager.queryUbigeosByElectoralProcess(idProcessElectoral);
 		zoneModel.fireTableChanged(null);
     }
+    public void cleanForm() {
+		jTextField1.setText("");
+                nameText1.setText("");
+                legalDepartment.setText("");
+                nameText.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;
