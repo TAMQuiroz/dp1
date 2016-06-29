@@ -284,10 +284,12 @@ public class ocrLib {
         for (int i = 0; i < ocrDni.size(); i++) {
             if(i == 0){
                 queryDni += "7";
+            }else if(ocrDni.get(i).getLetter().equals("0") || ocrDni.get(i).getLetter().equals("%")){
+                queryDni += "0";
             }else if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
-                queryDni += "%";
+                queryDni += "_";
             }
         }
         personas = Manager.queryByPerson(queryDni);
@@ -365,10 +367,12 @@ public class ocrLib {
         for (int i = 0; i < ocrDni.size(); i++) {
             if(i == 0){
                 queryDni += "7";
+            }else if(ocrDni.get(i).getLetter().equals("0") || ocrDni.get(i).getLetter().equals("%")){
+                queryDni += "0";
             }else if(ocrDni.get(i).getConfidence() > 75 && i != 0){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
-                queryDni += "%";
+                queryDni += "_";
             }
         }
         

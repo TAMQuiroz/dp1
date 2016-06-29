@@ -216,9 +216,9 @@ public class SignatureLib {
         String routeRNV2= routeRNV.substring(0,index1) + routeRNV.substring(index1, index1+4);
         String routeAdherent2= routeAdherent.substring(0,index2) + routeAdherent.substring(index2, index2+4);
         //BufferedImage resizeImagePng = resizeImage(originalImage1, type);
-        BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
+        //BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
         //ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
-        ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
+        //ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
         
         ImagePlus imgPlusAdherent = new ImagePlus(routeAdherent2);
         
