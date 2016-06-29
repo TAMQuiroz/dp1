@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 /**
  *
@@ -22,12 +23,14 @@ import javax.swing.table.AbstractTableModel;
 public class ZoneGui  extends JFrame {
  long idProcessElectoral;
  MyTableModel zoneModel;
+ JTextField labelcant;
     /**
      * Creates new form Zone
      */
-    public ZoneGui(long id) {
+    public ZoneGui(long id, JTextField label) {
         idProcessElectoral=id;
         initComponents();
+        labelcant=label;
          zoneModel = new MyTableModel();
 	jTable2.setModel(zoneModel);
     }
@@ -296,6 +299,8 @@ public class ZoneGui  extends JFrame {
         updateUbigeo(ubigeo);
         java.lang.System.out.println("Agrego nuevo ubigeo");
         refreshTblZone();
+        int cant= Manager.queryUbigeosByElectoralProcess(idProcessElectoral).size();  
+        labelcant.setText(""+cant);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -308,6 +313,8 @@ public class ZoneGui  extends JFrame {
             try {
                 deleteUbigeo(Integer.parseInt(nameText1.getText().trim()));
                 refreshTblZone();
+                int cant= Manager.queryUbigeosByElectoralProcess(idProcessElectoral).size();  
+                labelcant.setText(""+cant);
                 //jTable2.clear();
                 //jTable2.addAll(tableQuery.getResultList());
             } catch (NumberFormatException e1) {
@@ -337,6 +344,8 @@ public class ZoneGui  extends JFrame {
         addUbigeo(ubigeo);
         java.lang.System.out.println("Agrego nuevo ubigeo");
         refreshTblZone();
+        int cant= Manager.queryUbigeosByElectoralProcess(idProcessElectoral).size();  
+        labelcant.setText(""+cant);
          }
 
     }//GEN-LAST:event_btnRegisterActionPerformed
