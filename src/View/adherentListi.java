@@ -694,32 +694,32 @@ public class adherentListi extends javax.swing.JFrame {
                         if(person != null){
                             boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
                             if(isSuitable){ // para continuar flujo. sino quitar el FALSE
-                                long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
-                                if(party_id == -1){
-                                    validateConsole.append("\nValidando Huellas");
-                                    java.lang.System.out.println("\nValidando huellas");
-                                    validateConsole.update(validateConsole.getGraphics());
-                                    double punctuation1 = FingerprintLib.huellas(register.getFingerprintSource(), person.getFingerprint());
-                                    java.lang.System.out.println("\nPreprocesando Firmas");
-                                    validateConsole.append("\nPreprocesando Firmas");
-                                    String route1 = person.getSignature(); String route2 = register.getSignatureSource();
-                                    try {
-                                        SignatureLib.preprocessSignatures(route1, route2);
-                                        int index1 =route1.length()-4;
-                                        int index2 =route2.length()-4;
-                                        route1= route1.substring(0,index1) + route1.substring(index1, index1+4);
-                                        route2= route2.substring(0,index2) + route2.substring(index2, index2+4);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                    java.lang.System.out.println("\nValidando Firmas");
-                                    validateConsole.append("\nValidando Firmas");
-                                    validateConsole.update(validateConsole.getGraphics());
-                                    double punctuation2 = SignatureLib.validarFirmas(route1, route2);
-                                    boolean result = UtilLib.analyze_result(punctuation1, punctuation2);                                    
-                                    if(result){
+                                validateConsole.append("\nValidando Huellas de " + person.getName() + " " + person.getLastname());
+                                java.lang.System.out.println("\nValidando huellas");
+                                validateConsole.update(validateConsole.getGraphics());
+                                double punctuation1 = FingerprintLib.huellas(register.getFingerprintSource(), person.getFingerprint());
+                                java.lang.System.out.println("\nPreprocesando Firmas");
+                                validateConsole.append("\nPreprocesando Firmas de " + person.getName() + " " + person.getLastname());
+                                String route1 = person.getSignature(); String route2 = register.getSignatureSource();
+                                try {
+                                    SignatureLib.preprocessSignatures(route1, route2);
+                                    int index1 =route1.length()-4;
+                                    int index2 =route2.length()-4;
+                                    route1= route1.substring(0,index1) + route1.substring(index1, index1+4);
+                                    route2= route2.substring(0,index2) + route2.substring(index2, index2+4);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                java.lang.System.out.println("\nValidando Firmas");
+                                validateConsole.append("\nValidando Firmas de " + person.getName() + " " + person.getLastname());
+                                validateConsole.update(validateConsole.getGraphics());
+                                double punctuation2 = SignatureLib.validarFirmas(route1, route2);
+                                boolean result = UtilLib.analyze_result(punctuation1, punctuation2);                                    
+                                if(result){
+                                    long party_id = UtilLib.findDuplicity(person, partido.getElectoralProcess().getId());
+                                    if(party_id == -1){
                                         java.lang.System.out.println("Se pudo validar a esta persona");
-                                        validateConsole.append("\nSe pudo validar a esta persona");
+                                        validateConsole.append("\nSe pudo validar a esta persona, " + person.getName() + " " + person.getLastname());
                                         validateConsole.update(validateConsole.getGraphics());
                                         Adherent ad = new Adherent();
                                         ad.setDni(person.getDni()); ad.setName(person.getName());
@@ -729,29 +729,29 @@ public class adherentListi extends javax.swing.JFrame {
                                         UtilLib.deleteImages(register);
                                         Manager.deleteAdherentImage(register.getId()); 
                                     }else{
-                                        java.lang.System.out.println("No se pudo validar a esta persona");
-                                        validateConsole.append("\nNo se pudo validar a esta persona");
+                                        java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
+                                        validateConsole.append("\nSe encontro duplicidad referida a esta persona, " + person.getName() + " " + person.getLastname());
                                         validateConsole.update(validateConsole.getGraphics());
-                                        register.setStatus(1);  //Se rechaza adherente                                      
-                                        Manager.updateAdherentImage(register);                                        
+                                        if(stage == 1){
+                                            Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
+                                            ad.setObservation("Duplicado");
+                                            Manager.updateStatusAdherent(ad);                               
+                                        }
+                                        Adherent ad = new Adherent();
+                                        ad.setDni(person.getDni()); ad.setName(person.getName());
+                                        ad.setLastName(person.getLastname());                                   
+                                        ad.setPoliticalParty(partido);
+                                        ad.setObservation("Duplicado");
+                                        Manager.addAdherent(ad);
+                                        UtilLib.deleteImages(register);
+                                        Manager.deleteAdherentImage(register.getId()); 
                                     }
                                 }else{
-                                    java.lang.System.out.println("Se encontro duplicidad referida a esta persona");
-                                    validateConsole.append("\nSe encontro duplicidad referida a esta persona");
+                                    java.lang.System.out.println("No se pudo validar a esta persona");
+                                    validateConsole.append("\nNo se pudo validar a esta persona, " + person.getName() + " " + person.getLastname());
                                     validateConsole.update(validateConsole.getGraphics());
-                                    if(stage == 1){
-                                        Adherent ad = Manager.queryAdherentByDniAndPoliticalParty(person.getDni(), party_id);
-                                        ad.setObservation("Duplicado");
-                                        Manager.updateStatusAdherent(ad);                               
-                                    }
-                                    Adherent ad = new Adherent();
-                                    ad.setDni(person.getDni()); ad.setName(person.getName());
-                                    ad.setLastName(person.getLastname());                                   
-                                    ad.setPoliticalParty(partido);
-                                    ad.setObservation("Duplicado");
-                                    Manager.addAdherent(ad);
-                                    UtilLib.deleteImages(register);
-                                    Manager.deleteAdherentImage(register.getId()); 
+                                    register.setStatus(1);  //Se rechaza adherente                                      
+                                    Manager.updateAdherentImage(register);                                        
                                 }
                             }else{
                                 java.lang.System.out.println("Esta persona no pertenece al ubigeo, o no esta en condiciones de ejercer la ciudadania");
