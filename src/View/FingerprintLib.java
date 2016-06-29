@@ -368,14 +368,6 @@ public class FingerprintLib {
     public static double huellas(String rnvFingerprint, String testFingerprint){
         double resultado = 0;
         
-        //rnvFingerprint = preprocesamiento(rnvFingerprint, 0);
-        //testFingerprint = preprocesamiento(rnvFingerprint, 1);
-        /*
-        ImagePlus img1 = new ImagePlus(testFingerprint);
-        img1.show("Imagen de prueba");
-        ImagePlus img2 = new ImagePlus(rnvFingerprint);
-        img2.show("Imagen de RNV");
-        */
         resultado = surf(testFingerprint, rnvFingerprint);
 
         return resultado;
@@ -383,15 +375,7 @@ public class FingerprintLib {
     
     public static double huellas_ocr(String rnvFingerprint, String testFingerprint){
         double resultado = 0;
-        
-        //rnvFingerprint = preprocesamiento(rnvFingerprint, 0);
-        //testFingerprint = preprocesamiento(rnvFingerprint, 1);
-        /*
-        ImagePlus img1 = new ImagePlus(testFingerprint);
-        img1.show("Imagen de prueba");
-        ImagePlus img2 = new ImagePlus(rnvFingerprint);
-        img2.show("Imagen de RNV");
-        */
+
         resultado = surf_ocr(testFingerprint, rnvFingerprint);
 
         return resultado;
