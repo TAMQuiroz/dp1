@@ -392,8 +392,8 @@ public class FingerprintLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "../cortes/99/part.G.original3.1/huella.jpg";
-        String n_img2  = "../rnv/ghu024.jpg";
+        String n_img1  = "../cortes/99/part.G.original8.6/huella.jpg";
+        String n_img2  = "../rnv/ghu056.jpg";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*

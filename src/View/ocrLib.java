@@ -348,7 +348,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.G.original7.7";
+        String name = "part.G.original8.6";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
