@@ -49,7 +49,7 @@ public class SignatureLib {
     //firmas(persona existente, registro en padron)
     public static int validarFirmas(String routeRNV, String routeAdherent) {
         
-        int res =sift(routeRNV, routeAdherent);
+        int res =sift(routeRNV, "../pre/sig.jpg");
        
         java.lang.System.out.println("Firma - matches: "+max+" res:"+res);
         
@@ -185,9 +185,9 @@ public class SignatureLib {
                 score = 100;
             }else if(result <= 30 && result > 22){
                 score = 85;
-            }else if(result <= 22 && result > 14){
+            }else if(result <= 22 && result > 17){
                 score = 50;
-            }else if(result <= 14 && result > 7){
+            }else if(result <= 17 && result > 11){
                 score = 25;
             }else{
                 score = 0;
@@ -216,9 +216,9 @@ public class SignatureLib {
         String routeRNV2= routeRNV.substring(0,index1) + routeRNV.substring(index1, index1+4);
         String routeAdherent2= routeAdherent.substring(0,index2) + routeAdherent.substring(index2, index2+4);
         //BufferedImage resizeImagePng = resizeImage(originalImage1, type);
-        //BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
+        BufferedImage resizeImagePng2 = resizeImage(originalImage2, type2);
         //ImageIO.write(resizeImagePng, "png", new File(routeRNV2));
-        //ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
+        ImageIO.write(resizeImagePng2, "png", new File(routeAdherent2));
         
         ImagePlus imgPlusAdherent = new ImagePlus(routeAdherent2);
         
@@ -250,8 +250,8 @@ public class SignatureLib {
         
         java.lang.System.load(dll.getAbsolutePath());
             
-        String n_img1= "../rnv/gfi001.jpg";
-        String n_img2  = "../cortes/23/part.G.original1.8/firma.jpg";
+        String n_img1= "../rnv/gfi024.jpg";
+        String n_img2  = "../cortes/24/part.G.original3.1/firma.jpg";
 
         SignatureLib.preprocessSignatures(n_img1, n_img2);
 
