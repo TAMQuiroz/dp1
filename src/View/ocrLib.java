@@ -174,12 +174,15 @@ public class ocrLib {
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
         //img.show();
-        int x1 = 0, x2;
+        int x1 = 5, x2;
         for (int i = 0; i < n; i++){
             //moverme hasta linea
+            
             x2 = derechaBlanco(x1, img);
+            
             img.setRoi(x1, 0, x2 - x1, img.getHeight());
             ImagePlus aux = new Duplicator().run(img);
+            //aux.show();
             aux = cutPadding(aux);
             if(aux != null){
                 //aux.show();
@@ -331,8 +334,8 @@ public class ocrLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String route_dni = "../cortes/23/part.G.original1.1/dni.jpg";
-        String route_fingerprint = "../cortes/23/part.G.original1.1/huella.jpg";
+        String route_dni = "../cortes/99/part.G.original1.6/dni.jpg";
+        String route_fingerprint = "../cortes/99/part.G.original1.6/huella.jpg";
         ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
