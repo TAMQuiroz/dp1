@@ -183,11 +183,11 @@ public class SignatureLib {
             int score = 0;
             if(result > 35){
                 score = 100;
-            }else if(result <= 30 && result > 25){
+            }else if(result <= 30 && result > 22){
                 score = 85;
-            }else if(result <= 25 && result > 20){
+            }else if(result <= 22 && result > 14){
                 score = 50;
-            }else if(result <= 20 && result > 15){
+            }else if(result <= 14 && result > 7){
                 score = 25;
             }else{
                 score = 0;

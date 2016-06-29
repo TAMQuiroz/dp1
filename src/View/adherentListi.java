@@ -699,7 +699,7 @@ public class adherentListi extends javax.swing.JFrame {
                                     validateConsole.append("\nValidando Huellas");
                                     java.lang.System.out.println("\nValidando huellas");
                                     validateConsole.update(validateConsole.getGraphics());
-                                    double punctuation1 = FingerprintLib.huellas(person.getFingerprint(), register.getFingerprintSource());
+                                    double punctuation1 = FingerprintLib.huellas(register.getFingerprintSource(), person.getFingerprint());
                                     java.lang.System.out.println("\nPreprocesando Firmas");
                                     validateConsole.append("\nPreprocesando Firmas");
                                     String route1 = person.getSignature(); String route2 = register.getSignatureSource();
