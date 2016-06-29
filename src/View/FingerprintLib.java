@@ -346,11 +346,11 @@ public class FingerprintLib {
             int score = 0;
             if(result > 50){
                 score = 100;
-            }else if(result <= 50 && result > 40){
+            }else if(result <= 50 && result > 35){
                 score = 85;
-            }else if(result <= 40 && result > 30){
+            }else if(result <= 35 && result > 22){
                 score = 50;
-            }else if(result <= 30 && result > 20){
+            }else if(result <= 22 && result > 20){
                 score = 25;
             }else{
                 score = 0;
@@ -392,8 +392,8 @@ public class FingerprintLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "../cortes/99/part.G.original6.8/huella.jpg";
-        String n_img2  = "../rnv/ghu041.jpg";
+        String n_img1  = "../cortes/99/part.G.original3.1/huella.jpg";
+        String n_img2  = "../rnv/ghu024.jpg";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
