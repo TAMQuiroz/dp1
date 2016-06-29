@@ -308,7 +308,7 @@ public class ocrLib {
         Person bestChoice = null;
         for (Person persona : personas) {
             
-            score = FingerprintLib.huellas_ocr(persona.getFingerprint(), route_fingerprint);
+            score = FingerprintLib.huellas_ocr(route_fingerprint, persona.getFingerprint());
             if(score > maxscore){
                 maxscore = score;
                 bestChoice = persona;
@@ -334,8 +334,8 @@ public class ocrLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String route_dni = "../cortes/99/part.G.original1.6/dni.jpg";
-        String route_fingerprint = "../cortes/99/part.G.original1.6/huella.jpg";
+        String route_dni = "../cortes/99/part.G.original2.8/dni.jpg";
+        String route_fingerprint = "../cortes/99/part.G.original2.8/huella.jpg";
         ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
