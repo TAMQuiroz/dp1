@@ -56,7 +56,9 @@ public class ElectoralProcessGui extends JFrame {
         jTable.setModel(electoralProcessModel);
         
         ElectoralProcess p = Manager.queryElectoralProcessById(ElectoralProcessId);
-
+        
+        int cant= Manager.queryUbigeosByElectoralProcess(ElectoralProcessId).size();  
+        jTextField16.setText(""+cant);
         jTextField9.setText("" + p.getId());
         jTextField1.setText(p.getName());
         jTextField3.setText(""+p.getPopulation());
@@ -700,7 +702,7 @@ public int validation(String name, String processtype, Date date , Date startreg
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         long idElectoralProcess=Long.parseLong(jTextField9.getText().trim());
-         new ZoneGui(idElectoralProcess).setVisible(true);
+         new ZoneGui(idElectoralProcess,jTextField16).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
