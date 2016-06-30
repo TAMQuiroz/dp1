@@ -166,6 +166,9 @@ private javax.swing.JDesktopPane jDesktopPane1;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String name = jTextField1.getText();
+        electoralProcessModel.electoralProcessList = Manager.queryElectoralProcessByName(name);
+        electoralProcessModel.fireTableChanged(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

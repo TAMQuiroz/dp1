@@ -177,10 +177,10 @@ public class UtilLib {
     }
     
     
-    public static void main(String[] args){
-        int stage = checkStage(12);
-        java.lang.System.out.println(stage);        
-        checkStageAllElectoralProcess();
+    public static void main(String[] args){        
+        ArrayList<ElectoralProcess> list = Manager.queryElectoralProcessByName("AS");
+        for ( int i = 0; i < list.size(); i++)
+            java.lang.System.out.println( list.get(i).getName());        
 //        validatePolitialParties(28);
     }
     
