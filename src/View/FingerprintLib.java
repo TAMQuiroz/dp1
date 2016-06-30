@@ -346,9 +346,9 @@ public class FingerprintLib {
             int score = 0;
             if(result > 50){
                 score = 100;
-            }else if(result <= 50 && result > 35){
+            }else if(result <= 50 && result > 36){
                 score = 85;
-            }else if(result <= 35 && result > 22){
+            }else if(result <= 36 && result > 22){
                 score = 50;
             }else if(result <= 22 && result > 20){
                 score = 25;
