@@ -578,11 +578,8 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(document, file);
             document.open();
             document.add(new Paragraph("Reporte de Anulados"));
-            document.add(new Paragraph("DNI        Nombre               "));
-            ArrayList<AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
-                 for (int i =0; i<userList.size();i++){
-                    document.add(new Paragraph(""+ userList.get(i).getDniSource() + "         " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
-            }
+            String cuerpo="Cantidad:  "+ jTable4.getRowCount();
+            document.add(new Paragraph(cuerpo));   
             document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
@@ -606,11 +603,6 @@ public class adherentListi extends javax.swing.JFrame {
             document.add(new Paragraph("Reporte de Rechazados"));
             String cuerpo="Cantidad:  "+ tableRechazados.getRowCount();
             document.add(new Paragraph(cuerpo));   
-            document.add(new Paragraph("DNI                  Nombre                  "));
-            ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
-                 for (int i =0; i<userList.size();i++){
-                    document.add(new Paragraph(""+ userList.get(i).getDni() + "        " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
-            }
             document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
         } catch (FileNotFoundException e1) {
@@ -649,7 +641,8 @@ public class adherentListi extends javax.swing.JFrame {
             document.open();
             String titulo="Reporte de Lista Validada del Partido " + name;
             document.add(new Paragraph(titulo));
-            String cuerpo="Se encontraron válidas "+signaturesVal+" firmas";
+            count = Manager.queryAllAdherents(id).size();
+            String cuerpo="Se encontraron válidas "+ count +" registros";
             document.add(new Paragraph(cuerpo));   
             document.add(new Paragraph("DNI                Nombre                       "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
@@ -811,11 +804,11 @@ public class adherentListi extends javax.swing.JFrame {
         // TODO add your handling code here:
          FileOutputStream file;
         try {
-            file = new FileOutputStream("ReporteAnulados.pdf");
+            file = new FileOutputStream("ReporteDuplicados.pdf");
             Document document = new Document();
             PdfWriter.getInstance(document, file);
             document.open();
-            document.add(new Paragraph("Reporte de Anulados"));
+            document.add(new Paragraph("Reporte de Duplicados"));
             document.add(new Paragraph("DNI        Nombre            "));
             ArrayList<Adherent> userList =  Manager.queryAllAdherentsDuplicated(id);
                  for (int i =0; i<userList.size();i++){
