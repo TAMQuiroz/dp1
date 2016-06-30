@@ -288,6 +288,8 @@ public class ocrLib {
                 queryDni += "7";
             }else if(ocrDni.get(i).getLetter().equals("0") || ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "0";
+            }else if(ocrDni.get(i).getLetter().equals("6")){
+                queryDni += "6";
             }else if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{

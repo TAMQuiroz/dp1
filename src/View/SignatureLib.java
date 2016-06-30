@@ -181,9 +181,9 @@ public class SignatureLib {
             java.lang.System.out.println(goodMatches.size().height);
             double result =goodMatches.size().height;//*100/matches.size();
             int score = 0;
-            if(result > 35){
+            if(result > 27){
                 score = 100;
-            }else if(result <= 30 && result > 22){
+            }else if(result <= 27 && result > 22){
                 score = 85;
             }else if(result <= 22 && result > 17){
                 score = 50;
