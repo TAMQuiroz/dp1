@@ -782,8 +782,11 @@ public class adherentListi extends javax.swing.JFrame {
                     jTextDuplicatedAmount.setText(""+jTable5.getRowCount());
                     jTextDisabledAmount.setText(""+jTable4.getRowCount());                    
                     int remainingAmount =  ((int) Math.rint(partido.getElectoralProcess().getPopulation() * partido.getElectoralProcess().getMinPercentage())) - tableValidated.getRowCount();
-                    if ( remainingAmount <= 0)
+                    if ( remainingAmount <= 0){
                         remainingAmount = 0;
+                        partido.setStatus("PRE-VALIDADO");
+                        Manager.updatePoliticalParty(partido);
+                    }                    
                     jTextField2.setText("" + remainingAmount);
                     JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 }else{
