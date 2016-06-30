@@ -159,9 +159,10 @@ public class ocrLib {
         
         min = min - 10;
         max = max + 10;
-
+        
         img.setRoi(0, min, img.getWidth(), max - min);
         img = new Duplicator().run(img);
+        if(img.getHeight() == 0) return null;
         if (img.getHeight() < 10 || img.getWidth() < 10){
             img = null;
         }
@@ -181,9 +182,9 @@ public class ocrLib {
     public static ArrayList<BufferedImage> cutDigits(ImagePlus img, int n){
         ArrayList<BufferedImage> imgs = new ArrayList<>();
         img = borrarBordeArriba(img);
-        //img.show();
+        
         img = borrarBordeIzq(img);
-        //img.show();
+        
         img = borrarBordeDer(img);
         img = borrarBordeAbajo(img);
         int x1 = 5, x2;
@@ -196,8 +197,9 @@ public class ocrLib {
             ImagePlus aux = new Duplicator().run(img);
             
             aux = cutPadding(aux);
-            aux = eraseBlack(aux);
+            
             if(aux != null){
+                aux = eraseBlack(aux);
                 //aux.show();
                 imgs.add(aux.getBufferedImage());
             }else{
@@ -348,7 +350,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.G.original8.6";
+        String name = "part.G.original9.8";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
