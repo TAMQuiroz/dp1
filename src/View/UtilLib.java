@@ -19,7 +19,7 @@ import org.apache.commons.io.FileUtils;
 public class UtilLib {
     public static boolean isSuitable(Person person, long electoralProcessId){
         boolean value = Manager.queryUbigeoByIdAndElectoralProcess(person.getUbigeo(), electoralProcessId);        
-        value = value && !(person.isDisabled());
+        value = value && (person.isCitizen());
         return value;
     }
     public static long findDuplicity(Person person, long electoralProcessId){        

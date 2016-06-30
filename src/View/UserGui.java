@@ -210,50 +210,34 @@ public class UserGui extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(42, 42, 42)
-                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(telephone, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(telephone1)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
-                                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(nameText1, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(nameText, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(legalDepartment, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(2, 2, 2))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(67, 67, 67)
-                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telephone2)
-                                    .addComponent(telephone3, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                                    .addComponent(email1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(217, 217, 217))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(135, 135, 135)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jComboBox1, 0, 240, Short.MAX_VALUE)
+                            .addComponent(email1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(telephone3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(telephone1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(telephone)
+                            .addComponent(legalDepartment)
+                            .addComponent(nameText)
+                            .addComponent(nameText1)
+                            .addComponent(telephone2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(193, 193, 193)))
                 .addContainerGap())
         );
         jLayeredPane2Layout.setVerticalGroup(
@@ -266,44 +250,40 @@ public class UserGui extends javax.swing.JInternalFrame {
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
+                .addGap(14, 14, 14)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(legalDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telephone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(legalDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telephone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telephone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telephone3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(email1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 66, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancel)
-                            .addComponent(btnUpdate)
-                            .addComponent(btnRegister))
-                        .addContainerGap())))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telephone2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telephone3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(email1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnRegister))
+                .addContainerGap())
         );
 
         btnBack.setText("Regresar");
@@ -322,7 +302,7 @@ public class UserGui extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPane2)
                     .addComponent(jLayeredPane1))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,7 +311,7 @@ public class UserGui extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,10 +322,6 @@ public class UserGui extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameTextActionPerformed
 public int validation(String name, String lastname, String password, String typedocument,String document, String telephone , Date date){
        if (name.trim().length()==0 || lastname.trim().length()==0 || password.trim().length()==0 || typedocument.trim().length()==0
             ||document.trim().length()==0 || telephone.trim().length()==0 ||date ==null   ){
@@ -354,127 +330,6 @@ public int validation(String name, String lastname, String password, String type
        }
         return 0;
     }
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-        try {
-                                String name = nameText.getText().trim();
-                                String lastname= legalDepartment.getText().trim();
-                                String password = telephone.getText().trim();
-                                String typedocument= telephone1.getText().trim();
-                                String document= telephone2.getText().trim();
-                                String telephone= telephone3.getText().trim();
-
-                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                 Date date = formatter.parse(email1.getText().trim());
-                                try{                       
-                                    if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
-
-                                        User user = new User();
-                                    user.setBornDay(date);
-                                    user.setDocCode(document);
-                                    user.setDocType(typedocument);
-                                    user.setLastName(lastname);
-                                    user.setName(name);
-                                    user.setPassword(password);
-                                    user.setPhone(telephone);
-
-                                    String role= (String)jComboBox1.getSelectedItem();
-                                    Profile profile;
-                                    profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
-                                    user.setProfile(profile);
-                                    user.setStatus("Activo");
-                                    if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
-                                    addUser(user);
-                                     java.lang.System.out.println("Agrego nuevo usuario");
-                                     refreshTblUser();
-                                    }
-
-                                    }else{
-                                        JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
-                                    }
-                                    }catch (NumberFormatException ex) {
-                                   //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
-                                    JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
-                                    } 
-
-                                }catch (ParseException ex) {
-                                    JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
-				} 
-    }//GEN-LAST:event_btnRegisterActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-          try {
-                                long idU = Long.parseLong(nameText1.getText());
-                                String name = nameText.getText().trim();
-                                String lastname= legalDepartment.getText().trim();
-                                String password = telephone.getText().trim();
-                                String typedocument= telephone1.getText().trim();
-                                String document= telephone2.getText().trim();
-                                String telephone= telephone3.getText().trim();
-
-                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                 Date date = formatter.parse(email1.getText().trim());
-                                try{                       
-                                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
-                                
-                                    User user = new User();
-                                user.setBornDay(date);
-                                user.setId(idU);
-                                user.setDocCode(document);
-                                user.setDocType(typedocument);
-                                user.setLastName(lastname);
-                                user.setName(name);
-                                user.setPassword(password);
-                                user.setPhone(telephone);
-                                
-                                String role= (String)jComboBox1.getSelectedItem();
-                                Profile profile;
-                                profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
-                                user.setProfile(profile);
-                                user.setStatus("Activo");
-                                if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
-                                updateUser(user);
-                                 java.lang.System.out.println("Agrego nuevo usuario");
-                                 refreshTblUser();
-                                }
-                                
-                                }else{
-                                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
-                                }
-                                }catch (NumberFormatException ex) {
-                               //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
-                                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
-				} 
-                                
-                                }catch (ParseException ex) {
-                                    JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
-				}                                 
-                                 
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        JFrame frame1 = null;
-        // TODO add your handling code here:
-         int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
-			if (res == JOptionPane.OK_OPTION) {
-				try {
-					deleteUser(Integer.parseInt(nameText1.getText()));
-                                        refreshTblUser();
-                                        //jTable2.clear();
-                                        //jTable2.addAll(tableQuery.getResultList());
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			//	refreshTblSalesmans();
-			}
-    }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameText1ActionPerformed
-
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
      
@@ -499,9 +354,133 @@ public int validation(String name, String lastname, String password, String type
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void nameText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameText1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameText1ActionPerformed
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            long idU = Long.parseLong(nameText1.getText());
+            String name = nameText.getText().trim();
+            String lastname= legalDepartment.getText().trim();
+            String password = telephone.getText().trim();
+            String typedocument= telephone1.getText().trim();
+            String document= telephone2.getText().trim();
+            String telephone= telephone3.getText().trim();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = formatter.parse(email1.getText().trim());
+            try{
+                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
+
+                    User user = new User();
+                    user.setBornDay(date);
+                    user.setId(idU);
+                    user.setDocCode(document);
+                    user.setDocType(typedocument);
+                    user.setLastName(lastname);
+                    user.setName(name);
+                    user.setPassword(password);
+                    user.setPhone(telephone);
+
+                    String role= (String)jComboBox1.getSelectedItem();
+                    Profile profile;
+                    profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
+                    user.setProfile(profile);
+                    user.setStatus("Activo");
+                    if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
+                        updateUser(user);
+                        java.lang.System.out.println("Agrego nuevo usuario");
+                        refreshTblUser();
+                    }
+
+                }else{
+                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }
+            }catch (NumberFormatException ex) {
+                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        JFrame frame1 = null;
+        // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(frame1, "¿Está seguro?");
+        if (res == JOptionPane.OK_OPTION) {
+            try {
+                deleteUser(Integer.parseInt(nameText1.getText()));
+                refreshTblUser();
+                //jTable2.clear();
+                //jTable2.addAll(tableQuery.getResultList());
+            } catch (NumberFormatException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            //	refreshTblSalesmans();
+        }
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        try {
+            String name = nameText.getText().trim();
+            String lastname= legalDepartment.getText().trim();
+            String password = telephone.getText().trim();
+            String typedocument= telephone1.getText().trim();
+            String document= telephone2.getText().trim();
+            String telephone= telephone3.getText().trim();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = formatter.parse(email1.getText().trim());
+            try{
+                if(telephone.length()>=7 && telephone.length()<=9 && Integer.parseInt(telephone)>0){
+
+                    User user = new User();
+                    user.setBornDay(date);
+                    user.setDocCode(document);
+                    user.setDocType(typedocument);
+                    user.setLastName(lastname);
+                    user.setName(name);
+                    user.setPassword(password);
+                    user.setPhone(telephone);
+
+                    String role= (String)jComboBox1.getSelectedItem();
+                    Profile profile;
+                    profile=  Manager.queryProfileById(Long.parseLong(role.substring(0,1)));
+                    user.setProfile(profile);
+                    user.setStatus("Activo");
+                    if(validation(name,lastname,password,typedocument,document,telephone ,date)==0){
+                        addUser(user);
+                        java.lang.System.out.println("Agrego nuevo usuario");
+                        refreshTblUser();
+                    }
+
+                }else{
+                    JOptionPane.showMessageDialog(this, "Telefono debe contener entre 7 y 9 números", "Alerta", JOptionPane.WARNING_MESSAGE);
+                }
+            }catch (NumberFormatException ex) {
+                //  Logger.getLogger(ElectoralProcess.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Telefono contiene caracteres", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Completar correctamente los campos obligatorios(*)", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameTextActionPerformed
      class MyTableModel extends AbstractTableModel {
         ArrayList<Model.User> userList = Manager.queryAllUsers();
 		String [] titles = {"ID", "Nombre","Apellidos", "Documento","Telefono"};
