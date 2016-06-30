@@ -606,7 +606,7 @@ public class adherentListi extends javax.swing.JFrame {
             document.add(new Paragraph("Reporte de Rechazados"));
             String cuerpo="Cantidad:  "+ tableRechazados.getRowCount();
             document.add(new Paragraph(cuerpo));   
-            document.add(new Paragraph("DNI                   Nombre                  "));
+            document.add(new Paragraph("DNI                  Nombre                  "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
                  for (int i =0; i<userList.size();i++){
                     document.add(new Paragraph(""+ userList.get(i).getDni() + "        " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
@@ -808,7 +808,7 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(document, file);
             document.open();
             document.add(new Paragraph("Reporte de Anulados"));
-            document.add(new Paragraph("DNI        Nombre          Apellido      "));
+            document.add(new Paragraph("DNI        Nombre            "));
             ArrayList<Adherent> userList =  Manager.queryAllAdherentsDuplicated(id);
                  for (int i =0; i<userList.size();i++){
                     document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
