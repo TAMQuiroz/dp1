@@ -108,7 +108,14 @@ public class FingerprintLib {
         Mat outputImage = new Mat(objectImage.rows(), objectImage.cols(), Highgui.CV_LOAD_IMAGE_COLOR);  
         Scalar newKeypointColor = new Scalar(255, 0, 0);  
 
+        if(objectKeyPoints.empty()){
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0;
+        }
+        
         java.lang.System.out.print("Dibujando keypoints en imagen base | "); 
+
+
         Features2d.drawKeypoints(objectImage, objectKeyPoints, outputImage, newKeypointColor, 0);  
 
         // Match object image with the scene image  
@@ -246,6 +253,10 @@ public class FingerprintLib {
         Scalar newKeypointColor = new Scalar(255, 0, 0);  
 
         java.lang.System.out.print("Dibujando keypoints en imagen base | "); 
+        if(objectKeyPoints.empty()){
+            java.lang.System.out.println("Objeto no encontrado");
+            return 0;
+        }
         Features2d.drawKeypoints(objectImage, objectKeyPoints, outputImage, newKeypointColor, 0);  
 
         // Match object image with the scene image  
@@ -392,8 +403,8 @@ public class FingerprintLib {
         
         java.lang.System.load(dll.getAbsolutePath());
         
-        String n_img1  = "../cortes/99/part.G.original8.6/huella.jpg";
-        String n_img2  = "../rnv/ghu056.jpg";
+        String n_img1  = "../cortes/99/part.G.original2.5/huella.jpg";
+        String n_img2  = "../rnv/ghu012.jpg";
         
         //PREPROCESAMIENTO IMAGEJ + ORB - SURF
         /*
