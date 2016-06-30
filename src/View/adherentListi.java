@@ -578,10 +578,10 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(document, file);
             document.open();
             document.add(new Paragraph("Reporte de Anulados"));
-            document.add(new Paragraph("DNI        Nombre          Apellido      "));
+            document.add(new Paragraph("DNI        Nombre               "));
             ArrayList<AdherentImage> userList = Manager.queryAllAdherentImagesCanceled(id);
                  for (int i =0; i<userList.size();i++){
-                    document.add(new Paragraph(""+ userList.get(i).getDniSource() + " " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDniSource() + "         " + userList.get(i).getNameSource() + " " + userList.get(i).getLastNameSource() + ""));
             }
             document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
@@ -604,10 +604,12 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(document, file);
             document.open();
             document.add(new Paragraph("Reporte de Rechazados"));
-            document.add(new Paragraph("DNI        Nombre          Apellido      "));
+            String cuerpo="Cantidad:  "+ tableRechazados.getRowCount();
+            document.add(new Paragraph(cuerpo));   
+            document.add(new Paragraph("DNI                  Nombre                  "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
                  for (int i =0; i<userList.size();i++){
-                    document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDni() + "        " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
             document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
@@ -647,12 +649,12 @@ public class adherentListi extends javax.swing.JFrame {
             document.open();
             String titulo="Reporte de Lista Validada del Partido " + name;
             document.add(new Paragraph(titulo));
-            String cuerpo="Se encontraron validas "+signaturesVal+" firmas";
-            document.add(new Paragraph(cuerpo));
-            document.add(new Paragraph("DNI        Nombre          Apellido     "));
+            String cuerpo="Se encontraron válidas "+signaturesVal+" firmas";
+            document.add(new Paragraph(cuerpo));   
+            document.add(new Paragraph("DNI                Nombre                       "));
             ArrayList<Model.Adherent> userList = Manager.queryAllAdherents(id);
                  for (int i =0; i<userList.size();i++){
-                    document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
+                    document.add(new Paragraph(""+ userList.get(i).getDni() + "           " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
             }
             document.close();
             JOptionPane.showMessageDialog(this, "Reporte creado!", "Mensaje", JOptionPane.WARNING_MESSAGE);
@@ -806,7 +808,7 @@ public class adherentListi extends javax.swing.JFrame {
             PdfWriter.getInstance(document, file);
             document.open();
             document.add(new Paragraph("Reporte de Anulados"));
-            document.add(new Paragraph("DNI        Nombre          Apellido      "));
+            document.add(new Paragraph("DNI        Nombre            "));
             ArrayList<Adherent> userList =  Manager.queryAllAdherentsDuplicated(id);
                  for (int i =0; i<userList.size();i++){
                     document.add(new Paragraph(""+ userList.get(i).getDni() + " " + userList.get(i).getName() + " " + userList.get(i).getLastName() + ""));
