@@ -99,6 +99,8 @@ public class adherentListi extends javax.swing.JFrame {
         jTextDisabledAmount.setText(""+jTable4.getRowCount());
         PoliticalParty pParty = Manager.queryPoliticalPartyById(idParty);
         int remainingAmount =  ((int) Math.rint(pParty.getElectoralProcess().getPopulation() * pParty.getElectoralProcess().getMinPercentage())) - tableValidated.getRowCount();
+        if ( remainingAmount <= 0)
+            remainingAmount = 0;
         jTextField2.setText("" + remainingAmount);
         if (stage == 4){ //Si ya se termino la segunda stage de validación, se cancelan sus adherentes
             Manager.cancellAllAdherentImages(id);            
