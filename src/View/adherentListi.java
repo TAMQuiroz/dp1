@@ -783,7 +783,15 @@ public class adherentListi extends javax.swing.JFrame {
                     }
 
                     int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
-                    txtAmount.setText(""+amountNotValidated);                                        
+                    txtAmount.setText(""+amountNotValidated); 
+                    jTextValidatedAmount.setText(""+tableValidated.getRowCount());
+                    jTextRejectedAmount.setText(""+tableRechazados.getRowCount());
+                    jTextDuplicatedAmount.setText(""+jTable5.getRowCount());
+                    jTextDisabledAmount.setText(""+jTable4.getRowCount());                    
+                    int remainingAmount =  ((int) Math.rint(partido.getElectoralProcess().getPopulation() * partido.getElectoralProcess().getMinPercentage())) - tableValidated.getRowCount();
+                    if ( remainingAmount <= 0)
+                        remainingAmount = 0;
+                    jTextField2.setText("" + remainingAmount);
                     JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
