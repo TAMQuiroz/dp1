@@ -97,6 +97,9 @@ public class adherentListi extends javax.swing.JFrame {
         jTextRejectedAmount.setText(""+tableRechazados.getRowCount());
         jTextDuplicatedAmount.setText(""+jTable5.getRowCount());
         jTextDisabledAmount.setText(""+jTable4.getRowCount());
+        PoliticalParty pParty = Manager.queryPoliticalPartyById(idParty);
+        int remainingAmount =  ((int) Math.rint(pParty.getElectoralProcess().getPopulation() * pParty.getElectoralProcess().getMinPercentage())) - tableValidated.getRowCount();
+        jTextField2.setText("" + remainingAmount);
         if (stage == 4){ //Si ya se termino la segunda stage de validación, se cancelan sus adherentes
             Manager.cancellAllAdherentImages(id);            
         }
@@ -776,18 +779,7 @@ public class adherentListi extends javax.swing.JFrame {
                     }
 
                     int amountNotValidated = Manager.queryAmountAdherentImageNoValidatedbyPartyId(id);
-                    txtAmount.setText(""+amountNotValidated);
-                    int validateAmount= Manager.queryAllAdherents(id).size();
-                    int disableAmount= Manager.queryAllAdherentImagesCanceled(id).size();
-                    int duplicatedAmount= Manager.queryAllAdherentsDuplicated(id).size();
-                    int rejectedAmount= Manager.queryAllAdherentImagesRejected(id).size();
-                    txtAmount.setText(""+amountNotValidated);
-                    jTextValidatedAmount.setText(""+validateAmount);
-                    jTextDisabledAmount.setText(""+disableAmount);
-                    jTextDuplicatedAmount.setText(""+duplicatedAmount);
-                    jTextRejectedAmount.setText(""+rejectedAmount);
-                    int remainingAmount =  ((int) Math.rint(partido.getElectoralProcess().getPopulation() * partido.getElectoralProcess().getMinPercentage())) - validateAmount;
-                    jTextField2.setText("" + remainingAmount);
+                    txtAmount.setText(""+amountNotValidated);                                        
                     JOptionPane.showMessageDialog(this, "Se termino de validar al partido, podra apreciar los resultados en las pestañas correspondientes", "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "No existe la ruta de los cortes para este partido", "Alerta", JOptionPane.WARNING_MESSAGE);
