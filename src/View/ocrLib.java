@@ -284,11 +284,9 @@ public class ocrLib {
 
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(i == 0){
+            if(ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "_";
-            }else if(ocrDni.get(i).getLetter().equals("0") || ocrDni.get(i).getLetter().equals("%")){
-                queryDni += "0";
-            }else if(ocrDni.get(i).getConfidence() > 75 && i != 0){
+            }else if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "_";
@@ -350,9 +348,9 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.G.original2.5";
-        String route_dni = "../cortes/23/" + name + "/dni.jpg";
-        String route_fingerprint = "../cortes/23/" + name + "/huella.jpg";
+        String name = "part.E.original1.8";
+        String route_dni = "../cortes/99/" + name + "/dni.jpg";
+        String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
         ImagePlus img = new ImagePlus(route_dni);
         img.show();
@@ -367,11 +365,9 @@ public class ocrLib {
         
         String queryDni = "";
         for (int i = 0; i < ocrDni.size(); i++) {
-            if(i == 0){
+            if(ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "_";
-            }else if(ocrDni.get(i).getLetter().equals("0") || ocrDni.get(i).getLetter().equals("%")){
-                queryDni += "0";
-            }else if(ocrDni.get(i).getConfidence() > 75 && i != 0){
+            }else if(ocrDni.get(i).getConfidence() > 75){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "_";
