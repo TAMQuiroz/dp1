@@ -102,7 +102,7 @@ public class ocrLib {
     }
     
     public static int derechaBlanco(int x, ImagePlus img){
-        int y = 10;
+        int y = 15;
         int r = img.getPixel(x, y)[0];
         while(r == 0){
             x = x + 1;
@@ -324,7 +324,7 @@ public class ocrLib {
         for (Person persona : personas) {
             
             score = FingerprintLib.huellas_ocr(route_fingerprint, persona.getFingerprint());
-            if(score > 60){
+            if(score > 79){
                 bestChoice = persona;
                 break;
             }else if(score > maxscore){
@@ -351,7 +351,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.G.original9.8";
+        String name = "part.C.original1.6";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
