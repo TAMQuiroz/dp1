@@ -286,7 +286,7 @@ public class ocrLib {
         for (int i = 0; i < ocrDni.size(); i++) {
             if(ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "_";
-            }else if(ocrDni.get(i).getConfidence() > 75){
+            }else if(ocrDni.get(i).getConfidence() > 74){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "_";
@@ -324,7 +324,10 @@ public class ocrLib {
         for (Person persona : personas) {
             
             score = FingerprintLib.huellas_ocr(route_fingerprint, persona.getFingerprint());
-            if(score > maxscore){
+            if(score > 60){
+                bestChoice = persona;
+                break;
+            }else if(score > maxscore){
                 maxscore = score;
                 bestChoice = persona;
             }
@@ -348,7 +351,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.E.original1.8";
+        String name = "part.E.original2.5";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
@@ -367,7 +370,7 @@ public class ocrLib {
         for (int i = 0; i < ocrDni.size(); i++) {
             if(ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "_";
-            }else if(ocrDni.get(i).getConfidence() > 75){
+            }else if(ocrDni.get(i).getConfidence() > 74){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "_";
