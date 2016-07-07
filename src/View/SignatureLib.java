@@ -203,7 +203,7 @@ public class SignatureLib {
         //System.out.println("Terminando SIFT");  
     }
         
-    public static void preprocessSignatures(String routeRNV, String routeAdherent) throws IOException {
+    public static void preprocessSignatures(String routeRNV, String routeAdherent) throws Exception {
         
         BufferedImage originalImage1 = ImageIO.read(new File(routeRNV));
         int type = originalImage1.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage1.getType();
@@ -240,7 +240,7 @@ public class SignatureLib {
 	return resizedImage;
     }
    
-   public static void main(String[] args) throws IOException{
+   public static void main(String[] args) throws Exception{
         File dll;
         if(java.lang.System.getProperty("os.name").equals("Linux")){
            dll = new File("lib/libopencv_java2412.so");
