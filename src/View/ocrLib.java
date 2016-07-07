@@ -13,11 +13,14 @@ import ij.IJ;
 import ij.ImagePlus;
 import ij.plugin.Duplicator;
 import ij.process.ImageProcessor;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
@@ -275,7 +278,7 @@ public class ocrLib {
         return final_result;
     }
     
-    public static Person ocr(JTextArea console,ITesseract instance_num, ITesseract instance_let, String dni, String route_fingerprint){
+    public static Person ocr(JLabel comp, JTextArea console,ITesseract instance_num, ITesseract instance_let, String dni, String route_fingerprint){
         ArrayList<Person> personas;
         Person persona;
         ArrayList<OcrCharacter> ocrDni = null; 
@@ -293,7 +296,7 @@ public class ocrLib {
             }
         }
         personas = Manager.queryByPerson(queryDni);
-        String s  = findPerson(console, personas, route_fingerprint);
+        String s  = findPerson(comp, console, personas, route_fingerprint);
         java.lang.System.out.println("Dni encontrado: " + s);
         if(console != null){
             console.append("\nAnalizando: " + s);
@@ -317,13 +320,20 @@ public class ocrLib {
     }
     
     
-    private static String findPerson(JTextArea console, ArrayList<Person> personas, String route_fingerprint) {
+    private static String findPerson(JLabel comp, JTextArea console, ArrayList<Person> personas, String route_fingerprint) {
         double score, maxscore = 0;
         String dni;
         Person bestChoice = null;
+        ImageIcon icon = null;
+        ImageIcon back = new ImageIcon(new ImageIcon("Resources/black.png").getImage().getScaledInstance(-1, comp.getHeight(), Image.SCALE_DEFAULT));
         for (Person persona : personas) {
             
             score = FingerprintLib.huellas_ocr(route_fingerprint, persona.getFingerprint());
+            icon = new ImageIcon(new ImageIcon("../pre/matchoutput_surf.jpg").getImage().getScaledInstance(-1, comp.getHeight(), Image.SCALE_DEFAULT));
+            comp.setIcon(back);
+            comp.update(comp.getGraphics());
+            comp.setIcon(icon);
+            comp.update(comp.getGraphics());
             if(score > 79){
                 bestChoice = persona;
                 break;
@@ -351,7 +361,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.C.original1.6";
+        String name = "part.C.original2.6";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
@@ -382,7 +392,7 @@ public class ocrLib {
         for (Person person : personas){
             java.lang.System.out.println(person.getDni() + " " + person.getName() + " " + person.getLastname());
         }
-        String s  = findPerson(null, personas, route_fingerprint);
+        String s  = findPerson(null, null, personas, route_fingerprint);
         java.lang.System.out.println("Dni encontrado: " + s);
     }
 

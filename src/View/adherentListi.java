@@ -129,6 +129,8 @@ public class adherentListi extends javax.swing.JFrame {
         validateConsole = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         validateProgressBar = new javax.swing.JProgressBar();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelImageComp = new javax.swing.JLabel();
         jPaneValidados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableValidated = new javax.swing.JTable();
@@ -194,6 +196,19 @@ public class adherentListi extends javax.swing.JFrame {
 
         validateProgressBar.setToolTipText("");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comparacion"));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelImageComp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelImageComp, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPaneSinValidarLayout = new javax.swing.GroupLayout(jPaneSinValidar);
         jPaneSinValidar.setLayout(jPaneSinValidarLayout);
         jPaneSinValidarLayout.setHorizontalGroup(
@@ -209,10 +224,11 @@ public class adherentListi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                         .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3)
+                    .addComponent(validateProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPaneSinValidarLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(validateProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPaneSinValidarLayout.setVerticalGroup(
@@ -231,7 +247,9 @@ public class adherentListi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(validateProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -690,7 +708,7 @@ public class adherentListi extends javax.swing.JFrame {
                     for (AdherentImage register : registers) {
                         validateConsole.append("\nInterpretando imagenes via OCR");
                         validateConsole.update(validateConsole.getGraphics());
-                        Person person = ocrLib.ocr(validateConsole, instance_num, instance_let, register.getDniSource(), register.getFingerprintSource());
+                        Person person = ocrLib.ocr(jLabelImageComp, validateConsole, instance_num, instance_let, register.getDniSource(), register.getFingerprintSource());
                         if(person != null){
                             boolean isSuitable = UtilLib.isSuitable(person, partido.getElectoralProcess().getId());
                             if(isSuitable){ // para continuar flujo. sino quitar el FALSE
@@ -1023,11 +1041,13 @@ public class adherentListi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelImageComp;
     private javax.swing.JPanel jPaneAnulados;
     private javax.swing.JPanel jPaneBaneados;
     private javax.swing.JPanel jPaneRechazados;
     private javax.swing.JPanel jPaneSinValidar;
     private javax.swing.JPanel jPaneValidados;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
