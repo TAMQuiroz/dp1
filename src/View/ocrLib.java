@@ -351,7 +351,7 @@ public class ocrLib {
         }
         
         java.lang.System.load(dll.getAbsolutePath());
-        String name = "part.E.original2.5";
+        String name = "part.E.original2.4";
         String route_dni = "../cortes/99/" + name + "/dni.jpg";
         String route_fingerprint = "../cortes/99/" + name + "/huella.jpg";
         ArrayList<Person> personas;
@@ -370,7 +370,7 @@ public class ocrLib {
         for (int i = 0; i < ocrDni.size(); i++) {
             if(ocrDni.get(i).getLetter().equals("%")){
                 queryDni += "_";
-            }else if(ocrDni.get(i).getConfidence() > 74){
+            }else if(ocrDni.get(i).getConfidence() > 76){
                 queryDni += ocrDni.get(i).getLetter();
             }else{
                 queryDni += "_";
