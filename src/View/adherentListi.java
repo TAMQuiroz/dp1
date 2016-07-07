@@ -707,7 +707,7 @@ public class adherentListi extends javax.swing.JFrame {
                                     int index2 =route2.length()-4;
                                     route1= route1.substring(0,index1) + route1.substring(index1, index1+4);
                                     route2= route2.substring(0,index2) + route2.substring(index2, index2+4);
-                                } catch (IOException ex) {
+                                } catch (Exception ex) {
                                     Logger.getLogger(adherentListi.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 java.lang.System.out.println("\nValidando Firmas");
